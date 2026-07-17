@@ -1,0 +1,147 @@
+---
+// Interactive organization pricing. Per-person price scales linearly from $8 at 10 enrolled
+// people down to $4 at 500+ people. Progressive enhancement: a static range line shows without
+// JS; the slider enhances it. Include once per page (fixed ids).
+const partnerMail = 'mailto:hello@sawtoothtechnologies.com?subject=Spry%20partner%20call';
+---
+
+<div class="orgprice" id="orgprice">
+  <div class="orgprice__card">
+    <!-- No-JS / reduced fallback -->
+    <p class="orgprice__fallback">
+      <strong>$4–8 per enrolled person, per month</strong> — volume-based: about $8/person at 10
+      people, scaling down to $4/person at 500+. A 60-person rollout ≈ $450/month.
+    </p>
+
+    <!-- Interactive slider -->
+    <div class="orgprice__ui">
+      <div class="orgprice__readout">
+        <p class="orgprice__per">
+          <span id="op-per">$7.50</span><span class="orgprice__per-unit">/ person / month</span>
+        </p>
+        <p class="orgprice__total">≈ <strong id="op-total">$450</strong> / month for <span id="op-count">60</span> enrolled people</p>
+      </div>
+      <input
+        class="orgprice__slider"
+        type="range" min="10" max="500" step="10" value="60"
+        id="op-slider"
+        aria-label="Number of enrolled people"
+      />
+      <div class="orgprice__scale"><span>10 people</span><span>500+ people</span></div>
+    </div>
+
+    <ul class="orgprice__features">
+      <li>Everything in the Individual plan, for every enrolled person</li>
+      <li>Aggregate resilience reporting and a marketing-able community stat</li>
+      <li>Co-branded family Resilience Reports</li>
+      <li>Enrollment and consent workflow support, and a dedicated onboarding partner</li>
+    </ul>
+
+    <p class="orgprice__note">
+      <strong>Founding-partner pilots:</strong> a discounted 90-day pilot for the first cohort of
+      communities, agencies, advisory firms, credit unions, and banks.
+    </p>
+
+    <a class="btn btn--primary orgprice__cta" href={partnerMail}>Book a 20-minute call</a>
+
+    <p class="orgprice__fine">
+      Additional discounts are available for nonprofits and mission-oriented institutions — just
+      mention it on your call.
+    </p>
+  </div>
+</div>
+
+<style>
+  .orgprice__card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 36px 34px;
+    box-shadow: var(--shadow);
+    max-width: 620px;
+    margin-inline: auto;
+    text-align: left;
+  }
+
+  /* Fallback shown until JS confirms; slider hidden until then. */
+  .orgprice__ui { display: none; }
+  .orgprice.org--js .orgprice__ui { display: block; }
+  .orgprice.org--js .orgprice__fallback { display: none; }
+
+  .orgprice__readout { margin-bottom: 6px; }
+  .orgprice__per {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 5vw, 2.8rem);
+    font-weight: 700;
+    color: var(--pine-deep);
+    margin: 0;
+    line-height: 1.05;
+  }
+  .orgprice__per-unit {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    margin-left: 8px;
+  }
+  .orgprice__total { color: var(--ink-soft); font-size: 1rem; margin: 8px 0 0; }
+  .orgprice__total strong { color: var(--pine-deep); }
+
+  .orgprice__slider {
+    width: 100%;
+    margin: 24px 0 6px;
+    accent-color: var(--pine);
+    cursor: pointer;
+  }
+  .orgprice__slider:focus-visible { outline: 3px solid var(--amber); outline-offset: 4px; }
+  .orgprice__scale {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+
+  .orgprice__features {
+    padding-left: 1.2em;
+    margin: 26px 0 20px;
+    border-top: 1px solid var(--line);
+    padding-top: 24px;
+  }
+  .orgprice__features li { margin-bottom: 0.55em; font-size: 1rem; }
+  .orgprice__note { font-size: 0.95rem; color: var(--ink-soft); margin: 0 0 24px; }
+  .orgprice__cta { width: 100%; }
+  .orgprice__fine {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    margin: 18px 0 0;
+    text-align: center;
+  }
+</style>
+
+<script>
+  const root = document.getElementById('orgprice');
+  if (root) {
+    const slider = root.querySelector('#op-slider');
+    const perEl = root.querySelector('#op-per');
+    const totalEl = root.querySelector('#op-total');
+    const countEl = root.querySelector('#op-count');
+    if (slider && perEl && totalEl && countEl) {
+      root.classList.add('org--js');
+      const perFor = (people) => {
+        const p = Math.max(10, Math.min(500, people));
+        const raw = 8 - ((p - 10) / (500 - 10)) * (8 - 4); // $8 → $4
+        return Math.round(raw * 2) / 2; // nearest $0.50
+      };
+      const money = (n) => '$' + n.toLocaleString('en-US');
+      const update = () => {
+        const people = parseInt(slider.value, 10);
+        const per = perFor(people);
+        perEl.textContent = '$' + per.toFixed(2).replace(/\.00$/, '');
+        totalEl.textContent = money(Math.round(per * people));
+        countEl.textContent = people >= 500 ? '500+' : String(people);
+      };
+      slider.addEventListener('input', update);
+      update();
+    }
+  }
+</script>

@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import CtaBand from '../components/CtaBand.astro';
+import OrgPricing from '../components/OrgPricing.astro';
 ---
 
 <Base
@@ -12,6 +13,7 @@ import CtaBand from '../components/CtaBand.astro';
     <div class="wrap center pricing__head">
       <p class="kicker">For families</p>
       <h1 class="pricing__title">Less than a streaming subscription. Somewhat higher stakes.</h1>
+      <p class="org-jump"><a href="#org-pricing">Buying for a community, practice, or team? See organization pricing ↓</a></p>
       <div class="billing-toggle-row">
         <div class="billing-toggle" role="group" aria-label="Billing period">
           <button class="billing-toggle__btn is-active" data-billing="annual" aria-pressed="true">
@@ -92,30 +94,13 @@ import CtaBand from '../components/CtaBand.astro';
     </div>
   </section>
 
-  <!-- ============ FOR BUSINESSES ============ -->
-  <section class="section--tight section section--paper">
+  <!-- ============ FOR ORGANIZATIONS ============ -->
+  <section class="section--tight section section--paper" id="org-pricing">
     <div class="wrap center">
-      <p class="kicker">For businesses</p>
-      <h2>Communities, agencies &amp; advisors</h2>
-      <div class="pricing-grid pricing-grid--single" style="margin-top: 32px;">
-        <div class="price-card" style="text-align: left;">
-          <p class="price-card__price">
-            <span class="price-card__num">$4–8</span>/enrolled person per month
-          </p>
-          <p class="price-card__alt">Volume-based. A 60-resident community ≈ $360/mo · 100 advisory clients ≈ $500/mo ($60/client/year)</p>
-          <ul>
-            <li>Everything in the Individual plan, for every enrolled person</li>
-            <li>Aggregate resilience reporting and a marketing-able community stat</li>
-            <li>Co-branded family Resilience Reports</li>
-            <li>Enrollment and consent workflow support</li>
-            <li>A dedicated onboarding partner</li>
-          </ul>
-          <p class="price-card__note">
-            <strong>Founding-partner pilots:</strong> discounted 90-day pilot for the first cohort of
-            communities, agencies, and advisory firms.
-          </p>
-          <a class="btn btn--ghost" href="mailto:hello@sawtoothtechnologies.com?subject=Spry%20partner%20call">Book a 20-minute call</a>
-        </div>
+      <p class="kicker">For organizations</p>
+      <h2>Communities, agencies, advisors &amp; institutions</h2>
+      <div style="margin-top: 32px;">
+        <OrgPricing />
       </div>
     </div>
   </section>
@@ -212,6 +197,8 @@ import CtaBand from '../components/CtaBand.astro';
 <style>
   /* Compact header sits in the same section as the cards, so there's no big gap. */
   .pricing__head { margin-bottom: 44px; }
+  .org-jump { margin: -6px 0 26px; font-size: 0.95rem; }
+  .org-jump a { font-weight: 700; }
   .pricing__title {
     font-size: clamp(1.7rem, 3.2vw, 2.3rem);
     max-width: 34rem;

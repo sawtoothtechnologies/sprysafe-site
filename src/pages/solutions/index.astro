@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import CtaBand from '../../components/CtaBand.astro';
+import OrgPricing from '../../components/OrgPricing.astro';
 
 // Audience order matches the rotating hero. Each has an anchor id for deep links.
 const audiences = [
@@ -60,14 +61,16 @@ const partnerMail = 'mailto:hello@sawtoothtechnologies.com?subject=Spry%20partne
   <!-- ============ HERO (rotating audience) ============ -->
   <section class="section soln-hero">
     <div class="wrap center">
-      <p class="kicker">Solutions</p>
+      <p class="kicker">For organizations</p>
       <h1 class="soln-hero__title">
         <span aria-hidden="true">
           Spry for
           <span class="rotator">
             <span class="rotator__list" id="rotator-list">
-              {rotatorItems.map((item) => <span class="rotator__item">{item}</span>)}
+              <span class="rotator__item">{rotatorItems[rotatorItems.length - 1]}</span>
+              {rotatorItems.map((item, i) => <span class={`rotator__item${i === 0 ? ' is-active' : ''}`}>{item}</span>)}
               <span class="rotator__item">{rotatorItems[0]}</span>
+              <span class="rotator__item">{rotatorItems[1]}</span>
             </span>
           </span>
         </span>
@@ -150,25 +153,8 @@ const partnerMail = 'mailto:hello@sawtoothtechnologies.com?subject=Spry%20partne
     <div class="wrap center">
       <p class="kicker">Partner pricing</p>
       <h2>Simple, volume-based, and it pays for itself</h2>
-      <div class="pricing-grid--single" style="margin-top: 32px;">
-        <div class="price-card" style="text-align: left;">
-          <p class="price-card__price">
-            <span class="price-card__num">$4–8</span>/enrolled person per month
-          </p>
-          <p class="price-card__alt">Volume-based. A 60-resident community ≈ $360/mo · 100 advisory clients ≈ $500/mo ($60/client/year).</p>
-          <ul>
-            <li>Everything in the Individual plan, for every enrolled person</li>
-            <li>Aggregate resilience reporting and a marketing-able community stat</li>
-            <li>Co-branded family Resilience Reports</li>
-            <li>Enrollment and consent workflow support</li>
-            <li>A dedicated onboarding partner</li>
-          </ul>
-          <p class="price-card__note">
-            <strong>Founding-partner pilots:</strong> a discounted 90-day pilot for the first cohort of
-            communities, agencies, advisory firms, credit unions, and banks.
-          </p>
-          <a class="btn btn--primary" href={partnerMail}>Book a 20-minute call</a>
-        </div>
+      <div style="margin-top: 32px;">
+        <OrgPricing />
       </div>
     </div>
   </section>
@@ -190,22 +176,26 @@ const partnerMail = 'mailto:hello@sawtoothtechnologies.com?subject=Spry%20partne
   }
   .rotator {
     display: block;
-    height: 1.18em;
+    height: 3.75em; /* 3 lines of 1.25em — shows previous / active / next */
     overflow: hidden;
     padding: 0 0.15em;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 32%, #000 68%, transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0%, #000 32%, #000 68%, transparent 100%);
   }
   .rotator__list {
     display: flex;
     flex-direction: column;
-    transition: transform 0.55s cubic-bezier(0.5, 0.05, 0.2, 1);
     will-change: transform;
   }
   .rotator__item {
-    height: 1.18em;
-    line-height: 1.18;
-    color: var(--amber-deep);
+    height: 1.25em;
+    line-height: 1.25;
+    color: var(--pine-soft);
+    opacity: 0.28;
     white-space: nowrap;
+    transition: opacity 0.5s ease, color 0.5s ease;
   }
+  .rotator__item.is-active { color: var(--amber-deep); opacity: 1; }
 
   .sr-only {
     position: absolute;
@@ -256,24 +246,28 @@ const partnerMail = 'mailto:hello@sawtoothtechnologies.com?subject=Spry%20partne
   const list = document.getElementById('rotator-list');
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (list && !reduce) {
-    const items = list.querySelectorAll('.rotator__item');
-    const real = items.length - 1; // final item is a clone of the first
-    if (real > 1) {
-      let i = 0;
-      const advance = () => {
-        i++;
-        list.style.transition = 'transform 0.55s cubic-bezier(0.5, 0.05, 0.2, 1)';
-        list.style.transform = `translateY(-${i * 1.18}em)`;
-        if (i === real) {
-          // We're now showing the clone (identical to item 0). Snap back with no transition.
-          window.setTimeout(() => {
-            list.style.transition = 'none';
-            i = 0;
-            list.style.transform = 'translateY(0)';
-          }, 600);
-        }
+    // DOM order: [clone(last), real0..realN-1, clone(first), clone(second)].
+    // A 3-line window shows the previous, active, and next audience.
+    const items = Array.from(list.children);
+    const N = items.length - 3;
+    const lineH = 1.25; // em — must match .rotator__item height
+    if (N > 1) {
+      let a = 0;
+      const setActive = (idx) => items.forEach((el, i) => el.classList.toggle('is-active', i === idx));
+      const render = (animate) => {
+        list.style.transition = animate ? 'transform 0.62s cubic-bezier(0.22, 0.61, 0.36, 1)' : 'none';
+        list.style.transform = `translateY(-${a * lineH}em)`;
+        setActive(a + 1); // active line is the middle of the window
       };
-      window.setInterval(advance, 2200);
+      render(false);
+      window.setInterval(() => {
+        a += 1;
+        render(true);
+        if (a === N) {
+          // Now showing the clone of the first audience — snap back seamlessly.
+          window.setTimeout(() => { a = 0; render(false); }, 640);
+        }
+      }, 2400);
     }
   }
 </script>
