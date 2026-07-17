@@ -57,4 +57,7 @@ export const faqs = [
 ];
 
 // The subset shown on the homepage teaser.
-export const homeFaqs = [faqs[0], faqs[1], faqs[3], faqs[5], faqs[6]];
+// Includes the "sharp as a tack / isn't this insulting" (dignity & independence) and
+// "another app to manage" (no-apps) answers, which now live only in the FAQ after the
+// homepage was tightened.
+export const homeFaqs = [faqs[0], faqs[1], faqs[9], faqs[3], faqs[6], faqs[5]];

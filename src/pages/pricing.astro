@@ -4,8 +4,8 @@ import CtaBand from '../components/CtaBand.astro';
 ---
 
 <Base
-  title="Spry Pricing — From $9/month, with a 14-Day Free Trial"
-  description="Individual plans from $9/month and two-person plans from $15/month (billed annually). Every plan starts with a 14-day free trial and carries a 60-day money-back guarantee. Business pricing for communities, agencies, and advisors."
+  title="Spry Pricing — Plans from $9/month, with a 14-Day Free Trial"
+  description="Three simple plans: one person ($9/mo), up to two ($15/mo), or up to four ($19/mo), billed annually — each with a 14-day free trial and a 60-day money-back guarantee. Business pricing for communities, agencies, and advisors."
 >
   <section class="section">
     <div class="wrap center">
@@ -29,41 +29,74 @@ import CtaBand from '../components/CtaBand.astro';
 
       <!-- ============ INDIVIDUALS & FAMILIES ============ -->
       <div class="plans-panel is-active" data-plan="family">
-        <div class="pricing-grid">
-          <div class="price-card price-card--hero">
+        <div class="billing-toggle-row">
+          <div class="billing-toggle" role="group" aria-label="Billing period">
+            <button class="billing-toggle__btn is-active" data-billing="annual" aria-pressed="true">
+              Annual <span class="billing-toggle__save">3 months free</span>
+            </button>
+            <button class="billing-toggle__btn" data-billing="monthly" aria-pressed="false">Monthly</button>
+          </div>
+        </div>
+
+        <div class="pricing-grid pricing-grid--family">
+          <!-- Tier 1 — one person -->
+          <div class="price-card">
             <p class="price-card__label">One person</p>
             <h2>Individual</h2>
             <p class="price-card__price">
-              <span class="price-card__num">$9</span>/month
+              <span class="price-card__num" data-annual="$9" data-monthly="$12">$9</span>/month
             </p>
-            <p class="price-card__billing">billed annually · $12/month if billed monthly</p>
+            <p class="price-card__billing" data-annual="$108 a year, billed annually" data-monthly="billed monthly, cancel anytime">$108 a year, billed annually</p>
+            <p class="price-card__save" data-annual="3 months free vs. monthly billing" data-monthly="">3 months free vs. monthly billing</p>
             <ul>
-              <li>4–6 safe, realistic practice drills per month, modeled on current scams</li>
-              <li>Email drills from day one; text drills with written consent; practice calls coming soon</li>
-              <li>Gentle 30-second coaching the moment a drill catches them</li>
-              <li>The monthly Resilience Report, delivered to up to 4 family members</li>
+              <li>4–6 safe, realistic drills a month, modeled on current scams</li>
+              <li>Email drills now; text with written consent; practice calls coming soon</li>
+              <li>Gentle 30-second coaching the moment a drill lands</li>
+              <li>Monthly Resilience Report to up to 4 family members</li>
               <li>Resilience trend line and quiet early-warning flags</li>
-              <li>Current-scam briefings for the whole family — this month's most-reported scam in plain English</li>
-              <li>Nothing for them to install. Cancel anytime.</li>
+              <li>Plain-English briefings on this month's newest scams</li>
+              <li>Nothing to install · cancel anytime</li>
+            </ul>
+            <a class="btn btn--ghost" href="/early-access">Start free trial</a>
+            <p class="price-card__trial">Includes 14-day free trial</p>
+          </div>
+
+          <!-- Tier 2 — up to two (MOST POPULAR) -->
+          <div class="price-card price-card--featured">
+            <span class="price-badge">Most popular</span>
+            <p class="price-card__label">Up to two people</p>
+            <h2>Couples &amp; pairs</h2>
+            <p class="price-card__price">
+              <span class="price-card__num" data-annual="$15" data-monthly="$20">$15</span>/month
+            </p>
+            <p class="price-card__billing" data-annual="$180 a year, billed annually" data-monthly="billed monthly, cancel anytime">$180 a year, billed annually</p>
+            <p class="price-card__save" data-annual="3 months free vs. monthly billing" data-monthly="">3 months free vs. monthly billing</p>
+            <ul>
+              <li>Everything in Individual, for <strong>two</strong> enrolled people</li>
+              <li>Each person gets their own drills, coaching, and Resilience Report</li>
+              <li>Ideal for both parents — or you and someone you love</li>
+              <li>One subscription, one bill — about $7.50 per person</li>
             </ul>
             <a class="btn btn--primary" href="/early-access">Start free trial</a>
             <p class="price-card__trial">Includes 14-day free trial</p>
           </div>
 
-          <div class="price-card price-card--hero">
-            <p class="price-card__label">Two people</p>
-            <h2>Couples &amp; pairs</h2>
+          <!-- Tier 3 — up to four -->
+          <div class="price-card">
+            <p class="price-card__label">Up to four people</p>
+            <h2>Family</h2>
             <p class="price-card__price">
-              <span class="price-card__num">$15</span>/month
+              <span class="price-card__num" data-annual="$19" data-monthly="$25">$19</span>/month
             </p>
-            <p class="price-card__billing">billed annually · $20/month if billed monthly</p>
+            <p class="price-card__billing" data-annual="$228 a year, billed annually" data-monthly="billed monthly, cancel anytime">$228 a year, billed annually</p>
+            <p class="price-card__save" data-annual="3 months free vs. monthly billing" data-monthly="">3 months free vs. monthly billing</p>
             <ul>
-              <li>Everything in Individual, for two enrolled people</li>
-              <li>Perfect for a couple — or any two people you care about</li>
+              <li>Everything in Couples, for up to <strong>four</strong> enrolled people</li>
               <li>Each person gets their own drills, coaching, and Resilience Report</li>
-              <li>One subscription, one bill, save vs. two individual plans</li>
+              <li>Great for both parents plus an aunt, uncle, or in-law</li>
+              <li>One bill, the best per-person value — about $4.75 per person</li>
             </ul>
-            <a class="btn btn--primary" href="/early-access">Start free trial</a>
+            <a class="btn btn--ghost" href="/early-access">Start free trial</a>
             <p class="price-card__trial">Includes 14-day free trial</p>
           </div>
         </div>
@@ -105,6 +138,17 @@ import CtaBand from '../components/CtaBand.astro';
     <div class="wrap" style="max-width: 800px;">
       <h2 class="center">Pricing questions</h2>
       <div style="margin-top: 30px;">
+        <details class="faq-item">
+          <summary>Which plan should I choose?</summary>
+          <div class="faq-body">
+            <p>
+              Most families pick <strong>Couples &amp; pairs</strong> — it covers both parents (or
+              a couple) on one bill and is our most popular plan. Choose Individual for one person,
+              or Family if you're protecting up to four people, like both parents plus an aunt or
+              in-law. You can move up a plan anytime.
+            </p>
+          </div>
+        </details>
         <details class="faq-item">
           <summary>Why does this cost more than a call blocker?</summary>
           <div class="faq-body">
@@ -149,8 +193,8 @@ import CtaBand from '../components/CtaBand.astro';
 </Base>
 
 <script>
-  // Plan-type toggle. Progressive enhancement: without JS the toggle is hidden
-  // and both panels render stacked.
+  // Plan-type toggle (individuals & families ↔ businesses).
+  // Progressive enhancement: without JS the toggle is hidden and both panels render stacked.
   const plans = document.getElementById('plans');
   if (plans) {
     plans.classList.add('plans--js');
@@ -167,11 +211,37 @@ import CtaBand from '../components/CtaBand.astro';
         panels.forEach((p) => p.classList.toggle('is-active', p.dataset.plan === target));
       });
     });
+
+    // Billing-period toggle (annual ↔ monthly). Swaps the price, billing note, and savings
+    // line on every family card. Progressive enhancement: without JS the toggle is hidden and
+    // the cards ship annual pricing (with the monthly figure available on request).
+    const billing = plans.querySelector('.billing-toggle');
+    if (billing) {
+      plans.classList.add('billing--js');
+      const bBtns = Array.from(billing.querySelectorAll('.billing-toggle__btn'));
+      const swappable = Array.from(plans.querySelectorAll('.price-card__num[data-annual], .price-card__billing[data-annual], .price-card__save[data-annual]'));
+      const apply = (mode) => {
+        swappable.forEach((el) => {
+          const val = el.getAttribute('data-' + mode) || '';
+          el.textContent = val;
+          if (el.classList.contains('price-card__save')) {
+            el.style.visibility = val ? 'visible' : 'hidden';
+          }
+        });
+        bBtns.forEach((b) => {
+          const active = b.dataset.billing === mode;
+          b.classList.toggle('is-active', active);
+          b.setAttribute('aria-pressed', active ? 'true' : 'false');
+        });
+      };
+      bBtns.forEach((b) => b.addEventListener('click', () => apply(b.dataset.billing)));
+      apply('annual');
+    }
   }
 </script>
 
 <style>
-  .plans-toggle-row { display: flex; justify-content: center; margin-bottom: 40px; }
+  .plans-toggle-row { display: flex; justify-content: center; margin-bottom: 24px; }
   .plans-toggle {
     display: none;
     background: var(--paper);
@@ -199,9 +269,47 @@ import CtaBand from '../components/CtaBand.astro';
     background: var(--pine-deep);
     color: var(--cream);
   }
+
+  /* ---------- Billing-period toggle ---------- */
+  .billing-toggle-row { display: flex; justify-content: center; margin-bottom: 36px; }
+  .billing-toggle {
+    display: none;
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
+    padding: 5px;
+    gap: 4px;
+  }
+  .billing--js .billing-toggle { display: inline-flex; }
+  .billing-toggle__btn {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--ink-soft);
+    background: transparent;
+    border: none;
+    border-radius: 999px;
+    padding: 9px 20px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.12s ease, color 0.12s ease;
+  }
+  .billing-toggle__btn:hover { color: var(--pine-deep); }
+  .billing-toggle__btn:focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
+  .billing-toggle__btn.is-active { background: var(--pine-deep); color: var(--cream); }
+  .billing-toggle__save {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--amber-deep);
+    letter-spacing: 0.02em;
+  }
+  .billing-toggle__btn.is-active .billing-toggle__save { color: var(--amber); }
+
+  .plans-panel + .plans-panel { margin-top: 48px; }
   .plans--js .plans-panel { display: none; }
   .plans--js .plans-panel.is-active { display: block; animation: planFade 0.25s ease; }
-  .plans-panel + .plans-panel { margin-top: 48px; }
   .plans--js .plans-panel + .plans-panel { margin-top: 0; }
   @keyframes planFade {
     from { opacity: 0; transform: translateY(6px); }
@@ -210,23 +318,43 @@ import CtaBand from '../components/CtaBand.astro';
 
   .pricing-grid {
     display: grid;
-    gap: 32px;
+    gap: 28px;
     align-items: start;
   }
-  @media (min-width: 880px) {
-    .pricing-grid { grid-template-columns: 1fr 1fr; }
+  @media (min-width: 900px) {
+    .pricing-grid--family { grid-template-columns: repeat(3, 1fr); gap: 24px; }
     .pricing-grid--single { grid-template-columns: 1fr; max-width: 680px; margin-inline: auto; }
   }
   .price-card {
     background: var(--white);
     border: 1px solid var(--line);
     border-radius: var(--radius-lg);
-    padding: 40px 36px;
+    padding: 38px 32px;
     box-shadow: var(--shadow);
   }
-  .price-card--hero {
+  .price-card--featured {
     border: 2px solid var(--pine);
     box-shadow: var(--shadow-lg);
+    position: relative;
+  }
+  @media (min-width: 900px) {
+    .price-card--featured { transform: translateY(-10px); }
+  }
+  .price-badge {
+    position: absolute;
+    top: -13px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--amber);
+    color: var(--pine-deep);
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 999px;
+    white-space: nowrap;
+    box-shadow: var(--shadow);
   }
   .price-card__label {
     font-size: 0.8rem;
@@ -247,7 +375,14 @@ import CtaBand from '../components/CtaBand.astro';
   .price-card__billing {
     color: var(--ink-soft);
     font-size: 0.9rem;
+    margin: 0 0 4px;
+  }
+  .price-card__save {
+    color: var(--amber-deep);
+    font-weight: 700;
+    font-size: 0.88rem;
     margin: 0 0 18px;
+    min-height: 1.2em;
   }
   .price-card__alt { color: var(--ink-soft); font-size: 1rem; }
   .price-card ul { padding-left: 1.2em; margin: 0 0 20px; }
@@ -258,10 +393,11 @@ import CtaBand from '../components/CtaBand.astro';
     color: var(--ink-soft);
     margin: 10px 0 0;
   }
+  .price-card .btn { width: 100%; }
   .guarantee {
     font-size: 0.95rem;
     color: var(--ink-soft);
-    margin-top: 28px;
+    margin-top: 32px;
   }
   .guarantee strong { color: var(--pine-deep); }
 </style>
