@@ -14,11 +14,11 @@ import { homeFaqs } from '../data/faqs.js';
   <section class="section hero">
     <div class="wrap hero__grid">
       <div>
-        <h1>Safe scam drills for the people scammers target most.</h1>
+        <h1>Safe scam drills for those most targeted.</h1>
         <p class="hero__metaphor">A pamphlet won't stop the next scam. Practice will.</p>
         <p class="lede">
-          Practice the scam before it's real — with gentle coaching in the moment and a monthly
-          Resilience Report for the family.
+          Empower someone you care about to practice the scam before it's real, with gentle
+          coaching in the moment and a monthly Resilience Report for the family.
         </p>
         <div class="btn-row" style="margin-top: 30px;">
           <a class="btn btn--primary" href="/early-access">Get early access</a>
@@ -87,25 +87,32 @@ import { homeFaqs } from '../data/faqs.js';
             <span class="hiw__tab-num">1</span>
             <span class="hiw__tab-title">Enroll in 2 minutes</span>
             <span class="hiw__tab-teaser">Nothing to install. They opt in.</span>
+            <span class="hiw__progress" aria-hidden="true"><span></span></span>
           </button>
           <button class="hiw__tab" id="hiw-tab-2" role="tab" aria-selected="false" aria-controls="hiw-panel-2">
             <span class="hiw__tab-num">2</span>
             <span class="hiw__tab-title">Safe, simulated drills</span>
             <span class="hiw__tab-teaser">Realistic practice, coached the moment they slip.</span>
+            <span class="hiw__progress" aria-hidden="true"><span></span></span>
           </button>
           <button class="hiw__tab" id="hiw-tab-3" role="tab" aria-selected="false" aria-controls="hiw-panel-3">
             <span class="hiw__tab-num">3</span>
             <span class="hiw__tab-title">A quiet drip of education</span>
             <span class="hiw__tab-teaser">Brief updates on the newest scams.</span>
+            <span class="hiw__progress" aria-hidden="true"><span></span></span>
           </button>
           <button class="hiw__tab" id="hiw-tab-4" role="tab" aria-selected="false" aria-controls="hiw-panel-4">
             <span class="hiw__tab-num">4</span>
             <span class="hiw__tab-title">Monthly Resilience Report</span>
             <span class="hiw__tab-teaser">Proof they're getting sharper.</span>
+            <span class="hiw__progress" aria-hidden="true"><span></span></span>
           </button>
         </div>
 
-        <div class="hiw__panel is-active" id="hiw-panel-1" role="tabpanel" aria-labelledby="hiw-tab-1" tabindex="0">
+        <div class="hiw__detail">
+          <span class="hiw__caret" aria-hidden="true"></span>
+
+          <div class="hiw__panel is-active" id="hiw-panel-1" role="tabpanel" aria-labelledby="hiw-tab-1" tabindex="0">
           <h3>Enroll in 2 minutes</h3>
           <p>
             Tell us a little about the person you're signing up — email, phone, and any scams
@@ -143,11 +150,12 @@ import { homeFaqs } from '../data/faqs.js';
           </p>
         </div>
 
-        <div class="hiw__foot">
-          <span class="hiw__count" aria-hidden="true">1 of 4</span>
-          <div class="hiw__arrows">
-            <button class="hiw__arrow" data-prev aria-label="Previous step">←</button>
-            <button class="hiw__arrow" data-next aria-label="Next step">→</button>
+          <div class="hiw__foot">
+            <span class="hiw__count" aria-hidden="true">1 of 4</span>
+            <div class="hiw__arrows">
+              <button class="hiw__arrow" data-prev aria-label="Previous step">←</button>
+              <button class="hiw__arrow" data-next aria-label="Next step">→</button>
+            </div>
           </div>
         </div>
       </div>
@@ -345,18 +353,34 @@ import { homeFaqs } from '../data/faqs.js';
     els.forEach((el) => io.observe(el));
   }
 
-  // "How it works" clickable tiles.
-  // Progressive enhancement: without JS, all four panels render stacked.
+  // "How it works" — auto-advancing, interactive tiles.
+  // Autoplay rotates through the steps; hovering pauses it, and clicking (or arrow-keying)
+  // stops it and hands control to the reader. Progressive enhancement: without JS all four
+  // panels render stacked so no-JS visitors still see everything.
   const hiw = document.getElementById('hiw');
   if (hiw) {
     hiw.classList.add('hiw--js');
     const tabs = Array.from(hiw.querySelectorAll('.hiw__tab'));
     const panels = Array.from(hiw.querySelectorAll('.hiw__panel'));
+    const bars = Array.from(hiw.querySelectorAll('.hiw__progress > span'));
+    const caret = hiw.querySelector('.hiw__caret');
     const counter = hiw.querySelector('.hiw__count');
-    let current = 0;
+    const n = tabs.length;
+    const DURATION = 4200;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let current = 0, elapsed = 0, last = null, hovering = false, stopped = false, raf = 0;
+
+    const moveCaret = () => {
+      if (!caret) return;
+      const t = tabs[current].getBoundingClientRect();
+      const h = hiw.getBoundingClientRect();
+      caret.style.left = (t.left - h.left + t.width / 2) + 'px';
+    };
+    const setProgress = (frac) =>
+      bars.forEach((b, j) => { b.style.transform = 'scaleX(' + (j === current ? frac : 0) + ')'; });
 
     const show = (i, focusTab) => {
-      current = (i + tabs.length) % tabs.length;
+      current = (i + n) % n;
       tabs.forEach((tab, j) => {
         const active = j === current;
         tab.classList.toggle('is-active', active);
@@ -364,22 +388,52 @@ import { homeFaqs } from '../data/faqs.js';
         tab.tabIndex = active ? 0 : -1;
       });
       panels.forEach((panel, j) => panel.classList.toggle('is-active', j === current));
-      if (counter) counter.textContent = `${current + 1} of ${tabs.length}`;
+      if (counter) counter.textContent = (current + 1) + ' of ' + n;
+      elapsed = 0;
+      setProgress(0);
+      moveCaret();
       if (focusTab) tabs[current].focus();
     };
 
+    const stop = () => {
+      stopped = true;
+      hiw.classList.add('hiw--stopped');
+      if (raf) cancelAnimationFrame(raf);
+      setProgress(0);
+    };
+
     tabs.forEach((tab, j) => {
-      tab.addEventListener('click', () => show(j, false));
+      tab.addEventListener('click', () => { show(j, false); stop(); });
       tab.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); show(current + 1, true); }
-        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); show(current - 1, true); }
-        if (e.key === 'Home') { e.preventDefault(); show(0, true); }
-        if (e.key === 'End') { e.preventDefault(); show(tabs.length - 1, true); }
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); show(current + 1, true); stop(); }
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); show(current - 1, true); stop(); }
+        if (e.key === 'Home') { e.preventDefault(); show(0, true); stop(); }
+        if (e.key === 'End') { e.preventDefault(); show(n - 1, true); stop(); }
       });
     });
-    hiw.querySelector('[data-prev]')?.addEventListener('click', () => show(current - 1, false));
-    hiw.querySelector('[data-next]')?.addEventListener('click', () => show(current + 1, false));
+    hiw.querySelector('[data-prev]')?.addEventListener('click', () => { show(current - 1, false); stop(); });
+    hiw.querySelector('[data-next]')?.addEventListener('click', () => { show(current + 1, false); stop(); });
+    hiw.addEventListener('mouseenter', () => { hovering = true; });
+    hiw.addEventListener('mouseleave', () => { hovering = false; });
+    window.addEventListener('resize', moveCaret);
+    window.addEventListener('load', moveCaret);
+
     show(0, false);
+
+    if (!reduce) {
+      const frame = (now) => {
+        if (last === null) last = now;
+        const dt = now - last;
+        last = now;
+        if (!hovering && !stopped) {
+          elapsed += dt;
+          setProgress(Math.min(elapsed / DURATION, 1));
+          if (elapsed >= DURATION) show((current + 1) % n, false);
+        }
+        raf = requestAnimationFrame(frame);
+      };
+      raf = requestAnimationFrame(frame);
+    }
   }
 </script>
 
@@ -415,8 +469,12 @@ import { homeFaqs } from '../data/faqs.js';
   }
   @media (min-width: 860px) {
     .hiw__tabs { grid-template-columns: repeat(4, 1fr); }
+    /* The caret only aligns cleanly under a single row of tiles. */
+    .hiw--js .hiw__caret { display: block; }
   }
   .hiw__tab {
+    position: relative;
+    overflow: hidden;
     font-family: var(--font-body);
     text-align: left;
     background: var(--white);
@@ -461,16 +519,51 @@ import { homeFaqs } from '../data/faqs.js';
     color: var(--ink-soft);
     line-height: 1.4;
   }
+  /* Autoplay progress bar, shown along the bottom of the active tile. */
+  .hiw__progress {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 3px;
+    background: transparent;
+  }
+  .hiw__progress > span {
+    display: block;
+    height: 100%;
+    width: 100%;
+    background: var(--amber);
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+
+  /* Detail box + the caret that connects it to the active tile. */
+  .hiw__detail { position: relative; margin-top: 22px; }
+  .hiw__caret {
+    display: none;
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    background: var(--white);
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+    transform: translateX(-50%) rotate(45deg);
+    transition: left 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+    z-index: 2;
+  }
+  .hiw--js .hiw__caret { display: none; }
+
   .hiw__panel {
     background: var(--white);
     border: 1px solid var(--line);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow);
-    padding: 34px 32px;
-    margin-top: 22px;
+    padding: 24px 28px;
   }
-  .hiw__panel h3 { margin-top: 0; }
-  .hiw__panel p { margin-bottom: 0; color: var(--ink-soft); max-width: 54rem; }
+  .hiw__panel h3 { margin-top: 0; margin-bottom: 0.4em; }
+  .hiw__panel p { margin-bottom: 0; color: var(--ink-soft); max-width: 52rem; font-size: 1.02rem; line-height: 1.55; }
   .hiw--js .hiw__panel { display: none; }
   .hiw--js .hiw__panel.is-active { display: block; animation: hiwFade 0.25s ease; }
   @keyframes hiwFade {
