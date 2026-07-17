@@ -1,61 +1,173 @@
 ---
 import Base from '../../layouts/Base.astro';
 import CtaBand from '../../components/CtaBand.astro';
+
+// Audience order matches the rotating hero. Each has an anchor id for deep links.
+const audiences = [
+  {
+    id: 'financial-advisors',
+    name: 'Financial advisors',
+    hook: 'Protect the person, not just the portfolio.',
+    body: 'You can diversify away market risk — not one convincing phone call. Spry trains your older clients to catch scams before money moves, so you reduce risk, retain assets, and build relationships with the whole family. About $60 per client a year.',
+  },
+  {
+    id: 'credit-unions',
+    name: 'Credit unions',
+    hook: 'Protect the member, not just the account.',
+    body: 'Every scammed member costs you twice — drained deposits, then the fraud-ops hours and shaken trust. Spry works upstream of transaction monitoring, training members to hang up before anything moves. Nothing for branch staff to run.',
+  },
+  {
+    id: 'home-care',
+    name: 'Home-care agencies',
+    hook: 'The safety add-on client families thank you for.',
+    body: "You're already the trusted safety layer in your clients' lives. Spry extends that trust to the threat that arrives by phone — a co-branded protection families value, and a new recurring revenue line, with zero clinical burden on caregivers.",
+  },
+  {
+    id: 'wealth-advisors',
+    name: 'Wealth advisors',
+    hook: 'The bridge to the next generation.',
+    body: 'More than 12,400 older Americans each lost $100k+ to fraud in 2025 — retirement-sized losses no allocation survives. Every month, a co-branded Resilience Report reaches the heirs (nine in ten of whom leave the parents’ advisor), with your firm’s name on the good news.',
+  },
+  {
+    id: 'senior-living',
+    name: 'Senior-living communities',
+    hook: "The move-in differentiator down the street can't claim.",
+    body: 'Every community sells the same amenities. Spry lets you sell what families actually lose sleep over — and prove it every month with a family report and a marketing-able stat: “our residents caught 87% of simulated scams this quarter.”',
+  },
+  {
+    id: 'banks',
+    name: 'Community banks',
+    hook: 'Protect the customer, not just the balance.',
+    body: 'Fraud alerts catch some of it — after it starts. Spry trains the customer themselves to stop the scam before money leaves, co-branded to your bank. Reduce losses, keep deposits, and earn loyalty across generations.',
+  },
+];
+
+const rotatorItems = [
+  'financial advisors',
+  'credit unions',
+  'home care',
+  'wealth advisors',
+  'senior living',
+  'community banks',
+];
+const partnerMail = 'mailto:hello@sawtoothtechnologies.com?subject=Spry%20partner%20call';
 ---
 
 <Base
-  title="Solutions — Spry for Senior Living, Home Care & Advisors"
-  description="If you serve older adults, Spry gives you a provable answer to the question every family is quietly asking: will you keep my parent safe?"
+  title="Spry for Advisors, Credit Unions, Home Care, Senior Living & Banks"
+  description="One provable scam-resilience program for the organizations families trust — financial and wealth advisors, credit unions, community banks, home-care agencies, and senior-living communities. Co-branded monthly Resilience Report, nothing for staff to run, never touches accounts. Founding-partner pilots open."
 >
-  <section class="section">
-    <div class="wrap prose">
+  <!-- ============ HERO (rotating audience) ============ -->
+  <section class="section soln-hero">
+    <div class="wrap center">
       <p class="kicker">Solutions</p>
-      <h1>The people families trust, made more trustworthy.</h1>
-      <p class="lede">
-        Spry is built for families — and for the organizations they rely on. If you serve
-        older adults, Spry gives you something rare: a <em>provable</em> answer to the
-        question every family is quietly asking — “will you keep my parent safe?”
+      <h1 class="soln-hero__title">
+        <span aria-hidden="true">
+          Spry for
+          <span class="rotator">
+            <span class="rotator__list" id="rotator-list">
+              {rotatorItems.map((item) => <span class="rotator__item">{item}</span>)}
+              <span class="rotator__item">{rotatorItems[0]}</span>
+            </span>
+          </span>
+        </span>
+        <span class="sr-only">Spry for financial advisors, credit unions, home care, wealth advisors, senior living, and community banks.</span>
+      </h1>
+      <p class="lede" style="margin-inline: auto;">
+        If you serve older adults, Spry gives you a <em>provable</em> answer to the question every
+        family is quietly asking: will you keep the person I love safe?
       </p>
-      <p>
-        <strong>White-glove pilot programs now open for a limited number of founding partners.</strong>
+      <div class="btn-row" style="justify-content: center; margin-top: 30px;">
+        <a class="btn btn--primary" href={partnerMail}>Book a 20-minute call</a>
+        <a class="btn btn--ghost" href="#pricing">See partner pricing</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HOW PARTNERSHIPS WORK ============ -->
+  <section class="section section--paper">
+    <div class="wrap">
+      <p class="kicker">How partnerships work</p>
+      <h2 style="max-width: 34rem;">One program, built to run itself</h2>
+      <div class="grid grid--2" style="margin-top: 36px;">
+        <div class="card">
+          <h3>Folds into your intake</h3>
+          <p>Enrollment and consent ride along with your existing move-in, membership, or onboarding flow. We screen for cognitive fit with you — cognitively-appropriate participants only.</p>
+        </div>
+        <div class="card">
+          <h3>Nothing for your staff to run</h3>
+          <p>Email-first drills, in-the-moment coaching, and briefings on the newest scams are all handled by Spry. Your team is never in the alert loop.</p>
+        </div>
+        <div class="card">
+          <h3>A co-branded monthly touchpoint</h3>
+          <p>The Resilience Report reaches the family members your people choose — with your name on the good news. A recurring bridge to the next generation.</p>
+        </div>
+        <div class="card">
+          <h3>Clean on compliance</h3>
+          <p>Spry never touches money, accounts, or core systems — no integrations, no data feeds. That keeps vendor review and the compliance conversation short.</p>
+        </div>
+      </div>
+      <p class="lede" style="margin-top: 28px; max-width: 44rem;">
+        Plus an aggregate, anonymized stat you can put in a brochure or newsletter:
+        <em>“our members caught 87% of simulated scams this quarter.”</em>
       </p>
     </div>
   </section>
 
-  <section class="section--tight section" style="padding-bottom: 96px;">
+  <!-- ============ AUDIENCE GRID ============ -->
+  <section class="section">
     <div class="wrap">
-      <div class="grid grid--2">
-        <div class="card">
-          <h3>Senior-living communities</h3>
-          <p>
-            The move-in differentiator the community down the street can't claim — with a monthly
-            Resilience Report families love.
+      <p class="kicker">Who it's for</p>
+      <h2 style="max-width: 34rem;">Built for the people families already trust</h2>
+      <div class="grid grid--3" style="margin-top: 36px;">
+        {audiences.map((a) => (
+          <div class="card aud-card" id={a.id}>
+            <h3>{a.name}</h3>
+            <p class="aud-card__hook">{a.hook}</p>
+            <p>{a.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ROI ============ -->
+  <section class="section section--paper">
+    <div class="wrap prose">
+      <h2>The math is almost unfair</h2>
+      <p>
+        The average reported senior-fraud loss is about $39,000, and more than 12,400 people lost
+        $100,000 or more each in 2025. Preventing a <em>single</em> loss pays for years of the
+        program. And unlike another amenity, a rate-table tweak, or a monitoring tool that only
+        speaks up after the money moves, Spry comes with a monthly artifact families actually
+        read — and a number you can market.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ PARTNER PRICING ============ -->
+  <section class="section" id="pricing">
+    <div class="wrap center">
+      <p class="kicker">Partner pricing</p>
+      <h2>Simple, volume-based, and it pays for itself</h2>
+      <div class="pricing-grid--single" style="margin-top: 32px;">
+        <div class="price-card" style="text-align: left;">
+          <p class="price-card__price">
+            <span class="price-card__num">$4–8</span>/enrolled person per month
           </p>
-          <p><a class="cta-link" href="/solutions/senior-living">For senior living →</a></p>
-        </div>
-        <div class="card">
-          <h3>Home-care agencies</h3>
-          <p>
-            A safety add-on your client families will thank you for — deeper trust and a new
-            recurring revenue line.
+          <p class="price-card__alt">Volume-based. A 60-resident community ≈ $360/mo · 100 advisory clients ≈ $500/mo ($60/client/year).</p>
+          <ul>
+            <li>Everything in the Individual plan, for every enrolled person</li>
+            <li>Aggregate resilience reporting and a marketing-able community stat</li>
+            <li>Co-branded family Resilience Reports</li>
+            <li>Enrollment and consent workflow support</li>
+            <li>A dedicated onboarding partner</li>
+          </ul>
+          <p class="price-card__note">
+            <strong>Founding-partner pilots:</strong> a discounted 90-day pilot for the first cohort of
+            communities, agencies, advisory firms, credit unions, and banks.
           </p>
-          <p><a class="cta-link" href="/solutions/home-care">For home care →</a></p>
-        </div>
-        <div class="card">
-          <h3>Financial &amp; wealth advisors</h3>
-          <p>
-            Protect the person, not just the portfolio — reduce risk, retain assets, and build
-            whole-family relationships for about $60 per client per year.
-          </p>
-          <p><a class="cta-link" href="/solutions/financial-advisors">For advisors →</a></p>
-        </div>
-        <div class="card">
-          <h3>Credit unions</h3>
-          <p>
-            A member benefit that keeps savings where they belong — and turns fraud prevention
-            into loyalty across generations.
-          </p>
-          <p><a class="cta-link" href="/solutions/credit-unions">For credit unions →</a></p>
+          <a class="btn btn--primary" href={partnerMail}>Book a 20-minute call</a>
         </div>
       </div>
     </div>
@@ -63,8 +175,105 @@ import CtaBand from '../../components/CtaBand.astro';
 
   <CtaBand
     headline="Become a founding partner."
-    body="A 20-minute call is enough to see whether Spry fits your community, agency, or practice."
+    body="A 20-minute call is enough to see whether Spry fits your community, agency, practice, or institution — and how a pilot works."
     cta="Book a 20-minute call"
-    href="mailto:hello@sawtoothtechnologies.com?subject=Spry%20partner%20call"
+    href={partnerMail}
   />
 </Base>
+
+<style>
+  .soln-hero { padding-bottom: 64px; }
+  .soln-hero__title {
+    font-size: clamp(2rem, 4.4vw, 3rem);
+    max-width: 34rem;
+    margin-inline: auto;
+  }
+  .rotator {
+    display: block;
+    height: 1.18em;
+    overflow: hidden;
+    padding: 0 0.15em;
+  }
+  .rotator__list {
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.55s cubic-bezier(0.5, 0.05, 0.2, 1);
+    will-change: transform;
+  }
+  .rotator__item {
+    height: 1.18em;
+    line-height: 1.18;
+    color: var(--amber-deep);
+    white-space: nowrap;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .aud-card { scroll-margin-top: 96px; }
+  .aud-card__hook {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--pine);
+    margin-bottom: 0.5em;
+  }
+  .aud-card p:last-child { margin-bottom: 0; font-size: 1rem; color: var(--ink-soft); }
+
+  /* Partner pricing card (mirrors the Pricing page business tier) */
+  .pricing-grid--single { max-width: 620px; margin-inline: auto; }
+  .price-card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 38px 32px;
+    box-shadow: var(--shadow);
+  }
+  .price-card__price { font-size: 1.15rem; color: var(--ink-soft); margin-bottom: 2px; }
+  .price-card__num {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--pine-deep);
+  }
+  .price-card__alt { color: var(--ink-soft); font-size: 1rem; margin-bottom: 4px; }
+  .price-card ul { padding-left: 1.2em; margin: 16px 0 20px; }
+  .price-card ul li { margin-bottom: 0.55em; font-size: 1rem; }
+  .price-card__note { font-size: 0.95rem; color: var(--ink-soft); margin-bottom: 24px; }
+  .price-card .btn { width: 100%; }
+</style>
+
+<script>
+  // Vertical audience rotator. Progressive + reduced-motion safe: without JS (or with
+  // reduced-motion) the viewport simply shows the first audience, statically.
+  const list = document.getElementById('rotator-list');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (list && !reduce) {
+    const items = list.querySelectorAll('.rotator__item');
+    const real = items.length - 1; // final item is a clone of the first
+    if (real > 1) {
+      let i = 0;
+      const advance = () => {
+        i++;
+        list.style.transition = 'transform 0.55s cubic-bezier(0.5, 0.05, 0.2, 1)';
+        list.style.transform = `translateY(-${i * 1.18}em)`;
+        if (i === real) {
+          // We're now showing the clone (identical to item 0). Snap back with no transition.
+          window.setTimeout(() => {
+            list.style.transition = 'none';
+            i = 0;
+            list.style.transform = 'translateY(0)';
+          }, 600);
+        }
+      };
+      window.setInterval(advance, 2200);
+    }
+  }
+</script>

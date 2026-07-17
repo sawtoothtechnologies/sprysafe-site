@@ -10,12 +10,6 @@ const nav = [
   { href: '/pricing', label: 'Pricing' },
   { href: '/about', label: 'About' },
 ];
-const solutions = [
-  { href: '/solutions/senior-living', label: 'For senior living' },
-  { href: '/solutions/home-care', label: 'For home care' },
-  { href: '/solutions/financial-advisors', label: 'For financial & wealth advisors' },
-  { href: '/solutions/credit-unions', label: 'For credit unions' },
-];
 ---
 
 <!doctype html>
@@ -56,12 +50,7 @@ const solutions = [
         <nav id="site-nav" class="site-nav" aria-label="Main">
           <a href="/how-it-works">How it works</a>
           <a href="/why-it-works">Why it works</a>
-          <div class="dropdown">
-            <a href="/solutions" class="dropdown__trigger" aria-haspopup="true">Solutions ▾</a>
-            <div class="dropdown__menu">
-              {solutions.map((s) => <a href={s.href}>{s.label}</a>)}
-            </div>
-          </div>
+          <a href="/solutions">Solutions</a>
           <a href="/pricing">Pricing</a>
           <a href="/about">About</a>
           <a href="/early-access" class="btn btn--primary btn--nav">Get early access</a>
@@ -90,10 +79,9 @@ const solutions = [
           </nav>
           <nav aria-label="Footer — solutions">
             <p class="footer-head">Solutions</p>
-            <a href="/solutions/senior-living">Senior living</a>
-            <a href="/solutions/home-care">Home care</a>
-            <a href="/solutions/financial-advisors">Financial &amp; wealth advisors</a>
-            <a href="/solutions/credit-unions">Credit unions</a>
+            <a href="/solutions">For organizations</a>
+            <a href="/solutions#pricing">Partner pricing</a>
+            <a href="mailto:hello@sawtoothtechnologies.com?subject=Spry%20partner%20call">Book a call</a>
           </nav>
           <nav aria-label="Footer — company">
             <p class="footer-head">Company</p>
