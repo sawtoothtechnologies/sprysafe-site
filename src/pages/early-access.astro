@@ -1,0 +1,95 @@
+---
+import Base from '../layouts/Base.astro';
+
+// FORM BACKEND — before launch:
+// 1. Create a free form at https://formspree.io (or Tally + embed).
+// 2. Replace YOUR_FORM_ID below with the real endpoint.
+// Submissions will arrive at hello@sawtoothtechnologies.com.
+const FORM_ACTION = 'https://formspree.io/f/YOUR_FORM_ID';
+---
+
+<Base
+  title="Get Early Access | Spry"
+  description="Join the founding families. Start with a 14-day free trial, backed by a 60-day money-back guarantee, and help shape the product protecting the people you love."
+>
+  <section class="section">
+    <div class="wrap form-layout">
+      <div>
+        <p class="kicker">Early access</p>
+        <h1>Join the founding families.</h1>
+        <p class="lede">
+          We're onboarding in small cohorts so every family gets white-glove setup. Founding
+          members start with a <strong>14-day free trial</strong> and get a direct line to the
+          founder.
+        </p>
+        <p class="trust-line">
+          Consent-first. No bank access. Cancel anytime. 60-day money-back guarantee. We'll never
+          sell your information.
+        </p>
+      </div>
+
+      <form class="form-card" method="POST" action={FORM_ACTION}>
+        <div class="field">
+          <label for="name">Your name</label>
+          <input type="text" id="name" name="name" autocomplete="name" />
+        </div>
+
+        <div class="field">
+          <label for="email">Email <span class="hint">(required)</span></label>
+          <input type="email" id="email" name="email" required autocomplete="email" />
+        </div>
+
+        <div class="field">
+          <label for="role">I'm interested as…</label>
+          <select id="role" name="role">
+            <option>A family member protecting a parent/grandparent</option>
+            <option>An older adult enrolling myself</option>
+            <option>A senior-living community</option>
+            <option>A home-care agency</option>
+            <option>A financial advisor</option>
+            <option>A credit union</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="who">Who are you hoping to protect? <span class="hint">(optional — e.g., “my mom, 78, lives alone in Ohio”)</span></label>
+          <input type="text" id="who" name="who" />
+        </div>
+
+        <div class="field">
+          <label for="worry">What worries you most right now? <span class="hint">(optional)</span></label>
+          <textarea id="worry" name="worry" rows="4"></textarea>
+        </div>
+
+        <div class="field">
+          <label for="phone">Phone <span class="hint">(optional — if you'd like a call from the founder)</span></label>
+          <input type="tel" id="phone" name="phone" autocomplete="tel" />
+        </div>
+
+        <div class="field checkbox">
+          <input type="checkbox" id="consent" name="consent" required />
+          <label for="consent" style="margin: 0; font-weight: 400;">Email me about Spry early access. (required)</label>
+        </div>
+
+        <button class="btn btn--primary" type="submit" style="width: 100%;">Get early access</button>
+
+        <p class="footnote" style="margin: 16px 0 0;">
+          You'll hear from us within a few days. If you write about a specific worry, a human
+          (probably the founder) will read it personally.
+        </p>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .form-layout {
+    display: grid;
+    gap: 48px;
+    align-items: start;
+  }
+  @media (min-width: 920px) {
+    .form-layout { grid-template-columns: 1fr 1.1fr; }
+  }
+</style>

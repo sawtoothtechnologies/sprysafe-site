@@ -1,0 +1,80 @@
+---
+import Base from '../layouts/Base.astro';
+import CtaBand from '../components/CtaBand.astro';
+---
+
+<Base
+  title="About Spry — A Fire Drill for Scams"
+  description="Why we're pointing the proven simulated-phishing playbook at the people scammers target most — with consent, dignity, and proof."
+>
+  <section class="section">
+    <div class="wrap prose">
+      <p class="kicker">About</p>
+      <h1>Why we're building the fire drill for scams.</h1>
+      <p class="lede">
+        In 2025, Americans over 60 reported losing $7.75 billion to fraud — up nearly 60% in a
+        single year. Behind that number: more than 200,000 families, an average loss of about
+        $39,000, and thousands of retirements erased by a single phone call.
+      </p>
+      <p>
+        What struck us wasn't just the scale. It was the mismatch. For over a decade, every major
+        company has trained employees against these exact tactics with simulated attacks and
+        coaching — a proven playbook worth billions. Meanwhile, the standard offering for the
+        people scammers actually target most is a pamphlet and a one-time seminar whose effect,
+        research shows, fades within a month.
+      </p>
+      <p>
+        Spry exists to close that gap: to take the most effective training method we know of
+        and finally point it at the people who need it — with the consent, gentleness, and dignity
+        that training your own parent demands.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="wrap prose">
+      <h2>The founder</h2>
+      <p>
+        Spry is built by <strong>Bryce Wachtell</strong>, founder of Sawtooth Technologies.
+        Bryce spent his career in strategy and operations — at Bain &amp; Company, on Google's
+        central strategy team, and at an early-stage startup — and is affiliated with Stanford's
+        Graduate School of Business. He's building Spry the way he believes protective
+        products should be built: research-first, consent-first, and in close conversation with
+        the fraud-prevention experts, families, and senior-care leaders it serves.
+      </p>
+
+      <div class="values">
+        <span>Dignity first</span>
+        <span>Consent always</span>
+        <span>Proof over promises</span>
+        <span>Research-built</span>
+      </div>
+
+      <p style="margin-top: 32px;">
+        We're in early access and building with our founding families and partners. Want to shape
+        it? <a href="/early-access">Get early access</a> or write us at
+        <a href="mailto:hello@sawtoothtechnologies.com">hello@sawtoothtechnologies.com</a>.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .values {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+  }
+  .values span {
+    background: var(--white);
+    border: 1.5px solid var(--pine);
+    color: var(--pine-deep);
+    border-radius: 999px;
+    padding: 9px 20px;
+    font-weight: 700;
+    font-size: 0.98rem;
+  }
+</style>

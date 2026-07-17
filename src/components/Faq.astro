@@ -1,0 +1,13 @@
+---
+// Renders a list of FAQ items as an accessible native accordion.
+const { items } = Astro.props;
+---
+
+<div>
+  {items.map((item) => (
+    <details class="faq-item">
+      <summary>{item.q}</summary>
+      <div class="faq-body" set:html={item.a} />
+    </details>
+  ))}
+</div>

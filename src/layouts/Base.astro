@@ -1,0 +1,273 @@
+---
+import '../styles/global.css';
+
+const { title, description } = Astro.props;
+const year = new Date().getFullYear();
+
+const nav = [
+  { href: '/how-it-works', label: 'How it works' },
+  { href: '/why-it-works', label: 'Why it works' },
+  { href: '/pricing', label: 'Pricing' },
+  { href: '/about', label: 'About' },
+];
+const solutions = [
+  { href: '/solutions/senior-living', label: 'For senior living' },
+  { href: '/solutions/home-care', label: 'For home care' },
+  { href: '/solutions/financial-advisors', label: 'For financial & wealth advisors' },
+  { href: '/solutions/credit-unions', label: 'For credit unions' },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Public+Sans:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="logo" href="/" aria-label="Spry home">
+          <svg width="30" height="30" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <circle cx="16" cy="16" r="14" fill="#16403a" />
+            <path d="M10 16.5l4 4 8-9" stroke="#e9a13b" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+          </svg>
+          <span>Spry</span>
+        </a>
+
+        <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">
+          Menu
+        </button>
+
+        <nav id="site-nav" class="site-nav" aria-label="Main">
+          <a href="/how-it-works">How it works</a>
+          <a href="/why-it-works">Why it works</a>
+          <div class="dropdown">
+            <a href="/solutions" class="dropdown__trigger" aria-haspopup="true">Solutions ▾</a>
+            <div class="dropdown__menu">
+              {solutions.map((s) => <a href={s.href}>{s.label}</a>)}
+            </div>
+          </div>
+          <a href="/pricing">Pricing</a>
+          <a href="/about">About</a>
+          <a href="/early-access" class="btn btn--primary btn--nav">Get early access</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="footer-grid">
+          <div>
+            <p class="footer-logo">Spry</p>
+            <p class="footer-tag">A fire drill for scams.</p>
+            <p><a href="mailto:hello@sawtoothtechnologies.com">hello@sawtoothtechnologies.com</a></p>
+          </div>
+          <nav aria-label="Footer — product">
+            <p class="footer-head">Product</p>
+            <a href="/how-it-works">How it works</a>
+            <a href="/why-it-works">Why it works</a>
+            <a href="/pricing">Pricing</a>
+            <a href="/early-access">Get early access</a>
+          </nav>
+          <nav aria-label="Footer — solutions">
+            <p class="footer-head">Solutions</p>
+            <a href="/solutions/senior-living">Senior living</a>
+            <a href="/solutions/home-care">Home care</a>
+            <a href="/solutions/financial-advisors">Financial &amp; wealth advisors</a>
+            <a href="/solutions/credit-unions">Credit unions</a>
+          </nav>
+          <nav aria-label="Footer — company">
+            <p class="footer-head">Company</p>
+            <a href="/about">About</a>
+            <a href="/promise">Our promise</a>
+            <a href="/faq">FAQ</a>
+            <a href="/privacy">Privacy</a>
+            <a href="/terms">Terms</a>
+          </nav>
+        </div>
+        <p class="footer-disclaimer">
+          Spry provides educational simulations and training. It does not provide financial,
+          legal, or medical advice, and no training program can guarantee protection from fraud.
+          Spry is a product of Sawtooth Technologies LLC. © {year} Sawtooth Technologies LLC.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      const toggle = document.querySelector('.menu-toggle');
+      const navEl = document.querySelector('.site-nav');
+      toggle?.addEventListener('click', () => {
+        const open = navEl.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded', String(open));
+      });
+    </script>
+
+    <style>
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(250, 246, 239, 0.94);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--line);
+      }
+      .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding-top: 14px;
+        padding-bottom: 14px;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: var(--font-display);
+        font-size: 1.45rem;
+        font-weight: 700;
+        color: var(--pine-deep);
+        text-decoration: none;
+      }
+      .site-nav {
+        display: flex;
+        align-items: center;
+        gap: 26px;
+      }
+      .site-nav > a:not(.btn), .dropdown__trigger {
+        text-decoration: none;
+        color: var(--ink);
+        font-weight: 600;
+        font-size: 1rem;
+      }
+      .site-nav > a:not(.btn):hover, .dropdown__trigger:hover { color: var(--pine-soft); }
+      .btn--nav { padding: 11px 22px; font-size: 0.95rem; }
+
+      .dropdown { position: relative; }
+      .dropdown__menu {
+        position: absolute;
+        top: 100%;
+        left: -14px;
+        padding: 10px 0;
+        min-width: 230px;
+        background: var(--white);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-lg);
+        display: none;
+        flex-direction: column;
+      }
+      .dropdown:hover .dropdown__menu,
+      .dropdown:focus-within .dropdown__menu { display: flex; }
+      .dropdown__menu a {
+        padding: 10px 20px;
+        text-decoration: none;
+        color: var(--ink);
+        font-weight: 600;
+        font-size: 0.98rem;
+      }
+      .dropdown__menu a:hover { background: var(--paper); color: var(--pine-deep); }
+
+      .menu-toggle {
+        display: none;
+        font: inherit;
+        font-weight: 700;
+        background: none;
+        border: 2px solid var(--pine);
+        border-radius: 10px;
+        padding: 8px 14px;
+        color: var(--pine);
+        cursor: pointer;
+      }
+
+      @media (max-width: 900px) {
+        .menu-toggle { display: block; }
+        .site-nav {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          flex-direction: column;
+          align-items: stretch;
+          background: var(--cream);
+          border-bottom: 1px solid var(--line);
+          padding: 18px 24px 26px;
+          gap: 18px;
+          box-shadow: var(--shadow-lg);
+        }
+        .site-nav.is-open { display: flex; }
+        .dropdown__menu {
+          position: static;
+          display: flex;
+          box-shadow: none;
+          border: none;
+          background: transparent;
+          padding: 6px 0 0 16px;
+        }
+        .dropdown__trigger { pointer-events: none; }
+      }
+
+      .site-footer {
+        background: var(--pine-deep);
+        color: var(--sage-pale);
+        padding: 64px 0 40px;
+        margin-top: 0;
+      }
+      .footer-grid {
+        display: grid;
+        gap: 36px;
+        grid-template-columns: 1fr;
+        margin-bottom: 40px;
+      }
+      @media (min-width: 760px) {
+        .footer-grid { grid-template-columns: 1.4fr 1fr 1fr 1fr; }
+      }
+      .footer-logo {
+        font-family: var(--font-display);
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--cream);
+        margin-bottom: 4px;
+      }
+      .footer-tag { color: var(--sage); margin-bottom: 14px; }
+      .footer-head {
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--sage);
+        margin-bottom: 12px;
+      }
+      .site-footer nav { display: flex; flex-direction: column; gap: 9px; }
+      .site-footer a { color: var(--sage-pale); text-decoration: none; font-size: 1rem; }
+      .site-footer a:hover { color: var(--cream); text-decoration: underline; }
+      .footer-disclaimer {
+        font-size: 0.85rem;
+        color: var(--sage);
+        border-top: 1px solid rgba(127, 168, 145, 0.25);
+        padding-top: 24px;
+        max-width: 900px;
+      }
+    </style>
+  </body>
+</html>

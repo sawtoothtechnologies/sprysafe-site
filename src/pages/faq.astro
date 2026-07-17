@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Faq from '../components/Faq.astro';
+import { faqs } from '../data/faqs.js';
+---
+
+<Base
+  title="Spry FAQ — Consent, Safety, Pricing & More"
+  description="Honest answers: Is it tricking my mom? Does she know? Is it legal? What does it cost?"
+>
+  <section class="section">
+    <div class="wrap prose">
+      <p class="kicker">FAQ</p>
+      <h1>Fair questions, honest answers.</h1>
+      <p class="lede">
+        Training your own parent to resist scams raises real questions. Here are ours, answered
+        the way we'd want them answered.
+      </p>
+    </div>
+  </section>
+
+  <section class="section--tight section" style="padding-bottom: 96px;">
+    <div class="wrap" style="max-width: 800px;">
+      <Faq items={faqs} />
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

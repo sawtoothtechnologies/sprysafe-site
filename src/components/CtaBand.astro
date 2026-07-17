@@ -1,0 +1,18 @@
+---
+const {
+  headline = 'Make the first scam a practice one.',
+  body = 'Join the early-access list today. Every plan starts with a 14-day free trial and is backed by a 60-day money-back guarantee — and founding members help shape the product protecting the people they love.',
+  cta = 'Get early access',
+  href = '/early-access',
+} = Astro.props;
+---
+
+<section class="section section--pine center">
+  <div class="wrap">
+    <h2>{headline}</h2>
+    <p class="lede" style="margin-inline:auto; max-width: 40rem;">{body}</p>
+    <p style="margin-top: 28px;">
+      <a class="btn btn--primary" href={href}>{cta}</a>
+    </p>
+  </div>
+</section>

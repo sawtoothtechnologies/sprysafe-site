@@ -1,0 +1,267 @@
+---
+import Base from '../layouts/Base.astro';
+import CtaBand from '../components/CtaBand.astro';
+---
+
+<Base
+  title="Spry Pricing — From $9/month, with a 14-Day Free Trial"
+  description="Individual plans from $9/month and two-person plans from $15/month (billed annually). Every plan starts with a 14-day free trial and carries a 60-day money-back guarantee. Business pricing for communities, agencies, and advisors."
+>
+  <section class="section">
+    <div class="wrap center">
+      <p class="kicker">Pricing</p>
+      <h1>Less than a streaming subscription. Somewhat higher stakes.</h1>
+      <p class="lede" style="margin-inline: auto;">
+        Every plan includes real, evolving drills — not a library of stale quizzes — plus
+        in-the-moment coaching and the monthly Resilience Report.
+      </p>
+    </div>
+  </section>
+
+  <section class="section--tight section">
+    <div class="wrap" id="plans">
+      <div class="plans-toggle-row">
+        <div class="plans-toggle" id="plan-toggle" role="group" aria-label="Choose plan type">
+          <button class="plans-toggle__btn is-active" data-panel="family" aria-pressed="true">For individuals &amp; families</button>
+          <button class="plans-toggle__btn" data-panel="business" aria-pressed="false">For businesses</button>
+        </div>
+      </div>
+
+      <!-- ============ INDIVIDUALS & FAMILIES ============ -->
+      <div class="plans-panel is-active" data-plan="family">
+        <div class="pricing-grid">
+          <div class="price-card price-card--hero">
+            <p class="price-card__label">One person</p>
+            <h2>Individual</h2>
+            <p class="price-card__price">
+              <span class="price-card__num">$9</span>/month
+            </p>
+            <p class="price-card__billing">billed annually · $12/month if billed monthly</p>
+            <ul>
+              <li>4–6 safe, realistic practice drills per month, modeled on current scams</li>
+              <li>Email drills from day one; text drills with written consent; practice calls coming soon</li>
+              <li>Gentle 30-second coaching the moment a drill catches them</li>
+              <li>The monthly Resilience Report, delivered to up to 4 family members</li>
+              <li>Resilience trend line and quiet early-warning flags</li>
+              <li>Current-scam briefings for the whole family — this month's most-reported scam in plain English</li>
+              <li>Nothing for them to install. Cancel anytime.</li>
+            </ul>
+            <a class="btn btn--primary" href="/early-access">Start free trial</a>
+            <p class="price-card__trial">Includes 14-day free trial</p>
+          </div>
+
+          <div class="price-card price-card--hero">
+            <p class="price-card__label">Two people</p>
+            <h2>Couples &amp; pairs</h2>
+            <p class="price-card__price">
+              <span class="price-card__num">$15</span>/month
+            </p>
+            <p class="price-card__billing">billed annually · $20/month if billed monthly</p>
+            <ul>
+              <li>Everything in Individual, for two enrolled people</li>
+              <li>Perfect for a couple — or any two people you care about</li>
+              <li>Each person gets their own drills, coaching, and Resilience Report</li>
+              <li>One subscription, one bill, save vs. two individual plans</li>
+            </ul>
+            <a class="btn btn--primary" href="/early-access">Start free trial</a>
+            <p class="price-card__trial">Includes 14-day free trial</p>
+          </div>
+        </div>
+        <p class="guarantee center">
+          Every plan comes with a <strong>60-day money-back guarantee</strong> — if Spry isn't a
+          fit, we refund in full. No questions, no forms.
+        </p>
+      </div>
+
+      <!-- ============ BUSINESSES ============ -->
+      <div class="plans-panel" data-plan="business">
+        <div class="pricing-grid pricing-grid--single">
+          <div class="price-card">
+            <p class="price-card__label">For businesses</p>
+            <h2>Communities, agencies &amp; advisors</h2>
+            <p class="price-card__price">
+              <span class="price-card__num">$4–8</span>/enrolled person per month
+            </p>
+            <p class="price-card__alt">Volume-based. A 60-resident community ≈ $360/mo · 100 advisory clients ≈ $500/mo ($60/client/year)</p>
+            <ul>
+              <li>Everything in the Individual plan, for every enrolled person</li>
+              <li>Aggregate resilience reporting and a marketing-able community stat</li>
+              <li>Co-branded family Resilience Reports</li>
+              <li>Enrollment and consent workflow support</li>
+              <li>A dedicated onboarding partner</li>
+            </ul>
+            <p class="price-card__note">
+              <strong>Founding-partner pilots:</strong> discounted 90-day pilot for the first cohort of
+              communities, agencies, and advisory firms.
+            </p>
+            <a class="btn btn--ghost" href="mailto:hello@sawtoothtechnologies.com?subject=Spry%20partner%20call">Book a 20-minute call</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="wrap" style="max-width: 800px;">
+      <h2 class="center">Pricing questions</h2>
+      <div style="margin-top: 30px;">
+        <details class="faq-item">
+          <summary>Why does this cost more than a call blocker?</summary>
+          <div class="faq-body">
+            <p>
+              A blocker filters some scams. Spry changes what happens when one gets through —
+              and one always gets through. You're not buying software; you're buying a skill and
+              monthly proof it's growing.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>How does the free trial work?</summary>
+          <div class="faq-body">
+            <p>
+              Every plan starts with a 14-day free trial — long enough to see the first drills and
+              coaching in action. And after that, you're still covered by the 60-day money-back
+              guarantee.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>What if my parent doesn't want it?</summary>
+          <div class="faq-body">
+            <p>
+              Then we don't enroll them. Consent isn't a checkbox for us; it's the product working
+              as designed. Many parents warm up after seeing a sample drill — most people enjoy
+              being good at this.
+            </p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>Contracts?</summary>
+          <div class="faq-body">
+            <p>None. Monthly plans cancel anytime; annual plans refund unused months.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<script>
+  // Plan-type toggle. Progressive enhancement: without JS the toggle is hidden
+  // and both panels render stacked.
+  const plans = document.getElementById('plans');
+  if (plans) {
+    plans.classList.add('plans--js');
+    const buttons = Array.from(plans.querySelectorAll('.plans-toggle__btn'));
+    const panels = Array.from(plans.querySelectorAll('.plans-panel'));
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.panel;
+        buttons.forEach((b) => {
+          const active = b === btn;
+          b.classList.toggle('is-active', active);
+          b.setAttribute('aria-pressed', active ? 'true' : 'false');
+        });
+        panels.forEach((p) => p.classList.toggle('is-active', p.dataset.plan === target));
+      });
+    });
+  }
+</script>
+
+<style>
+  .plans-toggle-row { display: flex; justify-content: center; margin-bottom: 40px; }
+  .plans-toggle {
+    display: none;
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
+    padding: 5px;
+    gap: 4px;
+  }
+  .plans--js .plans-toggle { display: inline-flex; }
+  .plans-toggle__btn {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink-soft);
+    background: transparent;
+    border: none;
+    border-radius: 999px;
+    padding: 11px 24px;
+    cursor: pointer;
+    transition: background 0.12s ease, color 0.12s ease;
+  }
+  .plans-toggle__btn:hover { color: var(--pine-deep); }
+  .plans-toggle__btn:focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
+  .plans-toggle__btn.is-active {
+    background: var(--pine-deep);
+    color: var(--cream);
+  }
+  .plans--js .plans-panel { display: none; }
+  .plans--js .plans-panel.is-active { display: block; animation: planFade 0.25s ease; }
+  .plans-panel + .plans-panel { margin-top: 48px; }
+  .plans--js .plans-panel + .plans-panel { margin-top: 0; }
+  @keyframes planFade {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  .pricing-grid {
+    display: grid;
+    gap: 32px;
+    align-items: start;
+  }
+  @media (min-width: 880px) {
+    .pricing-grid { grid-template-columns: 1fr 1fr; }
+    .pricing-grid--single { grid-template-columns: 1fr; max-width: 680px; margin-inline: auto; }
+  }
+  .price-card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 40px 36px;
+    box-shadow: var(--shadow);
+  }
+  .price-card--hero {
+    border: 2px solid var(--pine);
+    box-shadow: var(--shadow-lg);
+  }
+  .price-card__label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--amber-deep);
+    margin-bottom: 6px;
+  }
+  .price-card h2 { margin-bottom: 10px; }
+  .price-card__price { font-size: 1.15rem; color: var(--ink-soft); margin-bottom: 2px; }
+  .price-card__num {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--pine-deep);
+  }
+  .price-card__billing {
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+    margin: 0 0 18px;
+  }
+  .price-card__alt { color: var(--ink-soft); font-size: 1rem; }
+  .price-card ul { padding-left: 1.2em; margin: 0 0 20px; }
+  .price-card ul li { margin-bottom: 0.55em; font-size: 1rem; }
+  .price-card__note { font-size: 0.95rem; color: var(--ink-soft); margin-bottom: 24px; }
+  .price-card__trial {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    margin: 10px 0 0;
+  }
+  .guarantee {
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    margin-top: 28px;
+  }
+  .guarantee strong { color: var(--pine-deep); }
+</style>

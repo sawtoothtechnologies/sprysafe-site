@@ -1,0 +1,166 @@
+---
+import Base from '../layouts/Base.astro';
+import ReportCard from '../components/ReportCard.astro';
+import CtaBand from '../components/CtaBand.astro';
+---
+
+<Base
+  title="How Spry Works — Safe Practice Scams + Coaching"
+  description="Realistic practice scams by email and text, 30-second coaching the moment they slip, and a monthly Resilience Report. See exactly how a scam fire drill works."
+>
+  <section class="section">
+    <div class="wrap prose">
+      <p class="kicker">How it works</p>
+      <h1>Practice, coaching, proof.</h1>
+      <p class="lede">
+        A fire drill doesn't lecture you about fire. It builds the reflex. Here's exactly what
+        happens after a family enrolls — step by step, drill by drill.
+      </p>
+    </div>
+  </section>
+
+  <section class="section--tight section">
+    <div class="wrap">
+      <div class="grid grid--2" style="gap: 40px;">
+        <div class="step">
+          <span class="step__num">1</span>
+          <div>
+            <h3>Enroll with consent.</h3>
+            <p>
+              You sign up and your parent opts in — always. Tell us a bit about them (email, phone,
+              the scams they've seen before). Setup takes ten minutes, and there's nothing for them
+              to install.
+            </p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step__num">2</span>
+          <div>
+            <h3>We run safe, realistic drills.</h3>
+            <p>
+              On an unpredictable schedule, we send practice versions of the exact scams hitting
+              older adults right now — starting with email, expanding to texts and calls with
+              written consent. Drills are modeled on the latest tactics reported to the FBI and FTC.
+            </p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step__num">3</span>
+          <div>
+            <h3>Coaching in the moment they slip.</h3>
+            <p>
+              If your dad clicks, nothing bad happens. A friendly page opens instead — a specific,
+              usable lesson in thirty seconds. No lecture, no shame. Research shows this exact
+              moment is when the lesson sticks.
+            </p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step__num">4</span>
+          <div>
+            <h3>You get the Resilience Report.</h3>
+            <p>
+              Every month: which drills we ran, what they caught, what they missed, and their
+              resilience trend over time. Proof they're getting sharper — and an early heads-up if
+              their judgment starts to slip.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="wrap prose">
+      <h2>What a drill actually looks like</h2>
+      <p>
+        <strong>The “account locked” email.</strong> Dad gets an email that looks like it's from a
+        bank: <em>“Unusual sign-in detected. Verify your account within 24 hours.”</em> If he
+        pauses, checks the sender, and deletes or reports it — that's a win on his Resilience Report. If
+        he clicks, a calm page opens: “This was a Spry practice drill. Real banks never ask you
+        to ‘verify’ through an email link. Here are the three tells you can check in five seconds.”
+        Total time: under a minute.
+      </p>
+      <p>
+        <strong>The practice “grandparent” text.</strong> <em>(SMS drills require written consent —
+        see <a href="/promise">Our promise</a>.)</em> A text arrives: “Grandma, it's me — I'm in
+        trouble, please don't tell Mom. Can you send gift cards?” The moment she replies or clicks,
+        the coaching kicks in: “Scammers pretend to be family in a panic. The counter-move: hang up
+        and call your grandchild's real number. You'll never regret double-checking.”
+      </p>
+      <p>
+        Every drill is modeled on current tactics reported to the FBI, FTC, and state regulators —
+        updated monthly as scams evolve.
+      </p>
+
+      <h2>The cadence</h2>
+      <p>
+        Drills arrive on an unpredictable schedule — typically <strong>4–6 per month</strong>,
+        mixed among real mail so the practice is honest. Unpredictability is the point: real scams
+        don't make appointments. Frequency adapts to your parent: more reinforcement on scam types
+        they've missed, lighter touch once instincts are strong.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap report-split">
+      <div class="prose">
+        <h2>What's in the Resilience Report</h2>
+        <p>Delivered monthly to up to four family members your parent approves:</p>
+        <ul>
+          <li>Every drill we ran, and how it went — caught, ignored, or coached</li>
+          <li>A resilience score with a trend line across months</li>
+          <li>The scam type we're reinforcing next, and why</li>
+          <li>A plain-English briefing on this month's most-reported scam</li>
+        </ul>
+        <h2 style="margin-top: 1.6em;">A gentle early-warning system</h2>
+        <p>
+          Research from the University of Florida found that performance on simulated scam tests
+          tracks with memory and real-world risk. A gradual decline in your parent's resilience
+          trend doesn't diagnose anything — but it's the kind of early signal families say they
+          wish they'd had. We surface it quietly, privately, and only to the family members your
+          parent approved.
+        </p>
+      </div>
+      <div><ReportCard /></div>
+    </div>
+  </section>
+
+  <section class="section--tight section">
+    <div class="wrap">
+      <div class="card" style="border-left: 6px solid var(--pine);">
+        <h3>Where drills stand today</h3>
+        <p><strong>Today:</strong> email drills (plus paper-mail drills where available).</p>
+        <p><strong>With written consent:</strong> text-message drills.</p>
+        <p>
+          <strong>Coming:</strong> practice phone calls, including AI-voice “grandparent scam”
+          simulations — the scam family members fear most, rehearsed safely.
+        </p>
+        <p style="margin-bottom: 0;">
+          We sequence channels this way deliberately: text and voice simulations are regulated
+          under federal telemarketing law, and we built our consent process to exceed those
+          requirements rather than skirt them.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    headline="Ready to run the first drill?"
+    body="Join the early-access list — or read the honest answers to the questions every family asks first."
+  />
+</Base>
+
+<style>
+  .report-split {
+    display: grid;
+    gap: 48px;
+    align-items: start;
+  }
+  @media (min-width: 920px) {
+    .report-split { grid-template-columns: 1.2fr 1fr; }
+  }
+  ul { padding-left: 1.2em; }
+  ul li { margin-bottom: 0.5em; }
+</style>

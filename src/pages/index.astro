@@ -1,0 +1,563 @@
+---
+import Base from '../layouts/Base.astro';
+import ReportCard from '../components/ReportCard.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Faq from '../components/Faq.astro';
+import { homeFaqs } from '../data/faqs.js';
+---
+
+<Base
+  title="Spry — Simulated Scam Drills & Coaching, with a Monthly Resilience Report"
+  description="A pamphlet won't stop the next scam. Practice will. Spry trains the person you care about with safe, simulated scam drills, coaching the moment they slip, and a drip of up-to-date scam briefings — plus a monthly Resilience Report. Consent-first."
+>
+  <!-- ============ HERO ============ -->
+  <section class="section hero">
+    <div class="wrap hero__grid">
+      <div>
+        <h1>A pamphlet won't stop the next scam. Practice will.</h1>
+        <p class="lede">
+          Spry sends the person you care about safe, simulated scam attempts — a fake “your
+          account is locked” email, a practice “family emergency” text — and coaches them gently
+          the very moment they slip. Between drills, short plain-English briefings keep their
+          guard fresh and current. So when the real thing comes — and it will — they already know
+          what to do.
+        </p>
+        <div class="btn-row" style="margin-top: 30px;">
+          <a class="btn btn--primary" href="/early-access">Get early access</a>
+          <a class="btn btn--ghost" href="#how">See how it works</a>
+        </div>
+        <p class="trust-line">
+          Consent-first. No bank access. Nothing for them to install. Cancel anytime —
+          with a 60-day money-back guarantee.
+        </p>
+      </div>
+      <div class="hero__card">
+        <ReportCard />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ THE PROBLEM ============ -->
+  <section class="section section--paper">
+    <div class="wrap">
+      <p class="kicker">Why now</p>
+      <h2 style="max-width: 34rem;">Scams are getting smarter — and losses are exploding</h2>
+      <p class="lede">
+        AI voice clones and deepfakes have made fraud dramatically more convincing. The numbers
+        show it.
+      </p>
+
+      <div class="grid grid--4" style="margin-top: 40px;">
+        <div class="stat">
+          <span class="stat__num" data-countup data-prefix="$" data-target="7.75" data-decimals="2" data-suffix="B">$7.75B</span>
+          <span class="stat__label">reported lost by Americans 60+ in 2025</span>
+        </div>
+        <div class="stat">
+          <span class="stat__num" data-countup data-prefix="+" data-target="59" data-suffix="%">+59%</span>
+          <span class="stat__label">jump in losses in a single year</span>
+        </div>
+        <div class="stat">
+          <span class="stat__num" data-countup data-prefix="~$" data-target="39000">~$39,000</span>
+          <span class="stat__label">average loss per victim</span>
+        </div>
+        <div class="stat">
+          <span class="stat__num" data-countup data-target="12400" data-suffix="+">12,400+</span>
+          <span class="stat__label">victims who each lost $100,000+</span>
+        </div>
+      </div>
+      <p class="footnote" style="margin-top: 18px;">
+        Source: <a href="https://www.ic3.gov/AnnualReport/Reports/2025_IC3Report.pdf">FBI Internet Crime Complaint Center, 2025 Annual Report</a>.
+      </p>
+
+      <p class="lede" style="margin-top: 36px; max-width: 44rem;">
+        The good news: spotting a scam is a trainable skill. Classes and pamphlets fade within a
+        month — practice sticks. That's Spry.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ HOW IT WORKS ============ -->
+  <section class="section" id="how">
+    <div class="wrap">
+      <p class="kicker">How it works</p>
+      <h2>A fire drill for scams</h2>
+      <p class="lede">A fire drill doesn't lecture you about fire. It builds the reflex. Spry works the same way — four parts, each with one job.</p>
+
+      <div class="hiw" id="hiw">
+        <div class="hiw__tabs" role="tablist" aria-label="How Spry works">
+          <button class="hiw__tab is-active" id="hiw-tab-1" role="tab" aria-selected="true" aria-controls="hiw-panel-1">
+            <span class="hiw__tab-num">1</span>
+            <span class="hiw__tab-title">Enroll in 2 minutes</span>
+            <span class="hiw__tab-teaser">Nothing to install. They opt in.</span>
+          </button>
+          <button class="hiw__tab" id="hiw-tab-2" role="tab" aria-selected="false" aria-controls="hiw-panel-2">
+            <span class="hiw__tab-num">2</span>
+            <span class="hiw__tab-title">Safe, simulated drills</span>
+            <span class="hiw__tab-teaser">Realistic practice, coached the moment they slip.</span>
+          </button>
+          <button class="hiw__tab" id="hiw-tab-3" role="tab" aria-selected="false" aria-controls="hiw-panel-3">
+            <span class="hiw__tab-num">3</span>
+            <span class="hiw__tab-title">A quiet drip of education</span>
+            <span class="hiw__tab-teaser">Brief updates on the newest scams.</span>
+          </button>
+          <button class="hiw__tab" id="hiw-tab-4" role="tab" aria-selected="false" aria-controls="hiw-panel-4">
+            <span class="hiw__tab-num">4</span>
+            <span class="hiw__tab-title">Monthly Resilience Report</span>
+            <span class="hiw__tab-teaser">Proof they're getting sharper.</span>
+          </button>
+        </div>
+
+        <div class="hiw__panel is-active" id="hiw-panel-1" role="tabpanel" aria-labelledby="hiw-tab-1" tabindex="0">
+          <h3>Enroll in 2 minutes</h3>
+          <p>
+            Tell us a little about the person you're signing up — email, phone, and any scams
+            they've already run into. They opt in personally, always. No app to install, nothing
+            for them to manage. That's it: you're good to go.
+          </p>
+        </div>
+        <div class="hiw__panel" id="hiw-panel-2" role="tabpanel" aria-labelledby="hiw-tab-2" tabindex="0">
+          <h3>Safe, simulated drills</h3>
+          <p>
+            On an unpredictable schedule, we send practice versions of the scams hitting older
+            adults right now — across email, text, and calls — modeled on the latest tactics
+            reported to the FBI and FTC. If they click, nothing bad happens: a friendly page opens
+            explaining the tell they missed and gently pointing out what to watch for next time.
+            No lecture, no shame — and research shows this moment is when the lesson sticks.
+          </p>
+        </div>
+        <div class="hiw__panel" id="hiw-panel-3" role="tabpanel" aria-labelledby="hiw-tab-3" tabindex="0">
+          <h3>A quiet drip of education</h3>
+          <p>
+            On occasion, alongside the drills, we send a very brief heads-up: the newest scams in
+            circulation and the tells to look out for. Two minutes to read, spaced over time — so
+            the warnings stay fresh instead of fading like a one-time seminar.
+          </p>
+        </div>
+        <div class="hiw__panel" id="hiw-panel-4" role="tabpanel" aria-labelledby="hiw-tab-4" tabindex="0">
+          <h3>Monthly Resilience Report</h3>
+          <p>
+            Every month, a one-page rundown: which drills we ran, what they caught, what they
+            missed, and their resilience trend over time. Proof they're getting sharper — and an
+            early heads-up if their judgment starts to slip.
+          </p>
+        </div>
+
+        <div class="hiw__foot">
+          <span class="hiw__count" aria-hidden="true">1 of 4</span>
+          <div class="hiw__arrows">
+            <button class="hiw__arrow" data-prev aria-label="Previous step">←</button>
+            <button class="hiw__arrow" data-next aria-label="Next step">→</button>
+          </div>
+        </div>
+      </div>
+
+      <p style="margin-top: 40px;"><a class="btn btn--ghost" href="/how-it-works">See a drill up close →</a></p>
+    </div>
+  </section>
+
+  <!-- ============ AHEAD OF THE CURVE ============ -->
+  <section class="section section--paper">
+    <div class="wrap">
+      <p class="kicker">Always current</p>
+      <h2 style="max-width: 36rem;">Trained on this month's scams, not last year's</h2>
+      <p class="lede" style="max-width: 46rem;">
+        Scams evolve fast — AI voice clones, fake toll-road texts, “wrong number” investment
+        pitches. The pamphlet at the community center was printed before most of them existed,
+        and stagnant education content gets updated too infrequently to keep pace. Spry's drills
+        and briefings are refreshed continuously from what's actually being reported to the FBI
+        and FTC, so the person you care about hears about the newest scams while those scams are
+        still new — and often before they've made the local news.
+      </p>
+      <div class="grid grid--3" style="margin-top: 36px;">
+        <div class="card">
+          <h3 style="font-size: 1.15rem;">Drills modeled on live tactics</h3>
+          <p style="font-size: 1rem;">Practice scams mirror what's circulating right now, not a textbook example from years ago.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size: 1.15rem;">Briefings that stay ahead</h3>
+          <p style="font-size: 1rem;">When a new scam starts spreading, it shows up in their next briefing — a robust early warning no static class can match.</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size: 1.15rem;">A drip, not a dump</h3>
+          <p style="font-size: 1rem;">Small doses on a regular rhythm, because spaced repetition is how warnings are remembered — not a binder they read once.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RESILIENCE REPORT SHOWCASE ============ -->
+  <section class="section section--pine">
+    <div class="wrap hero__grid">
+      <div>
+        <p class="kicker">The Resilience Report</p>
+        <h2>Peace of mind you can actually read</h2>
+        <p class="lede">
+          Monitoring apps only message you when something bad might have happened. Spry sends
+          you proof of something good: the person you care about is getting harder to fool, month
+          after month. It's one page. It takes two minutes to read. And it turns “I hope they're
+          okay” into “I know they're ready.”
+        </p>
+      </div>
+      <div class="hero__card">
+        <ReportCard />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COMPARISON ============ -->
+  <section class="section">
+    <div class="wrap">
+      <h2 style="max-width: 36rem;">Everything else waits for the scam. We get there first.</h2>
+      <div class="table-scroll" style="margin-top: 36px;">
+        <table class="compare">
+          <thead>
+            <tr>
+              <th scope="col">Approach</th>
+              <th scope="col">What it does</th>
+              <th scope="col">The gap</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="compare__who">Account monitoring</td>
+              <td>Watches the bank account, alerts family to suspicious transactions</td>
+              <td>Alerts arrive <em>after</em> the money moves — and quietly signal “we're watching you”</td>
+            </tr>
+            <tr>
+              <td class="compare__who">Call &amp; text blockers</td>
+              <td>Filter known scam numbers</td>
+              <td>The day one slips through — and one always does — the person is untrained</td>
+            </tr>
+            <tr>
+              <td class="compare__who">Free classes &amp; pamphlets</td>
+              <td>Teach scam awareness once</td>
+              <td>The benefit fades within about a month — and the content goes stale as new scams appear</td>
+            </tr>
+            <tr class="compare__hero">
+              <td class="compare__who">Spry</td>
+              <td>Trains the person with safe practice and coaching, keeps their knowledge current with drip briefings, and measures progress monthly</td>
+              <td>The person becomes the defense — without giving up an ounce of independence</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="lede" style="margin-top: 28px;">Blockers and monitors are fine seatbelts. Spry is the driving lesson.</p>
+    </div>
+  </section>
+
+  <!-- ============ RESEARCH STRIP ============ -->
+  <section class="section section--paper">
+    <div class="wrap">
+      <p class="kicker">The evidence</p>
+      <h2>Built on what actually works</h2>
+      <p class="lede" style="max-width: 48rem;">
+        A 2024 federal review of scam-prevention research found that one-time education fades
+        within weeks — and called messaging that <em>simulates</em> the experience of being scammed
+        “promising.” A University of Florida study that sent simulated phishing emails to older
+        adults found performance on safe practice tests predicts real-world risk. And the
+        simulate-coach-measure loop is already how virtually every Fortune 500 company trains
+        employees — a proven, multibillion-dollar model that's simply never been pointed at the
+        people who need it most.
+      </p>
+      <div class="grid grid--3" style="margin-top: 36px;">
+        <div class="card">
+          <h3 style="font-size: 1.15rem;">Federal research review</h3>
+          <p style="font-size: 1rem;">
+            <a href="https://consumer.ftc.gov/system/files/consumer_ftc_gov/pdf/A%20Review%20of%20Scam%20Prevention%20Messaging%20Research.pdf">FTC advisory-group review of scam-prevention messaging research, 2024</a>
+          </p>
+        </div>
+        <div class="card">
+          <h3 style="font-size: 1.15rem;">Peer-reviewed study</h3>
+          <p style="font-size: 1rem;">
+            <a href="https://academic.oup.com/pnasnexus/article/3/8/pgae296/7725152">University of Florida phishing-simulation study, PNAS Nexus, 2024</a>
+          </p>
+        </div>
+        <div class="card">
+          <h3 style="font-size: 1.15rem;">Proven playbook</h3>
+          <p style="font-size: 1rem;">The enterprise security-training model used by virtually every large company. <a href="/why-it-works">The full case →</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ INDEPENDENCE ============ -->
+  <section class="section">
+    <div class="wrap center">
+      <h2 style="max-width: 38rem; margin-inline: auto;">Protection that doesn't take away independence</h2>
+      <p class="lede" style="max-width: 44rem; margin-inline: auto;">
+        Most “senior protection” products work by taking something away — access, autonomy, trust.
+        Spry works by <em>adding</em> something: skill. The person you care about keeps their
+        inbox, their phone, their independence, and their dignity. They just get harder to fool.
+        Many participants come to enjoy the drills — catching one feels like winning.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ NO NEW APPS ============ -->
+  <section class="section--tight section section--pine">
+    <div class="wrap center">
+      <h2 style="max-width: 40rem; margin-inline: auto;">No apps. No downloads. No logins.</h2>
+      <p class="lede" style="max-width: 44rem; margin-inline: auto;">
+        Spry lives in the tools the person you care about already uses — their inbox, their texts,
+        their phone. It's not another app to keep track of: nothing to install, no passwords to
+        remember, nothing to troubleshoot. Setup takes minutes, and from then on it just works.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ FOR ORGANIZATIONS ============ -->
+  <section class="section section--paper">
+    <div class="wrap">
+      <p class="kicker">Solutions</p>
+      <h2>Also built for the people families trust</h2>
+      <div class="grid grid--2" style="margin-top: 36px;">
+        <div class="card">
+          <h3>Senior-living communities</h3>
+          <p>
+            Give tours a differentiator no one else in town can claim: <em>we actively train
+            residents against scams — and prove it to families every month.</em>
+          </p>
+          <p><a class="cta-link" href="/solutions/senior-living">Learn more →</a></p>
+        </div>
+        <div class="card">
+          <h3>Home-care agencies</h3>
+          <p>A safety add-on your clients' families will thank you for — and a new recurring revenue line.</p>
+          <p><a class="cta-link" href="/solutions/home-care">Learn more →</a></p>
+        </div>
+        <div class="card">
+          <h3>Financial &amp; wealth advisors</h3>
+          <p>One scammed client can erase years of trust and six figures of AUM. Protect the person, not just the portfolio.</p>
+          <p><a class="cta-link" href="/solutions/financial-advisors">Learn more →</a></p>
+        </div>
+        <div class="card">
+          <h3>Credit unions</h3>
+          <p>A member benefit that keeps savings where they belong — and turns fraud prevention into loyalty across generations.</p>
+          <p><a class="cta-link" href="/solutions/credit-unions">Learn more →</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROMISE STRIP ============ -->
+  <section class="section--tight section">
+    <div class="wrap">
+      <div class="card" style="border-left: 6px solid var(--amber);">
+        <p style="margin: 0; font-size: 1.1rem;">
+          <strong>Consent-first, always.</strong> Every participant opts in personally. Drills are
+          gentle, immediately debriefed, and designed with published research on older-adult
+          learning. No shame, no tricks for tricks' sake, no surprises the family didn't sign up
+          for. <a href="/promise">Read our full promise →</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ TEASER ============ -->
+  <section class="section">
+    <div class="wrap" style="max-width: 800px;">
+      <h2 class="center">Fair questions, honest answers</h2>
+      <div style="margin-top: 32px;">
+        <Faq items={homeFaqs} />
+      </div>
+      <p class="center" style="margin-top: 26px;"><a href="/faq">Read the full FAQ →</a></p>
+    </div>
+  </section>
+
+  <!-- ============ FINAL CTA ============ -->
+  <CtaBand />
+</Base>
+
+<script>
+  // Count-up animation for the "Why now" stat tiles.
+  // Progressive enhancement: markup ships the final numbers, so no-JS visitors
+  // (and search engines) always see real values.
+  const els = document.querySelectorAll('[data-countup]');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const render = (el, value) => {
+    const decimals = parseInt(el.dataset.decimals || '0', 10);
+    const num = decimals
+      ? value.toFixed(decimals)
+      : Math.round(value).toLocaleString('en-US');
+    el.textContent = (el.dataset.prefix || '') + num + (el.dataset.suffix || '');
+  };
+
+  const animate = (el) => {
+    const target = parseFloat(el.dataset.target || '0');
+    if (reduceMotion) { render(el, target); return; }
+    const duration = 1400;
+    let startTime;
+    const tick = (now) => {
+      if (startTime === undefined) startTime = now;
+      const progress = Math.min((now - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+      render(el, target * eased);
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+
+  if (els.length && 'IntersectionObserver' in window && !reduceMotion) {
+    els.forEach((el) => render(el, 0)); // zero out only once JS is confirmed running
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animate(entry.target);
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+    els.forEach((el) => io.observe(el));
+  }
+
+  // "How it works" clickable tiles.
+  // Progressive enhancement: without JS, all four panels render stacked.
+  const hiw = document.getElementById('hiw');
+  if (hiw) {
+    hiw.classList.add('hiw--js');
+    const tabs = Array.from(hiw.querySelectorAll('.hiw__tab'));
+    const panels = Array.from(hiw.querySelectorAll('.hiw__panel'));
+    const counter = hiw.querySelector('.hiw__count');
+    let current = 0;
+
+    const show = (i, focusTab) => {
+      current = (i + tabs.length) % tabs.length;
+      tabs.forEach((tab, j) => {
+        const active = j === current;
+        tab.classList.toggle('is-active', active);
+        tab.setAttribute('aria-selected', active ? 'true' : 'false');
+        tab.tabIndex = active ? 0 : -1;
+      });
+      panels.forEach((panel, j) => panel.classList.toggle('is-active', j === current));
+      if (counter) counter.textContent = `${current + 1} of ${tabs.length}`;
+      if (focusTab) tabs[current].focus();
+    };
+
+    tabs.forEach((tab, j) => {
+      tab.addEventListener('click', () => show(j, false));
+      tab.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); show(current + 1, true); }
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); show(current - 1, true); }
+        if (e.key === 'Home') { e.preventDefault(); show(0, true); }
+        if (e.key === 'End') { e.preventDefault(); show(tabs.length - 1, true); }
+      });
+    });
+    hiw.querySelector('[data-prev]')?.addEventListener('click', () => show(current - 1, false));
+    hiw.querySelector('[data-next]')?.addEventListener('click', () => show(current + 1, false));
+    show(0, false);
+  }
+</script>
+
+<style>
+  .hero { padding-top: 72px; }
+  .hero__grid {
+    display: grid;
+    gap: 56px;
+    align-items: center;
+  }
+  @media (min-width: 920px) {
+    .hero__grid { grid-template-columns: 1.15fr 1fr; }
+  }
+  .hero__card { display: flex; justify-content: center; }
+  @media (min-width: 920px) {
+    .hero__card { transform: rotate(1.5deg); }
+  }
+
+  /* ---------- How-it-works tiles ---------- */
+  .hiw { margin-top: 44px; }
+  .hiw__tabs {
+    display: grid;
+    gap: 14px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (min-width: 860px) {
+    .hiw__tabs { grid-template-columns: repeat(4, 1fr); }
+  }
+  .hiw__tab {
+    font-family: var(--font-body);
+    text-align: left;
+    background: var(--white);
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius);
+    padding: 20px 18px;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: transform 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+  }
+  .hiw__tab:hover { transform: translateY(-2px); border-color: var(--pine-soft); }
+  .hiw__tab:focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
+  .hiw__tab.is-active { background: var(--pine-deep); border-color: var(--pine-deep); }
+  .hiw__tab.is-active .hiw__tab-title { color: var(--cream); }
+  .hiw__tab.is-active .hiw__tab-teaser { color: var(--sage-pale); }
+  .hiw__tab.is-active .hiw__tab-num { background: var(--amber); color: var(--pine-deep); }
+  .hiw__tab-num {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--pine);
+    color: var(--cream);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.05rem;
+    display: grid;
+    place-items: center;
+    margin-bottom: 12px;
+  }
+  .hiw__tab-title {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--pine-deep);
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+  .hiw__tab-teaser {
+    display: block;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    line-height: 1.4;
+  }
+  .hiw__panel {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: 34px 32px;
+    margin-top: 22px;
+  }
+  .hiw__panel h3 { margin-top: 0; }
+  .hiw__panel p { margin-bottom: 0; color: var(--ink-soft); max-width: 54rem; }
+  .hiw--js .hiw__panel { display: none; }
+  .hiw--js .hiw__panel.is-active { display: block; animation: hiwFade 0.25s ease; }
+  @keyframes hiwFade {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: none; }
+  }
+  .hiw__foot {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 18px;
+  }
+  .hiw--js .hiw__foot { display: flex; }
+  .hiw__count { font-size: 0.95rem; color: var(--ink-soft); }
+  .hiw__arrows { display: flex; gap: 10px; }
+  .hiw__arrow {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid var(--pine);
+    background: transparent;
+    color: var(--pine);
+    font-size: 1.15rem;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: background 0.12s ease, color 0.12s ease;
+  }
+  .hiw__arrow:hover { background: var(--pine); color: var(--cream); }
+</style>

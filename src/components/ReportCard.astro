@@ -1,0 +1,134 @@
+---
+// The hero artifact. Built in real HTML/CSS so it can become the actual
+// product template later. Always labeled as an illustrative sample.
+---
+
+<figure class="report" aria-label="Sample monthly Resilience Report (illustrative)">
+  <p class="report__sample">Sample report — illustrative</p>
+
+  <header class="report__head">
+    <div>
+      <p class="report__title">Margaret's Resilience Report</p>
+      <p class="report__month">June</p>
+    </div>
+    <div class="report__score" role="img" aria-label="Resilience score 84, up 9 points since March">
+      <span class="report__score-num">84</span>
+      <span class="report__score-delta">▲ 9 pts since March</span>
+    </div>
+  </header>
+
+  <p class="report__headline">Spotted <strong>4 of 5</strong> practice scams this month</p>
+
+  <ul class="report__list">
+    <li><span class="report__mark report__mark--ok">✓</span> Fake bank “account locked” email — <em>reported it</em></li>
+    <li><span class="report__mark report__mark--ok">✓</span> Prize-sweepstakes email — <em>deleted</em></li>
+    <li><span class="report__mark report__mark--ok">✓</span> Fake delivery text — <em>ignored</em></li>
+    <li><span class="report__mark report__mark--ok">✓</span> Utility “past-due” email — <em>reported it</em></li>
+    <li><span class="report__mark report__mark--warn">!</span> Fake bank text — <em>clicked, then completed a 30-second coaching moment</em></li>
+  </ul>
+
+  <footer class="report__foot">
+    <strong>What we're reinforcing next month:</strong> spotting look-alike sender numbers in texts.
+  </footer>
+</figure>
+
+<style>
+  .report {
+    margin: 0;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 30px 30px 26px;
+    box-shadow: var(--shadow-lg);
+    max-width: 480px;
+    font-size: 1rem;
+  }
+  .report__sample {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    background: var(--paper);
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin: 0 0 18px;
+  }
+  .report__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 6px;
+  }
+  .report__title {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--pine-deep);
+    margin: 0;
+    line-height: 1.2;
+  }
+  .report__month { color: var(--ink-soft); margin: 2px 0 0; }
+  .report__score { text-align: center; flex: none; }
+  .report__score-num {
+    display: grid;
+    place-items: center;
+    width: 74px;
+    height: 74px;
+    border-radius: 50%;
+    background: var(--pine);
+    color: var(--cream);
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  .report__score-delta {
+    display: block;
+    margin-top: 6px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--ok);
+  }
+  .report__headline {
+    font-size: 1.1rem;
+    margin: 10px 0 16px;
+    color: var(--ink);
+  }
+  .report__list {
+    list-style: none;
+    margin: 0 0 18px;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+  }
+  .report__list li {
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+    line-height: 1.45;
+    color: var(--ink-soft);
+  }
+  .report__list em { font-style: normal; color: var(--ink); }
+  .report__mark {
+    flex: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    transform: translateY(4px);
+  }
+  .report__mark--ok { background: #e2efe6; color: var(--ok); }
+  .report__mark--warn { background: #fbeed3; color: var(--warn); }
+  .report__foot {
+    border-top: 1px solid var(--line);
+    padding-top: 14px;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+  .report__foot strong { color: var(--pine-deep); }
+</style>
