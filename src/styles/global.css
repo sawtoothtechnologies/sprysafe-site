@@ -1,31 +1,30 @@
 /* ============================================================
-   Spry design system
-   Palette: deep pine green (trust) on warm cream, amber accent.
-   Type: Fraunces (display) + Public Sans (body), 18px+ body.
+   Spry design system — "Evergreen Modern" (2026-07-20)
+   Palette: evolved pine green (trust) on near-white, amber
+   reserved for CTAs. One typeface: Plus Jakarta Sans.
    ============================================================ */
 
 :root {
   /* Color */
-  --pine: #16403a;
-  --pine-deep: #0d2b27;
-  --pine-soft: #2a5c53;
-  --sage: #7fa891;
-  --sage-pale: #dce8df;
-  --cream: #faf6ef;
-  --paper: #f2ecdf;
-  --ink: #1e2a28;
-  --ink-soft: #4a5a56;
-  --amber: #e9a13b;
-  --amber-deep: #c77f1a;
-  --coral: #d96c47;
+  --pine: #145243;
+  --pine-deep: #0b3a2e;
+  --pine-soft: #1e6353;
+  --sage: #7ca591;
+  --sage-pale: #dfe9e2;
+  --cream: #fafaf6;
+  --paper: #f0f0e9;
+  --ink: #1c2724;
+  --ink-soft: #55635e;
+  --amber: #f0ad3f;
+  --amber-deep: #cf8c1d;
   --white: #ffffff;
-  --ok: #2e7d5b;
+  --ok: #1e7d5a;
   --warn: #b8860b;
-  --line: #e3dccb;
+  --line: #e6e6dd;
 
-  /* Type */
-  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
-  --font-body: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* Type — single family; hierarchy comes from weight */
+  --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
   /* Rhythm */
   --radius: 14px;
@@ -50,7 +49,7 @@ html {
 body {
   margin: 0;
   font-family: var(--font-body);
-  font-size: 1.125rem; /* 18px floor for older readers */
+  font-size: 1.0625rem; /* 17px — still generous for older readers */
   line-height: 1.65;
   color: var(--ink);
   background: var(--cream);
@@ -59,16 +58,18 @@ body {
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
-  font-weight: 600;
-  line-height: 1.15;
+  font-weight: 800;
+  line-height: 1.12;
   color: var(--pine-deep);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
   margin: 0 0 0.5em;
 }
 
-h1 { font-size: clamp(2.4rem, 5.2vw, 3.6rem); }
-h2 { font-size: clamp(1.8rem, 3.6vw, 2.5rem); }
-h3 { font-size: clamp(1.3rem, 2.4vw, 1.6rem); }
+h3, h4 { font-weight: 700; letter-spacing: -0.01em; }
+
+h1 { font-size: clamp(2.2rem, 4.8vw, 3.2rem); }
+h2 { font-size: clamp(1.7rem, 3.3vw, 2.3rem); }
+h3 { font-size: clamp(1.25rem, 2.2vw, 1.5rem); }
 
 p { margin: 0 0 1em; }
 
@@ -107,7 +108,7 @@ img { max-width: 100%; height: auto; }
 .section--pine .kicker { color: var(--amber); }
 
 .lede {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   line-height: 1.55;
   color: var(--ink-soft);
   max-width: var(--maxw-text);
@@ -142,7 +143,7 @@ img { max-width: 100%; height: auto; }
   color: var(--pine-deep);
   box-shadow: 0 2px 0 var(--amber-deep);
 }
-.btn--primary:hover { background: #f0b055; color: var(--pine-deep); }
+.btn--primary:hover { background: #f5bb5c; color: var(--pine-deep); }
 
 .btn--ghost {
   background: transparent;
@@ -187,8 +188,8 @@ img { max-width: 100%; height: auto; }
 .stat__num {
   font-family: var(--font-display);
   font-size: clamp(2rem, 3.4vw, 2.7rem);
-  font-weight: 700;
-  color: var(--coral);
+  font-weight: 800;
+  color: var(--pine);
   display: block;
   line-height: 1.1;
   margin-bottom: 8px;
@@ -220,7 +221,7 @@ img { max-width: 100%; height: auto; }
 .compare th, .compare td { padding: 18px 20px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
 .compare thead th { background: var(--pine-deep); color: var(--cream); font-family: var(--font-body); font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; }
 .compare tbody tr:last-child td { border-bottom: none; }
-.compare .compare__hero td { background: #eef5ef; font-weight: 600; }
+.compare .compare__hero td { background: #ebf2ed; font-weight: 600; }
 .compare .compare__who { font-weight: 700; color: var(--pine-deep); }
 .table-scroll { overflow-x: auto; border-radius: var(--radius); }
 
