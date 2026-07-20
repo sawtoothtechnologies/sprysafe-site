@@ -107,6 +107,37 @@ const nav = [
         const open = navEl.classList.toggle('is-open');
         toggle.setAttribute('aria-expanded', String(open));
       });
+
+      // Gentle scroll-reveal on cards, stats, and step tiles, sitewide.
+      // The .reveal class (and its hidden starting state) is only ever added
+      // here, so no-JS visitors and reduced-motion users see everything
+      // immediately. Siblings stagger slightly for a composed feel.
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if ('IntersectionObserver' in window && !reduceMotion) {
+        const targets = document.querySelectorAll(
+          '.card, .stat, .faq-item, .table-scroll, .price-card'
+        );
+        const siblingIndex = new Map();
+        targets.forEach((el) => {
+          const parent = el.parentElement;
+          const i = siblingIndex.get(parent) || 0;
+          siblingIndex.set(parent, i + 1);
+          el.style.setProperty('--reveal-delay', Math.min(i * 90, 360) + 'ms');
+          el.classList.add('reveal');
+        });
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('reveal--in');
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+        );
+        targets.forEach((el) => io.observe(el));
+      }
     </script>
 
     <style>

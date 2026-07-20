@@ -1,0 +1,324 @@
+---
+// Animated phone mockup for the homepage "How it works" section.
+// Each step of the walkthrough gets a matching "scene" on the phone:
+//   1 — the opt-in welcome text     2 — a simulated drill (text + call)
+//   3 — a drip briefing             4 — the Resilience Report notification
+// The scenes are driven by the how-it-works script in index.astro, which
+// dispatches a `spry:hiwchange` event whenever the active step changes.
+//
+// Progressive enhancement / accessibility:
+// - Without JS, the drill scene (the most illustrative one) renders statically.
+// - With prefers-reduced-motion, scenes still switch but beats appear instantly.
+// - The whole phone is decorative for screen readers (the step panels carry the
+//   real explanation), so the internals are aria-hidden.
+---
+
+<figure class="phone" id="phone-demo" aria-label="Illustrative example of Spry practice drills arriving on a phone — simulated and safe">
+  <figcaption class="phone__caption">What it looks like on their phone — every drill simulated, safe, and coached.</figcaption>
+
+  <div class="phone__frame" aria-hidden="true">
+    <div class="phone__screen">
+      <div class="phone__statusbar">
+        <span>9:41</span>
+        <span class="phone__signal"><i></i><i></i><i></i></span>
+      </div>
+
+      <!-- Scene 1 — Enroll / opt-in -->
+      <div class="scene" data-scene="0">
+        <p class="scene__label">The opt-in</p>
+        <div class="beat bubble bubble--in" style="--d: 0.3s;">
+          Hi Margaret, this is Spry. Your family set up scam practice for you — short, friendly
+          drills to keep you sharp. Reply YES to start.
+        </div>
+        <div class="beat bubble bubble--out" style="--d: 1.8s;">YES</div>
+        <div class="beat chip chip--ok" style="--d: 2.8s;">✓ Opted in — she's always in control</div>
+      </div>
+
+      <!-- Scene 2 — A simulated drill (default when JS is off) -->
+      <div class="scene is-static" data-scene="1">
+        <p class="scene__label">A drill arrives — unannounced, but harmless</p>
+        <div class="beat beat--buzz bubble bubble--in bubble--scam" style="--d: 0.3s;">
+          <span class="bubble__tag">Simulated</span>
+          FreightXpress: your package is on hold. Pay a $1.99 redelivery fee at
+          <span class="bubble__link">fedx-track-19.co</span>
+        </div>
+        <div class="beat chip chip--ok" style="--d: 2.2s;">She didn't tap the link ✓</div>
+        <div class="beat beat--buzz callcard" style="--d: 3.4s;">
+          <span class="callcard__ring"><span class="callcard__rings"></span>📞</span>
+          <span class="callcard__who">
+            <strong>Incoming call</strong>
+            “Bank fraud department” — spoofed number
+          </span>
+        </div>
+        <div class="beat chip chip--ok" style="--d: 5.2s;">Hung up, called the real number ✓</div>
+        <div class="beat banner" style="--d: 6.3s;">Drill passed — coached in 30 seconds, no lecture</div>
+      </div>
+
+      <!-- Scene 3 — Drip briefing -->
+      <div class="scene" data-scene="2">
+        <p class="scene__label">A quiet heads-up</p>
+        <div class="beat bubble bubble--in" style="--d: 0.3s;">
+          <strong>Spry heads-up:</strong> a new Medicare-card text scam is going around. The tell —
+          they ask you to “verify” your card number. Real agencies never do.
+        </div>
+        <div class="beat chip" style="--d: 2.3s;">2-minute read · always current</div>
+      </div>
+
+      <!-- Scene 4 — Resilience Report -->
+      <div class="scene" data-scene="3">
+        <p class="scene__label">And the family sees progress</p>
+        <div class="beat notif" style="--d: 0.3s;">
+          <span class="notif__icon">
+            <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
+              <circle cx="16" cy="16" r="14" fill="#16403a" />
+              <path d="M10 16.5l4 4 8-9" stroke="#e9a13b" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+            </svg>
+          </span>
+          <span class="notif__body">
+            <strong>Margaret's June Resilience Report is ready</strong>
+            Score 84 <span class="notif__delta">▲ 9 pts</span> · caught 4 of 5 drills
+          </span>
+        </div>
+        <div class="beat chip chip--ok" style="--d: 2.2s;">Proof she's getting sharper — not surveillance</div>
+      </div>
+    </div>
+  </div>
+</figure>
+
+<script>
+  const phone = document.getElementById('phone-demo');
+  if (phone) {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    phone.classList.add('phone--js');
+    if (!reduce) phone.classList.add('phone--anim');
+    const scenes = Array.from(phone.querySelectorAll('.scene'));
+
+    const setScene = (i) => {
+      scenes.forEach((s) => {
+        const active = Number(s.dataset.scene) === i;
+        s.classList.remove('is-static');
+        if (active && !s.classList.contains('is-active')) {
+          // Force a reflow between class toggles so CSS animations restart
+          // every time a scene becomes active again.
+          s.classList.remove('is-active');
+          void s.offsetWidth;
+          s.classList.add('is-active');
+        } else if (!active) {
+          s.classList.remove('is-active');
+        }
+      });
+    };
+
+    document.addEventListener('spry:hiwchange', (e) => setScene(e.detail.index));
+    setScene(0);
+  }
+</script>
+
+<style>
+  .phone { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 18px; }
+  .phone__caption {
+    order: 2;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    text-align: center;
+    max-width: 300px;
+    line-height: 1.45;
+  }
+  .phone__frame {
+    width: min(320px, 88vw);
+    border-radius: 42px;
+    background: var(--pine-deep);
+    padding: 12px;
+    box-shadow: var(--shadow-lg);
+  }
+  .phone__screen {
+    background: var(--cream);
+    border-radius: 32px;
+    min-height: 480px;
+    padding: 14px 14px 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .phone__statusbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--ink-soft);
+    padding: 2px 8px 10px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 12px;
+  }
+  .phone__signal { display: inline-flex; gap: 3px; align-items: flex-end; }
+  .phone__signal i { width: 4px; background: var(--ink-soft); border-radius: 1px; display: block; }
+  .phone__signal i:nth-child(1) { height: 5px; }
+  .phone__signal i:nth-child(2) { height: 8px; }
+  .phone__signal i:nth-child(3) { height: 11px; }
+
+  /* ---------- Scenes ---------- */
+  .scene { display: none; flex-direction: column; gap: 12px; }
+  /* No-JS fallback: show the drill scene statically. */
+  .scene.is-static { display: flex; }
+  .phone--js .scene { display: none; }
+  .phone--js .scene.is-active { display: flex; }
+
+  .scene__label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-align: center;
+    margin: 0 0 2px;
+  }
+
+  /* Beats: visible by default (no-JS / reduced motion). Only when the
+     phone is allowed to animate do we hide them and play them in. */
+  .phone--anim .scene.is-active .beat {
+    opacity: 0;
+    animation: beatIn 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+    animation-delay: var(--d, 0s);
+  }
+  .phone--anim .scene.is-active .beat--buzz {
+    animation-name: beatIn, buzz;
+    animation-duration: 0.45s, 0.5s;
+    animation-delay: var(--d, 0s), calc(var(--d, 0s) + 0.1s);
+    animation-fill-mode: forwards, none;
+  }
+  @keyframes beatIn {
+    from { opacity: 0; transform: translateY(12px) scale(0.97); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes buzz {
+    0%, 100% { transform: translateX(0); }
+    15% { transform: translateX(-3px) rotate(-0.4deg); }
+    30% { transform: translateX(3px) rotate(0.4deg); }
+    45% { transform: translateX(-3px); }
+    60% { transform: translateX(3px); }
+    75% { transform: translateX(-2px); }
+    90% { transform: translateX(2px); }
+  }
+
+  /* ---------- Message bubbles ---------- */
+  .bubble {
+    max-width: 88%;
+    padding: 12px 14px;
+    border-radius: 18px;
+    font-size: 0.92rem;
+    line-height: 1.45;
+    color: var(--ink);
+  }
+  .bubble--in {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-bottom-left-radius: 6px;
+    align-self: flex-start;
+    box-shadow: 0 1px 3px rgba(22, 64, 58, 0.08);
+  }
+  .bubble--out {
+    background: var(--pine);
+    color: var(--cream);
+    border-bottom-right-radius: 6px;
+    align-self: flex-end;
+    font-weight: 700;
+  }
+  .bubble--scam { border-color: #e8c9a8; background: #fdf7ee; }
+  .bubble__tag {
+    display: inline-block;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--amber-deep);
+    background: #f7e8cd;
+    border-radius: 999px;
+    padding: 2px 8px;
+    margin-bottom: 6px;
+  }
+  .bubble__link { color: #1a63c4; text-decoration: underline; word-break: break-all; }
+
+  /* ---------- Chips & banner ---------- */
+  .chip {
+    align-self: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--ink-soft);
+    background: var(--paper);
+    border-radius: 999px;
+    padding: 6px 14px;
+    text-align: center;
+  }
+  .chip--ok { color: var(--ok); background: #e2efe6; }
+  .banner {
+    background: var(--pine);
+    color: var(--cream);
+    border-radius: 12px;
+    padding: 11px 14px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  /* ---------- Incoming call card ---------- */
+  .callcard {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 12px 14px;
+    box-shadow: 0 1px 3px rgba(22, 64, 58, 0.08);
+  }
+  .callcard__ring {
+    position: relative;
+    flex: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #e2efe6;
+    display: grid;
+    place-items: center;
+    font-size: 1.15rem;
+  }
+  .callcard__rings,
+  .callcard__rings::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid var(--sage);
+    opacity: 0;
+  }
+  .phone--anim .scene.is-active .callcard__rings,
+  .phone--anim .scene.is-active .callcard__rings::after {
+    animation: ringPulse 1.4s ease-out infinite;
+    animation-delay: calc(var(--d, 0s) + 0.3s);
+  }
+  .phone--anim .scene.is-active .callcard__rings::after { animation-delay: calc(var(--d, 0s) + 1s); }
+  @keyframes ringPulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    100% { transform: scale(1.85); opacity: 0; }
+  }
+  .callcard__who { font-size: 0.86rem; line-height: 1.4; color: var(--ink-soft); }
+  .callcard__who strong { display: block; color: var(--ink); font-size: 0.94rem; }
+
+  /* ---------- Report notification ---------- */
+  .notif {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 13px 14px;
+    box-shadow: 0 1px 3px rgba(22, 64, 58, 0.08);
+  }
+  .notif__icon { flex: none; display: grid; place-items: center; padding-top: 2px; }
+  .notif__body { font-size: 0.86rem; line-height: 1.45; color: var(--ink-soft); }
+  .notif__body strong { display: block; color: var(--ink); font-size: 0.92rem; margin-bottom: 2px; }
+  .notif__delta { color: var(--ok); font-weight: 700; }
+</style>

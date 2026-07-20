@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import ReportCard from '../components/ReportCard.astro';
+import PhoneDemo from '../components/PhoneDemo.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Faq from '../components/Faq.astro';
 import { homeFaqs } from '../data/faqs.js';
@@ -82,6 +83,7 @@ import { homeFaqs } from '../data/faqs.js';
       <p class="lede">A fire drill doesn't lecture you about fire. It builds the reflex. Spry works the same way — four parts, each with one job.</p>
 
       <div class="hiw" id="hiw">
+        <div class="hiw__main">
         <div class="hiw__tabs" role="tablist" aria-label="How Spry works">
           <button class="hiw__tab is-active" id="hiw-tab-1" role="tab" aria-selected="true" aria-controls="hiw-panel-1">
             <span class="hiw__tab-num">1</span>
@@ -157,6 +159,11 @@ import { homeFaqs } from '../data/faqs.js';
               <button class="hiw__arrow" data-next aria-label="Next step">→</button>
             </div>
           </div>
+        </div>
+        </div>
+
+        <div class="hiw__phone">
+          <PhoneDemo />
         </div>
       </div>
 
@@ -366,7 +373,9 @@ import { homeFaqs } from '../data/faqs.js';
     const caret = hiw.querySelector('.hiw__caret');
     const counter = hiw.querySelector('.hiw__count');
     const n = tabs.length;
-    const DURATION = 4200;
+    // Per-step autoplay durations — the drill step (2) runs longer so the
+    // phone demo's full sequence (text → call → passed) can play out.
+    const DURATIONS = [4500, 7500, 5000, 5000];
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let current = 0, elapsed = 0, last = null, hovering = false, stopped = false, raf = 0;
 
@@ -393,6 +402,8 @@ import { homeFaqs } from '../data/faqs.js';
       setProgress(0);
       moveCaret();
       if (focusTab) tabs[current].focus();
+      // Tell the phone demo which scene to play.
+      document.dispatchEvent(new CustomEvent('spry:hiwchange', { detail: { index: current } }));
     };
 
     const stop = () => {
@@ -427,8 +438,9 @@ import { homeFaqs } from '../data/faqs.js';
         last = now;
         if (!hovering && !stopped) {
           elapsed += dt;
-          setProgress(Math.min(elapsed / DURATION, 1));
-          if (elapsed >= DURATION) show((current + 1) % n, false);
+          const duration = DURATIONS[current] || 4500;
+          setProgress(Math.min(elapsed / duration, 1));
+          if (elapsed >= duration) show((current + 1) % n, false);
         }
         raf = requestAnimationFrame(frame);
       };
@@ -461,16 +473,23 @@ import { homeFaqs } from '../data/faqs.js';
   }
 
   /* ---------- How-it-works tiles ---------- */
-  .hiw { margin-top: 44px; }
+  .hiw {
+    margin-top: 44px;
+    display: grid;
+    gap: 44px;
+  }
+  @media (min-width: 1040px) {
+    /* Walkthrough on the left, live phone demo on the right. */
+    .hiw { grid-template-columns: minmax(0, 1fr) 340px; align-items: start; }
+  }
+  .hiw__phone { display: flex; justify-content: center; }
+  @media (min-width: 1040px) {
+    .hiw__phone { position: sticky; top: 96px; }
+  }
   .hiw__tabs {
     display: grid;
     gap: 14px;
     grid-template-columns: repeat(2, 1fr);
-  }
-  @media (min-width: 860px) {
-    .hiw__tabs { grid-template-columns: repeat(4, 1fr); }
-    /* The caret only aligns cleanly under a single row of tiles. */
-    .hiw--js .hiw__caret { display: block; }
   }
   .hiw__tab {
     position: relative;
