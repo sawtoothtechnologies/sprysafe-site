@@ -46,26 +46,54 @@ import { homeFaqs } from '../data/faqs.js';
         show it.
       </p>
 
-      <div class="grid grid--4" style="margin-top: 40px;">
-        <div class="stat">
-          <span class="stat__num" data-countup data-prefix="$" data-target="7.75" data-decimals="2" data-suffix="B">$7.75B</span>
-          <span class="stat__label">reported lost by Americans 60+ in 2025</span>
+      <div class="stats-band" id="stats-band">
+        <!-- 7 in 10 — daily contact pictograph -->
+        <div class="stats-card stats-people">
+          <div class="stats-people__row" role="img" aria-label="7 in 10 adults 60 and older are contacted by a suspected scammer at least once a day">
+            {Array.from({ length: 10 }).map((_, i) => (
+              <svg class={`fig ${i < 7 ? 'fig--hit' : ''}`} style={`--fd: ${0.2 + i * 0.13}s`} viewBox="0 0 24 34" aria-hidden="true">
+                <circle cx="12" cy="6" r="5.2" />
+                <path d="M12 13.5c-4.8 0-7.6 3.2-7.6 7.6v8.4a2.4 2.4 0 0 0 4.8 0v-6.6h5.6v6.6a2.4 2.4 0 0 0 4.8 0v-8.4c0-4.4-2.8-7.6-7.6-7.6z" />
+              </svg>
+            ))}
+          </div>
+          <div class="stats-people__text">
+            <span class="stats-people__num">7 in 10</span>
+            <p>adults 60+ are contacted by a suspected scammer <strong>every single day</strong> — far more than any younger group.</p>
+          </div>
         </div>
-        <div class="stat">
-          <span class="stat__num" data-countup data-prefix="+" data-target="59" data-suffix="%">+59%</span>
-          <span class="stat__label">jump in losses in a single year</span>
-        </div>
-        <div class="stat">
-          <span class="stat__num" data-countup data-prefix="~$" data-target="39000">~$39,000</span>
-          <span class="stat__label">average loss per victim</span>
-        </div>
-        <div class="stat">
-          <span class="stat__num" data-countup data-target="12400" data-suffix="+">12,400+</span>
-          <span class="stat__label">victims who each lost $100,000+</span>
+
+        <div class="stats-duo">
+          <!-- $38,000 — average loss -->
+          <div class="stats-card stats-loss">
+            <span class="stats-loss__num" data-countup data-prefix="$" data-target="38000">$38,000</span>
+            <p class="stats-loss__label">the average reported loss when a scam lands on someone 60+</p>
+            <p class="stats-loss__sub">12,400+ people lost $100,000 or more in 2025 alone</p>
+          </div>
+
+          <!-- 2024 → 2025 — losses climbing -->
+          <div class="stats-card stats-bars">
+            <p class="stats-bars__title">Reported losses, Americans 60+</p>
+            <div class="stats-bars__plot" role="img" aria-label="Reported losses rose from 4.9 billion dollars in 2024 to 7.7 billion in 2025 — a 59 percent jump. Complaints rose 37 percent.">
+              <div class="bar">
+                <span class="bar__val">$4.9B</span>
+                <i style="--h: 0.62;"></i>
+                <span class="bar__yr">2024</span>
+              </div>
+              <div class="bar bar--now">
+                <span class="bar__val">$7.7B</span>
+                <i style="--h: 1;"></i>
+                <span class="bar__yr">2025</span>
+              </div>
+              <span class="stats-bars__badge">▲ 59% in one year</span>
+            </div>
+            <p class="stats-bars__sub">Complaints to the FBI rose 37% over the same year.</p>
+          </div>
         </div>
       </div>
       <p class="footnote" style="margin-top: 18px;">
-        Source: <a href="https://www.ic3.gov/AnnualReport/Reports/2025_IC3Report.pdf">FBI Internet Crime Complaint Center, 2025 Annual Report</a>.
+        Sources: <a href="https://apnorc.org/projects/fifty-eight-percent-of-adults-report-receiving-scam-attempts-daily/">AP-NORC Center poll (2026)</a> ·
+        <a href="https://www.fbi.gov/news/stories/scammers-target-older-adult-victims">FBI, on the IC3 2025 Internet Crime Report</a>.
       </p>
 
       <p class="lede" style="margin-top: 36px; max-width: 44rem;">
@@ -360,6 +388,26 @@ import { homeFaqs } from '../data/faqs.js';
     els.forEach((el) => io.observe(el));
   }
 
+  // Stats band — arm the pictograph, bars, and badges, then play the whole
+  // band once it scrolls into view. Markup ships the final state, so no-JS
+  // and reduced-motion visitors see everything without animation.
+  const band = document.getElementById('stats-band');
+  if (band && 'IntersectionObserver' in window && !reduceMotion) {
+    band.classList.add('stats--anim');
+    const bandIo = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            band.classList.add('stats--play');
+            bandIo.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
+    bandIo.observe(band);
+  }
+
   // "How it works" — auto-advancing, interactive tiles.
   // Autoplay rotates through the steps; hovering pauses it, and clicking (or arrow-keying)
   // stops it and hands control to the reader. Progressive enhancement: without JS all four
@@ -470,6 +518,150 @@ import { homeFaqs } from '../data/faqs.js';
   .hero__card { display: flex; justify-content: center; }
   @media (min-width: 920px) {
     .hero__card { transform: rotate(1.5deg); }
+  }
+
+  /* ---------- Stats band ---------- */
+  .stats-band { display: grid; gap: 18px; margin-top: 40px; }
+  .stats-card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 28px;
+  }
+
+  /* 7 in 10 pictograph */
+  .stats-people { display: grid; gap: 22px; align-items: center; }
+  @media (min-width: 860px) {
+    .stats-people { grid-template-columns: auto 1fr; gap: 40px; padding: 30px 38px; }
+  }
+  .stats-people__row { display: flex; gap: 7px; flex-wrap: wrap; justify-content: center; }
+  .fig { width: 30px; height: 42px; fill: #d9ded8; flex: none; }
+  .fig--hit { fill: var(--pine); }
+  .stats--anim .fig--hit { fill: #d9ded8; }
+  .stats--play .fig--hit {
+    animation: figHit 0.4s cubic-bezier(0.34, 1.45, 0.64, 1) forwards;
+    animation-delay: var(--fd, 0s);
+  }
+  @keyframes figHit {
+    0% { fill: #d9ded8; transform: none; }
+    55% { transform: translateY(-4px) scale(1.12); }
+    100% { fill: var(--pine); transform: none; }
+  }
+  .stats-people__text { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+  .stats-people__num {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(2rem, 3.6vw, 2.8rem);
+    color: var(--pine);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    flex: none;
+  }
+  .stats-people__text p { margin: 0; color: var(--ink-soft); max-width: 30rem; font-size: 1.05rem; line-height: 1.5; flex: 1 1 16rem; }
+  .stats--anim .stats-people__text { opacity: 0; }
+  .stats--play .stats-people__text { animation: statFade 0.5s ease 1s forwards; }
+  @keyframes statFade { to { opacity: 1; } }
+
+  .stats-duo { display: grid; gap: 18px; }
+  .stats-duo > * { min-width: 0; }
+  @media (min-width: 760px) { .stats-duo { grid-template-columns: 1fr 1fr; } }
+
+  /* $38,000 — inverted card */
+  .stats-loss {
+    background: var(--pine-deep);
+    border-color: var(--pine-deep);
+    color: var(--sage-pale);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .stats-loss__num {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(2.4rem, 4.4vw, 3.2rem);
+    color: var(--cream);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    display: block;
+    margin-bottom: 10px;
+  }
+  .stats-loss__label { margin: 0 0 14px; font-size: 1.02rem; line-height: 1.5; max-width: 24rem; }
+  .stats-loss__sub {
+    margin: 0;
+    font-size: 0.88rem;
+    color: var(--sage);
+    border-top: 1px solid rgba(127, 165, 145, 0.3);
+    padding-top: 12px;
+  }
+
+  /* 2024 → 2025 bars */
+  .stats-bars__title {
+    margin: 0 0 14px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .stats-bars__plot {
+    position: relative;
+    display: flex;
+    gap: 28px;
+    align-items: flex-end;
+    height: 150px;
+    padding-right: 110px;
+  }
+  .bar { display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 6px; width: 78px; height: 100%; }
+  .bar i {
+    display: block;
+    width: 100%;
+    height: calc(var(--h, 1) * 96px);
+    border-radius: 8px 8px 3px 3px;
+    background: var(--sage);
+    transform-origin: bottom center;
+  }
+  .bar--now i { background: var(--pine); }
+  .bar__val { font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; color: var(--pine-deep); }
+  .bar__yr { font-size: 0.82rem; color: var(--ink-soft); }
+  .stats--anim .bar i { transform: scaleY(0); }
+  .stats--anim .bar__val { opacity: 0; }
+  .stats--play .bar i { animation: barGrow 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) forwards; }
+  .stats--play .bar--now i { animation-delay: 0.25s; }
+  .stats--play .bar__val { animation: statFade 0.4s ease 0.75s forwards; }
+  .stats--play .bar--now .bar__val { animation-delay: 1s; }
+  @keyframes barGrow { to { transform: scaleY(1); } }
+  .stats-bars__badge {
+    position: absolute;
+    right: 0;
+    top: 26px;
+    background: var(--pine-deep);
+    color: var(--cream);
+    font-weight: 700;
+    font-size: 0.85rem;
+    border-radius: 999px;
+    padding: 7px 14px;
+    white-space: nowrap;
+  }
+  .stats--anim .stats-bars__badge { opacity: 0; transform: scale(0.7); }
+  .stats--play .stats-bars__badge {
+    animation: badgePop 0.45s cubic-bezier(0.34, 1.5, 0.64, 1) 1.15s forwards;
+  }
+  @keyframes badgePop { to { opacity: 1; transform: scale(1); } }
+  .stats-bars__sub { margin: 12px 0 0; font-size: 0.88rem; color: var(--ink-soft); }
+
+  @media (max-width: 480px) {
+    .stats-bars__plot { padding-right: 0; gap: 20px; }
+    .bar { width: 54px; }
+    .stats-bars__badge {
+      position: static;
+      align-self: center;
+      margin-left: auto;
+      font-size: 0.78rem;
+      white-space: normal;
+      text-align: center;
+      max-width: 110px;
+    }
   }
 
   /* ---------- How-it-works tiles ---------- */
