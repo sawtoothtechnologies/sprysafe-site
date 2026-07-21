@@ -40,65 +40,52 @@ import { homeFaqs } from '../data/faqs.js';
   <section class="section section--paper">
     <div class="wrap">
       <p class="kicker">Why now</p>
-      <h2 style="max-width: 34rem;">Scams are getting smarter — and losses are exploding</h2>
+      <h2 style="max-width: 34rem;">Scams are getting smarter, and losses are exploding</h2>
       <p class="lede">
         AI voice clones and deepfakes have made fraud dramatically more convincing. The numbers
         show it.
       </p>
 
       <div class="stats-band" id="stats-band">
-        <!-- 7 in 10 — daily contact pictograph -->
+        <!-- Daily contact pictograph -->
         <div class="stats-card stats-people">
-          <div class="stats-people__row" role="img" aria-label="7 in 10 adults 60 and older are contacted by a suspected scammer at least once a day">
+          <div class="stats-people__row" role="img" aria-label="7 in 10 adults 60 and older are contacted by a suspected scammer every single day">
             {Array.from({ length: 10 }).map((_, i) => (
-              <svg class={`fig ${i < 7 ? 'fig--hit' : ''}`} style={`--fd: ${0.2 + i * 0.13}s`} viewBox="0 0 24 34" aria-hidden="true">
-                <circle cx="12" cy="6" r="5.2" />
-                <path d="M12 13.5c-4.8 0-7.6 3.2-7.6 7.6v8.4a2.4 2.4 0 0 0 4.8 0v-6.6h5.6v6.6a2.4 2.4 0 0 0 4.8 0v-8.4c0-4.4-2.8-7.6-7.6-7.6z" />
-              </svg>
+              <span class={`figw ${i < 7 ? 'figw--hit' : ''}`} style={`--fd: ${0.2 + i * 0.14}s`} aria-hidden="true">
+                <svg class={`fig ${i < 7 ? 'fig--hit' : ''}`} width="32" height="45" viewBox="0 0 24 34">
+                  <circle cx="12" cy="6" r="5.2" />
+                  <path d="M12 13.5c-4.8 0-7.6 3.2-7.6 7.6v8.4a2.4 2.4 0 0 0 4.8 0v-6.6h5.6v6.6a2.4 2.4 0 0 0 4.8 0v-8.4c0-4.4-2.8-7.6-7.6-7.6z" />
+                </svg>
+              </span>
             ))}
           </div>
-          <div class="stats-people__text">
-            <span class="stats-people__num">7 in 10</span>
-            <p>adults 60+ are contacted by a suspected scammer <strong>every single day</strong> — far more than any younger group.</p>
-          </div>
+          <p class="stats-people__text">
+            7 in 10 adults 60+ are contacted by a suspected scammer
+            <em class="ehl">every single day</em>.
+          </p>
         </div>
 
         <div class="stats-duo">
           <!-- $38,000 — average loss -->
           <div class="stats-card stats-loss">
             <span class="stats-loss__num" data-countup data-prefix="$" data-target="38000">$38,000</span>
-            <p class="stats-loss__label">the average reported loss when a scam lands on someone 60+</p>
+            <p class="stats-loss__label">average reported loss</p>
             <p class="stats-loss__sub">12,400+ people lost $100,000 or more in 2025 alone</p>
           </div>
 
-          <!-- 2024 → 2025 — losses climbing -->
-          <div class="stats-card stats-bars">
-            <p class="stats-bars__title">Reported losses, Americans 60+</p>
-            <div class="stats-bars__plot" role="img" aria-label="Reported losses rose from 4.9 billion dollars in 2024 to 7.7 billion in 2025 — a 59 percent jump. Complaints rose 37 percent.">
-              <div class="bar">
-                <span class="bar__val">$4.9B</span>
-                <i style="--h: 0.62;"></i>
-                <span class="bar__yr">2024</span>
-              </div>
-              <div class="bar bar--now">
-                <span class="bar__val">$7.7B</span>
-                <i style="--h: 1;"></i>
-                <span class="bar__yr">2025</span>
-              </div>
-              <span class="stats-bars__badge">▲ 59% in one year</span>
-            </div>
-            <p class="stats-bars__sub">Complaints to the FBI rose 37% over the same year.</p>
+          <!-- Losses rising — one line, one number -->
+          <div class="stats-card stats-rise" role="img" aria-label="Reported losses rose 59 percent in one year">
+            <p class="stats-rise__label">Losses are up <strong>59%</strong> in one year</p>
+            <svg class="stats-rise__chart" viewBox="0 0 300 80" preserveAspectRatio="none" aria-hidden="true">
+              <path class="rise-line" d="M4,74 C80,70 148,58 204,38 S 282,10 296,6" fill="none" vector-effect="non-scaling-stroke" />
+            </svg>
           </div>
         </div>
       </div>
-      <p class="footnote" style="margin-top: 18px;">
-        Sources: <a href="https://apnorc.org/projects/fifty-eight-percent-of-adults-report-receiving-scam-attempts-daily/">AP-NORC Center poll (2026)</a> ·
-        <a href="https://www.fbi.gov/news/stories/scammers-target-older-adult-victims">FBI, on the IC3 2025 Internet Crime Report</a>.
-      </p>
 
       <p class="lede" style="margin-top: 36px; max-width: 44rem;">
         The good news: spotting a scam is a trainable skill. Classes and pamphlets fade within a
-        month — practice sticks. That's Spry.
+        month. Practice sticks. That's Spry.
       </p>
     </div>
   </section>
@@ -340,6 +327,14 @@ import { homeFaqs } from '../data/faqs.js';
 
   <!-- ============ FINAL CTA ============ -->
   <CtaBand />
+
+  <!-- ============ SOURCES ============ -->
+  <div class="wrap">
+    <p class="footnote center" style="padding: 26px 0 34px; margin: 0;">
+      Sources: <a href="https://apnorc.org/projects/fifty-eight-percent-of-adults-report-receiving-scam-attempts-daily/">AP-NORC Center poll (2026)</a> ·
+      <a href="https://www.fbi.gov/news/stories/scammers-target-older-adult-victims">FBI, on the IC3 2025 Internet Crime Report</a>
+    </p>
+  </div>
 </Base>
 
 <script>
@@ -530,42 +525,83 @@ import { homeFaqs } from '../data/faqs.js';
     padding: 28px;
   }
 
-  /* 7 in 10 pictograph */
-  .stats-people { display: grid; gap: 22px; align-items: center; }
+  /* Daily-contact pictograph */
+  .stats-people { display: grid; gap: 24px; align-items: center; }
   @media (min-width: 860px) {
-    .stats-people { grid-template-columns: auto 1fr; gap: 40px; padding: 30px 38px; }
+    .stats-people { grid-template-columns: auto 1fr; gap: 44px; padding: 32px 38px; }
   }
-  .stats-people__row { display: flex; gap: 7px; flex-wrap: wrap; justify-content: center; }
-  .fig { width: 30px; height: 42px; fill: #d9ded8; flex: none; }
+  .stats-people__row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+  .figw { position: relative; display: inline-block; line-height: 0; flex: none; }
+  .figw--hit::after {
+    content: '';
+    position: absolute;
+    inset: -5px -8px;
+    border: 2px solid var(--sage);
+    border-radius: 999px;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .fig { display: block; fill: #d9ded8; }
   .fig--hit { fill: var(--pine); }
   .stats--anim .fig--hit { fill: #d9ded8; }
   .stats--play .fig--hit {
-    animation: figHit 0.4s cubic-bezier(0.34, 1.45, 0.64, 1) forwards;
+    animation: figHit 0.5s cubic-bezier(0.34, 1.5, 0.64, 1) forwards;
     animation-delay: var(--fd, 0s);
+  }
+  .stats--play .figw--hit::after {
+    animation: haloPing 0.65s ease-out forwards;
+    animation-delay: calc(var(--fd, 0s) + 0.08s);
   }
   @keyframes figHit {
     0% { fill: #d9ded8; transform: none; }
-    55% { transform: translateY(-4px) scale(1.12); }
+    45% { transform: translateY(-6px) scale(1.16); }
+    70% { fill: var(--pine); transform: translateY(1px) scale(0.98); }
     100% { fill: var(--pine); transform: none; }
   }
-  .stats-people__text { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
-  .stats-people__num {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: clamp(2rem, 3.6vw, 2.8rem);
-    color: var(--pine);
-    letter-spacing: -0.02em;
-    line-height: 1;
-    flex: none;
+  @keyframes haloPing {
+    0% { opacity: 0.75; transform: scale(0.55); }
+    100% { opacity: 0; transform: scale(1.3); }
   }
-  .stats-people__text p { margin: 0; color: var(--ink-soft); max-width: 30rem; font-size: 1.05rem; line-height: 1.5; flex: 1 1 16rem; }
+  .stats-people__text {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.2rem, 2.2vw, 1.45rem);
+    line-height: 1.4;
+    color: var(--ink);
+    max-width: 26rem;
+  }
   .stats--anim .stats-people__text { opacity: 0; }
-  .stats--play .stats-people__text { animation: statFade 0.5s ease 1s forwards; }
+  .stats--play .stats-people__text { animation: statFade 0.5s ease 0.9s forwards; }
   @keyframes statFade { to { opacity: 1; } }
+  /* "every single day" — emphasized, with an underline that draws itself */
+  .ehl {
+    font-style: normal;
+    font-weight: 800;
+    color: var(--pine);
+    position: relative;
+    white-space: nowrap;
+  }
+  .ehl::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -3px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--amber);
+    transform-origin: left center;
+  }
+  .stats--anim .ehl::after { transform: scaleX(0); }
+  .stats--play .ehl::after {
+    animation: ehlDraw 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) 1.6s forwards;
+  }
+  @keyframes ehlDraw { to { transform: scaleX(1); } }
 
   .stats-duo { display: grid; gap: 18px; }
   .stats-duo > * { min-width: 0; }
-  @media (min-width: 760px) { .stats-duo { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 760px) { .stats-duo { grid-template-columns: 1fr 1.35fr; } }
 
   /* $38,000 — inverted card */
   .stats-loss {
@@ -595,74 +631,46 @@ import { homeFaqs } from '../data/faqs.js';
     padding-top: 12px;
   }
 
-  /* 2024 → 2025 bars */
-  .stats-bars__title {
-    margin: 0 0 14px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-  }
-  .stats-bars__plot {
-    position: relative;
+  /* Losses rising — one line, one number */
+  .stats-rise {
     display: flex;
-    gap: 28px;
-    align-items: flex-end;
-    height: 150px;
-    padding-right: 110px;
+    flex-direction: column;
+    padding-bottom: 0;
+    overflow: hidden;
+    min-height: 200px;
   }
-  .bar { display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 6px; width: 78px; height: 100%; }
-  .bar i {
+  .stats-rise__label {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.2rem, 2.2vw, 1.45rem);
+    color: var(--ink);
+  }
+  .stats-rise__label strong {
+    font-weight: 800;
+    color: var(--pine);
+    font-size: 1.35em;
+    letter-spacing: -0.02em;
+  }
+  .stats-rise__chart {
+    margin-top: auto;
     display: block;
     width: 100%;
-    height: calc(var(--h, 1) * 96px);
-    border-radius: 8px 8px 3px 3px;
-    background: var(--sage);
-    transform-origin: bottom center;
+    height: 96px;
   }
-  .bar--now i { background: var(--pine); }
-  .bar__val { font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; color: var(--pine-deep); }
-  .bar__yr { font-size: 0.82rem; color: var(--ink-soft); }
-  .stats--anim .bar i { transform: scaleY(0); }
-  .stats--anim .bar__val { opacity: 0; }
-  .stats--play .bar i { animation: barGrow 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) forwards; }
-  .stats--play .bar--now i { animation-delay: 0.25s; }
-  .stats--play .bar__val { animation: statFade 0.4s ease 0.75s forwards; }
-  .stats--play .bar--now .bar__val { animation-delay: 1s; }
-  @keyframes barGrow { to { transform: scaleY(1); } }
-  .stats-bars__badge {
-    position: absolute;
-    right: 0;
-    top: 26px;
-    background: var(--pine-deep);
-    color: var(--cream);
-    font-weight: 700;
-    font-size: 0.85rem;
-    border-radius: 999px;
-    padding: 7px 14px;
-    white-space: nowrap;
+  .rise-line {
+    stroke: var(--pine);
+    stroke-width: 3.5;
+    stroke-linecap: round;
   }
-  .stats--anim .stats-bars__badge { opacity: 0; transform: scale(0.7); }
-  .stats--play .stats-bars__badge {
-    animation: badgePop 0.45s cubic-bezier(0.34, 1.5, 0.64, 1) 1.15s forwards;
+  .stats--anim .rise-line {
+    stroke-dasharray: 420;
+    stroke-dashoffset: 420;
   }
-  @keyframes badgePop { to { opacity: 1; transform: scale(1); } }
-  .stats-bars__sub { margin: 12px 0 0; font-size: 0.88rem; color: var(--ink-soft); }
-
-  @media (max-width: 480px) {
-    .stats-bars__plot { padding-right: 0; gap: 20px; }
-    .bar { width: 54px; }
-    .stats-bars__badge {
-      position: static;
-      align-self: center;
-      margin-left: auto;
-      font-size: 0.78rem;
-      white-space: normal;
-      text-align: center;
-      max-width: 110px;
-    }
+  .stats--play .rise-line {
+    animation: riseDraw 1.2s ease-out 0.5s forwards;
   }
+  @keyframes riseDraw { to { stroke-dashoffset: 0; } }
 
   /* ---------- How-it-works tiles ---------- */
   .hiw {
