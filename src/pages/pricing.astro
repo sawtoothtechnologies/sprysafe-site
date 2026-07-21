@@ -12,16 +12,15 @@ import OrgPricing from '../components/OrgPricing.astro';
   <section class="section pricing" id="family-plans">
     <div class="wrap center pricing__head">
       <p class="kicker">For families</p>
-      <h1 class="pricing__title">Less than a streaming subscription. Somewhat higher stakes.</h1>
-      <p class="org-jump"><a href="#org-pricing">Buying for a community, practice, or team? See organization pricing ↓</a></p>
+      <h1 class="pricing__title">Simple, transparent pricing</h1>
       <div class="billing-toggle-row">
         <div class="billing-toggle" role="group" aria-label="Billing period">
-          <button class="billing-toggle__btn is-active" data-billing="annual" aria-pressed="true">
-            Annual <span class="billing-toggle__save">3 months free</span>
-          </button>
+          <button class="billing-toggle__btn is-active" data-billing="annual" aria-pressed="true">Annual</button>
           <button class="billing-toggle__btn" data-billing="monthly" aria-pressed="false">Monthly</button>
         </div>
       </div>
+      <p class="billing-note is-on" aria-live="polite">3 months free, every year</p>
+      <p class="org-jump">Buying for a community, practice, or team? <a href="#org-pricing">Organization pricing is below</a>.</p>
     </div>
 
     <div class="wrap">
@@ -34,15 +33,10 @@ import OrgPricing from '../components/OrgPricing.astro';
             <span class="price-card__num" data-annual="$9" data-monthly="$12">$9</span>/month
           </p>
           <p class="price-card__billing" data-annual="$108 a year, billed annually" data-monthly="billed monthly, cancel anytime">$108 a year, billed annually</p>
-          <p class="price-card__save" data-annual="3 months free vs. monthly billing" data-monthly="">3 months free vs. monthly billing</p>
           <ul>
             <li>4–6 safe, realistic drills a month, modeled on current scams</li>
-            <li>Email drills now; text with written consent; practice calls coming soon</li>
             <li>Gentle 30-second coaching the moment a drill lands</li>
-            <li>Monthly Resilience Report to up to 4 family members</li>
-            <li>Resilience trend line and quiet early-warning flags</li>
-            <li>Plain-English briefings on this month's newest scams</li>
-            <li>Nothing to install · cancel anytime</li>
+            <li>Monthly Resilience Report, with trend line and briefings, shared with up to 4 family members</li>
           </ul>
           <a class="btn btn--ghost" href="/early-access">Start free trial</a>
           <p class="price-card__trial">Includes 14-day free trial</p>
@@ -57,12 +51,11 @@ import OrgPricing from '../components/OrgPricing.astro';
             <span class="price-card__num" data-annual="$15" data-monthly="$20">$15</span>/month
           </p>
           <p class="price-card__billing" data-annual="$180 a year, billed annually" data-monthly="billed monthly, cancel anytime">$180 a year, billed annually</p>
-          <p class="price-card__save" data-annual="3 months free vs. monthly billing" data-monthly="">3 months free vs. monthly billing</p>
+          <p class="price-card__inherit">Everything in <strong>Individual</strong>, plus:</p>
           <ul>
-            <li>Everything in Individual, for <strong>two</strong> enrolled people</li>
-            <li>Each person gets their own drills, coaching, and Resilience Report</li>
-            <li>Ideal for both parents — or you and someone you love</li>
-            <li>One subscription, one bill — about $7.50 per person</li>
+            <li>Covers up to <strong>two</strong> people, each with their own drills, coaching, and Resilience Report</li>
+            <li>Ideal for both parents, or you and someone you love</li>
+            <li>One subscription, one bill, about <span data-annual="$7.50" data-monthly="$10">$7.50</span> per person</li>
           </ul>
           <a class="btn btn--primary" href="/early-access">Start free trial</a>
           <p class="price-card__trial">Includes 14-day free trial</p>
@@ -76,12 +69,12 @@ import OrgPricing from '../components/OrgPricing.astro';
             <span class="price-card__num" data-annual="$19" data-monthly="$25">$19</span>/month
           </p>
           <p class="price-card__billing" data-annual="$228 a year, billed annually" data-monthly="billed monthly, cancel anytime">$228 a year, billed annually</p>
-          <p class="price-card__save" data-annual="3 months free vs. monthly billing" data-monthly="">3 months free vs. monthly billing</p>
+          <p class="price-card__inherit">Everything in <strong>Couples &amp; pairs</strong>, plus:</p>
           <ul>
-            <li>Everything in Couples, for up to <strong>four</strong> enrolled people</li>
-            <li>Each person gets their own drills, coaching, and Resilience Report</li>
-            <li>Great for both parents plus an aunt, uncle, or in-law</li>
-            <li>One bill, the best per-person value — about $4.75 per person</li>
+            <li>Covers up to <strong>four</strong> people, each with their own drills, coaching, and Resilience Report</li>
+            <li>Room for both parents plus an aunt, uncle, or in-law</li>
+            <li>Add or swap enrolled people anytime</li>
+            <li>The best per-person value, about <span data-annual="$4.75" data-monthly="$6.25">$4.75</span> per person</li>
           </ul>
           <a class="btn btn--ghost" href="/early-access">Start free trial</a>
           <p class="price-card__trial">Includes 14-day free trial</p>
@@ -90,6 +83,10 @@ import OrgPricing from '../components/OrgPricing.astro';
       <p class="guarantee center">
         Every plan comes with a <strong>60-day money-back guarantee</strong> — if Spry isn't a
         fit, we refund in full. No questions, no forms.
+      </p>
+      <p class="plan-fineprint center">
+        All plans: nothing to install, cancel anytime. Email drills today; text drills with
+        written consent; practice calls coming soon.
       </p>
     </div>
   </section>
@@ -174,19 +171,18 @@ import OrgPricing from '../components/OrgPricing.astro';
       fam.classList.add('billing--js');
       const bBtns = Array.from(billing.querySelectorAll('.billing-toggle__btn'));
       const swappable = Array.from(fam.querySelectorAll('[data-annual]'));
+      const note = fam.querySelector('.billing-note');
       const apply = (mode) => {
         swappable.forEach((el) => {
-          const val = el.getAttribute('data-' + mode) || '';
-          el.textContent = val;
-          if (el.classList.contains('price-card__save')) {
-            el.style.visibility = val ? 'visible' : 'hidden';
-          }
+          el.textContent = el.getAttribute('data-' + mode) || '';
         });
         bBtns.forEach((b) => {
           const active = b.dataset.billing === mode;
           b.classList.toggle('is-active', active);
           b.setAttribute('aria-pressed', active ? 'true' : 'false');
         });
+        // "3 months free" pops in under the pill on annual, hides on monthly.
+        if (note) note.classList.toggle('is-on', mode === 'annual');
       };
       bBtns.forEach((b) => b.addEventListener('click', () => apply(b.dataset.billing)));
       apply('annual');
@@ -196,14 +192,23 @@ import OrgPricing from '../components/OrgPricing.astro';
 
 <style>
   /* Compact header sits in the same section as the cards, so there's no big gap. */
-  .pricing__head { margin-bottom: 44px; }
-  .org-jump { margin: -6px 0 26px; font-size: 0.95rem; }
-  .org-jump a { font-weight: 700; }
+  .pricing__head { margin-bottom: 40px; }
   .pricing__title {
     font-size: clamp(1.7rem, 3.2vw, 2.3rem);
     max-width: 34rem;
     margin: 0 auto 24px;
   }
+  /* Quiet FYI, not a call to action. */
+  .org-jump { margin: 18px 0 0; font-size: 0.85rem; color: var(--ink-soft); }
+  .org-jump a {
+    font-weight: 500;
+    color: var(--ink-soft);
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+  .org-jump a:hover { color: var(--pine-deep); text-decoration-style: solid; }
 
   /* ---------- Billing-period toggle ---------- */
   .billing-toggle-row { display: flex; justify-content: center; }
@@ -234,13 +239,18 @@ import OrgPricing from '../components/OrgPricing.astro';
   .billing-toggle__btn:hover { color: var(--pine-deep); }
   .billing-toggle__btn:focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
   .billing-toggle__btn.is-active { background: var(--pine-deep); color: var(--cream); }
-  .billing-toggle__save {
-    font-size: 0.78rem;
+  /* Savings note under the pill — pops in on Annual, hides on Monthly. */
+  .billing-note {
+    margin: 12px 0 0;
+    min-height: 1.4em;
+    font-size: 0.92rem;
     font-weight: 700;
     color: var(--amber-deep);
-    letter-spacing: 0.02em;
+    opacity: 0;
+    transform: translateY(-4px) scale(0.95);
+    transition: opacity 0.25s ease, transform 0.3s cubic-bezier(0.34, 1.4, 0.64, 1);
   }
-  .billing-toggle__btn.is-active .billing-toggle__save { color: var(--amber); }
+  .billing-note.is-on { opacity: 1; transform: none; }
 
   /* ---------- Plan cards ---------- */
   .pricing-grid {
@@ -304,15 +314,19 @@ import OrgPricing from '../components/OrgPricing.astro';
     font-size: 0.9rem;
     margin: 0 0 4px;
   }
-  .price-card__save {
-    color: var(--amber-deep);
-    font-weight: 700;
+  /* "Everything in X, plus:" — makes tier inheritance visually explicit. */
+  .price-card__inherit {
+    display: inline-block;
+    background: #ebf2ed;
+    color: var(--pine-deep);
     font-size: 0.88rem;
-    margin: 0 0 18px;
-    min-height: 1.2em;
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 6px 14px;
+    margin: 10px 0 14px;
   }
   .price-card__alt { color: var(--ink-soft); font-size: 1rem; }
-  .price-card ul { padding-left: 1.2em; margin: 0 0 20px; }
+  .price-card ul { padding-left: 1.2em; margin: 14px 0 20px; }
   .price-card ul li { margin-bottom: 0.55em; font-size: 1rem; }
   .price-card__note { font-size: 0.95rem; color: var(--ink-soft); margin-bottom: 24px; }
   .price-card__trial {
@@ -327,4 +341,9 @@ import OrgPricing from '../components/OrgPricing.astro';
     margin-top: 32px;
   }
   .guarantee strong { color: var(--pine-deep); }
+  .plan-fineprint {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    margin-top: 8px;
+  }
 </style>
