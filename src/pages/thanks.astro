@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+
+// Post-checkout confirmation. Stripe Payment Links redirect here after a
+// successful subscription (set the confirmation URL to sprysafe.com/thanks
+// on each payment link — see SPRY-STRIPE-SETUP.md).
+---
+
+<Base
+  title="Welcome to Spry — You're In"
+  description="Your Spry trial has started. Here's what happens next."
+>
+  <section class="section">
+    <div class="wrap center" style="max-width: 640px;">
+      <svg width="64" height="64" viewBox="0 0 32 32" fill="none" aria-hidden="true" style="margin-bottom: 20px;">
+        <circle cx="16" cy="16" r="14" fill="#145243" />
+        <path d="M10 16.5l4 4 8-9" stroke="#f0ad3f" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+      </svg>
+      <h1>You're in. Welcome to Spry.</h1>
+      <p class="lede" style="margin-inline: auto;">
+        Your 14-day free trial has started, and a receipt is on its way to your inbox.
+      </p>
+      <div class="card" style="text-align: left; margin-top: 32px;">
+        <h3>What happens next</h3>
+        <ol class="next-steps">
+          <li><strong>Within one business day</strong>, we'll email you personally to set up enrollment for the person you're protecting.</li>
+          <li><strong>They opt in</strong> — always. We'll walk you both through it; there's nothing to install.</li>
+          <li><strong>Drills begin</strong> quietly in the first week, and your first Resilience Report arrives after the first full month.</li>
+        </ol>
+        <p style="margin-bottom: 0; font-size: 0.95rem; color: var(--ink-soft);">
+          Questions in the meantime? Just reply to any email from us, or write
+          <a href="mailto:hello@sprysafe.com">hello@sprysafe.com</a>. And remember: every plan
+          carries a 60-day money-back guarantee.
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .next-steps { padding-left: 1.3em; margin: 0 0 18px; }
+  .next-steps li { margin-bottom: 0.7em; }
+</style>

@@ -2,6 +2,11 @@
 import Base from '../layouts/Base.astro';
 import CtaBand from '../components/CtaBand.astro';
 import OrgPricing from '../components/OrgPricing.astro';
+import { checkoutLinks } from '../data/checkout.js';
+
+// Checkout URL for a plan + billing period, falling back to the waitlist
+// until the Stripe Payment Links are pasted into src/data/checkout.js.
+const co = (plan, mode) => checkoutLinks[plan]?.[mode] || '/early-access';
 ---
 
 <Base
@@ -38,7 +43,7 @@ import OrgPricing from '../components/OrgPricing.astro';
             <li>Gentle 30-second coaching the moment a drill lands</li>
             <li>Monthly Resilience Report, with trend line and briefings, shared with up to 4 family members</li>
           </ul>
-          <a class="btn btn--ghost" href="/early-access">Start free trial</a>
+          <a class="btn btn--ghost" data-checkout href={co('individual', 'annual')} data-annual-href={co('individual', 'annual')} data-monthly-href={co('individual', 'monthly')}>Start free trial</a>
           <p class="price-card__trial">Includes 14-day free trial</p>
         </div>
 
@@ -57,7 +62,7 @@ import OrgPricing from '../components/OrgPricing.astro';
             <li>Ideal for both parents, or you and someone you love</li>
             <li>One subscription, one bill, about <span data-annual="$7.50" data-monthly="$10">$7.50</span> per person</li>
           </ul>
-          <a class="btn btn--primary" href="/early-access">Start free trial</a>
+          <a class="btn btn--primary" data-checkout href={co('couples', 'annual')} data-annual-href={co('couples', 'annual')} data-monthly-href={co('couples', 'monthly')}>Start free trial</a>
           <p class="price-card__trial">Includes 14-day free trial</p>
         </div>
 
@@ -76,7 +81,7 @@ import OrgPricing from '../components/OrgPricing.astro';
             <li>Add or swap enrolled people anytime</li>
             <li>The best per-person value, about <span data-annual="$4.75" data-monthly="$6.25">$4.75</span> per person</li>
           </ul>
-          <a class="btn btn--ghost" href="/early-access">Start free trial</a>
+          <a class="btn btn--ghost" data-checkout href={co('family', 'annual')} data-annual-href={co('family', 'annual')} data-monthly-href={co('family', 'monthly')}>Start free trial</a>
           <p class="price-card__trial">Includes 14-day free trial</p>
         </div>
       </div>
@@ -183,6 +188,11 @@ import OrgPricing from '../components/OrgPricing.astro';
         });
         // "3 months free" pops in under the pill on annual, hides on monthly.
         if (note) note.classList.toggle('is-on', mode === 'annual');
+        // Point each checkout button at the matching Stripe link.
+        fam.querySelectorAll('[data-checkout]').forEach((a) => {
+          const href = a.getAttribute('data-' + mode + '-href');
+          if (href) a.setAttribute('href', href);
+        });
       };
       bBtns.forEach((b) => b.addEventListener('click', () => apply(b.dataset.billing)));
       apply('annual');

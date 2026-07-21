@@ -15,7 +15,7 @@ import { homeFaqs } from '../data/faqs.js';
   <section class="section hero">
     <div class="wrap hero__grid">
       <div>
-        <h1>Safe scam drills for those most targeted.</h1>
+        <h1>Simulated scam drills for those most targeted.</h1>
         <p class="hero__metaphor">A pamphlet won't stop the next scam. Practice will.</p>
         <p class="lede">
           Empower someone you care about to practice the scam before it's real, with gentle
@@ -42,50 +42,41 @@ import { homeFaqs } from '../data/faqs.js';
       <p class="kicker">Why now</p>
       <h2 style="max-width: 34rem;">Scams are getting smarter, and losses are exploding</h2>
       <p class="lede">
-        AI voice clones and deepfakes have made fraud dramatically more convincing. The numbers
-        show it.
+        AI voice clones and deepfakes have made fraud dramatically more convincing.
       </p>
 
       <div class="stats-band" id="stats-band">
-        <!-- Daily contact pictograph -->
-        <div class="stats-card stats-people">
-          <div class="stats-people__row" role="img" aria-label="7 in 10 adults 60 and older are contacted by a suspected scammer every single day">
-            {Array.from({ length: 10 }).map((_, i) => (
-              <span class={`figw ${i < 7 ? 'figw--hit' : ''}`} style={`--fd: ${0.2 + i * 0.14}s`} aria-hidden="true">
-                <svg class={`fig ${i < 7 ? 'fig--hit' : ''}`} width="32" height="45" viewBox="0 0 24 34">
-                  <circle cx="12" cy="6" r="5.2" />
-                  <path d="M12 13.5c-4.8 0-7.6 3.2-7.6 7.6v8.4a2.4 2.4 0 0 0 4.8 0v-6.6h5.6v6.6a2.4 2.4 0 0 0 4.8 0v-8.4c0-4.4-2.8-7.6-7.6-7.6z" />
-                </svg>
-              </span>
-            ))}
+        <!-- 7 in 10 — daily contact donut -->
+        <div class="stats-card stats-donut" role="img" aria-label="71 percent of adults 60 and older are contacted daily by scammers">
+          <div class="donut" aria-hidden="true">
+            <svg viewBox="0 0 120 120">
+              <circle class="donut__track" cx="60" cy="60" r="52" />
+              <circle class="donut__arc" cx="60" cy="60" r="52" />
+            </svg>
+            <span class="donut__center">71%</span>
           </div>
-          <p class="stats-people__text">
-            7 in 10 adults 60+ are contacted by a suspected scammer
-            <em class="ehl">every single day</em>.
-          </p>
+          <p class="stats-donut__text" aria-hidden="true">of adults 60+ contacted daily by scammers</p>
         </div>
 
-        <div class="stats-duo">
-          <!-- $38,000 — average loss -->
-          <div class="stats-card stats-loss">
-            <span class="stats-loss__num" data-countup data-prefix="$" data-target="38000">$38,000</span>
-            <p class="stats-loss__label">average reported loss</p>
-            <p class="stats-loss__sub">12,400+ people lost $100,000 or more in 2025 alone</p>
-          </div>
+        <!-- $38,000 — average loss -->
+        <div class="stats-card stats-loss">
+          <span class="stats-loss__num" data-countup data-prefix="$" data-target="38000">$38,000</span>
+          <p class="stats-loss__label">average reported loss</p>
+        </div>
 
-          <!-- Losses rising — one line, one number -->
-          <div class="stats-card stats-rise" role="img" aria-label="Reported losses rose 59 percent in one year">
-            <p class="stats-rise__label">Losses are up <strong>59%</strong> in one year</p>
-            <svg class="stats-rise__chart" viewBox="0 0 300 80" preserveAspectRatio="none" aria-hidden="true">
-              <path class="rise-line" d="M4,74 C80,70 148,58 204,38 S 282,10 296,6" fill="none" vector-effect="non-scaling-stroke" />
-            </svg>
-          </div>
+        <!-- Losses rising — one line, one number -->
+        <div class="stats-card stats-rise" role="img" aria-label="Reported losses rose 59 percent last year">
+          <span class="stats-rise__num">+59%</span>
+          <p class="stats-rise__label">reported losses, last year</p>
+          <svg class="stats-rise__chart" viewBox="0 0 300 80" preserveAspectRatio="none" aria-hidden="true">
+            <path class="rise-line" d="M4,74 C80,70 148,58 204,38 S 282,10 296,6" fill="none" vector-effect="non-scaling-stroke" />
+          </svg>
         </div>
       </div>
 
       <p class="lede" style="margin-top: 36px; max-width: 44rem;">
-        The good news: spotting a scam is a trainable skill. Classes and pamphlets fade within a
-        month. Practice sticks. That's Spry.
+        The good news: spotting a scam is a trainable skill. Classes and pamphlets fade, but
+        practice sticks. That's where Spry comes in.
       </p>
     </div>
   </section>
@@ -457,8 +448,12 @@ import { homeFaqs } from '../data/faqs.js';
     .hero__card { transform: rotate(1.5deg); }
   }
 
-  /* ---------- Stats band ---------- */
+  /* ---------- Stats band: three equal columns ---------- */
   .stats-band { display: grid; gap: 18px; margin-top: 40px; }
+  .stats-band > * { min-width: 0; }
+  @media (min-width: 880px) {
+    .stats-band { grid-template-columns: repeat(3, 1fr); align-items: stretch; }
+  }
   .stats-card {
     background: var(--white);
     border: 1px solid var(--line);
@@ -467,83 +462,55 @@ import { homeFaqs } from '../data/faqs.js';
     padding: 28px;
   }
 
-  /* Daily-contact pictograph */
-  .stats-people { display: grid; gap: 24px; align-items: center; }
-  @media (min-width: 860px) {
-    .stats-people { grid-template-columns: auto 1fr; gap: 44px; padding: 32px 38px; }
+  /* 7 in 10 — daily contact donut */
+  .stats-donut {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
   }
-  .stats-people__row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
-  .figw { position: relative; display: inline-block; line-height: 0; flex: none; }
-  .figw--hit::after {
-    content: '';
+  .donut { position: relative; width: 150px; }
+  .donut svg { display: block; width: 100%; }
+  .donut__track { fill: none; stroke: var(--line); stroke-width: 11; }
+  .donut__arc {
+    fill: none;
+    stroke: var(--pine);
+    stroke-width: 11;
+    stroke-linecap: round;
+    stroke-dasharray: 326.7;
+    stroke-dashoffset: 94.8; /* 71% of the ring */
+    transform: rotate(-90deg);
+    transform-origin: center;
+  }
+  .stats--anim .donut__arc { stroke-dashoffset: 326.7; }
+  .stats--play .donut__arc {
+    animation: donutSweep 1.1s cubic-bezier(0.22, 0.61, 0.36, 1) 0.2s forwards;
+  }
+  @keyframes donutSweep { to { stroke-dashoffset: 94.8; } }
+  .donut__center {
     position: absolute;
-    inset: -5px -8px;
-    border: 2px solid var(--sage);
-    border-radius: 999px;
-    opacity: 0;
-    pointer-events: none;
-  }
-  .fig { display: block; fill: #d9ded8; }
-  .fig--hit { fill: var(--pine); }
-  .stats--anim .fig--hit { fill: #d9ded8; }
-  .stats--play .fig--hit {
-    animation: figHit 0.5s cubic-bezier(0.34, 1.5, 0.64, 1) forwards;
-    animation-delay: var(--fd, 0s);
-  }
-  .stats--play .figw--hit::after {
-    animation: haloPing 0.65s ease-out forwards;
-    animation-delay: calc(var(--fd, 0s) + 0.08s);
-  }
-  @keyframes figHit {
-    0% { fill: #d9ded8; transform: none; }
-    45% { transform: translateY(-6px) scale(1.16); }
-    70% { fill: var(--pine); transform: translateY(1px) scale(0.98); }
-    100% { fill: var(--pine); transform: none; }
-  }
-  @keyframes haloPing {
-    0% { opacity: 0.75; transform: scale(0.55); }
-    100% { opacity: 0; transform: scale(1.3); }
-  }
-  .stats-people__text {
-    margin: 0;
+    inset: 0;
+    display: grid;
+    place-items: center;
     font-family: var(--font-display);
-    font-weight: 600;
-    font-size: clamp(1.2rem, 2.2vw, 1.45rem);
-    line-height: 1.4;
-    color: var(--ink);
-    max-width: 26rem;
-  }
-  .stats--anim .stats-people__text { opacity: 0; }
-  .stats--play .stats-people__text { animation: statFade 0.5s ease 0.9s forwards; }
-  @keyframes statFade { to { opacity: 1; } }
-  /* "every single day" — emphasized, with an underline that draws itself */
-  .ehl {
-    font-style: normal;
     font-weight: 800;
-    color: var(--pine);
-    position: relative;
-    white-space: nowrap;
+    font-size: 2.2rem;
+    letter-spacing: -0.02em;
+    color: var(--pine-deep);
   }
-  .ehl::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -3px;
-    height: 4px;
-    border-radius: 2px;
-    background: var(--amber);
-    transform-origin: left center;
+  .stats--anim .donut__center { opacity: 0; }
+  .stats--play .donut__center { animation: statFade 0.5s ease 0.8s forwards; }
+  .stats-donut__text {
+    margin: 0;
+    font-size: 1.02rem;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    max-width: 15rem;
   }
-  .stats--anim .ehl::after { transform: scaleX(0); }
-  .stats--play .ehl::after {
-    animation: ehlDraw 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) 1.6s forwards;
-  }
-  @keyframes ehlDraw { to { transform: scaleX(1); } }
-
-  .stats-duo { display: grid; gap: 18px; }
-  .stats-duo > * { min-width: 0; }
-  @media (min-width: 760px) { .stats-duo { grid-template-columns: 1fr 1.35fr; } }
+  .stats--anim .stats-donut__text { opacity: 0; }
+  .stats--play .stats-donut__text { animation: statFade 0.5s ease 0.9s forwards; }
+  @keyframes statFade { to { opacity: 1; } }
 
   /* $38,000 — inverted card */
   .stats-loss {
@@ -564,14 +531,7 @@ import { homeFaqs } from '../data/faqs.js';
     display: block;
     margin-bottom: 10px;
   }
-  .stats-loss__label { margin: 0 0 14px; font-size: 1.02rem; line-height: 1.5; max-width: 24rem; }
-  .stats-loss__sub {
-    margin: 0;
-    font-size: 0.88rem;
-    color: var(--sage);
-    border-top: 1px solid rgba(127, 165, 145, 0.3);
-    padding-top: 12px;
-  }
+  .stats-loss__label { margin: 0; font-size: 1.02rem; line-height: 1.5; max-width: 24rem; }
 
   /* Losses rising — one line, one number */
   .stats-rise {
@@ -581,18 +541,21 @@ import { homeFaqs } from '../data/faqs.js';
     overflow: hidden;
     min-height: 200px;
   }
+  .stats-rise__num {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(2.4rem, 4.4vw, 3.2rem);
+    color: var(--pine-deep);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    display: block;
+    margin-bottom: 10px;
+  }
   .stats-rise__label {
     margin: 0;
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: clamp(1.2rem, 2.2vw, 1.45rem);
-    color: var(--ink);
-  }
-  .stats-rise__label strong {
-    font-weight: 800;
-    color: var(--pine);
-    font-size: 1.35em;
-    letter-spacing: -0.02em;
+    font-size: 1.02rem;
+    line-height: 1.5;
+    color: var(--ink-soft);
   }
   .stats-rise__chart {
     margin-top: auto;

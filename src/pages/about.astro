@@ -4,29 +4,39 @@ import CtaBand from '../components/CtaBand.astro';
 ---
 
 <Base
-  title="About Spry — A Fire Drill for Scams"
-  description="Why we're pointing the proven simulated-phishing playbook at the people scammers target most — with consent, dignity, and proof."
+  title="About Spry — Building the World's Best Scam-Resilience Software"
+  description="Why we're pointing the proven simulated-training playbook at the people scammers target most, with consent, dignity, and proof."
 >
   <section class="section">
     <div class="wrap prose">
       <p class="kicker">About</p>
-      <h1>Why we're building the fire drill for scams.</h1>
+      <h1>Why we're building the world's best scam-resilience software.</h1>
       <p class="lede">
-        In 2025, Americans over 60 reported losing $7.75 billion to fraud — up nearly 60% in a
-        single year. Behind that number: more than 200,000 families, an average loss of about
-        $39,000, and thousands of retirements erased by a single phone call.
+        In 2025, Americans over 60 reported more losses to scams than ever before:
+      </p>
+      <ul class="stat-bullets">
+        <li><strong>$7.7 billion</strong> reported lost, up <strong>59%</strong> in a single year</li>
+        <li><strong>More than 200,000</strong> complaints filed with the FBI</li>
+        <li><strong>$38,000</strong> lost by the average victim, enough to erase years of savings</li>
+      </ul>
+      <p>
+        Behind every one of those numbers is a family, and often a retirement, changed by a
+        single phone call or text.
       </p>
       <p>
-        What struck us wasn't just the scale. It was the mismatch. For over a decade, every major
-        company has trained employees against these exact tactics with simulated attacks and
-        coaching — a proven playbook worth billions. Meanwhile, the standard offering for the
+        What struck us wasn't just the scale. It was the mismatch.
+        <strong>If you've ever received a fake "phishing test" email at work, you've already had
+        the world's best scam training.</strong> For more than a decade, virtually every major
+        company, bank, and government agency has drilled its people against these exact tactics
+        with simulated attacks and in-the-moment coaching. It's a proven, multibillion-dollar
+        playbook with years of evidence behind it. Meanwhile, the standard offering for the
         people scammers actually target most is a pamphlet and a one-time seminar whose effect,
         research shows, fades within a month.
       </p>
       <p>
         Spry exists to close that gap: to take the most effective training method we know of
-        and finally point it at the people who need it — with the consent, gentleness, and dignity
-        that training your own parent demands.
+        and finally point it at the people who need it, with the consent, gentleness, and dignity
+        that training someone you love demands.
       </p>
     </div>
   </section>
@@ -35,22 +45,62 @@ import CtaBand from '../components/CtaBand.astro';
     <div class="wrap prose">
       <h2>The founder</h2>
       <p>
-        Spry is built by <strong>Bryce Wachtell</strong>, founder of Sawtooth Technologies.
-        Bryce spent his career in strategy and operations — at Bain &amp; Company, on Google's
-        central strategy team, and at an early-stage startup — and is affiliated with Stanford's
-        Graduate School of Business. He's building Spry the way he believes protective
-        products should be built: research-first, consent-first, and in close conversation with
-        the fraud-prevention experts, families, and senior-care leaders it serves.
+        Spry is built by <strong>Bryce Wachtell</strong>. Bryce spent his career in strategy and
+        operations — at Bain &amp; Company, on Google's central strategy team, and at an
+        early-stage startup — and is affiliated with Stanford's Graduate School of Business.
+        He's building Spry the way he believes protective products should be built:
+        research-first, consent-first, and in close conversation with the fraud-prevention
+        experts, families, and senior-care leaders it serves.
       </p>
+    </div>
+  </section>
 
-      <div class="values">
-        <span>Dignity first</span>
-        <span>Consent always</span>
-        <span>Proof over promises</span>
-        <span>Research-built</span>
+  <section class="section">
+    <div class="wrap">
+      <div class="prose">
+        <h2>Our principles</h2>
+        <p class="lede">Five commitments we hold ourselves to, in every drill, briefing, and report.</p>
+      </div>
+      <div class="grid grid--2" style="margin-top: 32px;">
+        <div class="card principle">
+          <h3>Research-built</h3>
+          <p>
+            Every drill and briefing traces back to published research and to the scams currently
+            being reported to the FBI and FTC. When the evidence changes, the product changes.
+          </p>
+        </div>
+        <div class="card principle">
+          <h3>Proof over promises</h3>
+          <p>
+            No training can guarantee protection, so we never claim it. Instead we show families
+            measurable progress every month, and we make refunds easy when we haven't earned our
+            keep.
+          </p>
+        </div>
+        <div class="card principle">
+          <h3>Dignity first</h3>
+          <p>
+            We coach; we never shame, trick for tricks' sake, or talk down. The person practicing
+            is the hero of this story, not the risk to be managed.
+          </p>
+        </div>
+        <div class="card principle">
+          <h3>Consent always</h3>
+          <p>
+            Nobody receives a drill who hasn't personally said yes. Every channel is opt-in,
+            opting out takes one reply, and nothing ever happens behind anyone's back.
+          </p>
+        </div>
+        <div class="card principle">
+          <h3>Independence, not surveillance</h3>
+          <p>
+            We don't watch bank accounts or monitor anyone's life. Spry builds the skill that
+            lets people keep confidently handling their own affairs — that's the whole point.
+          </p>
+        </div>
       </div>
 
-      <p style="margin-top: 32px;">
+      <p class="prose" style="margin-top: 36px;">
         We're in early access and building with our founding families and partners. Want to shape
         it? <a href="/early-access">Get early access</a> or write us at
         <a href="mailto:hello@sprysafe.com">hello@sprysafe.com</a>.
@@ -62,19 +112,22 @@ import CtaBand from '../components/CtaBand.astro';
 </Base>
 
 <style>
-  .values {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 28px;
+  .stat-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.2em;
+    display: grid;
+    gap: 10px;
   }
-  .values span {
+  .stat-bullets li {
     background: var(--white);
-    border: 1.5px solid var(--pine);
-    color: var(--pine-deep);
-    border-radius: 999px;
-    padding: 9px 20px;
-    font-weight: 700;
-    font-size: 0.98rem;
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--pine);
+    border-radius: 10px;
+    padding: 12px 18px;
+    font-size: 1.05rem;
   }
+  .stat-bullets strong { color: var(--pine-deep); }
+  .principle h3 { font-size: 1.2rem; }
+  .principle p { margin-bottom: 0; color: var(--ink-soft); font-size: 1rem; line-height: 1.55; }
 </style>
