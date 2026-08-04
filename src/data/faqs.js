@@ -24,7 +24,7 @@ export const faqs = [
   },
   {
     q: 'Do you access bank accounts or financial information?',
-    a: `<p>Never. Spry doesn't monitor money at all — that's a different (complementary) category of product. We only need contact channels: an email address, and optionally a phone number and mailing address.</p>`,
+    a: `<p>Never. ScamPrep doesn't monitor money at all — that's a different (complementary) category of product. We only need contact channels: an email address, and optionally a phone number and mailing address.</p>`,
   },
   {
     q: "Is this another app they'll have to manage?",

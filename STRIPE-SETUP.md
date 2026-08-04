@@ -1,4 +1,4 @@
-# Stripe setup for sprysafe.com — Payment Links
+# Stripe setup for ScamPrep (sprysafe.com) — Payment Links
 
 > The site side is already wired: paste six payment-link URLs into
 > `src/data/checkout.js`, push, done. This doc is the Stripe-dashboard side.
@@ -24,9 +24,9 @@ Product catalog → Add product. Create **three products**, each with **two recu
 
 | Product | Annual price | Monthly price |
 |---|---|---|
-| Spry — Individual | **$108 / year** | **$12 / month** |
-| Spry — Couples & pairs | **$180 / year** | **$20 / month** |
-| Spry — Family | **$228 / year** | **$25 / month** |
+| ScamPrep — Individual | **$108 / year** | **$12 / month** |
+| ScamPrep — Couples & pairs | **$180 / year** | **$20 / month** |
+| ScamPrep — Family | **$228 / year** | **$25 / month** |
 
 Annual prices match the site's "$9 / $15 / $19 per month, billed annually" framing.
 

@@ -1,18 +1,39 @@
 ---
 const {
   headline = 'Make the first scam a practice one.',
-  body = 'Join the early-access list today. Every plan starts with a 14-day free trial and is backed by a 60-day money-back guarantee — and founding members help shape the product protecting the people they love.',
-  cta = 'Get early access',
+  body = 'Start today. Every plan begins with a 14-day free trial and is backed by a 60-day money-back guarantee — and founding members help shape the product protecting the people they love.',
+  cta = 'Start your free trial',
   href = '/early-access',
 } = Astro.props;
 ---
 
-<section class="section section--pine center">
-  <div class="wrap">
+<section class="section section--ink center cta-band">
+  <div class="radar-rings cta-band__radar" aria-hidden="true"></div>
+  <div class="radar-sweep cta-band__radar cta-band__sweep" aria-hidden="true"></div>
+  <div class="wrap cta-band__inner">
     <h2>{headline}</h2>
     <p class="lede" style="margin-inline:auto; max-width: 40rem;">{body}</p>
     <p style="margin-top: 28px;">
-      <a class="btn btn--primary" href={href}>{cta}</a>
+      <span class="ping-wrap">
+        <span class="ping-ring" aria-hidden="true"></span>
+        <a class="btn btn--primary" href={href}>{cta}</a>
+      </span>
     </p>
   </div>
 </section>
+
+<style>
+  .cta-band__inner { position: relative; }
+  .cta-band__radar {
+    left: 50%;
+    top: 50%;
+    width: 720px;
+    height: 720px;
+    margin: -360px;
+    background: repeating-radial-gradient(circle, transparent 0 53px, rgba(240, 161, 28, 0.12) 53px 54px);
+  }
+  .cta-band__sweep {
+    background: conic-gradient(from 0deg, rgba(240, 161, 28, 0.14), transparent 90deg);
+    animation: spryRot 10s linear infinite;
+  }
+</style>

@@ -10,7 +10,7 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || '/early-access';
 ---
 
 <Base
-  title="Spry Pricing — Plans from $9/month, with a 14-Day Free Trial"
+  title="ScamPrep Pricing — Plans from $9/month, with a 14-Day Free Trial"
   description="Three simple plans: one person ($9/mo), up to two ($15/mo), or up to four ($19/mo), billed annually — each with a 14-day free trial and a 60-day money-back guarantee. Business pricing for communities, agencies, and advisors."
 >
   <!-- ============ FOR FAMILIES ============ -->
@@ -86,7 +86,7 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || '/early-access';
         </div>
       </div>
       <p class="guarantee center">
-        Every plan comes with a <strong>60-day money-back guarantee</strong> — if Spry isn't a
+        Every plan comes with a <strong>60-day money-back guarantee</strong> — if ScamPrep isn't a
         fit, we refund in full. No questions, no forms.
       </p>
       <p class="plan-fineprint center">
@@ -126,7 +126,7 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || '/early-access';
           <summary>Why does this cost more than a call blocker?</summary>
           <div class="faq-body">
             <p>
-              A blocker filters some scams. Spry changes what happens when one gets through —
+              A blocker filters some scams. ScamPrep changes what happens when one gets through —
               and one always gets through. You're not buying software; you're buying a skill and
               monthly proof it's growing.
             </p>
@@ -294,12 +294,12 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || '/early-access';
     transform: translateX(-50%);
     background: var(--amber);
     color: var(--pine-deep);
-    font-weight: 700;
+    font-weight: 800;
     font-size: 0.72rem;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.13em;
     text-transform: uppercase;
     padding: 6px 16px;
-    border-radius: 999px;
+    border-radius: var(--radius-chip);
     white-space: nowrap;
     box-shadow: var(--shadow);
   }
@@ -316,8 +316,9 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || '/early-access';
   .price-card__num {
     font-family: var(--font-display);
     font-size: 3rem;
-    font-weight: 700;
-    color: var(--pine-deep);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--ink);
   }
   .price-card__billing {
     color: var(--ink-soft);
@@ -327,11 +328,11 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || '/early-access';
   /* "Everything in X, plus:" — makes tier inheritance visually explicit. */
   .price-card__inherit {
     display: inline-block;
-    background: #ebf2ed;
-    color: var(--pine-deep);
+    background: var(--amber-tint);
+    color: var(--amber-deep);
     font-size: 0.88rem;
-    font-weight: 600;
-    border-radius: 999px;
+    font-weight: 700;
+    border-radius: var(--radius-chip);
     padding: 6px 14px;
     margin: 10px 0 14px;
   }

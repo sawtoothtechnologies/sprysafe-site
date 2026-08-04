@@ -1,54 +1,73 @@
 ---
-// The hero artifact. Built in real HTML/CSS so it can become the actual
-// product template later. Always labeled as an illustrative sample.
+// The hero artifact — the monthly Resilience Report. Built in real HTML/CSS so
+// it can become the actual product template later. Always labeled illustrative.
+//
+// variant: "full" (5 drills + briefings + next-month focus) — the /report section
+//          "trimmed" (3 drills + a teaser link) — the hero
+// tone:    "dark" (default) when the card sits on an ink surface, "light" on paper.
+const { variant = 'full', tone = 'dark' } = Astro.props;
+const trimmed = variant === 'trimmed';
+
+const fullDrills = [
+  { what: 'Fake bank “account locked” email', outcome: 'reported', coached: false },
+  { what: 'Prize-sweepstakes email', outcome: 'deleted', coached: false },
+  { what: 'Fake delivery text', outcome: 'ignored', coached: false },
+  { what: 'Utility “past-due” email', outcome: 'reported', coached: false },
+  { what: 'Fake bank text', outcome: 'responded & coached', coached: true },
+];
+
+const trimmedDrills = [
+  { what: 'Fake bank “account locked” email', outcome: 'reported', coached: false },
+  { what: 'Fake delivery text', outcome: 'ignored', coached: false },
+  { what: 'Fake bank text', outcome: 'coached, 30 sec', coached: true },
+];
+
+const drills = trimmed ? trimmedDrills : fullDrills;
 ---
 
-<figure class="report" aria-label="Sample monthly Resilience Report (illustrative)">
-  <p class="report__sample">Sample report — illustrative</p>
+<div class:list={['report-wrap', `report-wrap--${tone}`]}>
+  <p class="report__sample">Illustrative report</p>
 
-  <header class="report__head">
-    <div>
-      <p class="report__title">Margaret's Resilience Report</p>
-      <p class="report__month">June</p>
-    </div>
-    <div class="report__status" role="img" aria-label="Status: mostly strong, improving since March">
-      <span class="report__status-label" aria-hidden="true">Status</span>
-      <span class="report__status-pill" aria-hidden="true">Mostly strong</span>
-      <span class="report__status-sub" aria-hidden="true">▲ improving since March</span>
-    </div>
-  </header>
+  <figure class:list={['report', trimmed && 'report--trimmed']} aria-label="Sample monthly Resilience Report (illustrative)">
+    <header class="report__head">
+      <div>
+        <p class="report__title">Margaret's Resilience Report</p>
+        <p class="report__month">June</p>
+      </div>
+      <div class="report__status" role="img" aria-label="Status: mostly strong, improving since March">
+        {!trimmed && <span class="report__status-label" aria-hidden="true">Status</span>}
+        <span class="report__status-pill" aria-hidden="true">Mostly strong ↑</span>
+        {!trimmed && <span class="report__status-sub" aria-hidden="true">improving since March</span>}
+      </div>
+    </header>
 
-  <p class="report__headline">Spotted <strong>4 of 5</strong> practice scams this month</p>
+    <p class="report__headline">Spotted <strong>4 of 5</strong> practice scams this month</p>
 
-  <ul class="report__list">
-    <li>
-      <span class="report__what">Fake bank “account locked” email</span>
-      <span class="report__result report__result--ok"><i class="report__mark report__mark--ok">✓</i> reported</span>
-    </li>
-    <li>
-      <span class="report__what">Prize-sweepstakes email</span>
-      <span class="report__result report__result--ok"><i class="report__mark report__mark--ok">✓</i> deleted</span>
-    </li>
-    <li>
-      <span class="report__what">Fake delivery text</span>
-      <span class="report__result report__result--ok"><i class="report__mark report__mark--ok">✓</i> ignored</span>
-    </li>
-    <li>
-      <span class="report__what">Utility “past-due” email</span>
-      <span class="report__result report__result--ok"><i class="report__mark report__mark--ok">✓</i> reported</span>
-    </li>
-    <li>
-      <span class="report__what">Fake bank text</span>
-      <span class="report__result report__result--warn"><i class="report__mark report__mark--warn">!</i> coached, 30 sec</span>
-    </li>
-  </ul>
+    <ul class="report__list">
+      {drills.map((d) => (
+        <li class:list={['report__row', d.coached && 'report__row--coached']}>
+          <span class:list={['blip', d.coached && 'blip--alert']} aria-hidden="true"></span>
+          <span class="report__what">{d.what}</span>
+          <span class:list={['report__result', d.coached && 'report__result--alert']}>{d.outcome}</span>
+        </li>
+      ))}
+    </ul>
 
-  <p class="report__briefings">Plus: briefed on the <strong>3 newest scams</strong> in circulation this month</p>
-
-  <footer class="report__foot">
-    <strong>What we're reinforcing next month:</strong> spotting look-alike sender numbers in texts.
-  </footer>
-</figure>
+    {trimmed ? (
+      <footer class="report__foot report__foot--teaser">
+        + 2 more drills, this month's scam briefing, and next month's focus.
+        <a href="#report">See the full report ↓</a>
+      </footer>
+    ) : (
+      <>
+        <p class="report__briefings">Plus: briefed on the <strong>3 newest scams</strong> in circulation this month</p>
+        <footer class="report__foot">
+          <strong>What we're reinforcing next month:</strong> spotting look-alike sender numbers in texts.
+        </footer>
+      </>
+    )}
+  </figure>
+</div>
 
 <script>
   // Bring the report to life when it scrolls into view: drill rows tick in
@@ -75,28 +94,28 @@
 </script>
 
 <style>
+  .report-wrap { display: flex; flex-direction: column; max-width: 480px; width: 100%; }
+  .report__sample {
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 700;
+    margin: 0 0 10px;
+  }
+  .report-wrap--dark .report__sample { color: #bfbfbf; }
+  .report-wrap--light .report__sample { color: var(--gray-500); }
+
   .report {
     margin: 0;
     background: var(--white);
     border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    padding: 30px 30px 26px;
-    box-shadow: var(--shadow-lg);
-    max-width: 480px;
+    border-radius: var(--radius);
+    padding: 28px 28px 24px;
     font-size: 1rem;
+    color: var(--ink);
   }
-  .report__sample {
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    background: var(--paper);
-    display: inline-block;
-    padding: 4px 12px;
-    border-radius: 999px;
-    margin: 0 0 18px;
-  }
+  .report-wrap--dark .report { box-shadow: var(--shadow-float); }
+  .report--trimmed { padding: 26px 26px 22px; max-width: 420px; }
+
   .report__head {
     display: flex;
     justify-content: space-between;
@@ -104,111 +123,98 @@
     gap: 16px;
     margin-bottom: 6px;
   }
+  .report--trimmed .report__head { align-items: center; }
   .report__title {
     font-family: var(--font-display);
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--pine-deep);
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--ink);
     margin: 0;
     line-height: 1.2;
   }
-  .report__month { color: var(--ink-soft); margin: 2px 0 0; }
+  .report--trimmed .report__title { font-size: 1.2rem; }
+  .report__month { color: var(--gray-500); margin: 2px 0 0; font-size: 0.95rem; }
 
   /* Qualitative status block */
   .report__status { text-align: right; flex: none; display: grid; gap: 4px; justify-items: end; }
   .report__status-label {
-    font-size: 0.68rem;
-    font-weight: 700;
+    font-size: 0.65rem;
+    font-weight: 800;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--ink-soft);
+    color: var(--gray-500);
   }
   .report__status-pill {
-    background: var(--pine);
-    color: var(--cream);
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 0.95rem;
-    padding: 7px 15px;
-    border-radius: 999px;
+    background: var(--amber-tint);
+    color: var(--amber-deep);
+    font-weight: 800;
+    font-size: 0.85rem;
+    padding: 7px 13px;
+    border-radius: 7px;
     white-space: nowrap;
   }
+  .report--trimmed .report__status-pill { font-size: 0.82rem; }
   .report__status-sub {
-    font-size: 0.76rem;
+    font-size: 0.74rem;
     font-weight: 700;
-    color: var(--ok);
+    white-space: nowrap;
+    color: var(--amber-text);
   }
 
-  .report__headline {
-    font-size: 1.1rem;
-    margin: 12px 0 14px;
-    color: var(--ink);
-  }
+  .report__headline { font-size: 1.05rem; margin: 12px 0 14px; color: var(--ink); }
+  .report--trimmed .report__headline { font-size: 1.02rem; margin-bottom: 12px; }
 
-  /* Drill rows: short label left, big verdict right */
-  .report__list {
-    list-style: none;
-    margin: 0 0 14px;
-    padding: 0;
-    display: grid;
-  }
-  .report__list li {
+  /* Drill rows are chips: blip dot, label, outcome. */
+  .report__list { list-style: none; margin: 0 0 14px; padding: 0; display: grid; gap: 6px; }
+  .report__row {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    gap: 14px;
-    padding: 9px 0;
-    border-bottom: 1px solid var(--paper);
+    gap: 10px;
+    padding: 8px 12px;
+    background: var(--paper-bg);
+    border: 1px solid var(--sand);
+    border-radius: var(--radius-ctrl);
   }
-  .report__list li:last-child { border-bottom: none; }
-  .report__what { color: var(--ink); line-height: 1.35; }
+  .report__row--coached { background: var(--white); border: 1.5px solid var(--alert); }
+  .report__what { color: var(--ink); line-height: 1.35; flex: 1; font-size: 0.95rem; font-weight: 500; }
+  .report--trimmed .report__what { font-size: 0.92rem; }
   .report__result {
     flex: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.85rem;
-    font-weight: 700;
-  }
-  .report__result--ok { color: var(--ok); }
-  .report__result--warn { color: var(--warn); }
-  .report__mark {
-    font-style: normal;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
+    white-space: nowrap;
+    font-size: 0.78rem;
     font-weight: 800;
-    font-size: 1rem;
+    color: var(--amber-deep);
   }
-  .report__mark--ok { background: #e2efe6; color: var(--ok); }
-  .report__mark--warn { background: #fbeed3; color: var(--warn); }
+  .report--trimmed .report__result { font-size: 0.76rem; }
+  .report__result--alert { color: var(--alert); }
 
   .report__briefings {
-    font-size: 0.92rem;
-    color: var(--ink-soft);
-    background: var(--paper);
-    border-radius: 10px;
+    font-size: 0.9rem;
+    color: var(--gray-700);
+    background: var(--sand);
+    border-radius: var(--radius-ctrl);
     padding: 10px 14px;
     margin: 0 0 16px;
   }
-  .report__briefings strong { color: var(--pine-deep); }
+  .report__briefings strong { color: var(--ink); }
 
   .report__foot {
     border-top: 1px solid var(--line);
     padding-top: 14px;
-    font-size: 0.95rem;
-    color: var(--ink-soft);
+    font-size: 0.92rem;
+    color: var(--gray-700);
   }
-  .report__foot strong { color: var(--pine-deep); }
+  .report__foot strong { color: var(--ink); }
+  .report__foot--teaser { padding-top: 12px; font-size: 0.88rem; line-height: 1.55; color: var(--gray-500); }
+  .report__foot--teaser a { font-weight: 700; }
 
   /* ---------- Scroll-in animation ----------
      .report--anim is added by JS only when motion is allowed, so the armed
      (hidden) states below never apply for no-JS or reduced-motion visitors.
      .report--play triggers the sequence when the card enters the viewport. */
   .report--anim .report__headline,
-  .report--anim .report__list li,
+  .report--anim .report__row,
   .report--anim .report__briefings,
   .report--anim .report__status-pill,
   .report--anim .report__status-sub {
@@ -217,22 +223,22 @@
   .report--play .report__headline {
     animation: reportRise 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) 0.15s forwards;
   }
-  .report--play .report__list li {
+  .report--play .report__row {
     animation: reportRise 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
   }
-  .report--play .report__list li:nth-child(1) { animation-delay: 0.35s; }
-  .report--play .report__list li:nth-child(2) { animation-delay: 0.55s; }
-  .report--play .report__list li:nth-child(3) { animation-delay: 0.75s; }
-  .report--play .report__list li:nth-child(4) { animation-delay: 0.95s; }
-  .report--play .report__list li:nth-child(5) { animation-delay: 1.15s; }
-  .report--play .report__mark {
-    animation: markIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+  .report--play .report__row:nth-child(1) { animation-delay: 0.35s; }
+  .report--play .report__row:nth-child(2) { animation-delay: 0.55s; }
+  .report--play .report__row:nth-child(3) { animation-delay: 0.75s; }
+  .report--play .report__row:nth-child(4) { animation-delay: 0.95s; }
+  .report--play .report__row:nth-child(5) { animation-delay: 1.15s; }
+  .report--play .report__row .blip {
+    animation: blipIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
   }
-  .report--play li:nth-child(1) .report__mark { animation-delay: 0.5s; }
-  .report--play li:nth-child(2) .report__mark { animation-delay: 0.7s; }
-  .report--play li:nth-child(3) .report__mark { animation-delay: 0.9s; }
-  .report--play li:nth-child(4) .report__mark { animation-delay: 1.1s; }
-  .report--play li:nth-child(5) .report__mark { animation-delay: 1.3s; }
+  .report--play .report__row:nth-child(1) .blip { animation-delay: 0.5s; }
+  .report--play .report__row:nth-child(2) .blip { animation-delay: 0.7s; }
+  .report--play .report__row:nth-child(3) .blip { animation-delay: 0.9s; }
+  .report--play .report__row:nth-child(4) .blip { animation-delay: 1.1s; }
+  .report--play .report__row:nth-child(5) .blip { animation-delay: 1.3s; }
   .report--play .report__briefings {
     animation: reportRise 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) 1.45s forwards;
   }
@@ -250,13 +256,13 @@
     from { opacity: 0; transform: scale(0.6); }
     to { opacity: 1; transform: scale(1); }
   }
-  @keyframes markIn {
+  @keyframes blipIn {
     from { transform: scale(0); }
     to { transform: scale(1); }
   }
 
   @media (max-width: 420px) {
-    .report__list li { flex-wrap: wrap; gap: 6px; }
+    .report__row { flex-wrap: wrap; gap: 6px 10px; }
     .report__result { margin-left: auto; }
   }
 </style>
