@@ -1,12 +1,12 @@
 # ScamPrep marketing site
 
 Built with [Astro](https://astro.build) — a static site, no database, no server. Live at
-**https://sprysafe.com**.
+**https://getscamprep.com** (sprysafe.com 301-redirects here).
 
-> **Naming, as of August 2026:** the product is **ScamPrep**. The domain, email, repo, and
-> Cloudflare project are still `sprysafe*` — that's deliberate, not drift. Customer-facing copy
-> says ScamPrep; the infrastructure keeps its old names until a domain move is decided.
-> See "If the domain moves" below.
+> **Naming, as of August 2026:** the product is **ScamPrep** and the domain is
+> **getscamprep.com**. The GitHub repo, Cloudflare Pages project, and local folder are still
+> named `sprysafe-site` — that's deliberate (renaming them buys nothing and risks breaking the
+> deploy hook). Keep sprysafe.com registered: it serves the 301s and still receives email.
 
 ## How the site runs
 
@@ -16,7 +16,7 @@ Built with [Astro](https://astro.build) — a static site, no database, no serve
   source of truth for deploys.
 - **Hosting/deploy:** Cloudflare Pages, connected to the GitHub repo. Every push to `main`
   triggers an automatic build (`npm run build`, output `dist/`, root directory = repo root)
-  and deploys to sprysafe.com within a minute or two.
+  and deploys to getscamprep.com within a minute or two.
 - **Auth:** the GitHub personal access token is saved in the macOS keychain
   (`credential.helper osxkeychain`) — pushes won't prompt for credentials.
 
@@ -90,15 +90,14 @@ These numbers appear in `src/pages/pricing.astro`, `src/data/checkout.js`, and
       have an attorney review.
 - [ ] **Analytics:** paste a Plausible/Fathom script tag into `src/layouts/Base.astro` `<head>`.
       Without it there is no way to tell whether the rebrand moved conversion.
-- [ ] **Sitemap + robots.txt:** not present. `@astrojs/sitemap` is a two-line install.
+- [x] **Sitemap + robots.txt:** `@astrojs/sitemap` generates `/sitemap-index.xml` on build; `public/robots.txt` points to it. Submit it in Google Search Console.
 
-## If the domain moves
+## The old domain (sprysafe.com)
 
-Everything customer-facing already says ScamPrep. A domain change would touch, in this order:
-Cloudflare Pages custom domain → `site:` in `astro.config.mjs` → the `hello@` mailto links in
-`Base.astro`, `about.astro`, `promise.astro`, `privacy.astro`, `terms.astro`, `thanks.astro`,
-`solutions/index.astro`, `OrgPricing.astro` → Stripe payment-link redirect URLs → Google
-Workspace email → the GitHub repo name. Set up 301s from the old domain; the pages are indexed.
+Moved August 2026. sprysafe.com stays registered and active in Cloudflare for two jobs:
+a zone-level 301 redirect rule (`https://*sprysafe.com/* → https://getscamprep.com/$2`) and
+MX records so hello@sprysafe.com keeps receiving. Don't delete the zone or let the domain
+lapse — for a fraud-prevention brand, a lapsed old domain is a phishing gift.
 
 ## Editing map
 

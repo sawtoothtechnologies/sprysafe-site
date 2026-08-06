@@ -1,7 +1,8 @@
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 
-// Update `site` when the real domain is confirmed.
 export default defineConfig({
-  site: 'https://sprysafe.com',
+  site: 'https://getscamprep.com',
   trailingSlash: 'never',
+  integrations: [sitemap()],
 });

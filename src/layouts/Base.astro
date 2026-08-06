@@ -3,7 +3,7 @@ import '../styles/global.css';
 
 const { title, description, image = '/og.png' } = Astro.props;
 const year = new Date().getFullYear();
-const site = Astro.site ?? new URL('https://sprysafe.com');
+const site = Astro.site ?? new URL('https://getscamprep.com');
 const ogImage = new URL(image, site).href;
 const canonical = new URL(Astro.url.pathname, site).href;
 ---
@@ -84,7 +84,7 @@ const canonical = new URL(Astro.url.pathname, site).href;
               <span>ScamPrep</span>
             </p>
             <p class="footer-tag">A fire drill for scams.</p>
-            <p><a href="mailto:hello@sprysafe.com">hello@sprysafe.com</a></p>
+            <p><a href="mailto:hello@getscamprep.com">hello@getscamprep.com</a></p>
           </div>
           <nav aria-label="Footer — product">
             <p class="footer-head">Product</p>
@@ -97,7 +97,7 @@ const canonical = new URL(Astro.url.pathname, site).href;
             <p class="footer-head">Solutions</p>
             <a href="/solutions">For organizations</a>
             <a href="/solutions#pricing">Partner pricing</a>
-            <a href="mailto:hello@sprysafe.com?subject=ScamPrep%20partner%20call">Book a call</a>
+            <a href="mailto:hello@getscamprep.com?subject=ScamPrep%20partner%20call">Book a call</a>
           </nav>
           <nav aria-label="Footer — company">
             <p class="footer-head">Company</p>

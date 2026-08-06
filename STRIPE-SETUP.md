@@ -8,7 +8,7 @@
 
 - Each plan/billing combo gets a **Stripe Payment Link** (a hosted checkout URL).
 - The pricing page's annual/monthly toggle swaps which link each button points to.
-- After checkout, Stripe redirects the customer to **sprysafe.com/thanks** (already built),
+- After checkout, Stripe redirects the customer to **getscamprep.com/thanks** (already built),
   which tells them you'll email within one business day to start enrollment.
 - Fulfillment is manual (white-glove) for now: Stripe emails you on each new subscription.
   Upgrade path to automated provisioning (Checkout API + webhooks) stays open.
@@ -34,7 +34,7 @@ Annual prices match the site's "$9 / $15 / $19 per month, billed annually" frami
 For each of the six prices: Payment Links → New →
 - **Subscription** with that price
 - **Free trial: 14 days** (matches the site promise; card collected up front)
-- After payment → **Don't show confirmation page → redirect to** `https://sprysafe.com/thanks`
+- After payment → **Don't show confirmation page → redirect to** `https://getscamprep.com/thanks`
 - Leave promotion codes **off** (site policy: integrity pricing, no coupon-hunting)
 - Optional: enable **phone number collection** if you want it for onboarding
 
