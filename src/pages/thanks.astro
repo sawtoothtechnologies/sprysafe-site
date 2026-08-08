@@ -1,14 +1,14 @@
 ---
 import Base from '../layouts/Base.astro';
 
-// Post-checkout confirmation. Stripe Payment Links redirect here after a
-// successful subscription (set the confirmation URL to getscamprep.com/thanks
-// on each payment link — see STRIPE-SETUP.md).
+// Early-access confirmation. The /early-access form redirects here after a
+// successful submission. When Stripe checkout goes live, give checkout its own
+// /welcome page with trial copy rather than reusing this one (see STRIPE-SETUP.md).
 ---
 
 <Base
-  title="Welcome to ScamPrep — You're In"
-  description="Your ScamPrep trial has started. Here's what happens next."
+  title="You're on the list | ScamPrep"
+  description="You're on the ScamPrep early-access list. Here's what happens next."
 >
   <section class="section">
     <div class="wrap center" style="max-width: 640px;">
@@ -18,21 +18,22 @@ import Base from '../layouts/Base.astro';
         <line x1="20" y1="20" x2="30.6" y2="9.4" stroke="#121110" stroke-width="2" stroke-linecap="round" />
         <circle cx="20" cy="20" r="5.5" fill="#f0a11c" />
       </svg>
-      <h1>You're in. Welcome to ScamPrep.</h1>
+      <h1>You're on the list.</h1>
       <p class="lede" style="margin-inline: auto;">
-        Your 14-day free trial has started, and a receipt is on its way to your inbox.
+        Thanks — you're in line for the founding cohort. Family plans open this fall, and
+        early-access members hear from us first.
       </p>
       <div class="card" style="text-align: left; margin-top: 32px;">
         <h3>What happens next</h3>
         <ol class="next-steps">
-          <li><strong>Within one business day</strong>, we'll email you personally to set up enrollment for the person you're protecting.</li>
-          <li><strong>They opt in</strong> — always. We'll walk you both through it; there's nothing to install.</li>
-          <li><strong>Drills begin</strong> quietly in the first week, and your first Resilience Report arrives after the first full month.</li>
+          <li><strong>We'll confirm by email</strong> in the next day or two — a real person (usually the founder) reads every signup.</li>
+          <li><strong>When your cohort opens</strong>, you get first pick of enrollment dates and white-glove setup for the person you care about.</li>
+          <li><strong>They opt in — always.</strong> Nothing to install, nothing to download, and consent comes first.</li>
         </ol>
         <p style="margin-bottom: 0; font-size: 0.95rem; color: var(--ink-soft);">
-          Questions in the meantime? Just reply to any email from us, or write
-          <a href="mailto:hello@getscamprep.com">hello@getscamprep.com</a>. And remember: every plan
-          carries a 60-day money-back guarantee.
+          Questions in the meantime? Write
+          <a href="mailto:hello@getscamprep.com">hello@getscamprep.com</a> — and when plans open,
+          every one will carry a 60-day money-back guarantee.
         </p>
       </div>
     </div>

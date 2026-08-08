@@ -48,7 +48,7 @@ export const faqs = [
   },
   {
     q: 'What does it cost?',
-    a: `<p>$9/month for one person or $15/month for two, billed annually ($12 and $20 if billed monthly). Every plan starts with a 14-day free trial and carries a 60-day money-back guarantee. Businesses: volume pricing from $4–8 per person monthly. <a href="/pricing">See pricing →</a></p>`,
+    a: `<p>$9/month for one person or $15/month for two, billed annually ($12 and $20 if billed monthly). Family plans open this fall — every plan will start with a 14-day free trial and carry a 60-day money-back guarantee. Businesses: founding-partner pilots are open now, with volume pricing from $4–8 per person monthly. <a href="/pricing">See pricing →</a></p>`,
   },
   {
     q: 'When can we start?',

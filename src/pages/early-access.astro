@@ -1,16 +1,15 @@
 ---
 import Base from '../layouts/Base.astro';
 
-// FORM BACKEND — before launch:
-// 1. Create a free form at https://formspree.io (or Tally + embed).
-// 2. Replace YOUR_FORM_ID below with the real endpoint.
-// Submissions will arrive at hello@getscamprep.com.
-const FORM_ACTION = 'https://formspree.io/f/YOUR_FORM_ID';
+// FORM BACKEND: Formspree (form "ScamPrep early access", ID moeajjvb).
+// Submissions arrive at hello@getscamprep.com. Keep reCAPTCHA OFF in Formspree
+// settings — the fetch-based submit below is rejected if it's on.
+const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
 ---
 
 <Base
   title="Get Early Access | ScamPrep"
-  description="Join the founding families. Start with a 14-day free trial, backed by a 60-day money-back guarantee, and help shape the product protecting the people you love."
+  description="Family plans open this fall. Join the early-access list — small onboarding cohorts, white-glove setup, and a direct line to the founder."
 >
   <section class="section">
     <div class="wrap form-layout">
@@ -18,9 +17,9 @@ const FORM_ACTION = 'https://formspree.io/f/YOUR_FORM_ID';
         <p class="kicker">Early access</p>
         <h1>Join the founding families.</h1>
         <p class="lede">
-          We're onboarding in small cohorts so every family gets white-glove setup. Founding
-          members start with a <strong>14-day free trial</strong> and get a direct line to the
-          founder.
+          Family plans open this fall. We onboard in small cohorts so every family gets
+          white-glove setup — <strong>join the list and you're at the front</strong>, with a
+          direct line to the founder.
         </p>
         <p class="trust-line">
           Consent-first. No bank access. Cancel anytime. 60-day money-back guarantee. We'll never
@@ -29,6 +28,7 @@ const FORM_ACTION = 'https://formspree.io/f/YOUR_FORM_ID';
       </div>
 
       <form class="form-card" method="POST" action={FORM_ACTION}>
+        <input type="hidden" id="plan" name="plan" value="" />
         <div class="field">
           <label for="name">Your name</label>
           <input type="text" id="name" name="name" autocomplete="name" />
@@ -42,7 +42,7 @@ const FORM_ACTION = 'https://formspree.io/f/YOUR_FORM_ID';
         <div class="field">
           <label for="role">I'm interested as…</label>
           <select id="role" name="role">
-            <option>A family member protecting a parent/grandparent</option>
+            <option>A family member protecting someone I care about</option>
             <option>An older adult enrolling myself</option>
             <option>A senior-living community</option>
             <option>A home-care agency</option>
@@ -82,6 +82,37 @@ const FORM_ACTION = 'https://formspree.io/f/YOUR_FORM_ID';
     </div>
   </section>
 </Base>
+
+<script>
+  // Carry the plan chosen on /pricing into the submission (?plan=individual|couples|family).
+  const planInput = document.getElementById('plan') as HTMLInputElement | null;
+  const plan = new URLSearchParams(location.search).get('plan');
+  if (planInput && plan) planInput.value = plan;
+
+  // Submit via fetch so visitors land on our own /thanks page. (Formspree's hosted
+  // redirect is a paid feature; this works on the free plan.) No-JS falls back to a
+  // normal POST to Formspree's default confirmation page.
+  const form = document.querySelector('form.form-card') as HTMLFormElement | null;
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+      if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        if (!res.ok) throw new Error(String(res.status));
+        window.location.href = '/thanks';
+      } catch {
+        if (btn) { btn.disabled = false; btn.textContent = 'Get early access'; }
+        form.submit(); // plain POST fallback
+      }
+    });
+  }
+</script>
 
 <style>
   .form-layout {

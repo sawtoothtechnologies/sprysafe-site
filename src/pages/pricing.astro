@@ -6,18 +6,24 @@ import { checkoutLinks } from '../data/checkout.js';
 
 // Checkout URL for a plan + billing period, falling back to the waitlist
 // until the Stripe Payment Links are pasted into src/data/checkout.js.
-const co = (plan, mode) => checkoutLinks[plan]?.[mode] || '/early-access';
+// Falls back to the early-access list, carrying which plan they picked. When Stripe
+// Payment Links are pasted into checkout.js, buttons revert to checkout automatically.
+const co = (plan, mode) => checkoutLinks[plan]?.[mode] || `/early-access?plan=${plan}`;
 ---
 
 <Base
   title="ScamPrep Pricing — Plans from $9/month, with a 14-Day Free Trial"
-  description="Three simple plans: one person ($9/mo), up to two ($15/mo), or up to four ($19/mo), billed annually — each with a 14-day free trial and a 60-day money-back guarantee. Business pricing for communities, agencies, and advisors."
+  description="Three simple plans: one person ($9/mo), up to two ($15/mo), or up to four ($19/mo), billed annually. Family plans open this fall — join the early-access list. Business pricing for communities, agencies, and advisors."
 >
   <!-- ============ FOR FAMILIES ============ -->
   <section class="section pricing" id="family-plans">
     <div class="wrap center pricing__head">
       <p class="kicker">For families</p>
       <h1 class="pricing__title">Simple, transparent pricing</h1>
+      <p class="lede" style="margin: 12px auto 0; max-width: 620px;">
+        Family plans open this fall — <a href="/early-access">join the early-access list</a>
+        to be first in. Organizations can <a href="#org-pricing">start now as founding partners</a>.
+      </p>
       <div class="billing-toggle-row">
         <div class="billing-toggle" role="group" aria-label="Billing period">
           <button class="billing-toggle__btn is-active" data-billing="annual" aria-pressed="true">Annual</button>
@@ -43,8 +49,8 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || '/early-access';
             <li>Gentle 30-second coaching the moment a drill lands</li>
             <li>Monthly Resilience Report, with trend line and briefings, shared with up to 4 family members</li>
           </ul>
-          <a class="btn btn--ghost" data-checkout href={co('individual', 'annual')} data-annual-href={co('individual', 'annual')} data-monthly-href={co('individual', 'monthly')}>Start free trial</a>
-          <p class="price-card__trial">Includes 14-day free trial</p>
+          <a class="btn btn--ghost" data-checkout href={co('individual', 'annual')} data-annual-href={co('individual', 'annual')} data-monthly-href={co('individual', 'monthly')}>Join the early-access list</a>
+          <p class="price-card__trial">Opens this fall — list members are first in</p>
         </div>
 
         <!-- Tier 2 — up to two (MOST POPULAR) -->
@@ -62,8 +68,8 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || '/early-access';
             <li>Ideal for both parents, or you and someone you love</li>
             <li>One subscription, one bill, about <span data-annual="$7.50" data-monthly="$10">$7.50</span> per person</li>
           </ul>
-          <a class="btn btn--primary" data-checkout href={co('couples', 'annual')} data-annual-href={co('couples', 'annual')} data-monthly-href={co('couples', 'monthly')}>Start free trial</a>
-          <p class="price-card__trial">Includes 14-day free trial</p>
+          <a class="btn btn--primary" data-checkout href={co('couples', 'annual')} data-annual-href={co('couples', 'annual')} data-monthly-href={co('couples', 'monthly')}>Join the early-access list</a>
+          <p class="price-card__trial">Opens this fall — list members are first in</p>
         </div>
 
         <!-- Tier 3 — up to four -->
@@ -81,8 +87,8 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || '/early-access';
             <li>Add or swap enrolled people anytime</li>
             <li>The best per-person value, about <span data-annual="$4.75" data-monthly="$6.25">$4.75</span> per person</li>
           </ul>
-          <a class="btn btn--ghost" data-checkout href={co('family', 'annual')} data-annual-href={co('family', 'annual')} data-monthly-href={co('family', 'monthly')}>Start free trial</a>
-          <p class="price-card__trial">Includes 14-day free trial</p>
+          <a class="btn btn--ghost" data-checkout href={co('family', 'annual')} data-annual-href={co('family', 'annual')} data-monthly-href={co('family', 'monthly')}>Join the early-access list</a>
+          <p class="price-card__trial">Opens this fall — list members are first in</p>
         </div>
       </div>
       <p class="guarantee center">
@@ -133,12 +139,12 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || '/early-access';
           </div>
         </details>
         <details class="faq-item">
-          <summary>How does the free trial work?</summary>
+          <summary>When can we start?</summary>
           <div class="faq-body">
             <p>
-              Every plan starts with a 14-day free trial — long enough to see the first drills and
-              coaching in action. And after that, you're still covered by the 60-day money-back
-              guarantee.
+              Family plans open this fall, in small onboarding cohorts — join the early-access
+              list and you're at the front. Every plan will start with a 14-day free trial and
+              carry a 60-day money-back guarantee.
             </p>
           </div>
         </details>
