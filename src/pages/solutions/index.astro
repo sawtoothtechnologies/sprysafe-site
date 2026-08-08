@@ -138,11 +138,78 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
     </div>
   </section>
 
+  <!-- ============ WHY PRACTICES ============ -->
+  <section class="section">
+    <div class="wrap">
+      <p class="kicker">For advisory practices</p>
+      <h2 style="max-width: 34rem;">Why practices run ScamPrep</h2>
+      <div class="grid grid--2" style="margin-top: 36px;">
+        <div class="card">
+          <h3>Keep the assets through the wealth transfer</h3>
+          <p>When assets pass to heirs, the advisor usually doesn't. The Resilience Report puts your name in front of clients' adult children every month — attached to good news about their parent.</p>
+        </div>
+        <div class="card">
+          <h3>A scam is an AUM event</h3>
+          <p>The average reported senior-fraud loss is about $39,000 — and the harder cost is the conversation after. Practice lowers the odds of both.</p>
+        </div>
+        <div class="card">
+          <h3>Differentiation that takes one sentence</h3>
+          <p>“We train our clients against scams — and show their families the progress.” No rate table, model portfolio, or planning tool says that.</p>
+        </div>
+        <div class="card">
+          <h3>Fewer fire drills of the bad kind</h3>
+          <p>A client mid-scam is weeks of unbillable triage. Trained clients call you <em>before</em> they wire money, not after.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOUNDING PILOT TIMELINE ============ -->
+  <section class="section section--paper">
+    <div class="wrap">
+      <p class="kicker">Founding pilots</p>
+      <h2 style="max-width: 34rem;">What a founding pilot looks like</h2>
+      <ol class="pilot-steps">
+        <li>
+          <h3>A 20-minute call</h3>
+          <p>Whether ScamPrep fits your clients, what a pilot includes, and pricing. No pitch, no pressure, no obligation.</p>
+        </li>
+        <li>
+          <h3>You select clients to enroll</h3>
+          <p>You know who's a fit — we screen for cognitive appropriateness together.</p>
+        </li>
+        <li>
+          <h3>We handle invitations and consent — nothing for your staff</h3>
+          <p>Participants opt in personally, families get visibility, and nobody is monitored behind their back. Oversight without overreach.</p>
+        </li>
+        <li>
+          <h3>Drills begin within two weeks</h3>
+          <p>Co-branded Resilience Reports monthly, then a day-90 readout and your decision.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
   <!-- ============ PARTNER PRICING ============ -->
   <section class="section" id="pricing">
     <div class="wrap center">
       <p class="kicker">Partner pricing</p>
       <h2>Simple, volume-based, and it pays for itself</h2>
+
+      <div class="grid grid--2 paymodels" style="margin-top: 36px;">
+        <div class="card">
+          <h3>Practice-sponsored</h3>
+          <p>You cover enrollment for the clients you choose, at the partner pricing below. Reads as client appreciation — and you control the roster.</p>
+        </div>
+        <div class="card">
+          <h3>Client-referred</h3>
+          <p>Families pay for their own plan; your practice still gets the co-branded Resilience Report and the aggregate stat.</p>
+        </div>
+      </div>
+      <p class="paymodels__note">
+        Every founding pilot starts sponsored — 90 days, a small roster — then you pick the model that fits.
+      </p>
+
       <div style="margin-top: 32px;">
         <OrgPricing />
       </div>
@@ -191,6 +258,53 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
+  }
+
+  .pilot-steps {
+    list-style: none;
+    counter-reset: pilot;
+    padding: 0;
+    margin: 36px 0 0;
+    max-width: 46rem;
+  }
+  .pilot-steps li {
+    counter-increment: pilot;
+    position: relative;
+    padding: 0 0 28px 64px;
+  }
+  .pilot-steps li::before {
+    content: counter(pilot);
+    position: absolute;
+    left: 0;
+    top: -2px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--ink);
+    display: grid;
+    place-items: center;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.05rem;
+  }
+  .pilot-steps li:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 19px;
+    top: 44px;
+    bottom: 2px;
+    width: 2px;
+    background: var(--line);
+  }
+  .pilot-steps h3 { margin: 0 0 6px; font-size: 1.15rem; }
+  .pilot-steps p { margin: 0; color: var(--ink-soft); font-size: 1rem; }
+
+  .paymodels { text-align: left; max-width: 880px; margin-inline: auto; }
+  .paymodels__note {
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+    margin: 18px auto 0;
+    max-width: 44rem;
   }
 
   .aud-card { scroll-margin-top: 96px; }
