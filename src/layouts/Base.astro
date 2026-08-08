@@ -97,7 +97,7 @@ const canonical = new URL(Astro.url.pathname, site).href;
             <p class="footer-head">Solutions</p>
             <a href="/solutions">For organizations</a>
             <a href="/solutions#pricing">Partner pricing</a>
-            <a href="mailto:hello@getscamprep.com?subject=ScamPrep%20partner%20call">Book a call</a>
+            <a href="https://cal.com/scamprep/partner-call">Book a call</a>
           </nav>
           <nav aria-label="Footer — company">
             <p class="footer-head">Company</p>
@@ -313,5 +313,18 @@ const canonical = new URL(Astro.url.pathname, site).href;
         max-width: 900px;
       }
     </style>
+
+    <script>
+      // Remember campaign tags (?utm_source=...) from the landing page for the whole
+      // visit, so the early-access form can report which channel produced the signup
+      // even when the visitor browses other pages first.
+      try {
+        const p = new URLSearchParams(location.search);
+        for (const k of ['utm_source', 'utm_medium', 'utm_campaign']) {
+          const v = p.get(k);
+          if (v) sessionStorage.setItem(k, v);
+        }
+      } catch {}
+    </script>
   </body>
 </html>

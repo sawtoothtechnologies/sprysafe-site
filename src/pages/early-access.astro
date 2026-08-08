@@ -38,6 +38,10 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
 
       <form class="form-card" method="POST" action={FORM_ACTION}>
         <input type="hidden" id="plan" name="plan" value="" />
+        <input type="hidden" id="utm_source" name="utm_source" value="" />
+        <input type="hidden" id="utm_medium" name="utm_medium" value="" />
+        <input type="hidden" id="utm_campaign" name="utm_campaign" value="" />
+        <input type="hidden" id="referrer" name="referrer" value="" />
         <div class="field">
           <label for="name">Your name</label>
           <input type="text" id="name" name="name" autocomplete="name" />
@@ -85,9 +89,24 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
 
 <script>
   // Carry the plan chosen on /pricing into the submission (?plan=individual|couples|family).
+  const query = new URLSearchParams(location.search);
   const planInput = document.getElementById('plan') as HTMLInputElement | null;
-  const plan = new URLSearchParams(location.search).get('plan');
+  const plan = query.get('plan');
   if (planInput && plan) planInput.value = plan;
+
+  // Attribution: URL params win; otherwise use tags remembered from the landing page
+  // (Base.astro stores them in sessionStorage). Referrer fills in for untagged links.
+  for (const k of ['utm_source', 'utm_medium', 'utm_campaign']) {
+    const el = document.getElementById(k) as HTMLInputElement | null;
+    if (!el) continue;
+    let v = query.get(k);
+    if (!v) { try { v = sessionStorage.getItem(k); } catch {} }
+    if (v) el.value = v;
+  }
+  const refEl = document.getElementById('referrer') as HTMLInputElement | null;
+  if (refEl && document.referrer && !document.referrer.includes(location.hostname)) {
+    refEl.value = document.referrer;
+  }
 
   // Show "Who would you like to enroll?" only when signing up for someone else.
   const role = document.getElementById('role') as HTMLSelectElement | null;
@@ -111,9 +130,14 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
       const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
       if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
       try {
+        const data = new FormData(form);
+        // Drop empty attribution fields so signup emails stay clean.
+        for (const k of ['plan', 'utm_source', 'utm_medium', 'utm_campaign', 'referrer']) {
+          if (!data.get(k)) data.delete(k);
+        }
         const res = await fetch(form.action, {
           method: 'POST',
-          body: new FormData(form),
+          body: data,
           headers: { Accept: 'application/json' },
         });
         if (!res.ok) throw new Error(String(res.status));
