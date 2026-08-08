@@ -25,6 +25,15 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
           Consent-first. No bank access. Cancel anytime. 60-day money-back guarantee. We'll never
           sell your information.
         </p>
+
+        <div class="org-callout">
+          <p class="org-callout__head">Representing an organization?</p>
+          <p class="org-callout__body">
+            Financial advisors, credit unions, senior-living communities, home-care agencies —
+            this form isn't your door. Founding-partner pilots start with a short call.
+          </p>
+          <a class="btn btn--ghost" href="/solutions">See partner options →</a>
+        </div>
       </div>
 
       <form class="form-card" method="POST" action={FORM_ACTION}>
@@ -40,31 +49,22 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
         </div>
 
         <div class="field">
-          <label for="role">I'm interested as…</label>
+          <label for="role">I am…</label>
           <select id="role" name="role">
-            <option>A family member protecting someone I care about</option>
-            <option>An older adult enrolling myself</option>
-            <option>A senior-living community</option>
-            <option>A home-care agency</option>
-            <option>A financial advisor</option>
-            <option>A credit union</option>
+            <option>A family member protecting someone I love</option>
+            <option>An individual protecting myself</option>
             <option>Other</option>
           </select>
         </div>
 
-        <div class="field">
-          <label for="who">Who are you hoping to protect? <span class="hint">(optional — e.g., “my mom, 78, lives alone in Ohio”)</span></label>
+        <div class="field" id="enroll-field">
+          <label for="who">Who would you like to enroll? <span class="hint">(optional)</span></label>
           <input type="text" id="who" name="who" />
         </div>
 
         <div class="field">
           <label for="worry">What worries you most right now? <span class="hint">(optional)</span></label>
           <textarea id="worry" name="worry" rows="4"></textarea>
-        </div>
-
-        <div class="field">
-          <label for="phone">Phone <span class="hint">(optional — if you'd like a call from the founder)</span></label>
-          <input type="tel" id="phone" name="phone" autocomplete="tel" />
         </div>
 
         <div class="field checkbox">
@@ -88,6 +88,18 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
   const planInput = document.getElementById('plan') as HTMLInputElement | null;
   const plan = new URLSearchParams(location.search).get('plan');
   if (planInput && plan) planInput.value = plan;
+
+  // Show "Who would you like to enroll?" only when signing up for someone else.
+  const role = document.getElementById('role') as HTMLSelectElement | null;
+  const enrollField = document.getElementById('enroll-field');
+  const whoInput = document.getElementById('who') as HTMLInputElement | null;
+  const syncEnroll = () => {
+    if (!role || !enrollField) return;
+    const forSomeoneElse = role.value.startsWith('A family member');
+    enrollField.hidden = !forSomeoneElse;
+    if (!forSomeoneElse && whoInput) whoInput.value = '';
+  };
+  if (role) { role.addEventListener('change', syncEnroll); syncEnroll(); }
 
   // Submit via fetch so visitors land on our own /thanks page. (Formspree's hosted
   // redirect is a paid feature; this works on the free plan.) No-JS falls back to a
@@ -122,5 +134,20 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
   }
   @media (min-width: 920px) {
     .form-layout { grid-template-columns: 1fr 1.1fr; }
+  }
+  .org-callout {
+    margin-top: 34px;
+    padding: 22px 24px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--sand);
+  }
+  .org-callout__head {
+    font-weight: 800;
+    margin: 0 0 6px;
+  }
+  .org-callout__body {
+    font-size: 0.95rem;
+    margin: 0 0 14px;
   }
 </style>
