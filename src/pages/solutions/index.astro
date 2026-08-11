@@ -128,21 +128,19 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
           </div>
         </div>
 
-        <!-- $124T — handoff arc: wealth passing from one generation (gray dot) to
-             the next (amber dot), drawn left to right. Deliberately distinct from
-             the home page's rising data trace. -->
+        <!-- $124T — handoff arc in the background: wealth passing from one generation
+             (gray dot) to the next (amber dot, pinging). Sits behind the number like
+             the ping rings behind $38k, so the column has no empty space below. -->
         <div class="stat-col">
-          <div class="stat-line">
+          <div class="stat-line stat-line--arc">
+            <svg class="handoff" viewBox="0 0 240 90" preserveAspectRatio="none" aria-hidden="true">
+              <circle cx="12" cy="74" r="4" fill="#a3a09a" />
+              <path d="M12 74 C 70 12, 170 12, 228 74" fill="none" stroke="rgba(240, 161, 28, 0.5)" stroke-width="2" stroke-linecap="round" />
+              <circle class="handoff__dot" cx="228" cy="74" r="4" fill="#f0a11c" />
+              <circle class="handoff__ring" cx="228" cy="74" r="9" fill="none" stroke="rgba(240, 161, 28, 0.8)" stroke-width="1.5" />
+            </svg>
             <span class="stat__num" data-countup data-target="124" data-prefix="$" data-suffix="T">$124T</span>
             <p class="stat__label">changing hands by 2048 in the great wealth transfer</p>
-          </div>
-          <div class="stat__graphic" aria-hidden="true">
-            <svg class="trace" viewBox="0 0 220 32" preserveAspectRatio="none">
-              <circle cx="7" cy="26" r="3.5" fill="#a3a09a" />
-              <path class="trace__line" d="M7 26 C 60 2, 160 2, 213 26" fill="none" pathLength="600" />
-              <circle cx="213" cy="26" r="3.5" fill="#f0a11c" />
-              <circle cx="213" cy="26" r="7.5" fill="none" stroke="rgba(240, 161, 28, 0.4)" stroke-width="1.5" />
-            </svg>
           </div>
         </div>
 
@@ -193,6 +191,9 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
   <!-- ============ THE DELIVERABLE (Resilience Report) ============ -->
   <section class="section section--ink" id="report">
     <div class="radar-rings report-band__radar" aria-hidden="true"></div>
+    <div class="radar-sweep report-band__radar report-band__sweep" aria-hidden="true"></div>
+    <span class="report-band__blip" aria-hidden="true"></span>
+    <span class="report-band__blip report-band__blip--2" aria-hidden="true"></span>
     <div class="wrap report-band">
       <div>
         <p class="kicker">The deliverable</p>
@@ -417,16 +418,23 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
   .stats--play .loss-ping--2 { animation-delay: 1.35s; }
   .stat-line--ping .stat__num, .stat-line--ping .stat__label { position: relative; }
 
-  .trace { display: block; width: 100%; }
-  .stat__graphic .trace { max-width: 220px; height: 32px; }
-  .trace__line {
-    stroke: var(--amber);
-    stroke-width: 2.5;
-    stroke-linecap: round;
-    stroke-dasharray: 600;
+  /* $124T handoff arc — background treatment, mirroring the ping behind $38k. */
+  .stat-line--arc { position: relative; }
+  .stat-line--arc .stat__num,
+  .stat-line--arc .stat__label { position: relative; }
+  .handoff {
+    position: absolute;
+    left: -8px;
+    top: 50%;
+    width: min(240px, 100%);
+    height: 90px;
+    margin-top: -58px;
+    opacity: 0.55;
+    pointer-events: none;
   }
-  .trace--anim .trace__line { stroke-dashoffset: 600; }
-  .trace--play .trace__line { animation: spryDash 3.8s ease-in-out forwards; }
+  .handoff__ring { transform-box: fill-box; transform-origin: center; }
+  .stats--play .handoff__ring { animation: spryPing 2.7s cubic-bezier(0, 0, 0.2, 1) infinite; }
+  .stats--play .handoff__dot { animation: spryBlip 2.8s linear infinite; }
 
   /* ---------- Report band (mirrors the home report section's ink treatment) ---------- */
   .report-band {
@@ -445,6 +453,29 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
     width: 480px;
     height: 480px;
     background: repeating-radial-gradient(circle, transparent 0 35px, rgba(240, 161, 28, 0.14) 35px 36px);
+  }
+  /* The pulsing radar: a slow sweep over the rings, plus two blinking blips. */
+  .report-band__sweep {
+    background: conic-gradient(from 0deg, rgba(240, 161, 28, 0.16), transparent 90deg);
+    animation: spryRot 10s linear infinite;
+  }
+  .report-band__blip {
+    position: absolute;
+    left: 96px;
+    bottom: 120px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--amber);
+    animation: spryBlip 7s linear infinite;
+    pointer-events: none;
+  }
+  .report-band__blip--2 {
+    left: 210px;
+    bottom: 48px;
+    width: 6px;
+    height: 6px;
+    animation-delay: 3.5s;
   }
 
   /* ---------- Why-practices ledger: rule-separated entries, no card boxes,
@@ -699,23 +730,6 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
       { threshold: 0.25 }
     );
     bandIo.observe(band);
-  }
-
-  const traces = Array.from(document.querySelectorAll('.trace'));
-  if (traces.length && 'IntersectionObserver' in window && !reduceMotion) {
-    traces.forEach((t) => t.classList.add('trace--anim'));
-    const traceIo = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('trace--play');
-            traceIo.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.4 }
-    );
-    traces.forEach((t) => traceIo.observe(t));
   }
 
   // "Runs itself" panels — titles first; detail on hover (pointer devices),

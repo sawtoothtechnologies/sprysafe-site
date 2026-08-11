@@ -22,7 +22,7 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || `/early-access?plan=${
     <div class="wrap notice__inner">
       <p>
         <strong>Family plans open this fall</strong> — <a href="/early-access">join the
-        early-access list</a> to be first in. Organizations can <a href="#org-pricing">start now</a>.
+        early-access list</a> to be first in. Organizations can <a href="https://cal.com/scamprep/partner-call">start now</a>.
       </p>
       <button type="button" class="notice__close" aria-label="Dismiss notice">&times;</button>
     </div>
@@ -40,6 +40,7 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || `/early-access?plan=${
         </div>
       </div>
       <p class="billing-note is-on" aria-live="polite">3 months free, every year</p>
+      <p class="org-jump">Buying for a community, practice, or team? <a href="#org-pricing">Organization pricing is below</a>.</p>
     </div>
 
     <div class="wrap">
@@ -283,6 +284,18 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || `/early-access?plan=${
     max-width: 34rem;
     margin: 0 auto 28px;
   }
+  /* Quiet FYI, not a call to action. */
+  .org-jump { margin: 18px 0 0; font-size: 0.85rem; color: var(--ink-soft); }
+  .org-jump a {
+    font-weight: 500;
+    color: var(--ink-soft);
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+  .org-jump a:hover { color: var(--pine-deep); text-decoration-style: solid; }
+
   /* ---------- Billing-period toggle ---------- */
   .billing-toggle-row { display: flex; justify-content: center; }
   .billing-toggle {
