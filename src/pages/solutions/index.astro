@@ -8,12 +8,19 @@ import Faq from '../../components/Faq.astro';
 // The objections advisors raise on a first call, answered plainly.
 const advisorFaqs = [
   {
-    q: "Won't clients find it patronizing?",
-    a: `<p>Framing does the work here — and you control it. This is the same simulate-and-coach training Fortune 500 firms require of every employee, including the CEO. It's offered as a benefit, never an accusation: every participant opts in personally, drills are gentle, and coaching is private. In practice, sharp clients tend to enjoy catching them.</p>`,
+    q: 'How will my clients react?',
+    a: `<p>Better than you'd guess — framing does the work, and you control it. This is the same simulate-and-coach training Fortune 500 firms require of every employee, including the CEO. It's offered as a benefit, never an accusation: every participant opts in personally, drills are gentle, and coaching is private. Sharp clients tend to enjoy catching them.</p>`,
   },
   {
     q: 'What will our compliance team ask?',
-    a: `<p>The usual questions have short answers. Account access: none — ScamPrep never touches money, accounts, or credentials. Integrations and data feeds: none. Data held: the contact channels a participant consents to, nothing financial. Texts and calls: only with written consent, per the TCPA — enrollment starts with email. There's very little surface to review.</p>`,
+    a: `<p>The usual questions have short answers:</p>
+<ul>
+  <li><strong>Account access:</strong> none — ScamPrep never touches money, accounts, or credentials.</li>
+  <li><strong>Integrations and data feeds:</strong> none.</li>
+  <li><strong>Data held:</strong> the contact channels a participant consents to — nothing financial.</li>
+  <li><strong>Texts and calls:</strong> only with written consent, per the TCPA. Enrollment starts with email.</li>
+</ul>
+<p>There's very little surface to review.</p>`,
   },
   {
     q: 'What happens when a client misses a drill?',
@@ -32,7 +39,7 @@ const audiences = [
     id: 'financial-advisors',
     name: 'Financial advisors',
     hook: 'Protect the person, not just the portfolio.',
-    body: 'You can diversify away market risk — not one convincing phone call. ScamPrep trains your older clients to catch scams before money moves, and shows their families the progress every month. About $60 per client a year.',
+    body: 'You can diversify away market risk — not one convincing phone call. ScamPrep trains your older clients to catch scams before money moves, and shows their families the progress every month.',
   },
   {
     id: 'credit-unions',
@@ -50,7 +57,7 @@ const audiences = [
     id: 'home-care',
     name: 'Home-care agencies',
     hook: 'The safety add-on client families thank you for.',
-    body: "You're already the trusted safety layer in your clients' lives. ScamPrep extends that trust to the threat that arrives by phone — a co-branded protection families value, and a new recurring revenue line, with zero clinical burden on caregivers.",
+    body: "You're already the trusted safety layer in your clients' lives. ScamPrep extends that trust to the threat that arrives by phone — a co-branded protection families value, with zero clinical burden on caregivers.",
   },
   {
     id: 'senior-living',
@@ -121,7 +128,9 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
           </div>
         </div>
 
-        <!-- $124T — rising trace -->
+        <!-- $124T — handoff arc: wealth passing from one generation (gray dot) to
+             the next (amber dot), drawn left to right. Deliberately distinct from
+             the home page's rising data trace. -->
         <div class="stat-col">
           <div class="stat-line">
             <span class="stat__num" data-countup data-target="124" data-prefix="$" data-suffix="T">$124T</span>
@@ -129,8 +138,10 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
           </div>
           <div class="stat__graphic" aria-hidden="true">
             <svg class="trace" viewBox="0 0 220 32" preserveAspectRatio="none">
-              <path class="trace__line" d="M4 27 C 60 24, 120 18, 160 11 S 204 4, 212 4" fill="none" pathLength="600" />
-              <circle cx="212" cy="4" r="3.5" fill="#f0a11c" />
+              <circle cx="7" cy="26" r="3.5" fill="#a3a09a" />
+              <path class="trace__line" d="M7 26 C 60 2, 160 2, 213 26" fill="none" pathLength="600" />
+              <circle cx="213" cy="26" r="3.5" fill="#f0a11c" />
+              <circle cx="213" cy="26" r="7.5" fill="none" stroke="rgba(240, 161, 28, 0.4)" stroke-width="1.5" />
             </svg>
           </div>
         </div>
@@ -153,11 +164,11 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
       <ul class="why-list">
         <li>
           <h3><span class="blip" aria-hidden="true"></span>Keep the assets through the wealth transfer</h3>
-          <p>When assets pass to heirs, the advisor usually doesn't. The Resilience Report puts your name in front of clients' adult children every month — attached to good news about their parent.</p>
+          <p>When assets pass on to heirs, the financial advisor usually doesn't. The Resilience Report puts your name in front of clients' adult children every month, associated with good news about their parent.</p>
         </li>
         <li>
           <h3><span class="blip" aria-hidden="true"></span>A scam is an AUM event</h3>
-          <p>More than 12,400 people each lost $100k+ to fraud in 2025 — withdrawals no model portfolio plans for. The harder cost is the family conversation after. Trained clients lower the odds of both.</p>
+          <p>More than twelve thousand people each lost $100k+ to fraud in 2025 — and that's just what was reported. Those are withdrawals no portfolio plans for, and sometimes the greater cost is the family conversation after. Trained clients lower the odds of both.</p>
         </li>
         <li>
           <h3><span class="blip" aria-hidden="true"></span>Differentiation that takes one sentence</h3>
@@ -165,7 +176,7 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
         </li>
         <li>
           <h3><span class="blip" aria-hidden="true"></span>Fewer fire drills of the bad kind</h3>
-          <p>A client mid-scam is weeks of unbillable triage. Trained clients call you <em>before</em> they wire money — not after.</p>
+          <p>Talking clients out of scams, or supporting them through the fallout, can take days or weeks. Trained clients spare your practice those unforeseen costs.</p>
         </li>
       </ul>
 
@@ -205,25 +216,8 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
     </div>
   </section>
 
-  <!-- ============ AUDIENCE GRID ============ -->
-  <section class="section">
-    <div class="wrap">
-      <p class="kicker">Who it's for</p>
-      <h2 style="max-width: 34rem;">Built for the people families already trust</h2>
-      <div class="grid grid--3" style="margin-top: 36px;">
-        {audiences.map((a) => (
-          <div class="card aud-card" id={a.id}>
-            <h3>{a.name}</h3>
-            <p class="aud-card__hook">{a.hook}</p>
-            <p>{a.body}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
   <!-- ============ HOW PARTNERSHIPS WORK (reveal panels) ============ -->
-  <section class="section section--paper">
+  <section class="section">
     <div class="wrap">
       <p class="kicker">How partnerships work</p>
       <h2 style="max-width: 34rem;">One program, built to run itself</h2>
@@ -250,10 +244,23 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
         </button>
       </div>
 
-      <p class="lede" style="margin-top: 28px; max-width: 44rem;">
-        Plus an aggregate, anonymized stat you can put in a brochure or newsletter:
-        <em>“our clients caught 87% of simulated scams this quarter.”</em>
-      </p>
+    </div>
+  </section>
+
+  <!-- ============ AUDIENCE GRID ============ -->
+  <section class="section section--paper">
+    <div class="wrap">
+      <p class="kicker">Who it's for</p>
+      <h2 style="max-width: 34rem;">Built for the people families already trust</h2>
+      <div class="grid grid--3" style="margin-top: 36px;">
+        {audiences.map((a) => (
+          <div class="card aud-card" id={a.id}>
+            <h3>{a.name}</h3>
+            <p class="aud-card__hook">{a.hook}</p>
+            <p>{a.body}</p>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -274,7 +281,7 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
   <!-- ============ ADVISOR FAQ ============ -->
   <section class="section section--paper">
     <div class="wrap" style="max-width: 800px;">
-      <h2 class="center">The questions advisors ask on the first call</h2>
+      <h2 class="center">Questions advisors ask</h2>
       <div style="margin-top: 32px;">
         <Faq items={advisorFaqs} />
       </div>
