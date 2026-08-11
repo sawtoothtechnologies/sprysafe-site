@@ -15,15 +15,24 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || `/early-access?plan=${
   title="ScamPrep Pricing — Plans from $9/month, with a 14-Day Free Trial"
   description="Three simple plans: one person ($9/mo), up to two ($15/mo), or up to four ($19/mo), billed annually. Family plans open this fall — join the early-access list. Business pricing for communities, agencies, and advisors."
 >
+  <!-- Availability notice: one slim, dismissible line instead of a paragraph in the
+       header. Dismissal sticks for the browser session. Without JS it simply shows
+       (the close button only appears once JS confirms). -->
+  <div class="notice" id="pricing-notice">
+    <div class="wrap notice__inner">
+      <p>
+        <strong>Family plans open this fall</strong> — <a href="/early-access">join the
+        early-access list</a> to be first in. Organizations can <a href="#org-pricing">start now</a>.
+      </p>
+      <button type="button" class="notice__close" aria-label="Dismiss notice">&times;</button>
+    </div>
+  </div>
+
   <!-- ============ FOR FAMILIES ============ -->
   <section class="section pricing" id="family-plans">
     <div class="wrap center pricing__head">
       <p class="kicker">For families</p>
       <h1 class="pricing__title">Simple, transparent pricing</h1>
-      <p class="lede" style="margin: 12px auto 0; max-width: 620px;">
-        Family plans open this fall — <a href="/early-access">join the early-access list</a>
-        to be first in. Organizations can <a href="#org-pricing">start now as founding partners</a>.
-      </p>
       <div class="billing-toggle-row">
         <div class="billing-toggle" role="group" aria-label="Billing period">
           <button class="billing-toggle__btn is-active" data-billing="annual" aria-pressed="true">Annual</button>
@@ -31,7 +40,6 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || `/early-access?plan=${
         </div>
       </div>
       <p class="billing-note is-on" aria-live="polite">3 months free, every year</p>
-      <p class="org-jump">Buying for a community, practice, or team? <a href="#org-pricing">Organization pricing is below</a>.</p>
     </div>
 
     <div class="wrap">
@@ -92,7 +100,7 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || `/early-access?plan=${
         </div>
       </div>
       <p class="guarantee center">
-        Every plan comes with a <strong>60-day money-back guarantee</strong> — if ScamPrep isn't a
+        Every plan comes with a <strong>60-day money-back guarantee</strong>: if ScamPrep isn't a
         fit, we refund in full. No questions, no forms.
       </p>
       <p class="plan-fineprint center">
@@ -133,8 +141,8 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || `/early-access?plan=${
           <div class="faq-body">
             <p>
               A blocker filters some scams. ScamPrep changes what happens when one gets through —
-              and one always gets through. You're not buying software; you're buying a skill and
-              monthly proof it's growing.
+              and one always gets through. What you're paying for is a skill, plus monthly proof
+              it's growing.
             </p>
           </div>
         </details>
@@ -152,9 +160,8 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || `/early-access?plan=${
           <summary>What if my parent doesn't want it?</summary>
           <div class="faq-body">
             <p>
-              Then we don't enroll them. Consent isn't a checkbox for us; it's the product working
-              as designed. Many parents warm up after seeing a sample drill — most people enjoy
-              being good at this.
+              Then we don't enroll them. Nobody gets drilled without their own yes — and many
+              parents warm up after seeing a sample drill. Most people enjoy being good at this.
             </p>
           </div>
         </details>
@@ -204,28 +211,78 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || `/early-access?plan=${
       apply('annual');
     }
   }
+
+  // Dismissible availability notice. Dismissal persists for the browser session only,
+  // so returning visitors in a new session see it again. The close button is hidden
+  // until JS is confirmed (there's no point showing a button that can't work).
+  const notice = document.getElementById('pricing-notice');
+  if (notice) {
+    const KEY = 'scamprep-pricing-notice';
+    notice.classList.add('notice--js');
+    let dismissed = false;
+    try { dismissed = sessionStorage.getItem(KEY) === '1'; } catch (e) { /* storage blocked — just show it */ }
+    if (dismissed) notice.classList.add('is-hidden');
+    const close = notice.querySelector('.notice__close');
+    if (close) {
+      close.addEventListener('click', () => {
+        notice.classList.add('is-hidden');
+        try { sessionStorage.setItem(KEY, '1'); } catch (e) { /* fine — hides for this page view */ }
+      });
+    }
+  }
 </script>
 
 <style>
+  /* ---------- Availability notice banner ---------- */
+  .notice {
+    background: var(--amber-tint);
+    border-bottom: 1px solid var(--line);
+  }
+  .notice.is-hidden { display: none; }
+  .notice__inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 11px;
+    padding-bottom: 11px;
+  }
+  .notice p {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--amber-deep);
+    text-align: center;
+    padding: 0 28px; /* keeps text clear of the close button */
+  }
+  .notice strong { color: var(--amber-deep); }
+  .notice a { color: var(--amber-deep); font-weight: 700; }
+  .notice a:hover { color: var(--ink); }
+  .notice__close {
+    display: none;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 1.35rem;
+    line-height: 1;
+    color: var(--amber-deep);
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 6px;
+  }
+  .notice--js .notice__close { display: block; }
+  .notice__close:hover { color: var(--ink); }
+
   /* Compact header sits in the same section as the cards, so there's no big gap. */
   .pricing__head { margin-bottom: 40px; }
   .pricing__title {
     font-size: clamp(1.7rem, 3.2vw, 2.3rem);
     max-width: 34rem;
-    margin: 0 auto 24px;
+    margin: 0 auto 28px;
   }
-  /* Quiet FYI, not a call to action. */
-  .org-jump { margin: 18px 0 0; font-size: 0.85rem; color: var(--ink-soft); }
-  .org-jump a {
-    font-weight: 500;
-    color: var(--ink-soft);
-    text-decoration: underline;
-    text-decoration-style: dotted;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 3px;
-  }
-  .org-jump a:hover { color: var(--pine-deep); text-decoration-style: solid; }
-
   /* ---------- Billing-period toggle ---------- */
   .billing-toggle-row { display: flex; justify-content: center; }
   .billing-toggle {
