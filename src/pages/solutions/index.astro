@@ -2,20 +2,49 @@
 import Base from '../../layouts/Base.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import OrgPricing from '../../components/OrgPricing.astro';
+import ReportCard from '../../components/ReportCard.astro';
+import Faq from '../../components/Faq.astro';
 
-// Audience order matches the rotating hero. Each has an anchor id for deep links.
+// The objections advisors raise on a first call, answered plainly.
+const advisorFaqs = [
+  {
+    q: "Won't clients find it patronizing?",
+    a: `<p>Framing does the work here — and you control it. This is the same simulate-and-coach training Fortune 500 firms require of every employee, including the CEO. It's offered as a benefit, never an accusation: every participant opts in personally, drills are gentle, and coaching is private. In practice, sharp clients tend to enjoy catching them.</p>`,
+  },
+  {
+    q: 'What will our compliance team ask?',
+    a: `<p>The usual questions have short answers. Account access: none — ScamPrep never touches money, accounts, or credentials. Integrations and data feeds: none. Data held: the contact channels a participant consents to, nothing financial. Texts and calls: only with written consent, per the TCPA — enrollment starts with email. There's very little surface to review.</p>`,
+  },
+  {
+    q: 'What happens when a client misses a drill?',
+    a: `<p>A private, 30-second, friendly lesson in the moment — no shame, no public score. The family sees the month's trend, not a gotcha log, and you see aggregates. The design follows published research on older-adult learning: positive framing, immediate reassurance, never fear.</p>`,
+  },
+  {
+    q: 'Where does this sit with the Senior Safe Act and trusted-contact rules?',
+    a: `<p>ScamPrep is not a compliance product and doesn't claim to satisfy any rule. But the regulatory direction is clear: the Senior Safe Act protects firms that train and report, and trusted-contact rules push firms to engage families <em>before</em> there's a problem. A documented prevention program with monthly family touchpoints is exactly that posture — on paper.</p>`,
+  },
+];
+
+// Audience order matches the rotating hero. Financial institutions lead (top row);
+// each has an anchor id for deep links.
 const audiences = [
   {
     id: 'financial-advisors',
     name: 'Financial advisors',
     hook: 'Protect the person, not just the portfolio.',
-    body: 'You can diversify away market risk — not one convincing phone call. ScamPrep trains your older clients to catch scams before money moves, so you reduce risk, retain assets, and build relationships with the whole family. About $60 per client a year.',
+    body: 'You can diversify away market risk — not one convincing phone call. ScamPrep trains your older clients to catch scams before money moves, and shows their families the progress every month. About $60 per client a year.',
   },
   {
     id: 'credit-unions',
     name: 'Credit unions',
     hook: 'Protect the member, not just the account.',
-    body: 'Every scammed member costs you twice — drained deposits, then the fraud-ops hours and shaken trust. ScamPrep works upstream of transaction monitoring, training members to hang up before anything moves. Nothing for branch staff to run.',
+    body: 'Every scammed member costs you twice — drained deposits, then the fraud-ops hours and the shaken trust. ScamPrep works upstream of transaction monitoring, training members to hang up before anything moves. Nothing for branch staff to run.',
+  },
+  {
+    id: 'wealth-advisors',
+    name: 'Wealth advisors',
+    hook: 'The bridge to the next generation.',
+    body: 'Estate plans assume the money is still there when it transfers. ScamPrep protects the balance sheet you plan around — and gives the heirs a reason to know your firm before the estate settles.',
   },
   {
     id: 'home-care',
@@ -24,16 +53,10 @@ const audiences = [
     body: "You're already the trusted safety layer in your clients' lives. ScamPrep extends that trust to the threat that arrives by phone — a co-branded protection families value, and a new recurring revenue line, with zero clinical burden on caregivers.",
   },
   {
-    id: 'wealth-advisors',
-    name: 'Wealth advisors',
-    hook: 'The bridge to the next generation.',
-    body: 'More than 12,400 older Americans each lost $100k+ to fraud in 2025 — retirement-sized losses no allocation survives. Every month, a co-branded Resilience Report reaches the heirs (nine in ten of whom leave the parents’ advisor), with your firm’s name on the good news.',
-  },
-  {
     id: 'senior-living',
     name: 'Senior-living communities',
     hook: "The move-in differentiator down the street can't claim.",
-    body: 'Every community sells the same amenities. ScamPrep lets you sell what families actually lose sleep over — and prove it every month with a family report and a marketing-able stat: “our residents caught 87% of simulated scams this quarter.”',
+    body: 'Every community sells the same amenities. ScamPrep lets you sell what families actually lose sleep over — and prove it every month with a family report and a community stat worth putting in the tour brochure.',
   },
   {
     id: 'banks',
@@ -46,8 +69,8 @@ const audiences = [
 const rotatorItems = [
   'financial advisors',
   'credit unions',
-  'home care',
   'wealth advisors',
+  'home care',
   'senior living',
   'community banks',
 ];
@@ -55,8 +78,8 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
 ---
 
 <Base
-  title="ScamPrep for Advisors, Credit Unions, Home Care, Senior Living & Banks"
-  description="One provable scam-resilience program for the organizations families trust — financial and wealth advisors, credit unions, community banks, home-care agencies, and senior-living communities. Co-branded monthly Resilience Report, nothing for staff to run, never touches accounts. Founding-partner pilots open."
+  title="ScamPrep for Financial Advisors, Credit Unions & Wealth Managers"
+  description="One provable scam-resilience program for the organizations families trust — financial advisors, credit unions, wealth managers, community banks, home-care agencies, and senior-living communities. Co-branded monthly Resilience Report, nothing for staff to run, never touches accounts. Founding-partner pilots open."
 >
   <!-- ============ HERO (rotating audience) ============ -->
   <section class="section soln-hero">
@@ -64,7 +87,7 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
       <p class="kicker">For organizations</p>
       <h1 class="soln-hero__title">
         <span aria-hidden="true">ScamPrep for <span class="rot" id="rot" data-words={JSON.stringify(rotatorItems)}><span class="rot__inner" id="rot-inner">{rotatorItems[0]}</span></span></span>
-        <span class="sr-only">ScamPrep for financial advisors, credit unions, home care, wealth advisors, senior living, and community banks.</span>
+        <span class="sr-only">ScamPrep for financial advisors, credit unions, wealth advisors, home care, senior living, and community banks.</span>
       </h1>
       <p class="lede" style="margin-inline: auto;">
         If you serve older adults, ScamPrep gives you a <em>provable</em> answer to the question every
@@ -77,33 +100,108 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
     </div>
   </section>
 
-  <!-- ============ HOW PARTNERSHIPS WORK ============ -->
+  <!-- ============ WHY PRACTICES (stat band + ledger) ============ -->
   <section class="section section--paper">
     <div class="wrap">
-      <p class="kicker">How partnerships work</p>
-      <h2 style="max-width: 34rem;">One program, built to run itself</h2>
-      <div class="grid grid--2" style="margin-top: 36px;">
-        <div class="card">
-          <h3>Folds into your intake</h3>
-          <p>Enrollment and consent ride along with your existing move-in, membership, or onboarding flow. We screen for cognitive fit with you — cognitively-appropriate participants only.</p>
+      <p class="kicker">For advisory practices</p>
+      <h2 style="max-width: 34rem;">Why practices run ScamPrep</h2>
+      <p class="lede">
+        One convincing phone call can undo a decade of careful planning — and the fallout lands
+        on the practice, not just the client.
+      </p>
+
+      <div class="stat-row" id="why-stats">
+        <!-- $38k — ping rings behind the number -->
+        <div class="stat-col">
+          <div class="stat-line stat-line--ping">
+            <span class="loss-ping" aria-hidden="true"></span>
+            <span class="loss-ping loss-ping--2" aria-hidden="true"></span>
+            <span class="stat__num" data-countup data-target="38" data-prefix="$" data-suffix="k">$38k</span>
+            <p class="stat__label">average reported senior-fraud loss</p>
+          </div>
         </div>
-        <div class="card">
-          <h3>Nothing for your staff to run</h3>
-          <p>Email-first drills, in-the-moment coaching, and briefings on the newest scams are all handled by ScamPrep. Your team is never in the alert loop.</p>
+
+        <!-- $124T — rising trace -->
+        <div class="stat-col">
+          <div class="stat-line">
+            <span class="stat__num" data-countup data-target="124" data-prefix="$" data-suffix="T">$124T</span>
+            <p class="stat__label">changing hands by 2048 in the great wealth transfer</p>
+          </div>
+          <div class="stat__graphic" aria-hidden="true">
+            <svg class="trace" viewBox="0 0 220 32" preserveAspectRatio="none">
+              <path class="trace__line" d="M4 27 C 60 24, 120 18, 160 11 S 204 4, 212 4" fill="none" pathLength="600" />
+              <circle cx="212" cy="4" r="3.5" fill="#f0a11c" />
+            </svg>
+          </div>
         </div>
-        <div class="card">
-          <h3>A co-branded monthly touchpoint</h3>
-          <p>The Resilience Report reaches the family members your people choose — with your name on the good news. A recurring bridge to the next generation.</p>
-        </div>
-        <div class="card">
-          <h3>Clean on compliance</h3>
-          <p>ScamPrep never touches money, accounts, or core systems — no integrations, no data feeds. That keeps vendor review and the compliance conversation short.</p>
+
+        <!-- 7 in 10 — ten dots, seven lit -->
+        <div class="stat-col">
+          <div class="stat-line">
+            <span class="stat__num" data-countup data-target="7" data-suffix=" in 10">7 in 10</span>
+            <p class="stat__label">heirs switch advisors after inheriting</p>
+          </div>
+          <div class="stat__graphic dots" aria-hidden="true">
+            <span class="dot dot--on"></span><span class="dot dot--on"></span><span class="dot dot--on"></span>
+            <span class="dot dot--on"></span><span class="dot dot--on"></span><span class="dot dot--on"></span>
+            <span class="dot dot--on"></span>
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          </div>
         </div>
       </div>
+
+      <ul class="why-list">
+        <li>
+          <h3><span class="blip" aria-hidden="true"></span>Keep the assets through the wealth transfer</h3>
+          <p>When assets pass to heirs, the advisor usually doesn't. The Resilience Report puts your name in front of clients' adult children every month — attached to good news about their parent.</p>
+        </li>
+        <li>
+          <h3><span class="blip" aria-hidden="true"></span>A scam is an AUM event</h3>
+          <p>More than 12,400 people each lost $100k+ to fraud in 2025 — withdrawals no model portfolio plans for. The harder cost is the family conversation after. Trained clients lower the odds of both.</p>
+        </li>
+        <li>
+          <h3><span class="blip" aria-hidden="true"></span>Differentiation that takes one sentence</h3>
+          <p>“We train our clients against scams — and show their families the progress.” No rate table, model portfolio, or planning tool says that.</p>
+        </li>
+        <li>
+          <h3><span class="blip" aria-hidden="true"></span>Fewer fire drills of the bad kind</h3>
+          <p>A client mid-scam is weeks of unbillable triage. Trained clients call you <em>before</em> they wire money — not after.</p>
+        </li>
+      </ul>
+
       <p class="lede" style="margin-top: 28px; max-width: 44rem;">
-        Plus an aggregate, anonymized stat you can put in a brochure or newsletter:
-        <em>“our members caught 87% of simulated scams this quarter.”</em>
+        Preventing a single loss pays for years of the program.
       </p>
+      <p class="footnote" style="margin-top: 14px;">
+        Sources: <a href="https://www.ic3.gov/AnnualReport/Reports/2025_IC3Report.pdf">FBI IC3 2025 Internet Crime Report</a> ·
+        <a href="https://www.cerulli.com/press-releases/cerulli-anticipates-124-trillion-in-wealth-will-transfer-through-2048">Cerulli Associates</a>, on the great wealth transfer and heir retention
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ THE DELIVERABLE (Resilience Report) ============ -->
+  <section class="section section--ink" id="report">
+    <div class="radar-rings report-band__radar" aria-hidden="true"></div>
+    <div class="wrap report-band">
+      <div>
+        <p class="kicker">The deliverable</p>
+        <h2>A monthly report with your name on it</h2>
+        <p class="lede">
+          Every month, the family members each client chooses receive a one-page Resilience
+          Report — what was practiced, what was caught, what's being reinforced next —
+          co-branded to your firm.
+        </p>
+        <p class="lede" style="margin-top: 14px;">
+          Monitoring tools message families when something bad may have happened. This is the
+          opposite: recurring proof that their parent is getting harder to fool — and it
+          arrives with your name on it, in the inboxes of the generation that inherits.
+          Your practice sees the aggregate view: participation, catch rates, and who might
+          need a closer look.
+        </p>
+      </div>
+      <div class="report-band__card">
+        <ReportCard variant="full" tone="dark" />
+      </div>
     </div>
   </section>
 
@@ -124,55 +222,75 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
     </div>
   </section>
 
-  <!-- ============ ROI ============ -->
+  <!-- ============ HOW PARTNERSHIPS WORK (reveal panels) ============ -->
   <section class="section section--paper">
-    <div class="wrap prose">
-      <h2>The math is almost unfair</h2>
-      <p>
-        The average reported senior-fraud loss is about $39,000, and more than 12,400 people lost
-        $100,000 or more each in 2025. Preventing a <em>single</em> loss pays for years of the
-        program. And unlike another amenity, a rate-table tweak, or a monitoring tool that only
-        speaks up after the money moves, ScamPrep comes with a monthly artifact families actually
-        read — and a number you can market.
+    <div class="wrap">
+      <p class="kicker">How partnerships work</p>
+      <h2 style="max-width: 34rem;">One program, built to run itself</h2>
+      <p class="lede">Four commitments to your operations.</p>
+
+      <!-- Titles show first; hover, tap, or tab into a panel for the detail.
+           Without JS every panel renders open, so nothing is ever hidden. -->
+      <div class="runs" id="runs">
+        <button type="button" class="runs__panel" aria-expanded="true">
+          <span class="runs__title">Folds into your onboarding<span class="runs__plus" aria-hidden="true">+</span></span>
+          <span class="runs__body"><span>Enrollment and consent ride along with your existing client-onboarding, membership, or move-in flow. We screen for cognitive fit together — appropriate participants only.</span></span>
+        </button>
+        <button type="button" class="runs__panel" aria-expanded="true">
+          <span class="runs__title">Nothing for your staff to run<span class="runs__plus" aria-hidden="true">+</span></span>
+          <span class="runs__body"><span>Email-first drills, in-the-moment coaching, and briefings on the newest scams are all handled by ScamPrep. Your team is never in the alert loop.</span></span>
+        </button>
+        <button type="button" class="runs__panel" aria-expanded="true">
+          <span class="runs__title">A co-branded monthly touchpoint<span class="runs__plus" aria-hidden="true">+</span></span>
+          <span class="runs__body"><span>The Resilience Report reaches the family members each client chooses — a recurring, co-branded bridge to the next generation.</span></span>
+        </button>
+        <button type="button" class="runs__panel" aria-expanded="true">
+          <span class="runs__title">Clean on compliance<span class="runs__plus" aria-hidden="true">+</span></span>
+          <span class="runs__body"><span>ScamPrep never touches money, accounts, or core systems — no integrations, no data feeds, no client credentials. Vendor review stays short.</span></span>
+        </button>
+      </div>
+
+      <p class="lede" style="margin-top: 28px; max-width: 44rem;">
+        Plus an aggregate, anonymized stat you can put in a brochure or newsletter:
+        <em>“our clients caught 87% of simulated scams this quarter.”</em>
       </p>
     </div>
   </section>
 
-  <!-- ============ WHY PRACTICES ============ -->
-  <section class="section">
-    <div class="wrap">
-      <p class="kicker">For advisory practices</p>
-      <h2 style="max-width: 34rem;">Why practices run ScamPrep</h2>
-      <div class="grid grid--2" style="margin-top: 36px;">
-        <div class="card">
-          <h3>Keep the assets through the wealth transfer</h3>
-          <p>When assets pass to heirs, the advisor usually doesn't. The Resilience Report puts your name in front of clients' adult children every month — attached to good news about their parent.</p>
-        </div>
-        <div class="card">
-          <h3>A scam is an AUM event</h3>
-          <p>The average reported senior-fraud loss is about $39,000 — and the harder cost is the conversation after. Practice lowers the odds of both.</p>
-        </div>
-        <div class="card">
-          <h3>Differentiation that takes one sentence</h3>
-          <p>“We train our clients against scams — and show their families the progress.” No rate table, model portfolio, or planning tool says that.</p>
-        </div>
-        <div class="card">
-          <h3>Fewer fire drills of the bad kind</h3>
-          <p>A client mid-scam is weeks of unbillable triage. Trained clients call you <em>before</em> they wire money, not after.</p>
-        </div>
+  <!-- ============ EVIDENCE STRIP ============ -->
+  <section class="section--tight section">
+    <div class="wrap center">
+      <p class="kicker">The evidence</p>
+      <p class="lede" style="max-width: 48rem; margin-inline: auto;">
+        A 2024 federal research review found one-time scam education fades within weeks — and
+        called training that <em>simulates</em> scams “promising.” A University of Florida study
+        found performance on safe practice drills predicts real-world risk. It's the same
+        simulate-coach-measure loop enterprise security teams have run for years.
+        <a href="/why-it-works">Read the full case →</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ ADVISOR FAQ ============ -->
+  <section class="section section--paper">
+    <div class="wrap" style="max-width: 800px;">
+      <h2 class="center">The questions advisors ask on the first call</h2>
+      <div style="margin-top: 32px;">
+        <Faq items={advisorFaqs} />
       </div>
+      <p class="center" style="margin-top: 26px;"><a href="/faq">Read the full FAQ →</a></p>
     </div>
   </section>
 
   <!-- ============ FOUNDING PILOT TIMELINE ============ -->
-  <section class="section section--paper">
+  <section class="section">
     <div class="wrap">
       <p class="kicker">Founding pilots</p>
       <h2 style="max-width: 34rem;">What a founding pilot looks like</h2>
       <ol class="pilot-steps">
         <li>
           <h3>A 20-minute call</h3>
-          <p>Whether ScamPrep fits your clients, what a pilot includes, and pricing. No pitch, no pressure, no obligation.</p>
+          <p>Whether ScamPrep fits your clients, what a pilot includes, and pricing. No pitch, no obligation.</p>
         </li>
         <li>
           <h3>You select clients to enroll</h3>
@@ -184,17 +302,17 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
         </li>
         <li>
           <h3>Drills begin within two weeks</h3>
-          <p>Co-branded Resilience Reports monthly, then a day-90 readout and your decision.</p>
+          <p>You see your book's baseline catch rate in the first month. Co-branded Resilience Reports monthly, then a day-90 readout and your decision.</p>
         </li>
       </ol>
     </div>
   </section>
 
   <!-- ============ PARTNER PRICING ============ -->
-  <section class="section" id="pricing">
+  <section class="section section--paper" id="pricing">
     <div class="wrap center">
       <p class="kicker">Partner pricing</p>
-      <h2>Simple, volume-based, and it pays for itself</h2>
+      <h2>Simple, volume-based pricing</h2>
 
       <div class="grid grid--2 paymodels" style="margin-top: 36px;">
         <div class="card">
@@ -218,7 +336,7 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
 
   <CtaBand
     headline="Become a founding partner."
-    body="A 20-minute call is enough to see whether ScamPrep fits your community, agency, practice, or institution — and how a pilot works."
+    body="A 20-minute call is enough to see whether ScamPrep fits your practice, institution, agency, or community — and how a pilot works."
     cta="Book a 20-minute call"
     href={partnerCall}
   />
@@ -259,6 +377,152 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
     white-space: nowrap;
     border: 0;
   }
+
+  /* ---------- Why-practices stat band (mirrors the home "Why now" motifs:
+     ping = event, trace = data, dots = pictograph) ---------- */
+  .dots { display: flex; gap: 9px; align-items: center; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid #b5b0a6; }
+  .dot--on { background: var(--amber); border-color: var(--amber); }
+  .stats--anim .dot--on { opacity: 0.25; }
+  .stats--play .dot--on { animation: spryBlip 2.8s linear infinite; }
+  .stats--play .dot--on:nth-child(2) { animation-delay: 0.2s; }
+  .stats--play .dot--on:nth-child(3) { animation-delay: 0.4s; }
+  .stats--play .dot--on:nth-child(4) { animation-delay: 0.6s; }
+  .stats--play .dot--on:nth-child(5) { animation-delay: 0.8s; }
+  .stats--play .dot--on:nth-child(6) { animation-delay: 1s; }
+  .stats--play .dot--on:nth-child(7) { animation-delay: 1.2s; }
+  .stats--play .dot--on:nth-child(8) { animation-delay: 1.4s; }
+  .stats--play .dot--on:nth-child(9) { animation-delay: 1.6s; }
+
+  .stat-line--ping { position: relative; }
+  .loss-ping {
+    position: absolute;
+    left: 44px;
+    top: 50%;
+    width: 130px;
+    height: 130px;
+    margin: -65px 0 0 -65px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(240, 161, 28, 0.8);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .stats--play .loss-ping { animation: spryPing 2.7s cubic-bezier(0, 0, 0.2, 1) infinite; }
+  .stats--play .loss-ping--2 { animation-delay: 1.35s; }
+  .stat-line--ping .stat__num, .stat-line--ping .stat__label { position: relative; }
+
+  .trace { display: block; width: 100%; }
+  .stat__graphic .trace { max-width: 220px; height: 32px; }
+  .trace__line {
+    stroke: var(--amber);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-dasharray: 600;
+  }
+  .trace--anim .trace__line { stroke-dashoffset: 600; }
+  .trace--play .trace__line { animation: spryDash 3.8s ease-in-out forwards; }
+
+  /* ---------- Report band (mirrors the home report section's ink treatment) ---------- */
+  .report-band {
+    position: relative;
+    display: grid;
+    gap: 56px;
+    align-items: center;
+  }
+  @media (min-width: 920px) {
+    .report-band { grid-template-columns: 1.15fr 1fr; }
+  }
+  .report-band__card { display: flex; justify-content: center; }
+  .report-band__radar {
+    left: -140px;
+    bottom: -180px;
+    width: 480px;
+    height: 480px;
+    background: repeating-radial-gradient(circle, transparent 0 35px, rgba(240, 161, 28, 0.14) 35px 36px);
+  }
+
+  /* ---------- Why-practices ledger: rule-separated entries, no card boxes,
+     so the section reads differently from every grid on the page ---------- */
+  .why-list {
+    list-style: none;
+    padding: 0;
+    margin: 44px 0 0;
+    display: grid;
+    gap: 0 48px;
+  }
+  @media (min-width: 880px) {
+    .why-list { grid-template-columns: 1fr 1fr; }
+  }
+  .why-list li { padding: 22px 0 24px; border-top: 1px solid var(--divider); }
+  .why-list h3 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.15rem;
+    margin: 0 0 8px;
+  }
+  .why-list p { margin: 0; font-size: 1rem; color: var(--gray-700); }
+
+  /* ---------- "Runs itself" reveal panels: titles first, detail on
+     hover / tap / focus. Progressive: no JS = all panels open. ---------- */
+  .runs { display: grid; gap: 14px; margin-top: 36px; }
+  @media (min-width: 760px) { .runs { grid-template-columns: 1fr 1fr; align-items: start; } }
+  @media (min-width: 1040px) { .runs { grid-template-columns: repeat(4, 1fr); } }
+  .runs__panel {
+    display: block;
+    width: 100%;
+    text-align: left;
+    font-family: var(--font-body);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 22px 22px 20px;
+    cursor: pointer;
+    transition: background 0.3s ease, border-color 0.25s ease;
+  }
+  .runs__panel:hover { border-color: var(--line-strong); }
+  .runs__panel.is-open { background: var(--ink); border-color: var(--ink); }
+  .runs__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.08rem;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    color: var(--ink);
+    transition: color 0.25s ease;
+  }
+  .runs__panel.is-open .runs__title { color: var(--paper-bg); }
+  .runs__plus {
+    flex: none;
+    color: var(--amber);
+    font-size: 1.35rem;
+    font-weight: 400;
+    line-height: 1;
+    transition: transform 0.3s ease;
+  }
+  .runs__panel.is-open .runs__plus { transform: rotate(45deg); }
+  /* Detail expands via the 0fr → 1fr grid trick (same as the home carousel). */
+  .runs__body {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows 0.45s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.3s ease 0.08s;
+  }
+  .runs__body > span {
+    display: block;
+    overflow: hidden;
+    min-height: 0;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--gray-700);
+    transition: color 0.25s ease;
+  }
+  .runs__body > span::before { content: ''; display: block; height: 10px; }
+  .runs--js .runs__panel:not(.is-open) .runs__body { grid-template-rows: 0fr; opacity: 0; }
+  .runs__panel.is-open .runs__body > span { color: var(--gray-400); }
 
   .pilot-steps {
     list-style: none;
@@ -316,28 +580,6 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
     margin-bottom: 0.5em;
   }
   .aud-card p:last-child { margin-bottom: 0; font-size: 1rem; color: var(--ink-soft); }
-
-  /* Partner pricing card (mirrors the Pricing page business tier) */
-  .pricing-grid--single { max-width: 620px; margin-inline: auto; }
-  .price-card {
-    background: var(--white);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    padding: 38px 32px;
-    box-shadow: var(--shadow);
-  }
-  .price-card__price { font-size: 1.15rem; color: var(--ink-soft); margin-bottom: 2px; }
-  .price-card__num {
-    font-family: var(--font-display);
-    font-size: 3rem;
-    font-weight: 700;
-    color: var(--pine-deep);
-  }
-  .price-card__alt { color: var(--ink-soft); font-size: 1rem; margin-bottom: 4px; }
-  .price-card ul { padding-left: 1.2em; margin: 16px 0 20px; }
-  .price-card ul li { margin-bottom: 0.55em; font-size: 1rem; }
-  .price-card__note { font-size: 0.95rem; color: var(--ink-soft); margin-bottom: 24px; }
-  .price-card .btn { width: 100%; }
 </style>
 
 <script>
@@ -394,5 +636,105 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
         }, DUR);
       }, 2000);
     }
+  }
+
+  // Why-practices stat band — count-up numbers plus the dot / ping / trace motifs,
+  // armed and played on scroll into view (same behavior as the home "Why now" band).
+  // Markup ships the final numbers, so no-JS and reduced-motion visitors see real values.
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const countEls = document.querySelectorAll('[data-countup]');
+
+  const renderCount = (el, value) => {
+    el.textContent = (el.dataset.prefix || '') + Math.round(value).toLocaleString('en-US') + (el.dataset.suffix || '');
+  };
+  const animateCount = (el) => {
+    const target = parseFloat(el.dataset.target || '0');
+    if (reduceMotion) { renderCount(el, target); return; }
+    const duration = 1400;
+    let startTime;
+    const tick = (now) => {
+      if (startTime === undefined) startTime = now;
+      const progress = Math.min((now - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+      renderCount(el, target * eased);
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+
+  if (countEls.length && 'IntersectionObserver' in window && !reduceMotion) {
+    countEls.forEach((el) => renderCount(el, 0)); // zero out only once JS is confirmed running
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animateCount(entry.target);
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.35 }
+    );
+    countEls.forEach((el) => io.observe(el));
+  }
+
+  const band = document.getElementById('why-stats');
+  if (band && 'IntersectionObserver' in window && !reduceMotion) {
+    band.classList.add('stats--anim');
+    const bandIo = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            band.classList.add('stats--play');
+            bandIo.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
+    bandIo.observe(band);
+  }
+
+  const traces = Array.from(document.querySelectorAll('.trace'));
+  if (traces.length && 'IntersectionObserver' in window && !reduceMotion) {
+    traces.forEach((t) => t.classList.add('trace--anim'));
+    const traceIo = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('trace--play');
+            traceIo.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+    traces.forEach((t) => traceIo.observe(t));
+  }
+
+  // "Runs itself" panels — titles first; detail on hover (pointer devices),
+  // tap (touch), or keyboard focus. Without JS all panels stay open.
+  const runs = document.getElementById('runs');
+  if (runs) {
+    runs.classList.add('runs--js');
+    const canHover = window.matchMedia('(hover: hover)').matches;
+    const panels = Array.from(runs.querySelectorAll('.runs__panel'));
+    const setOpen = (panel, open) => {
+      panel.classList.toggle('is-open', open);
+      panel.setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
+    panels.forEach((panel) => {
+      setOpen(panel, false);
+      if (canHover) {
+        panel.addEventListener('mouseenter', () => setOpen(panel, true));
+        panel.addEventListener('mouseleave', () => setOpen(panel, false));
+      }
+      panel.addEventListener('focus', () => setOpen(panel, true));
+      panel.addEventListener('blur', () => setOpen(panel, false));
+      // Tap-to-toggle on touch; on hover devices click just pins the open state.
+      panel.addEventListener('click', () => {
+        if (!canHover) setOpen(panel, !panel.classList.contains('is-open'));
+      });
+    });
   }
 </script>
