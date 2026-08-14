@@ -1,5 +1,3 @@
-node_modules/
-dist/
-.astro/
-.DS_Store
-_to_delete/
+adv_data/
+*.xml
+*.gz

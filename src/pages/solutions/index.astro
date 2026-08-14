@@ -110,14 +110,8 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
   <!-- ============ WHY PRACTICES (stat band + ledger) ============ -->
   <section class="section section--paper">
     <div class="wrap">
-      <p class="kicker">For advisory practices</p>
-      <h2 style="max-width: 34rem;">Why practices run ScamPrep</h2>
-      <p class="lede">
-        One convincing phone call can undo a decade of careful planning. The fallout lands on
-        the practice, not just the client.
-      </p>
-
-      <div class="stat-row" id="why-stats">
+      <!-- The numbers open the section; heading and lede follow them. -->
+      <div class="stat-row stat-row--lead" id="why-stats">
         <!-- $38k — ping rings behind the number -->
         <div class="stat-col">
           <div class="stat-line stat-line--ping">
@@ -158,6 +152,12 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
           </div>
         </div>
       </div>
+
+      <h2 style="max-width: 34rem;">Why practices run ScamPrep</h2>
+      <p class="lede">
+        One convincing phone call can undo a decade of careful planning. The fallout lands on
+        the practice, not just the client.
+      </p>
 
       <ul class="why-list">
         <li>
@@ -219,9 +219,10 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
   <!-- ============ HOW PARTNERSHIPS WORK (reveal panels) ============ -->
   <section class="section">
     <div class="wrap">
-      <p class="kicker">How partnerships work</p>
-      <h2 style="max-width: 34rem;">One program, built to run itself</h2>
-      <p class="lede">Four commitments to your operations.</p>
+      <div class="opener-split">
+        <h2>One program, built to run itself</h2>
+        <p class="lede">Four commitments to your operations.</p>
+      </div>
 
       <!-- Titles show first; hover, tap, or tab into a panel for the detail.
            Without JS every panel renders open, so nothing is ever hidden. -->
@@ -250,7 +251,6 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
   <!-- ============ AUDIENCE GRID ============ -->
   <section class="section section--paper">
     <div class="wrap">
-      <p class="kicker">Who it's for</p>
       <h2 style="max-width: 34rem;">Built for the people families already trust</h2>
       <div class="grid grid--3" style="margin-top: 36px;">
         {audiences.map((a) => (
@@ -267,7 +267,6 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
   <!-- ============ EVIDENCE STRIP ============ -->
   <section class="section--tight section">
     <div class="wrap center">
-      <p class="kicker">The evidence</p>
       <p class="lede" style="max-width: 48rem; margin-inline: auto;">
         A 2024 federal research review found one-time scam education fades within weeks, and
         called training that <em>simulates</em> scams “promising.” A University of Florida study
@@ -292,9 +291,10 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
   <!-- ============ FOUNDING PILOT TIMELINE ============ -->
   <section class="section">
     <div class="wrap">
-      <p class="kicker">Founding pilots</p>
-      <h2 style="max-width: 34rem;">What a founding pilot looks like</h2>
-      <ol class="pilot-steps">
+      <!-- Artifact-first: the timeline leads; the heading rides beside it on wide screens. -->
+      <div class="pilot-open">
+        <h2 style="max-width: 34rem;">What a founding pilot looks like</h2>
+        <ol class="pilot-steps">
         <li>
           <h3>A 20-minute call</h3>
           <p>Whether ScamPrep fits your clients, what a pilot includes, and pricing. No pitch, no obligation.</p>
@@ -311,15 +311,19 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
           <h3>Drills begin within two weeks</h3>
           <p>You see your book's baseline catch rate in the first month. Co-branded Resilience Reports monthly, then a day-90 readout and your decision.</p>
         </li>
-      </ol>
+        </ol>
+      </div>
     </div>
   </section>
 
   <!-- ============ PARTNER PRICING ============ -->
   <section class="section section--paper" id="pricing">
     <div class="wrap center">
-      <p class="kicker">Partner pricing</p>
-      <h2>Simple, volume-based pricing</h2>
+      <!-- Artifact-first: the interactive pricing card opens the section beside the heading. -->
+      <div class="price-open">
+        <h2>Simple, volume-based pricing</h2>
+        <div><OrgPricing /></div>
+      </div>
 
       <div class="grid grid--2 paymodels" style="margin-top: 36px;">
         <div class="card">
@@ -334,10 +338,6 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
       <p class="paymodels__note">
         Every founding pilot starts sponsored — 90 days, a small roster — then you pick the model that fits.
       </p>
-
-      <div style="margin-top: 32px;">
-        <OrgPricing />
-      </div>
     </div>
   </section>
 
@@ -613,10 +613,40 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
     font-family: var(--font-display);
     font-weight: 600;
     font-size: 1.1rem;
-    color: var(--pine);
+    color: var(--ink);
     margin-bottom: 0.5em;
   }
   .aud-card p:last-child { margin-bottom: 0; font-size: 1rem; color: var(--ink-soft); }
+
+  /* ---------- Section openers — varied per section so no two sections start
+     with the same kicker → h2 → lede stack. The two kickers that remain mark
+     register changes: the hero and the ink deliverable band. ---------- */
+
+  /* Why-practices: the stat band leads, heading and lede follow. */
+  .stat-row--lead { margin-top: 0; margin-bottom: 44px; }
+
+  /* Partnerships: heading left, lede right on wide screens. */
+  .opener-split { display: grid; gap: 0 48px; }
+  @media (min-width: 880px) {
+    .opener-split { grid-template-columns: minmax(0, 34rem) minmax(0, 1fr); align-items: end; }
+    .opener-split h2 { margin-bottom: 0; }
+    .opener-split .lede { margin-bottom: 0.2em; }
+  }
+
+  /* Pilot: the timeline itself opens the section; the heading rides beside it. */
+  .pilot-open { display: grid; gap: 0 64px; }
+  .pilot-open h2 { margin-bottom: 0; }
+  @media (min-width: 1040px) {
+    .pilot-open { grid-template-columns: minmax(0, 46rem) minmax(0, 1fr); align-items: start; }
+    .pilot-open h2 { grid-column: 2; grid-row: 1; margin-top: 6px; }
+    .pilot-open .pilot-steps { grid-column: 1; grid-row: 1; margin-top: 0; }
+  }
+
+  /* Pricing: the interactive pricing card opens the section beside the heading. */
+  .price-open { display: grid; gap: 28px 56px; text-align: left; }
+  @media (min-width: 920px) {
+    .price-open { grid-template-columns: minmax(0, 1fr) minmax(0, 620px); align-items: center; }
+  }
 </style>
 
 <script>
