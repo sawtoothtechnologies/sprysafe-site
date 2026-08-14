@@ -51,7 +51,8 @@ Loaded from Google Fonts at 400/500/600/700/800 in `Base.astro`.
 
 - Radius: **6** chips/tags · **9** buttons/inputs/rows · **14** cards. Blips and gauges are circles.
   No pills except toggle switches.
-- Spacing: 4px base (8 / 12 / 16 / 24 / 32 / 48). Sections 88px (stats band 64px). Content max 1120px.
+- Spacing: 4px base (8 / 12 / 16 / 24 / 32 / 48). Sections on a 56 / 88 / 128 density scale —
+  56 for connective strips, 88 default, 128 for ink moments (stats band stays 64px). Content max 1120px.
 - Motion: radar sweep 6–10s linear · ping 2.4–2.7s ease-out · trace draw 3.8s **once, on scroll**
   (the design reference loops it; production plays it once) · UI transitions 150ms.
 - All motion sits behind `prefers-reduced-motion`. Count-ups are skipped entirely under it.

@@ -154,8 +154,11 @@ img { max-width: 100%; height: auto; }
 
 /* ---------- Layout helpers ---------- */
 .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+/* Density scale — assigned per page for cadence, not a metronome:
+   --tight 56 (connective strips) · 88 (default) · --air 128 (ink moments). */
 .section { padding: 88px 0; }
 .section--tight { padding: 56px 0; }
+.section--air { padding: 128px 0; }
 .section--paper { background: var(--sand); }
 
 /* The ink band. `.section--pine` is the legacy class name kept so existing

@@ -110,45 +110,31 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
   <!-- ============ WHY PRACTICES (stat band + ledger) ============ -->
   <section class="section section--paper">
     <div class="wrap">
-      <!-- The numbers open the section; heading and lede follow them. -->
-      <div class="stat-row stat-row--lead" id="why-stats">
-        <!-- $38k — ping rings behind the number -->
-        <div class="stat-col">
-          <div class="stat-line stat-line--ping">
-            <span class="loss-ping" aria-hidden="true"></span>
-            <span class="loss-ping loss-ping--2" aria-hidden="true"></span>
-            <span class="stat__num" data-countup data-target="38" data-prefix="$" data-suffix="k">$38k</span>
-            <p class="stat__label">average reported senior-fraud loss</p>
-          </div>
+      <!-- The numbers open the section; heading and lede follow them.
+           One big stat with the handoff arc, two quiet ones beside it —
+           asymmetric on purpose; the homepage owns the three-up count-up
+           band (and the $38k stat). -->
+      <div class="stat-duo" id="why-stats">
+        <div class="stat-duo__big">
+          <span class="stat__num" data-countup data-target="124" data-prefix="$" data-suffix="T">$124T</span>
+          <p class="stat__label">changing hands by 2048 in the great wealth transfer</p>
+          <!-- Handoff arc — wealth passing from one generation (gray dot) to
+               the next (amber dot, pinging). -->
+          <svg class="handoff" viewBox="0 0 460 96" preserveAspectRatio="none" aria-hidden="true">
+            <circle cx="14" cy="78" r="4.5" fill="#a3a09a" />
+            <path d="M14 78 C 130 10, 330 10, 446 78" fill="none" stroke="rgba(240, 161, 28, 0.5)" stroke-width="2" stroke-linecap="round" />
+            <circle class="handoff__dot" cx="446" cy="78" r="4.5" fill="#f0a11c" />
+            <circle class="handoff__ring" cx="446" cy="78" r="10" fill="none" stroke="rgba(240, 161, 28, 0.8)" stroke-width="1.5" />
+          </svg>
         </div>
-
-        <!-- $124T — handoff arc in the background: wealth passing from one generation
-             (gray dot) to the next (amber dot, pinging). Sits behind the number like
-             the ping rings behind $38k, so the column has no empty space below. -->
-        <div class="stat-col">
-          <div class="stat-line stat-line--arc">
-            <svg class="handoff" viewBox="0 0 240 90" preserveAspectRatio="none" aria-hidden="true">
-              <circle cx="12" cy="74" r="4" fill="#a3a09a" />
-              <path d="M12 74 C 70 12, 170 12, 228 74" fill="none" stroke="rgba(240, 161, 28, 0.5)" stroke-width="2" stroke-linecap="round" />
-              <circle class="handoff__dot" cx="228" cy="74" r="4" fill="#f0a11c" />
-              <circle class="handoff__ring" cx="228" cy="74" r="9" fill="none" stroke="rgba(240, 161, 28, 0.8)" stroke-width="1.5" />
-            </svg>
-            <span class="stat__num" data-countup data-target="124" data-prefix="$" data-suffix="T">$124T</span>
-            <p class="stat__label">changing hands by 2048 in the great wealth transfer</p>
-          </div>
-        </div>
-
-        <!-- 7 in 10 — ten dots, seven lit -->
-        <div class="stat-col">
-          <div class="stat-line">
-            <span class="stat__num" data-countup data-target="7" data-suffix=" in 10">7 in 10</span>
+        <div class="stat-duo__side">
+          <div class="stat-duo__small">
+            <span class="stat__num">7 in 10</span>
             <p class="stat__label">heirs switch advisors after inheriting</p>
           </div>
-          <div class="stat__graphic dots" aria-hidden="true">
-            <span class="dot dot--on"></span><span class="dot dot--on"></span><span class="dot dot--on"></span>
-            <span class="dot dot--on"></span><span class="dot dot--on"></span><span class="dot dot--on"></span>
-            <span class="dot dot--on"></span>
-            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <div class="stat-duo__small">
+            <span class="stat__num">12,000+</span>
+            <p class="stat__label">people each lost $100k+ to fraud in 2025</p>
           </div>
         </div>
       </div>
@@ -189,7 +175,7 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
   </section>
 
   <!-- ============ THE DELIVERABLE (Resilience Report) ============ -->
-  <section class="section section--ink" id="report">
+  <section class="section section--air section--ink" id="report">
     <div class="radar-rings report-band__radar" aria-hidden="true"></div>
     <div class="radar-sweep report-band__radar report-band__sweep" aria-hidden="true"></div>
     <span class="report-band__blip" aria-hidden="true"></span>
@@ -249,7 +235,7 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
   </section>
 
   <!-- ============ AUDIENCE GRID ============ -->
-  <section class="section section--paper">
+  <section class="section--tight section section--paper">
     <div class="wrap">
       <h2 style="max-width: 34rem;">Built for the people families already trust</h2>
       <div class="grid grid--3" style="margin-top: 36px;">
@@ -278,7 +264,7 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
   </section>
 
   <!-- ============ ADVISOR FAQ ============ -->
-  <section class="section section--paper">
+  <section class="section--tight section section--paper">
     <div class="wrap" style="max-width: 800px;">
       <h2 class="center">Questions advisors ask</h2>
       <div style="margin-top: 32px;">
@@ -342,6 +328,7 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
   </section>
 
   <CtaBand
+    layout="split"
     headline="Become a founding partner."
     body="A 20-minute call is enough to see whether ScamPrep fits your practice or institution, and how a pilot works."
     cta="Book a 20-minute call"
@@ -385,56 +372,31 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
     border: 0;
   }
 
-  /* ---------- Why-practices stat band (mirrors the home "Why now" motifs:
-     ping = event, trace = data, dots = pictograph) ---------- */
-  .dots { display: flex; gap: 9px; align-items: center; }
-  .dot { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid #b5b0a6; }
-  .dot--on { background: var(--amber); border-color: var(--amber); }
-  .stats--anim .dot--on { opacity: 0.25; }
-  .stats--play .dot--on { animation: spryBlip 2.8s linear infinite; }
-  .stats--play .dot--on:nth-child(2) { animation-delay: 0.2s; }
-  .stats--play .dot--on:nth-child(3) { animation-delay: 0.4s; }
-  .stats--play .dot--on:nth-child(4) { animation-delay: 0.6s; }
-  .stats--play .dot--on:nth-child(5) { animation-delay: 0.8s; }
-  .stats--play .dot--on:nth-child(6) { animation-delay: 1s; }
-  .stats--play .dot--on:nth-child(7) { animation-delay: 1.2s; }
-  .stats--play .dot--on:nth-child(8) { animation-delay: 1.4s; }
-  .stats--play .dot--on:nth-child(9) { animation-delay: 1.6s; }
-
-  .stat-line--ping { position: relative; }
-  .loss-ping {
-    position: absolute;
-    left: 44px;
-    top: 50%;
-    width: 130px;
-    height: 130px;
-    margin: -65px 0 0 -65px;
-    border-radius: 50%;
-    border: 1.5px solid rgba(240, 161, 28, 0.8);
-    opacity: 0;
-    pointer-events: none;
+  /* ---------- Why-practices stat band: one big, two small. Asymmetric on
+     purpose — the homepage owns the three-up stat-row. The handoff arc is
+     the only graphic (trace motif, drawn wide). ---------- */
+  .stat-duo { display: grid; gap: 28px 72px; margin: 0 0 44px; }
+  @media (min-width: 880px) {
+    .stat-duo { grid-template-columns: 1.5fr 1fr; align-items: center; gap: 0 72px; }
   }
-  .stats--play .loss-ping { animation: spryPing 2.7s cubic-bezier(0, 0, 0.2, 1) infinite; }
-  .stats--play .loss-ping--2 { animation-delay: 1.35s; }
-  .stat-line--ping .stat__num, .stat-line--ping .stat__label { position: relative; }
-
-  /* $124T handoff arc — background treatment, mirroring the ping behind $38k. */
-  .stat-line--arc { position: relative; }
-  .stat-line--arc .stat__num,
-  .stat-line--arc .stat__label { position: relative; }
-  .handoff {
-    position: absolute;
-    left: -8px;
-    top: 50%;
-    width: min(240px, 100%);
-    height: 90px;
-    margin-top: -58px;
-    opacity: 0.55;
-    pointer-events: none;
+  .stat-duo__big .stat__num {
+    display: block;
+    font-size: clamp(3.2rem, 6vw, 4.4rem);
+    margin-bottom: 2px;
   }
+  .stat-duo__big .stat__label { max-width: 26rem; }
+  .handoff { display: block; width: 100%; height: 96px; margin-top: 20px; }
   .handoff__ring { transform-box: fill-box; transform-origin: center; }
   .stats--play .handoff__ring { animation: spryPing 2.7s cubic-bezier(0, 0, 0.2, 1) infinite; }
   .stats--play .handoff__dot { animation: spryBlip 2.8s linear infinite; }
+  .stat-duo__small { padding: 16px 0; }
+  .stat-duo__small + .stat-duo__small { border-top: 1px solid var(--divider); }
+  .stat-duo__small .stat__num {
+    display: block;
+    font-size: 2.1rem;
+    margin-bottom: 2px;
+  }
+  .stat-duo__small .stat__label { font-size: 0.98rem; }
 
   /* ---------- Report band (mirrors the home report section's ink treatment) ---------- */
   .report-band {
@@ -622,9 +584,6 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
      with the same kicker → h2 → lede stack. The two kickers that remain mark
      register changes: the hero and the ink deliverable band. ---------- */
 
-  /* Why-practices: the stat band leads, heading and lede follow. */
-  .stat-row--lead { margin-top: 0; margin-bottom: 44px; }
-
   /* Partnerships: heading left, lede right on wide screens. */
   .opener-split { display: grid; gap: 0 48px; }
   @media (min-width: 880px) {
@@ -647,6 +606,9 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
   @media (min-width: 920px) {
     .price-open { grid-template-columns: minmax(0, 1fr) minmax(0, 620px); align-items: center; }
   }
+
+  /* Final CTA (the page's second ink moment) gets the airy density step. */
+  :global(section.cta-band) { padding: 128px 0; }
 </style>
 
 <script>

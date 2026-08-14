@@ -4,26 +4,34 @@ const {
   body = 'Family plans open this fall, in small cohorts with white-glove setup. Join the early-access list to be first in — founding members help shape the product protecting the people they love.',
   cta = 'Get early access',
   href = '/early-access',
+  layout = 'center', // 'center' (default) or 'split': left copy + right-hand slot
 } = Astro.props;
+const split = layout === 'split';
 ---
 
-<section class="section section--ink center cta-band">
+<section class:list={['section', 'section--ink', 'cta-band', split ? 'cta-band--split' : 'center']}>
   <div class="radar-rings cta-band__radar" aria-hidden="true"></div>
   <div class="radar-sweep cta-band__radar cta-band__sweep" aria-hidden="true"></div>
   <div class="wrap cta-band__inner">
-    <h2>{headline}</h2>
-    <p class="lede" style="margin-inline:auto; max-width: 40rem;">{body}</p>
-    <p style="margin-top: 28px;">
-      <span class="ping-wrap">
-        <span class="ping-ring" aria-hidden="true"></span>
-        <a class="btn btn--primary" href={href}>{cta}</a>
-      </span>
-    </p>
+    <div class="cta-band__copy">
+      <h2>{headline}</h2>
+      <p class="lede">{body}</p>
+      <p style="margin-top: 28px;">
+        <span class="ping-wrap">
+          <span class="ping-ring" aria-hidden="true"></span>
+          <a class="btn btn--primary" href={href}>{cta}</a>
+        </span>
+      </p>
+    </div>
+    {split && Astro.slots.has('default') && (
+      <div class="cta-band__aside"><slot /></div>
+    )}
   </div>
 </section>
 
 <style>
   .cta-band__inner { position: relative; }
+  .cta-band .lede { max-width: 40rem; }
   .cta-band__radar {
     left: 50%;
     top: 50%;
@@ -35,5 +43,21 @@ const {
   .cta-band__sweep {
     background: conic-gradient(from 0deg, rgba(240, 161, 28, 0.14), transparent 90deg);
     animation: spryRot 10s linear infinite;
+  }
+
+  /* Split layout: copy left, a reserved right-hand column for the aside slot.
+     With no aside, the centered radar fills the open right half. */
+  .cta-band--split .cta-band__inner {
+    text-align: left;
+    display: grid;
+    gap: 40px 64px;
+  }
+  @media (min-width: 920px) {
+    .cta-band--split .cta-band__inner {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      align-items: center;
+    }
+    /* Keep the copy in the left column even when the aside is absent. */
+    .cta-band--split .cta-band__copy { grid-column: 1; }
   }
 </style>

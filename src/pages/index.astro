@@ -154,7 +154,7 @@ import { homeFaqs } from '../data/faqs.js';
   </section>
 
   <!-- ============ RESILIENCE REPORT — trace (data) ============ -->
-  <section class="section section--ink" id="report">
+  <section class="section section--air section--ink" id="report">
     <div class="radar-rings report__radar" aria-hidden="true"></div>
     <div class="wrap hero__grid">
       <div>
@@ -232,7 +232,7 @@ import { homeFaqs } from '../data/faqs.js';
   </section>
 
   <!-- ============ RESEARCH STRIP ============ -->
-  <section class="section section--paper">
+  <section class="section--tight section section--paper">
     <div class="wrap center">
       <p class="kicker">The evidence</p>
       <h2 style="max-width: 40rem; margin-inline: auto;">Built on what actually works</h2>
@@ -700,4 +700,7 @@ import { homeFaqs } from '../data/faqs.js';
     transform: scaleX(0);
     transform-origin: left center;
   }
+
+  /* Final CTA (the page's second ink moment) gets the airy density step. */
+  :global(section.cta-band) { padding: 128px 0; }
 </style>
