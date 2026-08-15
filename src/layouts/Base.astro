@@ -287,6 +287,9 @@ const orgSchema = {
 
       @media (max-width: 900px) {
         .menu-toggle { display: block; }
+        /* 44px touch targets for the logo and open-menu links. */
+        .logo { padding: 4px 0; }
+        .site-nav > a:not(.btn) { padding: 10px 0; }
         .site-nav {
           display: none;
           position: absolute;
@@ -361,6 +364,13 @@ const orgSchema = {
         border-top: 1px solid var(--ink-2);
         padding-top: 24px;
         max-width: 900px;
+      }
+      /* 44px touch targets for footer links on touch-width screens. */
+      @media (max-width: 900px) {
+        .site-footer nav a,
+        .site-footer p > a { display: inline-block; padding: 10px 0; }
+        .footer-social { gap: 22px; }
+        .footer-social a { padding: 11px; margin: -11px; }
       }
     </style>
 

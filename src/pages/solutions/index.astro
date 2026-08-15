@@ -196,8 +196,28 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
           sees the aggregate view: participation, catch rates, and who might need a closer look.
         </p>
       </div>
-      <div class="report-band__card">
+      <div class="report-band__stage">
+        <!-- Callout: the aggregate stat, docked at the card's top corner. -->
+        <div class="annot annot--stat">
+          <p class="annot__label">The stat your practice quotes</p>
+          <span class="annot__line" aria-hidden="true"></span>
+          <p class="annot__chip">
+            <span class="annot__num">92%</span>
+            <span>practice-wide catch rate · 34 clients enrolled</span>
+          </p>
+        </div>
+
         <ReportCard variant="full" tone="dark" />
+
+        <!-- Callout: the co-branding line, tucked under the card like a second sheet. -->
+        <div class="annot annot--cobrand">
+          <p class="annot__cobrand">
+            <span class="annot__mark" aria-hidden="true"></span>
+            <span>Prepared for the family with <strong>your firm's name &amp; logo</strong></span>
+          </p>
+          <span class="annot__line" aria-hidden="true"></span>
+          <p class="annot__label">Your name, in family inboxes monthly</p>
+        </div>
       </div>
     </div>
   </section>
@@ -238,15 +258,16 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
   <section class="section--tight section section--paper">
     <div class="wrap">
       <h2 style="max-width: 34rem;">Built for the people families already trust</h2>
-      <div class="grid grid--3" style="margin-top: 36px;">
+      <!-- Rule-separated ledger mirroring the why-practices list — not another card grid. -->
+      <ul class="aud-list">
         {audiences.map((a) => (
-          <div class="card aud-card" id={a.id}>
-            <h3>{a.name}</h3>
-            <p class="aud-card__hook">{a.hook}</p>
+          <li id={a.id}>
+            <h3><span class="blip" aria-hidden="true"></span>{a.name}</h3>
+            <p class="aud-list__hook">{a.hook}</p>
             <p>{a.body}</p>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   </section>
 
@@ -265,12 +286,14 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
 
   <!-- ============ ADVISOR FAQ ============ -->
   <section class="section--tight section section--paper">
-    <div class="wrap" style="max-width: 800px;">
-      <h2 class="center">Questions advisors ask</h2>
-      <div style="margin-top: 32px;">
+    <div class="wrap faq-split">
+      <div class="faq-split__rail">
+        <h2>Questions advisors ask</h2>
+        <p><a href="/faq">Read the full FAQ →</a></p>
+      </div>
+      <div class="faq-split__list">
         <Faq items={advisorFaqs} />
       </div>
-      <p class="center" style="margin-top: 26px;"><a href="/faq">Read the full FAQ →</a></p>
     </div>
   </section>
 
@@ -311,12 +334,14 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
         <div><OrgPricing /></div>
       </div>
 
-      <div class="grid grid--2 paymodels" style="margin-top: 36px;">
-        <div class="card">
+      <!-- Ink/paper contrast pair — ink marks the model every founding pilot
+           starts on. The bordered card is reserved for the pricing calculator. -->
+      <div class="paymodels" style="margin-top: 36px;">
+        <div class="paymodel paymodel--ink">
           <h3>Practice-sponsored</h3>
           <p>You cover enrollment for the clients you choose, at the partner pricing below. Reads as client appreciation — and you control the roster.</p>
         </div>
-        <div class="card">
+        <div class="paymodel">
           <h3>Client-referred</h3>
           <p>Families pay for their own plan; your practice still gets the co-branded Resilience Report and the aggregate stat.</p>
         </div>
@@ -396,9 +421,10 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
     font-size: 2.1rem;
     margin-bottom: 2px;
   }
-  .stat-duo__small .stat__label { font-size: 0.98rem; }
 
-  /* ---------- Report band (mirrors the home report section's ink treatment) ---------- */
+  /* ---------- Report band — inverted from the homepage's: the artifact is
+     large and annotated (co-branding + aggregate stat, the two things
+     advisors buy); the copy sits in the margin. ---------- */
   .report-band {
     position: relative;
     display: grid;
@@ -406,9 +432,99 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
     align-items: center;
   }
   @media (min-width: 920px) {
-    .report-band { grid-template-columns: 1.15fr 1fr; }
+    .report-band { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.3fr); }
   }
-  .report-band__card { display: flex; justify-content: center; }
+  .report-band__stage { width: 100%; max-width: 600px; margin-inline: auto; }
+  .report-band__stage :global(.report-wrap) { max-width: none; position: relative; z-index: 1; }
+
+  /* Callout labels: mini-kickers joined by a dashed amber connector. */
+  .annot__label {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin: 0;
+  }
+  .annot__line {
+    display: block;
+    width: 1.5px;
+    height: 18px;
+    background: repeating-linear-gradient(to bottom, var(--amber) 0 3px, transparent 3px 6px);
+    margin: 6px 0;
+  }
+
+  /* Aggregate stat — chip overlapping the card's top-right corner. */
+  .annot--stat {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+    position: relative;
+    z-index: 2;
+  }
+  .annot__chip {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    margin: 0;
+    background: var(--ink);
+    border: 1px solid var(--ink-3);
+    border-radius: var(--radius-ctrl);
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gray-400);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  }
+  .annot__num {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.35rem;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--paper-bg);
+  }
+  @media (min-width: 920px) {
+    /* Dock the chip over the card corner on wide screens only. */
+    .annot--stat { margin-right: -18px; margin-bottom: -34px; }
+  }
+  @media (max-width: 919px) {
+    .annot--stat { margin-bottom: 14px; }
+  }
+
+  /* Co-branding line — a second sheet tucked under the card. */
+  .annot--cobrand {
+    position: relative;
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .annot__cobrand {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--sand);
+    border: 1px solid var(--line);
+    border-top: none;
+    border-radius: 0 0 var(--radius) var(--radius);
+    margin: -12px 0 0;
+    padding: 24px 24px 13px;
+    font-size: 0.95rem;
+    color: var(--gray-700);
+  }
+  .annot__cobrand strong { color: var(--ink); }
+  .annot__mark {
+    flex: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    background: radial-gradient(circle at 50% 50%, var(--amber) 0 4px, var(--ink) 4px);
+  }
+  .annot--cobrand .annot__line { margin-left: 24px; }
+  .annot--cobrand .annot__label { margin-left: 24px; }
   .report-band__radar {
     left: -140px;
     bottom: -180px;
@@ -514,7 +630,7 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
     display: block;
     overflow: hidden;
     min-height: 0;
-    font-size: 0.95rem;
+    font-size: 1rem;
     line-height: 1.55;
     color: var(--gray-700);
     transition: color 0.25s ease;
@@ -562,23 +678,63 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
   .pilot-steps h3 { margin: 0 0 6px; font-size: 1.15rem; }
   .pilot-steps p { margin: 0; color: var(--ink-soft); font-size: 1rem; }
 
-  .paymodels { text-align: left; max-width: 880px; margin-inline: auto; }
+  /* Pay models — ink/paper contrast pair, deliberately not bordered cards. */
+  .paymodels {
+    display: grid;
+    gap: 20px;
+    text-align: left;
+    max-width: 880px;
+    margin-inline: auto;
+  }
+  @media (min-width: 760px) { .paymodels { grid-template-columns: 1fr 1fr; } }
+  .paymodel {
+    border-radius: var(--radius);
+    padding: 30px 28px;
+    background: var(--paper-bg);
+  }
+  .paymodel h3 { margin: 0 0 10px; }
+  .paymodel p { margin: 0; font-size: 1rem; color: var(--gray-700); }
+  .paymodel--ink { background: var(--ink); }
+  .paymodel--ink h3 { color: var(--paper-bg); }
+  .paymodel--ink p { color: var(--gray-400); }
   .paymodels__note {
     color: var(--ink-soft);
-    font-size: 0.98rem;
+    font-size: 1rem;
     margin: 18px auto 0;
     max-width: 44rem;
   }
 
-  .aud-card { scroll-margin-top: 96px; }
-  .aud-card__hook {
+  /* Audience ledger — rule-separated entries mirroring .why-list. */
+  .aud-list {
+    list-style: none;
+    padding: 0;
+    margin: 36px 0 0;
+    display: grid;
+    gap: 0 48px;
+  }
+  @media (min-width: 880px) {
+    .aud-list { grid-template-columns: 1fr 1fr; }
+  }
+  .aud-list li {
+    padding: 22px 0 24px;
+    border-top: 1px solid var(--divider);
+    scroll-margin-top: 96px;
+  }
+  .aud-list h3 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.15rem;
+    margin: 0 0 8px;
+  }
+  .aud-list__hook {
     font-family: var(--font-display);
     font-weight: 600;
     font-size: 1.1rem;
     color: var(--ink);
-    margin-bottom: 0.5em;
+    margin: 0 0 6px;
   }
-  .aud-card p:last-child { margin-bottom: 0; font-size: 1rem; color: var(--ink-soft); }
+  .aud-list p:last-child { margin: 0; font-size: 1rem; color: var(--gray-700); }
 
   /* ---------- Section openers — varied per section so no two sections start
      with the same kicker → h2 → lede stack. The two kickers that remain mark
@@ -591,6 +747,15 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
     .opener-split h2 { margin-bottom: 0; }
     .opener-split .lede { margin-bottom: 0.2em; }
   }
+
+  /* Advisor FAQ: sticky heading rail left, accordion right. */
+  .faq-split { display: grid; gap: 28px 64px; align-items: start; }
+  @media (min-width: 880px) {
+    .faq-split { grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); }
+    .faq-split__rail { position: sticky; top: 96px; }
+  }
+  .faq-split__rail h2 { margin-bottom: 14px; }
+  .faq-split__rail p { margin: 0; }
 
   /* Pilot: the timeline itself opens the section; the heading rides beside it. */
   .pilot-open { display: grid; gap: 0 64px; }

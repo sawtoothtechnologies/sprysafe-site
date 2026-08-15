@@ -123,56 +123,48 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || `/early-access?plan=${
   </section>
 
   <section class="section">
-    <div class="wrap" style="max-width: 800px;">
+    <div class="wrap" style="max-width: 980px;">
       <h2 class="center">Pricing questions</h2>
-      <div style="margin-top: 30px;">
-        <details class="faq-item">
-          <summary>Which plan should I choose?</summary>
-          <div class="faq-body">
-            <p>
-              Most families pick <strong>Couples &amp; pairs</strong> — it covers both parents (or
-              a couple) on one bill and is our most popular plan. Choose Individual for one person,
-              or Family if you're protecting up to four people, like both parents plus an aunt or
-              in-law. You can move up a plan anytime.
-            </p>
-          </div>
-        </details>
-        <details class="faq-item">
-          <summary>Why does this cost more than a call blocker?</summary>
-          <div class="faq-body">
-            <p>
-              A blocker filters some scams. ScamPrep changes what happens when one gets through —
-              and one always gets through. What you're paying for is a skill, plus monthly proof
-              it's growing.
-            </p>
-          </div>
-        </details>
-        <details class="faq-item">
-          <summary>When can we start?</summary>
-          <div class="faq-body">
-            <p>
-              Family plans open this fall, in small onboarding cohorts — join the early-access
-              list and you're at the front. Every plan will start with a 14-day free trial and
-              carry a 60-day money-back guarantee.
-            </p>
-          </div>
-        </details>
-        <details class="faq-item">
-          <summary>What if my parent doesn't want it?</summary>
-          <div class="faq-body">
-            <p>
-              Then we don't enroll them. Nobody gets drilled without their own yes — and many
-              parents warm up after seeing a sample drill. Most people enjoy being good at this.
-            </p>
-          </div>
-        </details>
-        <details class="faq-item">
-          <summary>Contracts?</summary>
-          <div class="faq-body">
-            <p>None. Monthly plans cancel anytime; annual plans refund unused months.</p>
-          </div>
-        </details>
-      </div>
+      <!-- Compact two-column definition list — the answers are short enough
+           that hiding them behind an accordion costs more than it saves. -->
+      <dl class="price-faq">
+        <div class="price-faq__item">
+          <dt>Which plan should I choose?</dt>
+          <dd>
+            Most families pick <strong>Couples &amp; pairs</strong> — it covers both parents (or
+            a couple) on one bill and is our most popular plan. Choose Individual for one person,
+            or Family if you're protecting up to four people, like both parents plus an aunt or
+            in-law. You can move up a plan anytime.
+          </dd>
+        </div>
+        <div class="price-faq__item">
+          <dt>Why does this cost more than a call blocker?</dt>
+          <dd>
+            A blocker filters some scams. ScamPrep changes what happens when one gets through —
+            and one always gets through. What you're paying for is a skill, plus monthly proof
+            it's growing.
+          </dd>
+        </div>
+        <div class="price-faq__item">
+          <dt>When can we start?</dt>
+          <dd>
+            Family plans open this fall, in small onboarding cohorts — join the early-access
+            list and you're at the front. Every plan will start with a 14-day free trial and
+            carry a 60-day money-back guarantee.
+          </dd>
+        </div>
+        <div class="price-faq__item">
+          <dt>What if my parent doesn't want it?</dt>
+          <dd>
+            Then we don't enroll them. Nobody gets drilled without their own yes — and many
+            parents warm up after seeing a sample drill. Most people enjoy being good at this.
+          </dd>
+        </div>
+        <div class="price-faq__item">
+          <dt>Contracts?</dt>
+          <dd>None. Monthly plans cancel anytime; annual plans refund unused months.</dd>
+        </div>
+      </dl>
     </div>
   </section>
 
@@ -250,11 +242,11 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || `/early-access?plan=${
   }
   .notice p {
     margin: 0;
-    font-size: 0.92rem;
+    font-size: 1rem;
     line-height: 1.5;
     color: var(--amber-deep);
     text-align: center;
-    padding: 0 28px; /* keeps text clear of the close button */
+    padding: 0 44px; /* keeps text clear of the 44px close button */
   }
   .notice strong { color: var(--amber-deep); }
   .notice a { color: var(--amber-deep); font-weight: 700; }
@@ -262,7 +254,7 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || `/early-access?plan=${
   .notice__close {
     display: none;
     position: absolute;
-    right: 12px;
+    right: 4px;
     top: 50%;
     transform: translateY(-50%);
     background: none;
@@ -271,7 +263,9 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || `/early-access?plan=${
     line-height: 1;
     color: var(--amber-deep);
     cursor: pointer;
-    padding: 4px 8px;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0;
     border-radius: 6px;
   }
   .notice--js .notice__close { display: block; }
@@ -315,7 +309,7 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || `/early-access?plan=${
     background: transparent;
     border: none;
     border-radius: 999px;
-    padding: 9px 20px;
+    padding: 12px 20px;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
@@ -422,8 +416,28 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || `/early-access?plan=${
     margin: 10px 0 0;
   }
   .price-card .btn { width: 100%; }
+  /* Pricing questions — compact two-column definition list. */
+  .price-faq {
+    margin: 34px 0 0;
+    display: grid;
+    gap: 30px 56px;
+  }
+  @media (min-width: 800px) {
+    .price-faq { grid-template-columns: 1fr 1fr; }
+  }
+  .price-faq__item { margin: 0; }
+  .price-faq dt {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.08rem;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin: 0 0 7px;
+  }
+  .price-faq dd { margin: 0; font-size: 1rem; color: var(--gray-700); line-height: 1.6; }
+
   .guarantee {
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: var(--ink-soft);
     margin-top: 32px;
   }

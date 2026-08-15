@@ -314,7 +314,7 @@ img { max-width: 100%; height: auto; }
 .step--featured .step__num { background: var(--amber); border-color: var(--amber); color: var(--ink); }
 .step h3 { font-size: 1.1rem; letter-spacing: -0.01em; margin: 5px 0 0; }
 .step--featured h3 { color: var(--paper-bg); }
-.step p { font-size: 0.95rem; line-height: 1.55; color: var(--gray-700); margin: 7px 0 0; }
+.step p { font-size: 1rem; line-height: 1.55; color: var(--gray-700); margin: 7px 0 0; }
 .step--featured p { color: var(--gray-400); }
 
 /* ---------- Comparison table ---------- */
@@ -359,7 +359,7 @@ img { max-width: 100%; height: auto; }
 /* ---------- Forms ---------- */
 .form-card { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 40px 36px; box-shadow: none; max-width: 640px; }
 .field { margin-bottom: 22px; }
-.field label { display: block; font-weight: 700; margin-bottom: 8px; font-size: 0.95rem; color: var(--ink); }
+.field label { display: block; font-weight: 700; margin-bottom: 8px; font-size: 1rem; color: var(--ink); }
 .field .hint { font-weight: 400; color: var(--gray-500); font-size: 0.9rem; }
 .field input[type='text'], .field input[type='email'], .field input[type='tel'], .field select, .field textarea {
   width: 100%;
@@ -377,7 +377,9 @@ img { max-width: 100%; height: auto; }
 }
 .field .field-error { border-color: var(--alert); box-shadow: 0 0 0 3px rgba(179, 54, 46, 0.12); }
 .checkbox { display: flex; gap: 12px; align-items: flex-start; font-size: 1rem; }
-.checkbox input { width: 20px; height: 20px; margin-top: 3px; accent-color: var(--ink); }
+.checkbox input { width: 24px; height: 24px; margin-top: 10px; accent-color: var(--ink); }
+/* The paired label carries the 44px hit area; clicking it toggles the box. */
+.checkbox label { padding: 10px 0; }
 
 /* ---------- Utility ---------- */
 /* Scroll-reveal: the .reveal class is added only by JS (and only when the
@@ -395,6 +397,16 @@ img { max-width: 100%; height: auto; }
    legibility floor. */
 .trust-line { font-size: 0.8rem; color: var(--gray-700); font-weight: 600; margin-top: 20px; }
 .section--ink .trust-line, .section--pine .trust-line { color: #ffffff; }
+
+/* ---------- Touch targets ----------
+   44px minimum hit areas on touch-width screens (the audience skews older).
+   Standalone arrow links keep their visual size; only the hit area grows. */
+@media (max-width: 900px) {
+  .cta-link,
+  p.center > a:only-child,
+  .faq-body p > a:only-child,
+  .report__foot a { display: inline-block; padding: 11px 0; }
+}
 
 .divider { border: none; border-top: 1px solid var(--line); margin: 0; }
 .skip-link { position: absolute; left: -9999px; top: 0; background: var(--amber); color: var(--ink); padding: 10px 18px; font-weight: 700; z-index: 100; }
