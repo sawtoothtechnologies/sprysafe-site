@@ -5,7 +5,9 @@
 // variant: "full" (5 drills + briefings + next-month focus) — the /report section
 //          "trimmed" (3 drills + a teaser link) — the hero
 // tone:    "dark" (default) when the card sits on an ink surface, "light" on paper.
-const { variant = 'full', tone = 'dark' } = Astro.props;
+// cobrand: renders a fictional firm letterhead at the top of the card, so
+// co-branding is shown in the artifact itself rather than described beside it.
+const { variant = 'full', tone = 'dark', cobrand = false } = Astro.props;
 const trimmed = variant === 'trimmed';
 
 const fullDrills = [
@@ -29,6 +31,15 @@ const drills = trimmed ? trimmedDrills : fullDrills;
   <p class="report__sample">Illustrative report</p>
 
   <figure class:list={['report', trimmed && 'report--trimmed']} aria-label="Sample monthly Resilience Report (illustrative)">
+    {cobrand && (
+      <div class="report__brand">
+        <span class="report__brand-mark" aria-hidden="true">AR</span>
+        <div class="report__brand-text">
+          <p class="report__brand-firm">Alder Ridge Wealth Partners</p>
+          <p class="report__brand-for">Prepared for Margaret's family</p>
+        </div>
+      </div>
+    )}
     <header class="report__head">
       <div>
         <p class="report__title">Margaret's Resilience Report</p>
@@ -115,6 +126,47 @@ const drills = trimmed ? trimmedDrills : fullDrills;
   }
   .report-wrap--dark .report { box-shadow: var(--shadow-float); }
   .report--trimmed { padding: 26px 26px 22px; max-width: 420px; }
+
+  /* Fictional-firm letterhead (cobrand prop). */
+  .report__brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 14px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  .report__brand-mark {
+    flex: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+    background: var(--ink);
+    color: var(--amber);
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    display: grid;
+    place-items: center;
+  }
+  .report__brand-text {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 2px 10px;
+    width: 100%;
+  }
+  .report__brand-firm {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0.95rem;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .report__brand-for { margin: 0; font-size: 0.8rem; color: var(--gray-500); }
 
   .report__head {
     display: flex;

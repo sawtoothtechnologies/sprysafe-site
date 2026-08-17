@@ -32,8 +32,10 @@ const advisorFaqs = [
   },
 ];
 
-// Audience order matches the rotating hero. Financial institutions lead (top row);
-// each has an anchor id for deep links.
+// Advisor-first: the page speaks only to the cohorts we're actively doing
+// outreach to. Order matches the rotating hero; each entry has an anchor id
+// for deep links. (Home care, senior living, and community banks were cut
+// 2026-08 — restore from git history if outreach widens.)
 const audiences = [
   {
     id: 'financial-advisors',
@@ -53,40 +55,19 @@ const audiences = [
     hook: 'The bridge to the next generation.',
     body: 'Estate plans assume the money is still there when it transfers. ScamPrep protects the balance sheet you plan around, and gives the heirs a reason to know your firm before the estate settles.',
   },
-  {
-    id: 'home-care',
-    name: 'Home-care agencies',
-    hook: 'The safety add-on client families thank you for.',
-    body: "You're already the trusted safety layer in your clients' lives. ScamPrep extends that trust to the threat that arrives by phone — a co-branded protection families value, with zero clinical burden on caregivers.",
-  },
-  {
-    id: 'senior-living',
-    name: 'Senior-living communities',
-    hook: "The move-in differentiator down the street can't claim.",
-    body: 'Every community sells the same amenities. ScamPrep lets you sell what families actually lose sleep over — and prove it every month with a family report and a community stat worth putting in the tour brochure.',
-  },
-  {
-    id: 'banks',
-    name: 'Community banks',
-    hook: 'Protect the customer, not just the balance.',
-    body: 'Fraud alerts catch some of it — after it starts. ScamPrep trains the customer themselves to stop the scam before money leaves, co-branded to your bank. Reduce losses, keep deposits, and earn loyalty across generations.',
-  },
 ];
 
 const rotatorItems = [
   'financial advisors',
   'credit unions',
   'wealth advisors',
-  'home care',
-  'senior living',
-  'community banks',
 ];
 const partnerCall = 'https://cal.com/scamprep/partner-call';
 ---
 
 <Base
   title="ScamPrep for Financial Advisors, Credit Unions & Wealth Managers"
-  description="One provable scam-resilience program for the organizations families trust — financial advisors, credit unions, wealth managers, community banks, home-care agencies, and senior-living communities. Co-branded monthly Resilience Report, nothing for staff to run, never touches accounts. Founding-partner pilots open."
+  description="One provable scam-resilience program for the advisors families trust — financial advisors, credit unions, and wealth managers. Co-branded monthly Resilience Report, nothing for staff to run, never touches accounts. Founding-partner pilots open."
 >
   <!-- ============ HERO (rotating audience) ============ -->
   <section class="section soln-hero">
@@ -94,11 +75,11 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
       <p class="kicker">For organizations</p>
       <h1 class="soln-hero__title">
         <span aria-hidden="true">ScamPrep for <span class="rot" id="rot" data-words={JSON.stringify(rotatorItems)}><span class="rot__inner" id="rot-inner">{rotatorItems[0]}</span></span></span>
-        <span class="sr-only">ScamPrep for financial advisors, credit unions, wealth advisors, home care, senior living, and community banks.</span>
+        <span class="sr-only">ScamPrep for financial advisors, credit unions, and wealth advisors.</span>
       </h1>
       <p class="lede" style="margin-inline: auto;">
-        If you serve older adults, ScamPrep gives you a <em>provable</em> answer to the question every
-        family is asking: will you keep the person I love safe?
+        If you&rsquo;re trusted with the financial well-being of older adults, ScamPrep gives you a
+        <em>provable</em> answer to the question every family is asking: will you keep the person I love safe?
       </p>
       <div class="btn-row" style="justify-content: center; margin-top: 30px;">
         <a class="btn btn--primary" href={partnerCall}>Book a 20-minute call</a>
@@ -111,26 +92,27 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
   <section class="section section--paper">
     <div class="wrap">
       <!-- The numbers open the section; heading and lede follow them.
-           One big stat with the handoff arc, two quiet ones beside it —
-           asymmetric on purpose; the homepage owns the three-up count-up
-           band (and the $38k stat). -->
+           One big stat — the heir exodus — with a ten-dot client row where
+           seven drain away; $124T and the 12k losses sit quiet beside it.
+           Asymmetric on purpose; the homepage owns the three-up count-up
+           band (and the $38k stat), and its dot row lights UP — this one
+           drains. -->
       <div class="stat-duo" id="why-stats">
         <div class="stat-duo__big">
-          <span class="stat__num" data-countup data-target="124" data-prefix="$" data-suffix="T">$124T</span>
-          <p class="stat__label">changing hands by 2048 in the great wealth transfer</p>
-          <!-- Handoff arc — wealth passing from one generation (gray dot) to
-               the next (amber dot, pinging). -->
-          <svg class="handoff" viewBox="0 0 460 96" preserveAspectRatio="none" aria-hidden="true">
-            <circle cx="14" cy="78" r="4.5" fill="#a3a09a" />
-            <path d="M14 78 C 130 10, 330 10, 446 78" fill="none" stroke="rgba(240, 161, 28, 0.5)" stroke-width="2" stroke-linecap="round" />
-            <circle class="handoff__dot" cx="446" cy="78" r="4.5" fill="#f0a11c" />
-            <circle class="handoff__ring" cx="446" cy="78" r="10" fill="none" stroke="rgba(240, 161, 28, 0.8)" stroke-width="1.5" />
-          </svg>
+          <span class="stat__num">7 in 10</span>
+          <p class="stat__label">heirs switch financial advisors after inheriting</p>
+          <!-- Ten client households; when the estate settles, seven walk. -->
+          <div class="exodus" aria-hidden="true">
+            <span class="exodus__dot exodus__dot--gone"></span><span class="exodus__dot exodus__dot--gone"></span><span class="exodus__dot exodus__dot--gone"></span>
+            <span class="exodus__dot exodus__dot--gone"></span><span class="exodus__dot exodus__dot--gone"></span><span class="exodus__dot exodus__dot--gone"></span>
+            <span class="exodus__dot exodus__dot--gone"></span>
+            <span class="exodus__dot"></span><span class="exodus__dot"></span><span class="exodus__dot"></span>
+          </div>
         </div>
         <div class="stat-duo__side">
           <div class="stat-duo__small">
-            <span class="stat__num">7 in 10</span>
-            <p class="stat__label">heirs switch advisors after inheriting</p>
+            <span class="stat__num" data-countup data-target="124" data-prefix="$" data-suffix="T">$124T</span>
+            <p class="stat__label">changing hands by 2048 in the great wealth transfer</p>
           </div>
           <div class="stat-duo__small">
             <span class="stat__num">12,000+</span>
@@ -186,37 +168,33 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
         <h2>A monthly report with your name on it</h2>
         <p class="lede">
           Every month, the family members each client chooses receive a one-page Resilience
-          Report — what was practiced, what was caught, what's being reinforced next —
-          co-branded to your firm.
+          Report: what was practiced, what was caught, and what comes next.
         </p>
-        <p class="lede" style="margin-top: 14px;">
-          Monitoring tools message families when something bad may have happened. This is the
-          opposite: recurring proof that their parent is getting harder to fool. It arrives
-          with your name on it, in the inboxes of the generation that inherits. Your practice
-          sees the aggregate view: participation, catch rates, and who might need a closer look.
-        </p>
+        <ul class="deliv-list">
+          <li><strong>Good news, on a schedule.</strong> Monitoring tools write to families after something goes wrong. This is recurring proof their parent is getting harder to fool.</li>
+          <li><strong>Your name on every one.</strong> Each report is co-branded to your firm and lands in the inboxes of the generation that inherits.</li>
+          <li><strong>Your view stays aggregate.</strong> Participation, catch rates, and who might need a closer look.</li>
+        </ul>
       </div>
       <div class="report-band__stage">
-        <!-- Callout: the aggregate stat, docked at the card's top corner. -->
-        <div class="annot annot--stat">
-          <p class="annot__label">The stat your practice quotes</p>
+        <!-- Callout: the point of the artifact, planted above the letterhead. -->
+        <div class="annot annot--top">
+          <p class="annot__label annot__label--lg">Your name, in family inboxes, monthly</p>
           <span class="annot__line" aria-hidden="true"></span>
+        </div>
+
+        <!-- The card carries a fictional firm's letterhead: co-branding shown
+             in the artifact, not described beside it. -->
+        <ReportCard variant="full" tone="dark" cobrand />
+
+        <!-- Callout: the aggregate stat, docked at the card's bottom corner. -->
+        <div class="annot annot--stat">
           <p class="annot__chip">
             <span class="annot__num">92%</span>
             <span>practice-wide catch rate · 34 clients enrolled</span>
           </p>
-        </div>
-
-        <ReportCard variant="full" tone="dark" />
-
-        <!-- Callout: the co-branding line, tucked under the card like a second sheet. -->
-        <div class="annot annot--cobrand">
-          <p class="annot__cobrand">
-            <span class="annot__mark" aria-hidden="true"></span>
-            <span>Prepared for the family with <strong>your firm's name &amp; logo</strong></span>
-          </p>
           <span class="annot__line" aria-hidden="true"></span>
-          <p class="annot__label">Your name, in family inboxes monthly</p>
+          <p class="annot__label">The stat your practice quotes</p>
         </div>
       </div>
     </div>
@@ -398,33 +376,43 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
   }
 
   /* ---------- Why-practices stat band: one big, two small. Asymmetric on
-     purpose — the homepage owns the three-up stat-row. The handoff arc is
-     the only graphic (trace motif, drawn wide). ---------- */
-  .stat-duo { display: grid; gap: 28px 72px; margin: 0 0 44px; }
+     purpose — the homepage owns the three-up stat-row. The exodus dot row
+     is the only graphic: ten start amber, seven drain to ghost outlines
+     when the band scrolls in. Markup ships the drained (final) state, so
+     no-JS and reduced-motion visitors see the true picture. ---------- */
+  .stat-duo { display: grid; gap: 24px 64px; margin: 0 0 36px; }
   @media (min-width: 880px) {
-    .stat-duo { grid-template-columns: 1.5fr 1fr; align-items: center; gap: 0 72px; }
+    .stat-duo { grid-template-columns: 1.25fr 1fr; align-items: center; gap: 0 64px; }
   }
   .stat-duo__big .stat__num {
     display: block;
-    font-size: clamp(3.2rem, 6vw, 4.4rem);
+    font-size: clamp(2.9rem, 5vw, 3.8rem);
     margin-bottom: 2px;
   }
   .stat-duo__big .stat__label { max-width: 26rem; }
-  .handoff { display: block; width: 100%; height: 96px; margin-top: 20px; }
-  .handoff__ring { transform-box: fill-box; transform-origin: center; }
-  .stats--play .handoff__ring { animation: spryPing 2.7s cubic-bezier(0, 0, 0.2, 1) infinite; }
-  .stats--play .handoff__dot { animation: spryBlip 2.8s linear infinite; }
-  .stat-duo__small { padding: 16px 0; }
+  .exodus { display: flex; gap: 9px; align-items: center; margin-top: 16px; }
+  .exodus__dot { width: 12px; height: 12px; border-radius: 50%; background: var(--amber); border: 1.5px solid var(--amber); }
+  .exodus__dot--gone { background: transparent; border-color: #b5b0a6; }
+  .stats--anim .exodus__dot--gone { background: var(--amber); border-color: var(--amber); }
+  .stats--play .exodus__dot--gone { animation: sprExit 0.55s ease forwards; }
+  .stats--play .exodus__dot--gone:nth-child(2) { animation-delay: 0.15s; }
+  .stats--play .exodus__dot--gone:nth-child(3) { animation-delay: 0.3s; }
+  .stats--play .exodus__dot--gone:nth-child(4) { animation-delay: 0.45s; }
+  .stats--play .exodus__dot--gone:nth-child(5) { animation-delay: 0.6s; }
+  .stats--play .exodus__dot--gone:nth-child(6) { animation-delay: 0.75s; }
+  .stats--play .exodus__dot--gone:nth-child(7) { animation-delay: 0.9s; }
+  @keyframes sprExit { to { background: transparent; border-color: #b5b0a6; } }
+  .stat-duo__small { padding: 12px 0; }
   .stat-duo__small + .stat-duo__small { border-top: 1px solid var(--divider); }
   .stat-duo__small .stat__num {
     display: block;
-    font-size: 2.1rem;
+    font-size: 2rem;
     margin-bottom: 2px;
   }
 
-  /* ---------- Report band — inverted from the homepage's: the artifact is
-     large and annotated (co-branding + aggregate stat, the two things
-     advisors buy); the copy sits in the margin. ---------- */
+  /* ---------- Report band. Inverted from the homepage's: the artifact is
+     large and carries the co-branding as a letterhead; one loud tag above,
+     the aggregate stat docked below. Copy sits in the margin. ---------- */
   .report-band {
     position: relative;
     display: grid;
@@ -454,7 +442,18 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
     margin: 6px 0;
   }
 
-  /* Aggregate stat — chip overlapping the card's top-right corner. */
+  /* Loud tag above the card, aligned with the letterhead it points at. */
+  .annot--top {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 28px;
+  }
+  .annot__label--lg { font-size: 0.95rem; letter-spacing: 0.11em; }
+
+  /* Aggregate stat: chip overlapping the card's bottom-right corner. */
   .annot--stat {
     display: flex;
     flex-direction: column;
@@ -463,6 +462,8 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
     position: relative;
     z-index: 2;
   }
+  .annot--stat .annot__line { margin-right: 24px; }
+  .annot--stat .annot__label { margin-right: 24px; }
   .annot__chip {
     display: inline-flex;
     align-items: baseline;
@@ -487,44 +488,33 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
   }
   @media (min-width: 920px) {
     /* Dock the chip over the card corner on wide screens only. */
-    .annot--stat { margin-right: -18px; margin-bottom: -34px; }
+    .annot--stat { margin-right: -18px; margin-top: -22px; }
   }
   @media (max-width: 919px) {
-    .annot--stat { margin-bottom: 14px; }
+    .annot--stat { margin-top: 14px; }
   }
 
-  /* Co-branding line — a second sheet tucked under the card. */
-  .annot--cobrand {
-    position: relative;
-    z-index: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  /* Left-column deliverable points: blip-marked, compact. */
+  .deliv-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0;
+    display: grid;
+    gap: 14px;
   }
-  .annot__cobrand {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--sand);
-    border: 1px solid var(--line);
-    border-top: none;
-    border-radius: 0 0 var(--radius) var(--radius);
-    margin: -12px 0 0;
-    padding: 24px 24px 13px;
-    font-size: 0.95rem;
-    color: var(--gray-700);
+  .deliv-list li { position: relative; padding-left: 24px; }
+  .deliv-list li::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 0.55em;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--amber);
+    box-shadow: 0 0 10px rgba(240, 161, 28, 0.55);
   }
-  .annot__cobrand strong { color: var(--ink); }
-  .annot__mark {
-    flex: none;
-    width: 18px;
-    height: 18px;
-    border-radius: 4px;
-    background: radial-gradient(circle at 50% 50%, var(--amber) 0 4px, var(--ink) 4px);
-  }
-  .annot--cobrand .annot__line { margin-left: 24px; }
-  .annot--cobrand .annot__label { margin-left: 24px; }
+  .deliv-list strong { color: var(--paper-bg); }
   .report-band__radar {
     left: -140px;
     bottom: -180px;
@@ -651,29 +641,19 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
     position: relative;
     padding: 0 0 28px 64px;
   }
+  /* Ghost ledger numerals — the numbered-circle rail already lives on the
+     homepage carousel; this page doesn't repeat it. */
   .pilot-steps li::before {
-    content: counter(pilot);
+    content: counter(pilot, decimal-leading-zero);
     position: absolute;
     left: 0;
-    top: -2px;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 2px solid var(--ink);
-    display: grid;
-    place-items: center;
+    top: 0;
     font-family: var(--font-display);
     font-weight: 800;
-    font-size: 1.05rem;
-  }
-  .pilot-steps li:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    left: 19px;
-    top: 44px;
-    bottom: 2px;
-    width: 2px;
-    background: var(--line);
+    font-size: 1.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--gray-400);
   }
   .pilot-steps h3 { margin: 0 0 6px; font-size: 1.15rem; }
   .pilot-steps p { margin: 0; color: var(--ink-soft); font-size: 1rem; }
