@@ -41,7 +41,7 @@ const audiences = [
     id: 'financial-advisors',
     name: 'Financial advisors',
     hook: 'Protect the person, not just the portfolio.',
-    body: "You can diversify away market risk. You can't diversify away a persuasive phone call. ScamPrep trains your older clients to catch scams before money moves, and shows their families the progress every month.",
+    body: "You can diversify away market risk. You can't diversify away a persuasive phone call. ScamPrep trains your clients to hang up on the scams aimed at their savings, and puts the proof in front of their families.",
   },
   {
     id: 'credit-unions',
@@ -78,8 +78,8 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
         <span class="sr-only">ScamPrep for financial advisors, credit unions, and wealth advisors.</span>
       </h1>
       <p class="lede" style="margin-inline: auto;">
-        If you&rsquo;re trusted with the financial well-being of older adults, ScamPrep gives you a
-        <em>provable</em> answer to the question every family is asking: will you keep the person I love safe?
+        ScamPrep trains your older clients to catch scams before money moves, then proves
+        the progress to their families every month.
       </p>
       <div class="btn-row" style="justify-content: center; margin-top: 30px;">
         <a class="btn btn--primary" href={partnerCall}>Book a 20-minute call</a>
@@ -121,11 +121,9 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
         </div>
       </div>
 
-      <h2 style="max-width: 34rem;">Why practices run ScamPrep</h2>
-      <p class="lede">
-        One convincing phone call can undo a decade of careful planning. The fallout lands on
-        the practice, not just the client.
-      </p>
+      <p class="kicker">Why practices run ScamPrep</p>
+      <h2 style="max-width: 30rem;">One convincing phone call can undo a decade of careful planning.</h2>
+      <p class="lede">The fallout lands on the practice, not just the client.</p>
 
       <ul class="why-list">
         <li>
@@ -134,11 +132,11 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
         </li>
         <li>
           <h3><span class="blip" aria-hidden="true"></span>A scam is an AUM event</h3>
-          <p>More than twelve thousand people each lost $100k+ to fraud in 2025 — and that's just what was reported. Those are withdrawals no portfolio plans for, and sometimes the greater cost is the family conversation after. Trained clients lower the odds of both.</p>
+          <p>More than twelve thousand people each lost $100k+ to fraud in 2025. And that's just what was reported. Those are withdrawals no portfolio plans for, and sometimes the greater cost is the family conversation after. Trained clients lower the odds of both.</p>
         </li>
         <li>
           <h3><span class="blip" aria-hidden="true"></span>Differentiation that takes one sentence</h3>
-          <p>“We train our clients against scams — and show their families the progress.” No rate table, model portfolio, or planning tool says that.</p>
+          <p>“We train our clients against scams, and show their families the progress.” No rate table, model portfolio, or planning tool says that.</p>
         </li>
         <li>
           <h3><span class="blip" aria-hidden="true"></span>Fewer fire drills of the bad kind</h3>
@@ -146,10 +144,7 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
         </li>
       </ul>
 
-      <p class="lede" style="margin-top: 28px; max-width: 44rem;">
-        Preventing a single loss pays for years of the program.
-      </p>
-      <p class="footnote" style="margin-top: 14px;">
+      <p class="footnote" style="margin-top: 28px;">
         Sources: <a href="https://www.ic3.gov/AnnualReport/Reports/2025_IC3Report.pdf">FBI IC3 2025 Internet Crime Report</a> ·
         <a href="https://www.cerulli.com/press-releases/cerulli-anticipates-124-trillion-in-wealth-will-transfer-through-2048">Cerulli Associates</a>, on the great wealth transfer and heir retention
       </p>
@@ -203,17 +198,14 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
   <!-- ============ HOW PARTNERSHIPS WORK (reveal panels) ============ -->
   <section class="section">
     <div class="wrap">
-      <div class="opener-split">
-        <h2>One program, built to run itself</h2>
-        <p class="lede">Four commitments to your operations.</p>
-      </div>
+      <h2>One program, built to run itself</h2>
 
       <!-- Titles show first; hover, tap, or tab into a panel for the detail.
            Without JS every panel renders open, so nothing is ever hidden. -->
       <div class="runs" id="runs">
         <button type="button" class="runs__panel" aria-expanded="true">
           <span class="runs__title">Folds into your onboarding<span class="runs__plus" aria-hidden="true">+</span></span>
-          <span class="runs__body"><span>Enrollment and consent ride along with your existing client-onboarding, membership, or move-in flow. We screen for cognitive fit together — appropriate participants only.</span></span>
+          <span class="runs__body"><span>Enrollment and consent ride along with your existing client-onboarding or membership flow. We screen for cognitive fit together: appropriate participants only.</span></span>
         </button>
         <button type="button" class="runs__panel" aria-expanded="true">
           <span class="runs__title">Nothing for your staff to run<span class="runs__plus" aria-hidden="true">+</span></span>
@@ -221,11 +213,11 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
         </button>
         <button type="button" class="runs__panel" aria-expanded="true">
           <span class="runs__title">A co-branded monthly touchpoint<span class="runs__plus" aria-hidden="true">+</span></span>
-          <span class="runs__body"><span>The Resilience Report reaches the family members each client chooses — a recurring, co-branded bridge to the next generation.</span></span>
+          <span class="runs__body"><span>The Resilience Report reaches the family members each client chooses: a recurring, co-branded bridge to the next generation.</span></span>
         </button>
         <button type="button" class="runs__panel" aria-expanded="true">
           <span class="runs__title">Clean on compliance<span class="runs__plus" aria-hidden="true">+</span></span>
-          <span class="runs__body"><span>ScamPrep never touches money, accounts, or core systems — no integrations, no data feeds, no client credentials. Vendor review stays short.</span></span>
+          <span class="runs__body"><span>ScamPrep never touches money, accounts, or core systems. No integrations, no data feeds, no client credentials. Vendor review stays short.</span></span>
         </button>
       </div>
 
@@ -571,7 +563,12 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
   /* ---------- "Runs itself" reveal panels: titles first, detail on
      hover / tap / focus. Progressive: no JS = all panels open. ---------- */
   .runs { display: grid; gap: 14px; margin-top: 36px; }
-  @media (min-width: 760px) { .runs { grid-template-columns: 1fr 1fr; align-items: start; } }
+  @media (min-width: 760px) {
+    .runs { grid-template-columns: 1fr 1fr; align-items: start; }
+    /* Reserve two title lines so a one-line title ("Clean on compliance")
+       doesn't leave its panel shorter than its neighbors, closed or open. */
+    .runs__title { min-height: 2.6em; }
+  }
   @media (min-width: 1040px) { .runs { grid-template-columns: repeat(4, 1fr); } }
   .runs__panel {
     display: block;
@@ -693,7 +690,7 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
     gap: 0 48px;
   }
   @media (min-width: 880px) {
-    .aud-list { grid-template-columns: 1fr 1fr; }
+    .aud-list { grid-template-columns: repeat(3, 1fr); }
   }
   .aud-list li {
     padding: 22px 0 24px;
@@ -721,13 +718,6 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
      register changes: the hero and the ink deliverable band. ---------- */
 
   /* Partnerships: heading left, lede right on wide screens. */
-  .opener-split { display: grid; gap: 0 48px; }
-  @media (min-width: 880px) {
-    .opener-split { grid-template-columns: minmax(0, 34rem) minmax(0, 1fr); align-items: end; }
-    .opener-split h2 { margin-bottom: 0; }
-    .opener-split .lede { margin-bottom: 0.2em; }
-  }
-
   /* Advisor FAQ: sticky heading rail left, accordion right. */
   .faq-split { display: grid; gap: 28px 64px; align-items: start; }
   @media (min-width: 880px) {
