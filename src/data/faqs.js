@@ -16,7 +16,7 @@ export const faqs = [
   },
   {
     q: 'What if they never fall for a single drill?',
-    a: `<p>Wonderful — the Resilience Report proves it, month after month, and that proof is worth as much as the training. Scams evolve constantly, so staying enrolled keeps skills current against tactics that didn't exist last quarter. Think of it like a smoke detector that also texts you "all clear, and here's why."</p>`,
+    a: `<p>Wonderful — the Resilience Report proves it, quarter after quarter, and that proof is worth as much as the training. Scams evolve constantly, so staying enrolled keeps skills current against tactics that didn't exist a few months ago. Think of it like a smoke detector that also texts you "all clear, and here's why."</p>`,
   },
   {
     q: 'Will this actually work?',

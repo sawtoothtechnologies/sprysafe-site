@@ -24,11 +24,11 @@ const advisorFaqs = [
   },
   {
     q: 'What happens when a client misses a drill?',
-    a: `<p>A private, 30-second, friendly lesson in the moment — no shame, no public score. The family sees the month's trend, not a gotcha log, and you see aggregates. The design follows published research on older-adult learning: positive framing, immediate reassurance, never fear.</p>`,
+    a: `<p>A private, 30-second, friendly lesson in the moment — no shame, no public score. The family sees the quarter's trend, not a gotcha log, and you see aggregates. The design follows published research on older-adult learning: positive framing, immediate reassurance, never fear.</p>`,
   },
   {
     q: 'Where does this sit with the Senior Safe Act and trusted-contact rules?',
-    a: `<p>ScamPrep is not a compliance product and doesn't claim to satisfy any rule. But the regulatory direction is clear: the Senior Safe Act protects firms that train and report, and trusted-contact rules push firms to engage families <em>before</em> there's a problem. A prevention program with monthly family touchpoints is exactly that posture, documented.</p>`,
+    a: `<p>ScamPrep is not a compliance product and doesn't claim to satisfy any rule. But the regulatory direction is clear: the Senior Safe Act protects firms that train and report, and trusted-contact rules push firms to engage families <em>before</em> there's a problem. A prevention program with quarterly family touchpoints is exactly that posture, documented.</p>`,
   },
 ];
 
@@ -67,7 +67,7 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
 
 <Base
   title="ScamPrep for Financial Advisors, Credit Unions & Wealth Managers"
-  description="One provable scam-resilience program for the advisors families trust — financial advisors, credit unions, and wealth managers. Co-branded monthly Resilience Report, nothing for staff to run, never touches accounts. Founding-partner pilots open."
+  description="One provable scam-resilience program for the advisors families trust — financial advisors, credit unions, and wealth managers. Co-branded quarterly Resilience Report, nothing for staff to run, never touches accounts. Founding-partner pilots open."
 >
   <!-- ============ HERO (rotating audience) ============ -->
   <section class="section soln-hero">
@@ -78,8 +78,10 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
         <span class="sr-only">ScamPrep for financial advisors, credit unions, and wealth advisors.</span>
       </h1>
       <p class="lede" style="margin-inline: auto;">
-        ScamPrep trains your older clients to catch scams before money moves, then proves
-        the progress to their families every month.
+        Most heirs leave their parents' advisors and institutions after inheriting &mdash;
+        often because there was never a relationship to keep. ScamPrep trains your older
+        clients and members to catch scams before money moves, protecting their financial
+        well-being and building goodwill with the next generation, quarter after quarter.
       </p>
       <div class="btn-row" style="justify-content: center; margin-top: 30px;">
         <a class="btn btn--primary" href={partnerCall}>Book a 20-minute call</a>
@@ -121,14 +123,15 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
         </div>
       </div>
 
-      <p class="kicker">Why practices run ScamPrep</p>
-      <h2 style="max-width: 30rem;">One convincing phone call can undo a decade of careful planning.</h2>
-      <p class="lede">The fallout lands on the practice, not just the client.</p>
+      <div class="center">
+        <p class="kicker">Why practices run ScamPrep</p>
+        <h2 style="max-width: 30rem; margin-inline: auto;">One convincing phone call can undo a decade of careful planning.</h2>
+      </div>
 
       <ul class="why-list">
         <li>
           <h3><span class="blip" aria-hidden="true"></span>Keep the assets through the wealth transfer</h3>
-          <p>When assets pass on to heirs, the financial advisor usually doesn't. The Resilience Report puts your name in front of clients' adult children every month, associated with good news about their parent.</p>
+          <p>When assets pass on to heirs, the financial advisor usually doesn't. The Resilience Report puts your name in front of clients' adult children every quarter, associated with good news about their parent.</p>
         </li>
         <li>
           <h3><span class="blip" aria-hidden="true"></span>A scam is an AUM event</h3>
@@ -144,10 +147,6 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
         </li>
       </ul>
 
-      <p class="footnote" style="margin-top: 28px;">
-        Sources: <a href="https://www.ic3.gov/AnnualReport/Reports/2025_IC3Report.pdf">FBI IC3 2025 Internet Crime Report</a> ·
-        <a href="https://www.cerulli.com/press-releases/cerulli-anticipates-124-trillion-in-wealth-will-transfer-through-2048">Cerulli Associates</a>, on the great wealth transfer and heir retention
-      </p>
     </div>
   </section>
 
@@ -160,9 +159,9 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
     <div class="wrap report-band">
       <div>
         <p class="kicker">The deliverable</p>
-        <h2>A monthly report with your name on it</h2>
+        <h2>A quarterly report with your name on it</h2>
         <p class="lede">
-          Every month, the family members each client chooses receive a one-page Resilience
+          Every three months, the family members each client chooses receive a one-page Resilience
           Report: what was practiced, what was caught, and what comes next.
         </p>
         <ul class="deliv-list">
@@ -174,7 +173,7 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
       <div class="report-band__stage">
         <!-- Callout: the point of the artifact, planted above the letterhead. -->
         <div class="annot annot--top">
-          <p class="annot__label annot__label--lg">Your name, in family inboxes, monthly</p>
+          <p class="annot__label annot__label--lg">Your name, in family inboxes, every quarter</p>
           <span class="annot__line" aria-hidden="true"></span>
         </div>
 
@@ -212,7 +211,7 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
           <span class="runs__body"><span>Email-first drills, in-the-moment coaching, and briefings on the newest scams are all handled by ScamPrep. Your team is never in the alert loop.</span></span>
         </button>
         <button type="button" class="runs__panel" aria-expanded="true">
-          <span class="runs__title">A co-branded monthly touchpoint<span class="runs__plus" aria-hidden="true">+</span></span>
+          <span class="runs__title">A co-branded quarterly touchpoint<span class="runs__plus" aria-hidden="true">+</span></span>
           <span class="runs__body"><span>The Resilience Report reaches the family members each client chooses: a recurring, co-branded bridge to the next generation.</span></span>
         </button>
         <button type="button" class="runs__panel" aria-expanded="true">
@@ -288,7 +287,7 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
         </li>
         <li>
           <h3>Drills begin within two weeks</h3>
-          <p>You see your book's baseline catch rate in the first month. Co-branded Resilience Reports monthly, then a day-90 readout and your decision.</p>
+          <p>You see your book's baseline catch rate in the first month. The first co-branded Resilience Report lands at quarter's end, alongside your day-90 readout and decision.</p>
         </li>
         </ol>
       </div>
@@ -329,6 +328,14 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
     cta="Book a 20-minute call"
     href={partnerCall}
   />
+
+  <!-- Sources for the stats quoted across this page. -->
+  <div class="wrap center" style="padding-block: 36px 44px;">
+    <p class="footnote">
+      Sources: <a href="https://www.ic3.gov/AnnualReport/Reports/2025_IC3Report.pdf">FBI IC3 2025 Internet Crime Report</a> ·
+      <a href="https://www.cerulli.com/press-releases/cerulli-anticipates-124-trillion-in-wealth-will-transfer-through-2048">Cerulli Associates</a>, on the great wealth transfer and heir retention
+    </p>
+  </div>
 </Base>
 
 <style>

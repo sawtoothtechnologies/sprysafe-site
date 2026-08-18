@@ -8,8 +8,8 @@ import { homeFaqs } from '../data/faqs.js';
 ---
 
 <Base
-  title="ScamPrep — Simulated Scam Drills & Coaching, with a Monthly Resilience Report"
-  description="A pamphlet won't stop the next scam. Practice will. ScamPrep trains the person you care about with safe, simulated scam drills, coaching the moment they slip, and a drip of up-to-date scam briefings — plus a monthly Resilience Report. Consent-first."
+  title="ScamPrep — Simulated Scam Drills & Coaching, with a Quarterly Resilience Report"
+  description="A pamphlet won't stop the next scam. Practice will. ScamPrep trains the person you care about with safe, simulated scam drills, coaching the moment they slip, and a drip of up-to-date scam briefings — plus a quarterly Resilience Report. Consent-first."
 >
   <!-- ============ HERO — radar (state) ============ -->
   <section class="hero section--ink">
@@ -20,12 +20,11 @@ import { homeFaqs } from '../data/faqs.js';
 
     <div class="wrap hero__grid">
       <div>
-        <p class="kicker">Test &amp; train to fight against scams</p>
         <h1>Simulated scam drills for those most targeted.</h1>
         <p class="hero__metaphor">A pamphlet won't stop the next scam. Practice will.</p>
         <p class="lede">
-          Strengthen a loved one's resistance to scams with real-world practice, timely alerts
-          and education, and a monthly Resilience Report.
+          Strengthen resistance to scams with real-world practice, timely alerts and education,
+          and a quarterly Resilience Report.
         </p>
         <div class="btn-row" style="margin-top: 30px;">
           <span class="ping-wrap">
@@ -137,7 +136,7 @@ import { homeFaqs } from '../data/faqs.js';
           <button class="hiw__card" aria-expanded="false">
             <span class="hiw__card-num">4</span>
             <span class="hiw__card-body">
-              <span class="hiw__card-title">Monthly Resilience Report</span>
+              <span class="hiw__card-title">Quarterly Resilience Report</span>
               <span class="hiw__card-teaser"><span>One page to the family: what was practiced, what was caught, and what's being reinforced next.</span></span>
             </span>
             <span class="hiw__progress" aria-hidden="true"><span></span></span>
@@ -162,8 +161,8 @@ import { homeFaqs } from '../data/faqs.js';
         <h2>Peace of mind they won't fall victim</h2>
         <p class="lede">
           Monitoring apps message you when something bad might have happened. ScamPrep sends you
-          proof of something good: the person you care about is getting harder to fool, month
-          after month.
+          proof of something good: the person you care about is getting harder to fool, quarter
+          after quarter.
         </p>
 
         <figure class="trace-card">
@@ -221,7 +220,7 @@ import { homeFaqs } from '../data/faqs.js';
             </tr>
             <tr class="compare__hero">
               <td class="compare__who"><span class="who-inline"><span class="blip" aria-hidden="true"></span>ScamPrep</span></td>
-              <td>Trains the person with safe practice and coaching, keeps their knowledge current with drip briefings, and measures progress monthly</td>
+              <td>Trains the person with safe practice and coaching, keeps their knowledge current with drip briefings, and measures progress quarterly</td>
               <td>The person becomes the defense, without giving up an ounce of independence</td>
             </tr>
           </tbody>
@@ -258,19 +257,6 @@ import { homeFaqs } from '../data/faqs.js';
       <p class="kicker">For organizations</p>
       <h2>Also built for the people families trust</h2>
       <div class="grid grid--2" style="margin-top: 36px;">
-        <div class="card">
-          <h3>Senior-living communities</h3>
-          <p>
-            Give tours a differentiator no one else in town can claim: <em>we actively train
-            residents against scams — and prove it to families every month.</em>
-          </p>
-          <p><a class="cta-link" href="/solutions#senior-living">Learn more →</a></p>
-        </div>
-        <div class="card">
-          <h3>Home-care agencies</h3>
-          <p>A safety add-on your clients' families will thank you for — and a new recurring revenue line.</p>
-          <p><a class="cta-link" href="/solutions#home-care">Learn more →</a></p>
-        </div>
         <div class="card">
           <h3>Financial &amp; wealth advisors</h3>
           <p>One scammed client can erase years of trust and six figures of AUM. Protect the person, not just the portfolio.</p>
@@ -497,6 +483,13 @@ import { homeFaqs } from '../data/faqs.js';
     .hero__grid { grid-template-columns: 1.15fr 1fr; }
   }
   .hero__card { display: flex; justify-content: center; }
+
+  /* Trust line: single line at full desktop width (it fits once it can borrow
+     the grid gap); balanced two-line wrap below that. */
+  .hero .trust-line { text-wrap: balance; }
+  @media (min-width: 1120px) {
+    .hero .trust-line { white-space: nowrap; }
+  }
 
   .hero__radar {
     right: -160px;

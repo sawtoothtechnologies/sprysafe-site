@@ -200,6 +200,12 @@ img { max-width: 100%; height: auto; }
 
 .lede { font-size: 1.15rem; line-height: 1.6; color: var(--gray-700); max-width: var(--maxw-text); }
 .section--ink .lede, .section--pine .lede { color: var(--gray-400); }
+/* Typographic hygiene: balanced multi-line headings, and no single-word
+   last lines (orphans) in body text. Progressive enhancement — browsers
+   without text-wrap support simply ignore these. */
+h1, h2, h3 { text-wrap: balance; }
+p, li, dd, dt, figcaption, blockquote { text-wrap: pretty; }
+
 .center { text-align: center; }
 .center .lede { margin-inline: auto; }
 .prose { max-width: var(--maxw-text); }

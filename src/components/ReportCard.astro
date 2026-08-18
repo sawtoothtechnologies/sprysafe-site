@@ -1,8 +1,8 @@
 ---
-// The hero artifact — the monthly Resilience Report. Built in real HTML/CSS so
+// The hero artifact — the quarterly Resilience Report. Built in real HTML/CSS so
 // it can become the actual product template later. Always labeled illustrative.
 //
-// variant: "full" (5 drills + briefings + next-month focus) — the /report section
+// variant: "full" (5 drill highlights + briefings + next-quarter focus) — the /report section
 //          "trimmed" (3 drills + a teaser link) — the hero
 // tone:    "dark" (default) when the card sits on an ink surface, "light" on paper.
 // cobrand: renders a fictional firm letterhead at the top of the card, so
@@ -30,7 +30,7 @@ const drills = trimmed ? trimmedDrills : fullDrills;
 <div class:list={['report-wrap', `report-wrap--${tone}`]}>
   <p class="report__sample">Illustrative report</p>
 
-  <figure class:list={['report', trimmed && 'report--trimmed']} aria-label="Sample monthly Resilience Report (illustrative)">
+  <figure class:list={['report', trimmed && 'report--trimmed']} aria-label="Sample quarterly Resilience Report (illustrative)">
     {cobrand && (
       <div class="report__brand">
         <span class="report__brand-mark" aria-hidden="true">AR</span>
@@ -43,16 +43,16 @@ const drills = trimmed ? trimmedDrills : fullDrills;
     <header class="report__head">
       <div>
         <p class="report__title">Margaret's Resilience Report</p>
-        <p class="report__month">June</p>
+        <p class="report__month">Summer</p>
       </div>
-      <div class="report__status" role="img" aria-label="Status: mostly strong, improving since March">
+      <div class="report__status" role="img" aria-label="Status: mostly strong, improving since spring">
         {!trimmed && <span class="report__status-label" aria-hidden="true">Status</span>}
         <span class="report__status-pill" aria-hidden="true">Mostly strong ↑</span>
-        {!trimmed && <span class="report__status-sub" aria-hidden="true">improving since March</span>}
+        {!trimmed && <span class="report__status-sub" aria-hidden="true">improving since spring</span>}
       </div>
     </header>
 
-    <p class="report__headline">Spotted <strong>4 of 5</strong> practice scams this month</p>
+    <p class="report__headline">Spotted <strong>13 of 15</strong> practice scams this quarter</p>
 
     <ul class="report__list">
       {drills.map((d) => (
@@ -66,14 +66,14 @@ const drills = trimmed ? trimmedDrills : fullDrills;
 
     {trimmed ? (
       <footer class="report__foot report__foot--teaser">
-        + 2 more drills, this month's scam briefing, and next month's focus.
+        + 12 more drills, this quarter's scam briefings, and next quarter's focus.
         <a href="#report">See the full report ↓</a>
       </footer>
     ) : (
       <>
-        <p class="report__briefings">Plus: briefed on the <strong>3 newest scams</strong> in circulation this month</p>
+        <p class="report__briefings">Plus: <strong>10 more drills</strong>, and briefings on the newest scams in circulation</p>
         <footer class="report__foot">
-          <strong>What we're reinforcing next month:</strong> spotting look-alike sender numbers in texts.
+          <strong>What we're reinforcing next quarter:</strong> spotting look-alike sender numbers in texts.
         </footer>
       </>
     )}

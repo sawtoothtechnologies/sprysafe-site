@@ -6,7 +6,7 @@ import CtaBand from '../components/CtaBand.astro';
 
 <Base
   title="How ScamPrep Works — Safe Practice Scams + Coaching"
-  description="Realistic practice scams by email and text, 30-second coaching the moment they slip, and a monthly Resilience Report. See exactly how a scam fire drill works."
+  description="Realistic practice scams by email and text, 30-second coaching the moment they slip, and a quarterly Resilience Report. See exactly how a scam fire drill works."
 >
   <section class="section">
     <div class="wrap prose">
@@ -21,52 +21,96 @@ import CtaBand from '../components/CtaBand.astro';
 
   <section class="section--tight section">
     <div class="wrap">
-      <div class="grid grid--2" style="gap: 40px;">
-        <div class="step">
-          <span class="step__num">1</span>
-          <div>
-            <h3>Enroll with consent.</h3>
-            <p>
-              You sign up and your parent opts in — always. Tell us a bit about them (email, phone,
-              the scams they've seen before). Setup takes ten minutes, and there's nothing for them
-              to install.
-            </p>
+      <!-- One connected timeline: each step shown with its artifact (all
+           simulated, per the brand rule) instead of a card grid. -->
+      <ol class="drill-line">
+        <li>
+          <div class="drill-line__body">
+            <div>
+              <h3>Enroll with consent.</h3>
+              <p>
+                You sign up and your parent opts in — always. Tell us a bit about them (email, phone,
+                the scams they've seen before). Setup takes ten minutes, and there's nothing for them
+                to install.
+              </p>
+            </div>
+            <aside class="mock" aria-label="Simulated enrollment confirmation">
+              <p class="mock__tag">Simulated</p>
+              <div class="mock__card mock__card--consent">
+                <span class="blip" aria-hidden="true"></span>
+                <p>Margaret accepted her invitation — email drills begin this week.</p>
+              </div>
+            </aside>
           </div>
-        </div>
-        <div class="step">
-          <span class="step__num">2</span>
-          <div>
-            <h3>We run safe, realistic drills.</h3>
-            <p>
-              On an unpredictable schedule, we send practice versions of the exact scams hitting
-              older adults right now, starting with email and expanding to texts and calls with
-              written consent. Drills are modeled on the latest tactics reported to the FBI and FTC.
-            </p>
+        </li>
+        <li>
+          <div class="drill-line__body">
+            <div>
+              <h3>We run safe, realistic drills.</h3>
+              <p>
+                On an unpredictable schedule, we send practice versions of the exact scams hitting
+                older adults right now, starting with email and expanding to texts and calls with
+                written consent. Drills are modeled on the latest tactics reported to the FBI and FTC.
+              </p>
+            </div>
+            <aside class="mock" aria-label="Simulated drill email">
+              <p class="mock__tag">Simulated drill email</p>
+              <div class="mock__card">
+                <p class="mock__meta">Cedar Bank Security · alerts@cedarbank-verify.co</p>
+                <p class="mock__subject">Unusual sign-in detected — verify within 24 hours</p>
+                <span class="mock__btn" aria-hidden="true">Verify my account</span>
+              </div>
+            </aside>
           </div>
-        </div>
-        <div class="step">
-          <span class="step__num">3</span>
-          <div>
-            <h3>Coaching in the moment they slip.</h3>
-            <p>
-              If your dad clicks, nothing bad happens. A friendly page opens instead — a specific,
-              usable lesson in thirty seconds. No lecture, no shame. Research shows this exact
-              moment is when the lesson sticks.
-            </p>
+        </li>
+        <li>
+          <div class="drill-line__body">
+            <div>
+              <h3>Coaching in the moment they slip.</h3>
+              <p>
+                If your dad clicks, nothing bad happens. A friendly page opens instead — a specific,
+                usable lesson in thirty seconds. No lecture, no shame. Research shows this exact
+                moment is when the lesson sticks.
+              </p>
+            </div>
+            <aside class="mock" aria-label="Simulated coaching screen">
+              <p class="mock__tag">The coaching moment — simulated</p>
+              <div class="mock__card mock__card--coach">
+                <p class="mock__coach-head"><span class="blip blip--alert" aria-hidden="true"></span>This was a ScamPrep practice drill.</p>
+                <p>Real banks never ask you to “verify” through an email link. Here are the three tells you can check in five seconds…</p>
+              </div>
+            </aside>
           </div>
-        </div>
-        <div class="step">
-          <span class="step__num">4</span>
-          <div>
-            <h3>You get the Resilience Report.</h3>
-            <p>
-              Every month: which drills we ran, what they caught, what they missed, and their
-              resilience trend over time. Proof they're getting sharper, and an early heads-up if
-              their judgment starts to slip.
-            </p>
+        </li>
+        <li>
+          <div class="drill-line__body">
+            <div>
+              <h3>You get the Resilience Report.</h3>
+              <p>
+                Every quarter: which drills we ran, what they caught, what they missed, and their
+                resilience trend over time. Proof they're getting sharper, and an early heads-up if
+                their judgment starts to slip.
+              </p>
+            </div>
+            <aside class="mock" aria-label="Illustrative report excerpt">
+              <p class="mock__tag">Illustrative report excerpt</p>
+              <div class="mock__card mock__card--report">
+                <div class="mock__row">
+                  <span class="blip" aria-hidden="true"></span>
+                  <span>Fake bank “account locked” email</span>
+                  <span class="mock__result">reported</span>
+                </div>
+                <div class="mock__row">
+                  <span class="blip blip--alert" aria-hidden="true"></span>
+                  <span>Fake bank text</span>
+                  <span class="mock__result mock__result--alert">coached</span>
+                </div>
+                <p class="mock__status">Status: <strong>Mostly strong ↑</strong></p>
+              </div>
+            </aside>
           </div>
-        </div>
-      </div>
+        </li>
+      </ol>
     </div>
   </section>
 
@@ -117,12 +161,12 @@ import CtaBand from '../components/CtaBand.astro';
     <div class="wrap report-split">
       <div class="prose">
         <h2>What's in the Resilience Report</h2>
-        <p>Delivered monthly to up to four family members your parent approves:</p>
+        <p>Delivered every three months to up to four family members your parent approves:</p>
         <ul>
           <li>Every drill we ran, and how it went — caught, ignored, or coached</li>
-          <li>A plain-English resilience status ("strong," "mostly strong") and how it's trending across months</li>
+          <li>A plain-English resilience status ("strong," "mostly strong") and how it's trending over time</li>
           <li>The scam type we're reinforcing next, and why</li>
-          <li>A plain-English briefing on this month's most-reported scam</li>
+          <li>A plain-English briefing on the quarter's most-reported scams</li>
         </ul>
         <h2 style="margin-top: 1.6em;">A gentle early-warning system</h2>
         <p>
@@ -173,4 +217,103 @@ import CtaBand from '../components/CtaBand.astro';
   }
   ul { padding-left: 1.2em; }
   ul li { margin-bottom: 0.5em; }
+
+  /* ---------- Drill timeline: the four steps on one connected rail, each
+     with its (simulated) artifact beside it. ---------- */
+  .drill-line { list-style: none; margin: 0; padding: 0; }
+  .drill-line li { position: relative; padding: 0 0 48px 40px; }
+  .drill-line li:last-child { padding-bottom: 0; }
+  .drill-line li::before {
+    content: '';
+    position: absolute;
+    left: 5.5px;
+    top: 20px;
+    bottom: -8px;
+    width: 1.5px;
+    background: var(--line-strong);
+  }
+  .drill-line li:last-child::before { display: none; }
+  .drill-line li::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: var(--amber);
+    box-shadow: 0 0 0 3px rgba(240, 161, 28, 0.18);
+  }
+  .drill-line h3 { font-size: 1.25rem; margin: 0 0 8px; }
+  .drill-line__body { display: grid; gap: 18px 56px; }
+  @media (min-width: 880px) {
+    .drill-line__body { grid-template-columns: minmax(0, 1fr) minmax(0, 400px); align-items: start; }
+  }
+  .drill-line__body > div > p { margin: 0; }
+
+  /* Artifact mocks — simulated UI, sized like the report card's interior. */
+  .mock { margin: 0; }
+  .mock__tag {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--gray-500);
+    margin: 0 0 8px;
+  }
+  .mock__card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 11px;
+    padding: 16px 18px;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--gray-700);
+  }
+  .mock__card p { margin: 0; }
+  .mock__card--consent { display: flex; gap: 12px; align-items: flex-start; }
+  .mock__card--consent .blip { margin-top: 5px; }
+  .mock__meta { font-size: 0.8rem; color: var(--gray-500); }
+  .mock__subject { font-weight: 700; color: var(--ink); margin: 4px 0 12px !important; }
+  .mock__btn {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--paper-bg);
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 7px 14px;
+    border-radius: 6px;
+  }
+  .mock__card--coach { border: 1.5px solid var(--alert); }
+  .mock__coach-head {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-weight: 800;
+    color: var(--ink);
+    margin: 0 0 6px !important;
+  }
+  .mock__row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--paper-bg);
+    border: 1px solid var(--sand);
+    border-radius: var(--radius-ctrl);
+    padding: 7px 11px;
+    font-size: 0.88rem;
+    color: var(--ink);
+  }
+  .mock__row + .mock__row { margin-top: 6px; }
+  .mock__row span:nth-child(2) { flex: 1; }
+  .mock__result { font-size: 0.74rem; font-weight: 800; color: var(--amber-deep); white-space: nowrap; }
+  .mock__result--alert { color: var(--alert); }
+  .mock__status { margin: 12px 0 0 !important; font-size: 0.85rem; }
+  .mock__status strong {
+    background: var(--amber-tint);
+    color: var(--amber-deep);
+    padding: 3px 9px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+  }
 </style>
