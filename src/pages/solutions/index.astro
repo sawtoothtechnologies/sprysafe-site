@@ -78,10 +78,8 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
         <span class="sr-only">ScamPrep for financial advisors, credit unions, and wealth advisors.</span>
       </h1>
       <p class="lede" style="margin-inline: auto;">
-        Most heirs leave their parents' advisors and institutions after inheriting &mdash;
-        often because there was never a relationship to keep. ScamPrep trains your older
-        clients and members to catch scams before money moves, protecting their financial
-        well-being and building goodwill with the next generation, quarter after quarter.
+        Train your clients to catch scams before money moves, protecting their financial
+        well-being and building goodwill with the next generation.
       </p>
       <div class="btn-row" style="justify-content: center; margin-top: 30px;">
         <a class="btn btn--primary" href={partnerCall}>Book a 20-minute call</a>
@@ -93,39 +91,53 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
   <!-- ============ WHY PRACTICES (stat band + ledger) ============ -->
   <section class="section section--paper">
     <div class="wrap">
-      <!-- The numbers open the section; heading and lede follow them.
-           One big stat — the heir exodus — with a ten-dot client row where
-           seven drain away; $124T and the 12k losses sit quiet beside it.
-           Asymmetric on purpose; the homepage owns the three-up count-up
-           band (and the $38k stat), and its dot row lights UP — this one
-           drains. -->
-      <div class="stat-duo" id="why-stats">
-        <div class="stat-duo__big">
-          <span class="stat__num">7 in 10</span>
-          <p class="stat__label">heirs switch financial advisors after inheriting</p>
-          <!-- Ten client households; when the estate settles, seven walk. -->
-          <div class="exodus" aria-hidden="true">
-            <span class="exodus__dot exodus__dot--gone"></span><span class="exodus__dot exodus__dot--gone"></span><span class="exodus__dot exodus__dot--gone"></span>
-            <span class="exodus__dot exodus__dot--gone"></span><span class="exodus__dot exodus__dot--gone"></span><span class="exodus__dot exodus__dot--gone"></span>
-            <span class="exodus__dot exodus__dot--gone"></span>
-            <span class="exodus__dot"></span><span class="exodus__dot"></span><span class="exodus__dot"></span>
+      <!-- The numbers open the section; heading follows them. Same three-up
+           treatment as the homepage "Why now" band: dots / ping / trace
+           micro-graphics with count-ups, played on scroll into view. -->
+      <div class="stat-row" id="why-stats" style="margin-top: 0;">
+        <!-- 7 in 10 — ten client households, seven lit (the ones that walk) -->
+        <div class="stat-col">
+          <div class="stat-line">
+            <span class="stat__num">7 in 10</span>
+            <p class="stat__label">heirs switch financial advisors after inheriting</p>
+          </div>
+          <div class="stat__graphic dots" aria-hidden="true">
+            <span class="dot dot--on"></span><span class="dot dot--on"></span><span class="dot dot--on"></span>
+            <span class="dot dot--on"></span><span class="dot dot--on"></span><span class="dot dot--on"></span>
+            <span class="dot dot--on"></span>
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
           </div>
         </div>
-        <div class="stat-duo__side">
-          <div class="stat-duo__small">
+
+        <!-- $124T — ping rings behind the number -->
+        <div class="stat-col">
+          <div class="stat-line stat-line--ping">
+            <span class="loss-ping" aria-hidden="true"></span>
+            <span class="loss-ping loss-ping--2" aria-hidden="true"></span>
             <span class="stat__num" data-countup data-target="124" data-prefix="$" data-suffix="T">$124T</span>
             <p class="stat__label">changing hands by 2048 in the great wealth transfer</p>
           </div>
-          <div class="stat-duo__small">
-            <span class="stat__num">12,000+</span>
+        </div>
+
+        <!-- 12,000+ — rising trace -->
+        <div class="stat-col">
+          <div class="stat-line">
+            <span class="stat__num" data-countup data-target="12000" data-suffix="+">12,000+</span>
             <p class="stat__label">people each lost $100k+ to fraud in 2025</p>
+          </div>
+          <div class="stat__graphic" aria-hidden="true">
+            <svg class="trace" viewBox="0 0 220 32" preserveAspectRatio="none">
+              <path class="trace__line" d="M4 27 C 60 24, 120 18, 160 11 S 204 4, 212 4" fill="none" pathLength="600" />
+              <circle cx="212" cy="4" r="3.5" fill="#f0a11c" />
+            </svg>
           </div>
         </div>
       </div>
 
-      <div class="center">
+      <div style="margin-top: 48px;">
         <p class="kicker">Why practices run ScamPrep</p>
-        <h2 style="max-width: 30rem; margin-inline: auto;">One convincing phone call can undo a decade of careful planning.</h2>
+        <!-- max-width tuned so the line breaks in two on desktop; balance evens the split. -->
+        <h2 style="max-width: 38rem;">One convincing phone call can undo a decade of careful planning.</h2>
       </div>
 
       <ul class="why-list">
@@ -299,22 +311,30 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
     <div class="wrap center">
       <!-- Artifact-first: the interactive pricing card opens the section beside the heading. -->
       <div class="price-open">
-        <h2>Simple, volume-based pricing</h2>
-        <div><OrgPricing /></div>
+        <div>
+          <h2>Simple, volume-based pricing</h2>
+          <p class="lede" style="margin-top: 16px;">
+            <strong>On the house:</strong> every founding partner gets ScamPrep for their own
+            family, free &mdash; experience a drill before your clients do.
+          </p>
+        </div>
+        <div><OrgPricing onTheHouse={false} /></div>
       </div>
 
-      <!-- Ink/paper contrast pair — ink marks the model every founding pilot
-           starts on. The bordered card is reserved for the pricing calculator. -->
-      <div class="paymodels" style="margin-top: 36px;">
-        <div class="paymodel paymodel--ink">
-          <h3>Practice-sponsored</h3>
-          <p>You cover enrollment for the clients you choose, at the partner pricing below. Reads as client appreciation — and you control the roster.</p>
-        </div>
-        <div class="paymodel">
-          <h3>Client-referred</h3>
+      <!-- Two payment models as a rule-separated ledger (mirrors the why-list
+           and audience ledger), replacing the earlier ink/paper card pair.
+           A solid blip marks the pilot default; the outline blip marks the
+           model you can graduate to. -->
+      <ul class="paymodel-list">
+        <li>
+          <h3><span class="blip" aria-hidden="true"></span>Practice-sponsored</h3>
+          <p>You cover enrollment for the clients you choose, at the partner pricing above. Reads as client appreciation — and you control the roster.</p>
+        </li>
+        <li>
+          <h3><span class="blip blip--pending" aria-hidden="true"></span>Client-referred</h3>
           <p>Families pay for their own plan; your practice still gets the co-branded Resilience Report and the aggregate stat.</p>
-        </div>
-      </div>
+        </li>
+      </ul>
       <p class="paymodels__note">
         Every founding pilot starts sponsored — 90 days, a small roster — then you pick the model that fits.
       </p>
@@ -329,12 +349,16 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
     href={partnerCall}
   />
 
-  <!-- Sources for the stats quoted across this page. -->
-  <div class="wrap center" style="padding-block: 36px 44px;">
-    <p class="footnote">
-      Sources: <a href="https://www.ic3.gov/AnnualReport/Reports/2025_IC3Report.pdf">FBI IC3 2025 Internet Crime Report</a> ·
-      <a href="https://www.cerulli.com/press-releases/cerulli-anticipates-124-trillion-in-wealth-will-transfer-through-2048">Cerulli Associates</a>, on the great wealth transfer and heir retention
-    </p>
+  <!-- Sources for the stats quoted across this page — a quiet gray-on-ink
+       strip between the CTA band and the footer, deliberately low-contrast
+       so it reads as footer matter, not a section. -->
+  <div class="sources-strip">
+    <div class="wrap center">
+      <p class="footnote">
+        Sources: <a href="https://www.ic3.gov/AnnualReport/Reports/2025_IC3Report.pdf">FBI IC3 2025 Internet Crime Report</a> ·
+        <a href="https://www.cerulli.com/press-releases/cerulli-anticipates-124-trillion-in-wealth-will-transfer-through-2048">Cerulli Associates</a>, on the great wealth transfer and heir retention
+      </p>
+    </div>
   </div>
 </Base>
 
@@ -374,40 +398,47 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
     border: 0;
   }
 
-  /* ---------- Why-practices stat band: one big, two small. Asymmetric on
-     purpose — the homepage owns the three-up stat-row. The exodus dot row
-     is the only graphic: ten start amber, seven drain to ghost outlines
-     when the band scrolls in. Markup ships the drained (final) state, so
-     no-JS and reduced-motion visitors see the true picture. ---------- */
-  .stat-duo { display: grid; gap: 24px 64px; margin: 0 0 36px; }
-  @media (min-width: 880px) {
-    .stat-duo { grid-template-columns: 1.25fr 1fr; align-items: center; gap: 0 64px; }
+  /* Why-practices stat band — same dots / ping / trace treatment as the
+     homepage "Why now" band (micro-graphic CSS mirrored from index.astro). */
+  .dots { display: flex; gap: 9px; align-items: center; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid #b5b0a6; }
+  .dot--on { background: var(--amber); border-color: var(--amber); }
+  .stats--anim .dot--on { opacity: 0.25; }
+  .stats--play .dot--on { animation: spryBlip 2.8s linear infinite; }
+  .stats--play .dot--on:nth-child(2) { animation-delay: 0.25s; }
+  .stats--play .dot--on:nth-child(3) { animation-delay: 0.5s; }
+  .stats--play .dot--on:nth-child(4) { animation-delay: 0.75s; }
+  .stats--play .dot--on:nth-child(5) { animation-delay: 1s; }
+  .stats--play .dot--on:nth-child(6) { animation-delay: 1.25s; }
+  .stats--play .dot--on:nth-child(7) { animation-delay: 1.5s; }
+
+  .stat-line--ping { position: relative; }
+  .loss-ping {
+    position: absolute;
+    left: 44px;
+    top: 50%;
+    width: 130px;
+    height: 130px;
+    margin: -65px 0 0 -65px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(240, 161, 28, 0.8);
+    opacity: 0;
+    pointer-events: none;
   }
-  .stat-duo__big .stat__num {
-    display: block;
-    font-size: clamp(2.9rem, 5vw, 3.8rem);
-    margin-bottom: 2px;
+  .stats--play .loss-ping { animation: spryPing 2.7s cubic-bezier(0, 0, 0.2, 1) infinite; }
+  .stats--play .loss-ping--2 { animation-delay: 1.35s; }
+  .stat-line--ping .stat__num, .stat-line--ping .stat__label { position: relative; }
+
+  .trace { display: block; width: 100%; }
+  .stat__graphic .trace { max-width: 220px; height: 32px; }
+  .trace__line {
+    stroke: var(--amber);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-dasharray: 600;
   }
-  .stat-duo__big .stat__label { max-width: 26rem; }
-  .exodus { display: flex; gap: 9px; align-items: center; margin-top: 16px; }
-  .exodus__dot { width: 12px; height: 12px; border-radius: 50%; background: var(--amber); border: 1.5px solid var(--amber); }
-  .exodus__dot--gone { background: transparent; border-color: #b5b0a6; }
-  .stats--anim .exodus__dot--gone { background: var(--amber); border-color: var(--amber); }
-  .stats--play .exodus__dot--gone { animation: sprExit 0.55s ease forwards; }
-  .stats--play .exodus__dot--gone:nth-child(2) { animation-delay: 0.15s; }
-  .stats--play .exodus__dot--gone:nth-child(3) { animation-delay: 0.3s; }
-  .stats--play .exodus__dot--gone:nth-child(4) { animation-delay: 0.45s; }
-  .stats--play .exodus__dot--gone:nth-child(5) { animation-delay: 0.6s; }
-  .stats--play .exodus__dot--gone:nth-child(6) { animation-delay: 0.75s; }
-  .stats--play .exodus__dot--gone:nth-child(7) { animation-delay: 0.9s; }
-  @keyframes sprExit { to { background: transparent; border-color: #b5b0a6; } }
-  .stat-duo__small { padding: 12px 0; }
-  .stat-duo__small + .stat-duo__small { border-top: 1px solid var(--divider); }
-  .stat-duo__small .stat__num {
-    display: block;
-    font-size: 2rem;
-    margin-bottom: 2px;
-  }
+  .trace--anim .trace__line { stroke-dashoffset: 600; }
+  .trace--play .trace__line { animation: spryDash 3.8s ease-in-out forwards; }
 
   /* ---------- Report band. Inverted from the homepage's: the artifact is
      large and carries the co-branding as a letterhead; one loud tag above,
@@ -663,24 +694,27 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
   .pilot-steps p { margin: 0; color: var(--ink-soft); font-size: 1rem; }
 
   /* Pay models — ink/paper contrast pair, deliberately not bordered cards. */
-  .paymodels {
-    display: grid;
-    gap: 20px;
-    text-align: left;
+  /* Payment models — rule-separated ledger entries, same grammar as the
+     why-list. Solid blip = pilot default; outline blip = the later option. */
+  .paymodel-list {
+    list-style: none;
+    padding: 0;
+    margin: 44px auto 0;
     max-width: 880px;
-    margin-inline: auto;
+    display: grid;
+    gap: 0 48px;
+    text-align: left;
   }
-  @media (min-width: 760px) { .paymodels { grid-template-columns: 1fr 1fr; } }
-  .paymodel {
-    border-radius: var(--radius);
-    padding: 30px 28px;
-    background: var(--paper-bg);
+  @media (min-width: 760px) { .paymodel-list { grid-template-columns: 1fr 1fr; } }
+  .paymodel-list li { padding: 22px 0 8px; border-top: 1px solid var(--divider); }
+  .paymodel-list h3 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.15rem;
+    margin: 0 0 8px;
   }
-  .paymodel h3 { margin: 0 0 10px; }
-  .paymodel p { margin: 0; font-size: 1rem; color: var(--gray-700); }
-  .paymodel--ink { background: var(--ink); }
-  .paymodel--ink h3 { color: var(--paper-bg); }
-  .paymodel--ink p { color: var(--gray-400); }
+  .paymodel-list p { margin: 0; font-size: 1rem; color: var(--gray-700); }
   .paymodels__note {
     color: var(--ink-soft);
     font-size: 1rem;
@@ -751,6 +785,17 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
 
   /* Final CTA (the page's second ink moment) gets the airy density step. */
   :global(section.cta-band) { padding: 128px 0; }
+
+  /* Sources strip — ink surface continuous with the CTA band and footer;
+     hairline divider above, muted gray text so it stays out of the way. */
+  .sources-strip { background: var(--ink); }
+  .sources-strip .footnote {
+    margin: 0;
+    padding: 20px 0 24px;
+    border-top: 1px solid var(--ink-2);
+    color: var(--gray-500);
+  }
+  .sources-strip .footnote a { color: var(--gray-400); }
 </style>
 
 <script>
@@ -864,6 +909,25 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
       { threshold: 0.25 }
     );
     bandIo.observe(band);
+  }
+
+  // Trace motif — the line draws itself once, on scroll into view (same
+  // behavior as the homepage trace).
+  const traces = Array.from(document.querySelectorAll('.trace'));
+  if (traces.length && 'IntersectionObserver' in window && !reduceMotion) {
+    traces.forEach((t) => t.classList.add('trace--anim'));
+    const traceIo = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('trace--play');
+            traceIo.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+    traces.forEach((t) => traceIo.observe(t));
   }
 
   // "Runs itself" panels — titles first; detail on hover (pointer devices),

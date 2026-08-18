@@ -2,6 +2,9 @@
 // Interactive organization pricing. Per-person price scales linearly from $8 at 10 enrolled
 // people down to $4 at 500+ people. Progressive enhancement: a static range line shows without
 // JS; the slider enhances it. Include once per page (fixed ids).
+// onTheHouse: set false where the page carries the founding-partner freebie line
+// outside the card (e.g. the solutions pricing section) to avoid saying it twice.
+const { onTheHouse = true } = Astro.props;
 const partnerCall = 'https://cal.com/scamprep/partner-call';
 ---
 
@@ -42,10 +45,12 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
       communities, agencies, advisory firms, credit unions, and banks.
     </p>
 
-    <p class="orgprice__note">
-      <strong>On the house:</strong> every founding partner gets ScamPrep for their own family,
-      free — experience a drill before your clients do.
-    </p>
+    {onTheHouse && (
+      <p class="orgprice__note">
+        <strong>On the house:</strong> every founding partner gets ScamPrep for their own family,
+        free — experience a drill before your clients do.
+      </p>
+    )}
 
     <a class="btn btn--primary orgprice__cta" href={partnerCall}>Book a 20-minute call</a>
 

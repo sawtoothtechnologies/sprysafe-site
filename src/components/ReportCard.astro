@@ -265,6 +265,18 @@ const drills = trimmed ? trimmedDrills : fullDrills;
      .report--anim is added by JS only when motion is allowed, so the armed
      (hidden) states below never apply for no-JS or reduced-motion visitors.
      .report--play triggers the sequence when the card enters the viewport. */
+
+  /* Card-level entrance: the whole artifact rises and settles first, then the
+     internal sequence (headline → rows → briefings → status) plays over it. */
+  .report--anim { opacity: 0; }
+  .report--play {
+    animation: reportEnter 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+  }
+  @keyframes reportEnter {
+    from { opacity: 0; transform: translateY(18px) scale(0.97); }
+    to { opacity: 1; transform: none; }
+  }
+
   .report--anim .report__headline,
   .report--anim .report__row,
   .report--anim .report__briefings,
@@ -291,6 +303,35 @@ const drills = trimmed ? trimmedDrills : fullDrills;
   .report--play .report__row:nth-child(3) .blip { animation-delay: 0.9s; }
   .report--play .report__row:nth-child(4) .blip { animation-delay: 1.1s; }
   .report--play .report__row:nth-child(5) .blip { animation-delay: 1.3s; }
+
+  /* One-time amber ping as each blip lands — the "event" motif, scaled down
+     to row size. Plays once per row, staggered with the blip pop above.
+     The coached row pings in alert red to keep the color semantics intact. */
+  .report__row .blip { position: relative; }
+  .report--play .report__row .blip::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 30px;
+    height: 30px;
+    margin: -15px 0 0 -15px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(240, 161, 28, 0.85);
+    opacity: 0;
+    pointer-events: none;
+    animation: blipPing 0.9s cubic-bezier(0, 0, 0.2, 1) forwards;
+  }
+  .report--play .report__row .blip--alert::after { border-color: rgba(179, 54, 46, 0.55); }
+  .report--play .report__row:nth-child(1) .blip::after { animation-delay: 0.55s; }
+  .report--play .report__row:nth-child(2) .blip::after { animation-delay: 0.75s; }
+  .report--play .report__row:nth-child(3) .blip::after { animation-delay: 0.95s; }
+  .report--play .report__row:nth-child(4) .blip::after { animation-delay: 1.15s; }
+  .report--play .report__row:nth-child(5) .blip::after { animation-delay: 1.35s; }
+  @keyframes blipPing {
+    from { transform: scale(0.25); opacity: 0.9; }
+    to { transform: scale(1); opacity: 0; }
+  }
   .report--play .report__briefings {
     animation: reportRise 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) 1.45s forwards;
   }
