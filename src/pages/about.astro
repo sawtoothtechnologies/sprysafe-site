@@ -44,16 +44,33 @@ import CtaBand from '../components/CtaBand.astro';
   </section>
 
   <section class="section section--paper">
-    <div class="wrap prose">
-      <h2>The founder</h2>
-      <p>
-        ScamPrep is built by <strong>Bryce Wachtell</strong>. Bryce spent his career in strategy
-        and operations at Google, as a management consultant at Bain &amp; Company, and at an
-        early-stage startup called Gatheround. He turned down business school at Stanford
-        University to build ScamPrep after observing the growing threat of scams in his own
-        community. He builds the way he believes protective products should be built: simple,
-        elegant, research-backed, and unambiguously good for the people they serve.
-      </p>
+    <div class="wrap">
+      <!-- Photo + bio: image left, text right; stacks photo-first on mobile. -->
+      <div class="founder">
+        <img
+          class="founder__photo"
+          src="/bryce-wachtell.jpg"
+          alt="Bryce Wachtell, founder of ScamPrep"
+          width="800"
+          height="800"
+          loading="lazy"
+        />
+        <div class="founder__bio prose">
+          <h2>The founder</h2>
+          <p>
+            ScamPrep is built by <strong>Bryce Wachtell</strong>. Bryce spent his career in strategy
+            and operations at Google, as a management consultant at Bain &amp; Company, and at an
+            early-stage startup called Gatheround. He turned down business school at Stanford
+            University to build ScamPrep after observing the growing threat of scams in his own
+            community. He builds the way he believes protective products should be built: simple,
+            elegant, research-backed, and unambiguously good for the people they serve.
+          </p>
+          <p>
+            You can connect with Bryce
+            <a href="https://www.linkedin.com/in/j-bryce-wachtell/">on LinkedIn &rarr;</a>
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -130,6 +147,28 @@ import CtaBand from '../components/CtaBand.astro';
     font-size: 1.05rem;
   }
   .stat-bullets strong { color: var(--pine-deep); }
+  /* Founder: photo + bio. Card radius and hairline border match the system;
+     the studio-gray photo background sits naturally on the paper section. */
+  .founder {
+    display: grid;
+    gap: 28px;
+    align-items: center;
+    max-width: 56rem;
+  }
+  @media (min-width: 760px) {
+    .founder { grid-template-columns: 260px minmax(0, 1fr); gap: 44px; }
+  }
+  .founder__photo {
+    display: block;
+    width: 100%;
+    max-width: 260px;
+    height: auto;
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+  }
+  .founder__bio h2 { margin-top: 0; }
+  .founder__bio p:last-child { margin-bottom: 0; }
+
   .principle h3 { font-size: 1.2rem; }
   .principle p { margin-bottom: 0; color: var(--ink-soft); font-size: 1rem; line-height: 1.55; }
 </style>

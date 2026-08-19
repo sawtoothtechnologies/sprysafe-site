@@ -309,35 +309,35 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
   <!-- ============ PARTNER PRICING ============ -->
   <section class="section section--paper" id="pricing">
     <div class="wrap center">
-      <!-- Artifact-first: the interactive pricing card opens the section beside the heading. -->
+      <!-- Artifact-first: the interactive pricing card beside the heading.
+           The two payment models ride in the left column as amber-dot bullets
+           (same grammar as the deliverable section's list), with the
+           founding-pilot note and the on-the-house freebie beneath. -->
       <div class="price-open">
         <div>
           <h2>Simple, volume-based pricing</h2>
-          <p class="lede" style="margin-top: 16px;">
+          <ul class="price-points">
+            <li>
+              <strong>Practice-sponsored.</strong> You cover enrollment for the clients you
+              choose, at partner pricing. Reads as client appreciation &mdash; and you control
+              the roster.
+            </li>
+            <li>
+              <strong>Client-referred.</strong> Families pay for their own plan; your practice
+              still gets the co-branded Resilience Report and the aggregate stat.
+            </li>
+          </ul>
+          <p class="price-points__note">
+            Every founding pilot starts sponsored &mdash; 90 days, a small roster &mdash; then
+            you pick the model that fits.
+          </p>
+          <p class="price-points__house">
             <strong>On the house:</strong> every founding partner gets ScamPrep for their own
             family, free &mdash; experience a drill before your clients do.
           </p>
         </div>
         <div><OrgPricing onTheHouse={false} /></div>
       </div>
-
-      <!-- Two payment models as a rule-separated ledger (mirrors the why-list
-           and audience ledger), replacing the earlier ink/paper card pair.
-           A solid blip marks the pilot default; the outline blip marks the
-           model you can graduate to. -->
-      <ul class="paymodel-list">
-        <li>
-          <h3><span class="blip" aria-hidden="true"></span>Practice-sponsored</h3>
-          <p>You cover enrollment for the clients you choose, at the partner pricing above. Reads as client appreciation — and you control the roster.</p>
-        </li>
-        <li>
-          <h3><span class="blip blip--pending" aria-hidden="true"></span>Client-referred</h3>
-          <p>Families pay for their own plan; your practice still gets the co-branded Resilience Report and the aggregate stat.</p>
-        </li>
-      </ul>
-      <p class="paymodels__note">
-        Every founding pilot starts sponsored — 90 days, a small roster — then you pick the model that fits.
-      </p>
     </div>
   </section>
 
@@ -694,33 +694,40 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
   .pilot-steps p { margin: 0; color: var(--ink-soft); font-size: 1rem; }
 
   /* Pay models — ink/paper contrast pair, deliberately not bordered cards. */
-  /* Payment models — rule-separated ledger entries, same grammar as the
-     why-list. Solid blip = pilot default; outline blip = the later option. */
-  .paymodel-list {
+  /* Payment models — amber-dot bullets under the pricing title, the light-
+     surface twin of the report band's deliv-list. */
+  .price-points {
     list-style: none;
     padding: 0;
-    margin: 44px auto 0;
-    max-width: 880px;
+    margin: 22px 0 0;
     display: grid;
-    gap: 0 48px;
-    text-align: left;
+    gap: 14px;
   }
-  @media (min-width: 760px) { .paymodel-list { grid-template-columns: 1fr 1fr; } }
-  .paymodel-list li { padding: 22px 0 8px; border-top: 1px solid var(--divider); }
-  .paymodel-list h3 {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 1.15rem;
-    margin: 0 0 8px;
+  .price-points li { position: relative; padding-left: 24px; color: var(--gray-700); }
+  .price-points li::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 0.55em;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--amber);
   }
-  .paymodel-list p { margin: 0; font-size: 1rem; color: var(--gray-700); }
-  .paymodels__note {
-    color: var(--ink-soft);
+  .price-points strong { color: var(--ink); }
+  .price-points__note {
+    margin: 18px 0 0;
+    font-size: 0.95rem;
+    color: var(--gray-500);
+  }
+  .price-points__house {
+    margin: 22px 0 0;
+    padding-top: 18px;
+    border-top: 1px solid var(--divider);
     font-size: 1rem;
-    margin: 18px auto 0;
-    max-width: 44rem;
+    color: var(--gray-700);
   }
+  .price-points__house strong { color: var(--ink); }
 
   /* Audience ledger — rule-separated entries mirroring .why-list. */
   .aud-list {
