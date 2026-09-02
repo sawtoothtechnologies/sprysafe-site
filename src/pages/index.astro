@@ -13,10 +13,17 @@ import { homeFaqs } from '../data/faqs.js';
 >
   <!-- ============ HERO — radar (state) ============ -->
   <section class="hero section--ink">
-    <div class="radar-rings hero__radar" aria-hidden="true"></div>
-    <div class="radar-sweep hero__radar" aria-hidden="true"></div>
-    <span class="hero__blip hero__blip--1" aria-hidden="true"></span>
-    <span class="hero__blip hero__blip--2" aria-hidden="true"></span>
+    <!-- Radar: rings, a sweeping line, three contacts that light up as the line
+         passes over them, and a solid center dot (the logo's pupil). Blip timing
+         is tied to the sweep's 8s rotation; see .hero__blip in the styles below. -->
+    <div class="hero__radar" aria-hidden="true">
+      <div class="radar-rings"></div>
+      <div class="radar-sweep"></div>
+      <span class="hero__blip hero__blip--1"></span>
+      <span class="hero__blip hero__blip--2"></span>
+      <span class="hero__blip hero__blip--3"></span>
+      <span class="hero__center"></span>
+    </div>
 
     <div class="wrap hero__grid">
       <div>
@@ -242,12 +249,7 @@ import { homeFaqs } from '../data/faqs.js';
         risk. It's the same simulate-coach-measure loop Fortune 500 companies have trusted for
         years. No one had pointed it at the people who need it most.
       </p>
-      <p class="footnote" style="margin-top: 20px; max-width: 48rem; margin-inline: auto;">
-        Sources:
-        <a href="https://consumer.ftc.gov/system/files/consumer_ftc_gov/pdf/A%20Review%20of%20Scam%20Prevention%20Messaging%20Research.pdf">FTC scam-prevention messaging review (2024)</a> ·
-        <a href="https://academic.oup.com/pnasnexus/article/3/8/pgae296/7725152">University of Florida phishing study, PNAS Nexus (2024)</a> ·
-        <a href="/why-it-works">read the full case →</a>
-      </p>
+      <p class="center" style="margin-top: 22px;"><a href="/why-it-works">Read why it works →</a></p>
     </div>
   </section>
 
@@ -491,23 +493,67 @@ import { homeFaqs } from '../data/faqs.js';
     .hero .trust-line { white-space: nowrap; }
   }
 
+  /* Radar: a 560px dial anchored in the top-right corner. Its center sits at
+     (right 64px, top 120px) so it stays clear of the report card down to
+     1280px wide, and clear of the headline on phones. */
   .hero__radar {
-    right: -160px;
-    top: -140px;
+    position: absolute;
+    right: -216px;
+    top: -160px;
     width: 560px;
     height: 560px;
-  }
-  .hero__blip {
-    position: absolute;
-    border-radius: 50%;
-    background: var(--amber);
-    animation: spryBlip 8s linear infinite;
     pointer-events: none;
   }
-  .hero__blip--1 { right: 120px; top: 120px; width: 9px; height: 9px; animation-delay: 1.4s; }
-  .hero__blip--2 { right: 60px; top: 44px; width: 7px; height: 7px; animation-delay: 5s; }
+  .hero__radar > .radar-rings,
+  .hero__radar > .radar-sweep { inset: 0; }
+
+  /* Center dot: the logo's solid amber pupil, with a soft halo. */
+  .hero__center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 18px;
+    height: 18px;
+    margin: -9px 0 0 -9px;
+    border-radius: 50%;
+    background: var(--amber);
+    box-shadow: 0 0 0 5px rgba(240, 161, 28, 0.16), 0 0 22px rgba(240, 161, 28, 0.45);
+  }
+
+  /* Contacts. Each sits at (--dx, --dy) from the center. The sweep line turns
+     once every 8s (spryRot on .radar-sweep), clockwise from 12 o'clock, so a
+     contact at angle A is reached at A/360 * 8s. A negative delay of
+     (A/360 * 8 - 8)s lands the flash exactly as the line passes, first pass
+     included. Placed in the regions that stay visible: the band above the
+     report card and the strip to its right. */
+  .hero__blip {
+    position: absolute;
+    left: calc(50% + var(--dx));
+    top: calc(50% + var(--dy));
+    width: 9px;
+    height: 9px;
+    margin: -4.5px 0 0 -4.5px;
+    border-radius: 50%;
+    background: var(--amber);
+    opacity: 0.22;
+    animation: spryRadarBlip 8s linear infinite;
+    animation-delay: var(--delay);
+  }
+  .hero__blip::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(240, 161, 28, 0.85);
+    opacity: 0;
+    animation: spryRadarPing 8s linear infinite;
+    animation-delay: var(--delay);
+  }
+  .hero__blip--1 { --dx: -150px; --dy: -70px; --delay: -1.444s; }  /* 295.0deg */
+  .hero__blip--2 { --dx: 44px; --dy: -92px; --delay: -7.432s; width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px; }  /* 25.6deg */
+  .hero__blip--3 { --dx: 40px; --dy: 120px; --delay: -4.410s; }  /* 161.6deg */
   @media (max-width: 919px) {
-    .hero__radar, .hero__blip { opacity: 0.55; }
+    .hero__radar { opacity: 0.55; }
   }
 
   .hero h1 { color: var(--paper-bg); }

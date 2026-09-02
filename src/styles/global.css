@@ -117,6 +117,19 @@ img { max-width: 100%; height: auto; }
 @keyframes spryPingBtn { 0% { transform: scale(1); opacity: 0.7; } 100% { transform: scale(1.28); opacity: 0; } }
 @keyframes spryBlip { 0%, 8% { opacity: 1; } 45%, 100% { opacity: 0.25; } }
 @keyframes spryDash { 0% { stroke-dashoffset: 600; } 55%, 100% { stroke-dashoffset: 0; } }
+/* Radar contact: pops the instant the sweep line reaches it (the 100% -> 0%
+   wrap is the flash), then fades as the trail passes. Pair with a delay so
+   0% lines up with the sweep angle. spryRadarPing is the ring that expands
+   off the contact at the same moment. */
+@keyframes spryRadarBlip {
+  0% { opacity: 1; transform: scale(1.35); }
+  8% { opacity: 1; transform: scale(1); }
+  45%, 100% { opacity: 0.22; transform: scale(0.9); }
+}
+@keyframes spryRadarPing {
+  0% { opacity: 0.85; transform: scale(1); }
+  22%, 100% { opacity: 0; transform: scale(3.4); }
+}
 
 /* ---------- Motif utilities ---------- */
 /* Status blip: <span class="blip"></span> / .blip--alert / .blip--pending */
@@ -150,7 +163,20 @@ img { max-width: 100%; height: auto; }
   pointer-events: none;
 }
 .radar-rings { background: repeating-radial-gradient(circle, transparent 0 41px, rgba(240, 161, 28, 0.22) 41px 42px); }
-.radar-sweep { background: conic-gradient(from 0deg, rgba(240, 161, 28, 0.3), transparent 90deg); animation: spryRot 8s linear infinite; }
+/* The sweep turns clockwise. The bright edge at 0deg is the line; the wedge
+   behind it (270deg to 360deg) is its fading trail, so the trail follows the
+   line the way a real radar's does. */
+.radar-sweep {
+  background: conic-gradient(
+    from 0deg,
+    rgba(240, 161, 28, 0.55) 0deg,
+    rgba(240, 161, 28, 0.3) 1.2deg,
+    transparent 2deg,
+    transparent 270deg,
+    rgba(240, 161, 28, 0.3) 360deg
+  );
+  animation: spryRot 8s linear infinite;
+}
 
 /* ---------- Layout helpers ---------- */
 .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }

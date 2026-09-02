@@ -13,23 +13,27 @@
 //   real explanation), so the internals are aria-hidden.
 ---
 
-<figure class="phone" id="phone-demo" aria-label="Illustrative example of ScamPrep practice drills arriving on a phone — simulated and safe">
+<figure class="phone" id="phone-demo" aria-label="Illustrative example of ScamPrep practice drills arriving on a phone, simulated and safe">
 
   <div class="phone__frame" aria-hidden="true">
     <div class="phone__screen">
+      <span class="phone__island"></span>
       <div class="phone__statusbar">
-        <span>9:41</span>
-        <span class="phone__signal"><i></i><i></i><i></i></span>
+        <span class="phone__time">9:41</span>
+        <span class="phone__status-right">
+          <span class="phone__signal"><i></i><i></i><i></i><i></i></span>
+          <span class="phone__battery"><i></i></span>
+        </span>
       </div>
 
       <!-- Scene 1 — Enroll / opt-in -->
       <div class="scene" data-scene="0">
         <div class="beat bubble bubble--in" style="--d: 0.3s;">
-          Hi Margaret, this is ScamPrep. Your family set up scam practice for you — short, friendly
+          Hi Margaret, this is ScamPrep. Your family set up scam practice for you: short, friendly
           drills to keep you sharp. Reply YES to start.
         </div>
         <div class="beat bubble bubble--out" style="--d: 1.5s;">YES</div>
-        <div class="beat chip chip--ok" style="--d: 2.3s;"><span class="blip"></span>Opted in — she's always in control</div>
+        <div class="beat chip chip--ok" style="--d: 2.3s;"><span class="blip"></span>Opted in. She's always in control</div>
       </div>
 
       <!-- Scene 2 — A simulated drill (default when JS is off) -->
@@ -50,17 +54,17 @@
           </span>
           <span class="callcard__who">
             <strong>Incoming call</strong>
-            “Bank fraud department” — spoofed number
+            “Bank fraud department” (spoofed number)
           </span>
         </div>
         <div class="beat chip chip--ok" style="--d: 4.2s;"><span class="blip"></span>Hung up, called the real number</div>
-        <div class="beat banner" style="--d: 5.1s;">Drill passed — coached in 30 seconds, no lecture</div>
+        <div class="beat banner" style="--d: 5.1s;">Drill passed. Coached in 30 seconds, no lecture</div>
       </div>
 
       <!-- Scene 3 — Drip briefing -->
       <div class="scene" data-scene="2">
         <div class="beat bubble bubble--in" style="--d: 0.3s;">
-          <strong>ScamPrep heads-up:</strong> a new Medicare-card text scam is going around. The tell —
+          <strong>ScamPrep heads-up:</strong> a new Medicare-card text scam is going around. The tell:
           they ask you to “verify” your card number. Real agencies never do.
         </div>
         <div class="beat chip" style="--d: 1.9s;">2-minute read · always current</div>
@@ -82,8 +86,10 @@
             Status: <span class="notif__delta">Mostly strong ↑</span> · caught 4 of 5 drills
           </span>
         </div>
-        <div class="beat chip chip--ok" style="--d: 1.8s;"><span class="blip"></span>Proof she's getting sharper — not surveillance</div>
+        <div class="beat chip chip--ok" style="--d: 1.8s;"><span class="blip"></span>Proof she's getting sharper, not surveillance</div>
       </div>
+
+      <span class="phone__home"></span>
     </div>
   </div>
 </figure>
@@ -119,41 +125,109 @@
 
 <style>
   .phone { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 18px; }
+
+  /* ---------- The device ----------
+     A thin, slightly brushed bezel with a hairline rim highlight, side
+     buttons, layered shadow for lift, and a screen with a camera island and
+     home indicator. Proportions sit close to a modern phone at this scale. */
   .phone__frame {
-    width: min(320px, 88vw);
-    border-radius: 42px;
-    background: var(--ink);
-    padding: 12px;
-    box-shadow: 0 24px 56px rgba(18, 17, 15, 0.25);
+    position: relative;
+    width: min(312px, 86vw);
+    border-radius: 46px;
+    padding: 7px;
+    background: linear-gradient(160deg, #2e2b27 0%, #17160f 50%, #0d0c0a 100%);
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+      0 1px 2px rgba(18, 17, 15, 0.22),
+      0 14px 28px -10px rgba(18, 17, 15, 0.35),
+      0 44px 80px -24px rgba(18, 17, 15, 0.5);
   }
+  /* Side buttons: power on the right; volume up and down on the left (the
+     second volume button is the box-shadow copy). */
+  .phone__frame::before,
+  .phone__frame::after {
+    content: '';
+    position: absolute;
+    width: 3px;
+    border-radius: 2px;
+    background: #26231f;
+  }
+  .phone__frame::before { right: -3px; top: 138px; height: 64px; }
+  .phone__frame::after { left: -3px; top: 108px; height: 36px; box-shadow: 0 46px 0 #26231f; }
+
   .phone__screen {
+    position: relative;
     background: var(--paper-bg);
-    border-radius: 32px;
-    min-height: 480px;
-    padding: 14px 14px 20px;
+    border-radius: 39px;
+    min-height: 528px;
+    padding: 12px 14px 12px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    box-shadow: inset 0 0 0 1px rgba(18, 17, 15, 0.06);
+  }
+  .phone__island {
+    position: absolute;
+    left: 50%;
+    top: 11px;
+    width: 88px;
+    height: 25px;
+    margin-left: -44px;
+    border-radius: 13px;
+    background: var(--ink);
   }
   .phone__statusbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.78rem;
+    font-size: 0.8rem;
     font-weight: 700;
-    color: var(--gray-500);
-    padding: 2px 8px 10px;
-    border-bottom: 1px solid var(--line);
-    margin-bottom: 12px;
+    color: var(--ink);
+    padding: 3px 12px 0 14px;
+    height: 31px;
+    margin-bottom: 14px;
+    flex: none;
   }
-  .phone__signal { display: inline-flex; gap: 3px; align-items: flex-end; }
-  .phone__signal i { width: 4px; background: var(--gray-500); border-radius: 1px; display: block; }
-  .phone__signal i:nth-child(1) { height: 5px; }
-  .phone__signal i:nth-child(2) { height: 8px; }
-  .phone__signal i:nth-child(3) { height: 11px; }
+  .phone__time { letter-spacing: -0.01em; }
+  .phone__status-right { display: inline-flex; align-items: center; gap: 6px; }
+  .phone__signal { display: inline-flex; gap: 2px; align-items: flex-end; }
+  .phone__signal i { width: 3px; background: var(--ink); border-radius: 1px; display: block; }
+  .phone__signal i:nth-child(1) { height: 4px; }
+  .phone__signal i:nth-child(2) { height: 6px; }
+  .phone__signal i:nth-child(3) { height: 8px; }
+  .phone__signal i:nth-child(4) { height: 10px; }
+  .phone__battery {
+    position: relative;
+    display: inline-block;
+    width: 22px;
+    height: 11px;
+    border: 1.5px solid rgba(18, 17, 15, 0.45);
+    border-radius: 3.5px;
+  }
+  .phone__battery::after {
+    content: '';
+    position: absolute;
+    right: -4px;
+    top: 2px;
+    width: 1.5px;
+    height: 4px;
+    border-radius: 0 1px 1px 0;
+    background: rgba(18, 17, 15, 0.45);
+  }
+  .phone__battery i { position: absolute; top: 1.5px; bottom: 1.5px; left: 1.5px; width: 72%; border-radius: 1.5px; background: var(--ink); }
+  .phone__home {
+    flex: none;
+    margin-top: auto;
+    align-self: center;
+    width: 108px;
+    height: 5px;
+    border-radius: 3px;
+    background: var(--ink);
+    opacity: 0.85;
+  }
 
   /* ---------- Scenes ---------- */
-  .scene { display: none; flex-direction: column; gap: 12px; }
+  .scene { display: none; flex-direction: column; gap: 12px; padding-bottom: 18px; }
   /* No-JS fallback: show the drill scene statically. */
   .scene.is-static { display: flex; }
   .phone--js .scene { display: none; }
