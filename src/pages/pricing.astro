@@ -12,7 +12,7 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || `/early-access?plan=${
 ---
 
 <Base
-  title="ScamPrep Pricing — Plans from $9/month, with a 14-Day Free Trial"
+  title="ScamPrep Pricing: Plans from $9/month, with a 14-Day Free Trial"
   description="Three simple plans: one person ($9/mo), up to two ($15/mo), or up to four ($19/mo), billed annually. Family plans open this fall — join the early-access list. Business pricing for communities, agencies, and advisors."
 >
   <!-- Availability notice: one slim, dismissible line instead of a paragraph in the
@@ -356,6 +356,10 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || `/early-access?plan=${
   }
   @media (min-width: 900px) {
     .price-card--featured { transform: translateY(-10px); }
+  }
+  /* Below 900px the cards stack, so the recommended plan goes first. */
+  @media (max-width: 899px) {
+    .price-card--featured { order: -1; }
   }
   .price-badge {
     position: absolute;
