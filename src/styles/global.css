@@ -15,7 +15,9 @@
   --ink-2: #33302b;
   --ink-3: #4d4841;
   --gray-700: #55524c;
-  --gray-500: #84817b;
+  --gray-500: #6b6862; /* muted text on light surfaces. Was #84817b, which
+                          measured 3.3 to 3.9:1 on paper, sand, and white; this
+                          passes 4.5:1 on all three. On ink use --gray-400. */
   --gray-400: #a3a09a;
   --amber: #f0a11c;
   --amber-deep: #6e4a0a;
