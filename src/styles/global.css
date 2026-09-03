@@ -113,10 +113,14 @@ img { max-width: 100%; height: auto; }
 
 /* ---------- Motion primitives ---------- */
 @keyframes spryRot { to { transform: rotate(360deg); } }
-@keyframes spryPing { 0% { transform: scale(0.12); opacity: 0.9; } 100% { transform: scale(1); opacity: 0; } }
-@keyframes spryPingBtn { 0% { transform: scale(1); opacity: 0.7; } 100% { transform: scale(1.28); opacity: 0; } }
+/* The CTA ping grows by a fixed 14px on every side (animating inset, not
+   scale), so the ring stays an even distance from a wide button instead of
+   flaring at the ends and barely moving at the top and bottom. */
+@keyframes spryPingBtn {
+  0% { inset: 0; border-radius: 9px; opacity: 0.7; }
+  100% { inset: -14px; border-radius: 23px; opacity: 0; }
+}
 @keyframes spryBlip { 0%, 8% { opacity: 1; } 45%, 100% { opacity: 0.25; } }
-@keyframes spryDash { 0% { stroke-dashoffset: 600; } 55%, 100% { stroke-dashoffset: 0; } }
 /* Radar contact: pops the instant the sweep line reaches it (the 100% -> 0%
    wrap is the flash), then fades as the trail passes. Pair with a delay so
    0% lines up with the sweep angle. spryRadarPing is the ring that expands
@@ -414,16 +418,6 @@ p, li, dd, dt, figcaption, blockquote { text-wrap: pretty; }
 .checkbox label { padding: 10px 0; }
 
 /* ---------- Utility ---------- */
-/* Scroll-reveal: the .reveal class is added only by JS (and only when the
-   visitor allows motion), so content is never hidden without it. */
-.reveal {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.55s ease var(--reveal-delay, 0s),
-    transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) var(--reveal-delay, 0s);
-}
-.reveal--in { opacity: 1; transform: none; }
-
 /* Fine print under the hero CTA. The design reference sets this at 0.75rem;
    raised to 0.8rem to stay closer to the system's own "audience skews older"
    legibility floor. */

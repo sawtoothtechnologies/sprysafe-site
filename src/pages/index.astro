@@ -51,7 +51,7 @@ import { homeFaqs } from '../data/faqs.js';
     </div>
   </section>
 
-  <!-- ============ THE PROBLEM — trace + ping micro-graphics ============ -->
+  <!-- ============ THE PROBLEM — stats ============ -->
   <section class="section section--paper section--stats">
     <div class="wrap">
       <p class="kicker">Why now</p>
@@ -64,7 +64,7 @@ import { homeFaqs } from '../data/faqs.js';
         <!-- 71% — ten dots, seven lit -->
         <div class="stat-col">
           <div class="stat-line">
-            <span class="stat__num" data-countup data-target="71" data-suffix="%">71%</span>
+            <span class="stat__num">71%</span>
             <p class="stat__label">of adults 60+ contacted daily by scammers</p>
           </div>
           <div class="stat__graphic dots" aria-hidden="true">
@@ -75,27 +75,19 @@ import { homeFaqs } from '../data/faqs.js';
           </div>
         </div>
 
-        <!-- $38k — ping rings behind the number -->
+        <!-- $38k -->
         <div class="stat-col">
-          <div class="stat-line stat-line--ping">
-            <span class="loss-ping" aria-hidden="true"></span>
-            <span class="loss-ping loss-ping--2" aria-hidden="true"></span>
-            <span class="stat__num" data-countup data-target="38" data-prefix="$" data-suffix="k">$38k</span>
+          <div class="stat-line">
+            <span class="stat__num">$38k</span>
             <p class="stat__label">average reported loss</p>
           </div>
         </div>
 
-        <!-- +59% — rising trace -->
+        <!-- +59% -->
         <div class="stat-col">
           <div class="stat-line">
-            <span class="stat__num" data-countup data-target="59" data-prefix="+" data-suffix="%">+59%</span>
+            <span class="stat__num">+59%</span>
             <p class="stat__label">reported losses, last year</p>
-          </div>
-          <div class="stat__graphic" aria-hidden="true">
-            <svg class="trace" viewBox="0 0 220 32" preserveAspectRatio="none">
-              <path class="trace__line" d="M4 27 C 60 24, 120 18, 160 11 S 204 4, 212 4" fill="none" pathLength="600" />
-              <circle cx="212" cy="4" r="3.5" fill="#f0a11c" />
-            </svg>
           </div>
         </div>
       </div>
@@ -154,7 +146,7 @@ import { homeFaqs } from '../data/faqs.js';
         </div>
       </div>
 
-      <p style="margin-top: 40px;"><a class="btn btn--ghost" href="/how-it-works">See a drill up close →</a></p>
+      <p style="margin-top: 40px;"><a class="btn btn--ghost" href="/how-it-works">See a drill up close</a></p>
     </div>
   </section>
 
@@ -230,27 +222,7 @@ import { homeFaqs } from '../data/faqs.js';
         risk. It's the same simulate-coach-measure loop Fortune 500 companies have trusted for
         years. No one had pointed it at the people who need it most.
       </p>
-      <p class="center" style="margin-top: 22px;"><a href="/why-it-works">Read why it works →</a></p>
-    </div>
-  </section>
-
-  <!-- ============ FOR ORGANIZATIONS ============ -->
-  <section class="section">
-    <div class="wrap">
-      <p class="kicker">For organizations</p>
-      <h2>Also built for the people families trust</h2>
-      <div class="grid grid--2" style="margin-top: 36px;">
-        <div class="card">
-          <h3>Financial &amp; wealth advisors</h3>
-          <p>One scammed client can erase years of trust and six figures of AUM. Trained clients cost less than the cleanup.</p>
-          <p><a class="cta-link" href="/solutions#financial-advisors">Learn more →</a></p>
-        </div>
-        <div class="card">
-          <h3>Credit unions</h3>
-          <p>A member benefit that keeps savings where they belong, and turns fraud prevention into loyalty across generations.</p>
-          <p><a class="cta-link" href="/solutions#credit-unions">Learn more →</a></p>
-        </div>
-      </div>
+      <p class="center" style="margin-top: 22px;"><a href="/why-it-works">Read why it works</a></p>
     </div>
   </section>
 
@@ -263,7 +235,7 @@ import { homeFaqs } from '../data/faqs.js';
           <strong>Consent-first, always.</strong> Every participant opts in personally. Drills are
           gentle, immediately debriefed, and designed with published research on older-adult
           learning. No shame, no tricks for tricks' sake, no surprises the family didn't sign up
-          for. <a href="/promise">Read our full promise →</a>
+          for. <a href="/promise">Read our full promise</a>
         </p>
       </div>
     </div>
@@ -276,7 +248,7 @@ import { homeFaqs } from '../data/faqs.js';
       <div style="margin-top: 32px;">
         <Faq items={homeFaqs} />
       </div>
-      <p class="center" style="margin-top: 26px;"><a href="/faq">Read the full FAQ →</a></p>
+      <p class="center" style="margin-top: 26px;"><a href="/faq">Read the full FAQ</a></p>
     </div>
   </section>
 
@@ -293,54 +265,10 @@ import { homeFaqs } from '../data/faqs.js';
 </Base>
 
 <script>
-  // Count-up animation for the "Why now" stats.
-  // Progressive enhancement: markup ships the final numbers, so no-JS visitors
-  // (and search engines) always see real values.
-  const els = document.querySelectorAll('[data-countup]');
+  // Stats band — arm the dot pictograph, then play once the band scrolls into
+  // view. Markup ships the final state, so no-JS and reduced-motion visitors
+  // see everything without animation.
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  const render = (el, value) => {
-    const decimals = parseInt(el.dataset.decimals || '0', 10);
-    const num = decimals
-      ? value.toFixed(decimals)
-      : Math.round(value).toLocaleString('en-US');
-    el.textContent = (el.dataset.prefix || '') + num + (el.dataset.suffix || '');
-  };
-
-  const animate = (el) => {
-    const target = parseFloat(el.dataset.target || '0');
-    if (reduceMotion) { render(el, target); return; }
-    const duration = 1400;
-    let startTime;
-    const tick = (now) => {
-      if (startTime === undefined) startTime = now;
-      const progress = Math.min((now - startTime) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
-      render(el, target * eased);
-      if (progress < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  };
-
-  if (els.length && 'IntersectionObserver' in window && !reduceMotion) {
-    els.forEach((el) => render(el, 0)); // zero out only once JS is confirmed running
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            animate(entry.target);
-            io.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.35 }
-    );
-    els.forEach((el) => io.observe(el));
-  }
-
-  // Stats band — arm the dot pictograph and ping rings, then play once the
-  // band scrolls into view. Markup ships the final state, so no-JS and
-  // reduced-motion visitors see everything without animation.
   const band = document.getElementById('stats-band');
   if (band && 'IntersectionObserver' in window && !reduceMotion) {
     band.classList.add('stats--anim');
@@ -356,25 +284,6 @@ import { homeFaqs } from '../data/faqs.js';
       { threshold: 0.25 }
     );
     bandIo.observe(band);
-  }
-
-  // Trace motif — the line draws itself once, on scroll into view (the
-  // reference loops it forever; play-once is the production behavior).
-  const traces = Array.from(document.querySelectorAll('.trace'));
-  if (traces.length && 'IntersectionObserver' in window && !reduceMotion) {
-    traces.forEach((t) => t.classList.add('trace--anim'));
-    const traceIo = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('trace--play');
-            traceIo.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.4 }
-    );
-    traces.forEach((t) => traceIo.observe(t));
   }
 
   // "How it works" — an expanding step carousel synced with the phone demo.
@@ -547,7 +456,7 @@ import { homeFaqs } from '../data/faqs.js';
     margin: 0 0 18px;
   }
 
-  /* ---------- Stats: dots, ping, trace ---------- */
+  /* ---------- Stats: dots ---------- */
   .section--stats { padding: 64px 0 56px; }
   .dots { display: flex; gap: 9px; align-items: center; }
   .dot { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid #b5b0a6; }
@@ -561,33 +470,6 @@ import { homeFaqs } from '../data/faqs.js';
   .stats--play .dot--on:nth-child(6) { animation-delay: 1.25s; }
   .stats--play .dot--on:nth-child(7) { animation-delay: 1.5s; }
 
-  .stat-line--ping { position: relative; }
-  .loss-ping {
-    position: absolute;
-    left: 44px;
-    top: 50%;
-    width: 130px;
-    height: 130px;
-    margin: -65px 0 0 -65px;
-    border-radius: 50%;
-    border: 1.5px solid rgba(240, 161, 28, 0.8);
-    opacity: 0;
-    pointer-events: none;
-  }
-  .stats--play .loss-ping { animation: spryPing 2.7s cubic-bezier(0, 0, 0.2, 1) infinite; }
-  .stats--play .loss-ping--2 { animation-delay: 1.35s; }
-  .stat-line--ping .stat__num, .stat-line--ping .stat__label { position: relative; }
-
-  .trace { display: block; width: 100%; }
-  .stat__graphic .trace { max-width: 220px; height: 32px; }
-  .trace__line {
-    stroke: var(--amber);
-    stroke-width: 2.5;
-    stroke-linecap: round;
-    stroke-dasharray: 600;
-  }
-  .trace--anim .trace__line { stroke-dashoffset: 600; }
-  .trace--play .trace__line { animation: spryDash 3.8s ease-in-out forwards; }
 
   /* ---------- Report band ---------- */
   .report__radar {
