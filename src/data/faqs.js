@@ -52,7 +52,7 @@ export const faqs = [
   {
     id: 'self',
     q: 'Can I enroll myself?',
-    a: `<p>Absolutely. A meaningful share of our early-access list is people 60+ who want the training for themselves. The Resilience Report goes wherever you want, including only to you.</p>`,
+    a: `<p>Yes. Enroll yourself the same way, and the Resilience Report goes wherever you want, including only to you.</p>`,
   },
   {
     id: 'cost',
