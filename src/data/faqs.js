@@ -6,8 +6,8 @@
 export const faqs = [
   {
     id: 'knows',
-    q: 'Does the learner know they’re enrolled?',
-    a: `<p>Always. Personal consent is required, and we never test anyone in secret. What keeps ScamPrep effective is learners don't know <em>when</em> the next drill will come or <em>what form</em> it will take. Real scammers don't make appointments either.</p>`,
+    q: 'Does my loved one know they’re enrolled?',
+    a: `<p>Always. Personal consent is required, and we never test anyone in secret. What keeps ScamPrep effective is that they don't know <em>when</em> the next drill will come or <em>what form</em> it will take. Real scammers don't make appointments either.</p>`,
   },
   {
     id: 'upset',
@@ -32,7 +32,7 @@ export const faqs = [
   {
     id: 'app',
     q: "Is this another app they'll have to manage?",
-    a: `<p>No, and that's deliberate. There is nothing to download and no password to remember. Drills and briefings arrive through the channels they already use every day, like their email inbox and cell phone. There's nothing new to check or keep charged. If they can read a text, they're ready to get set up.</p>`,
+    a: `<p>No, and that's deliberate. There is nothing to download and no password to remember. Drills and briefings arrive through the channels they already use every day, like their email inbox and cell phone. There's nothing new to check or keep charged. If they can read a text, that's all the setup there is.</p>`,
   },
   {
     id: 'kinds',
