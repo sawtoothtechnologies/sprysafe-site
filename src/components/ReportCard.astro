@@ -176,6 +176,10 @@ const drills = trimmed ? trimmedDrills : fullDrills;
     margin-bottom: 6px;
   }
   .report--trimmed .report__head { align-items: center; }
+  @media (max-width: 420px) {
+    .report__head, .report--trimmed .report__head { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .report__status { text-align: left; justify-items: start; }
+  }
   .report__title {
     font-family: var(--font-display);
     font-size: 1.25rem;

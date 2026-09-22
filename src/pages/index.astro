@@ -180,23 +180,23 @@ import { homeFaqs } from '../data/faqs.js';
           <tbody>
             <tr>
               <td class="compare__who">Account monitoring</td>
-              <td>Watches the bank account, alerts family to suspicious transactions</td>
-              <td>Alerts arrive after money moves, and feel like surveillance</td>
+              <td data-label="What it does">Watches the bank account, alerts family to suspicious transactions</td>
+              <td data-label="The gap">Alerts arrive after money moves, and feel like surveillance</td>
             </tr>
             <tr>
               <td class="compare__who">Scam blockers</td>
-              <td>Filters known scam numbers or emails</td>
-              <td>Scams always slip through. When they do, their recipient is untrained and vulnerable</td>
+              <td data-label="What it does">Filters known scam numbers or emails</td>
+              <td data-label="The gap">Scams always slip through. When they do, their recipient is untrained and vulnerable</td>
             </tr>
             <tr>
               <td class="compare__who">Free classes &amp; pamphlets</td>
-              <td>Teach scam awareness once</td>
-              <td>Retention fades within about a month, and the content goes stale as new scams appear</td>
+              <td data-label="What it does">Teach scam awareness once</td>
+              <td data-label="The gap">Retention fades within about a month, and the content goes stale as new scams appear</td>
             </tr>
             <tr class="compare__hero">
               <td class="compare__who"><span class="who-inline"><span class="blip" aria-hidden="true"></span>ScamPrep</span></td>
-              <td>Trains with safe practice and coaching, keeps knowledge current with quick briefings, and measures progress quarterly</td>
-              <td>The recipient becomes their best defense, without giving up an ounce of independence</td>
+              <td data-label="What it does">Trains with safe practice and coaching, keeps knowledge current with quick briefings, and measures progress quarterly</td>
+              <td data-label="The gap">The recipient becomes their best defense, without giving up an ounce of independence</td>
             </tr>
           </tbody>
         </table>
@@ -322,7 +322,7 @@ import { homeFaqs } from '../data/faqs.js';
 
     show(0);
 
-    if (!reduce && 'IntersectionObserver' in window) {
+    if ('IntersectionObserver' in window) {
       const frame = (now) => {
         if (last === null) last = now;
         const dt = now - last;
@@ -330,7 +330,7 @@ import { homeFaqs } from '../data/faqs.js';
         if (!hovering && !stopped) {
           elapsed += dt;
           const duration = DURATIONS[current] || 4000;
-          setProgress(Math.min(elapsed / duration, 1));
+          if (!reduce) setProgress(Math.min(elapsed / duration, 1));
           if (elapsed >= duration) show((current + 1) % n);
         }
         raf = requestAnimationFrame(frame);
@@ -361,6 +361,9 @@ import { homeFaqs } from '../data/faqs.js';
     align-items: center;
   }
   .hero > .hero__grid { padding-top: 84px; padding-bottom: 96px; }
+  @media (max-width: 700px) {
+    .hero > .hero__grid { padding-top: 64px; padding-bottom: 64px; gap: 40px; }
+  }
   @media (min-width: 920px) {
     .hero__grid { grid-template-columns: 1.15fr 1fr; }
   }
@@ -504,7 +507,9 @@ import { homeFaqs } from '../data/faqs.js';
     transition: border-color 0.25s ease, background 0.35s ease;
   }
   .hiw__card:hover { border-color: var(--line-strong); }
-  .hiw__card.is-active { background: var(--ink); border-color: var(--ink); }
+  @media (min-width: 1040px) {
+    .hiw__card.is-active { background: var(--ink); border-color: var(--ink); }
+  }
   .hiw__card-num {
     width: 34px;
     height: 34px;
@@ -518,7 +523,9 @@ import { homeFaqs } from '../data/faqs.js';
     place-items: center;
     transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
   }
-  .hiw__card.is-active .hiw__card-num { background: var(--amber); border-color: var(--amber); color: var(--ink); }
+  @media (min-width: 1040px) {
+    .hiw__card.is-active .hiw__card-num { background: var(--amber); border-color: var(--amber); color: var(--ink); }
+  }
   .hiw__card-body { display: block; min-width: 0; }
   .hiw__card-title {
     display: block;
@@ -530,7 +537,9 @@ import { homeFaqs } from '../data/faqs.js';
     padding-top: 5px;
     transition: color 0.25s ease;
   }
-  .hiw__card.is-active .hiw__card-title { color: var(--paper-bg); }
+  @media (min-width: 1040px) {
+    .hiw__card.is-active .hiw__card-title { color: var(--paper-bg); }
+  }
   /* Teaser: expands open on the active card (0fr → 1fr grid trick).
      Without JS every teaser stays open, so nothing is hidden. */
   .hiw__card-teaser {
@@ -548,8 +557,14 @@ import { homeFaqs } from '../data/faqs.js';
     transition: color 0.25s ease;
   }
   .hiw__card-teaser > span::before { content: ''; display: block; height: 7px; }
-  .hiw--js .hiw__card:not(.is-active) .hiw__card-teaser { grid-template-rows: 0fr; opacity: 0; }
-  .hiw__card.is-active .hiw__card-teaser > span { color: var(--gray-400); }
+  @media (min-width: 1040px) {
+    .hiw--js .hiw__card:not(.is-active) .hiw__card-teaser { grid-template-rows: 0fr; opacity: 0; }
+    .hiw__card.is-active .hiw__card-teaser > span { color: var(--gray-400); }
+  }
+  @media (max-width: 1039px) {
+    .hiw__progress { display: none; }
+    .hiw__card { cursor: default; }
+  }
   /* Autoplay progress bar along the bottom of the active card. */
   .hiw__progress {
     position: absolute;
@@ -570,4 +585,7 @@ import { homeFaqs } from '../data/faqs.js';
 
   /* Final CTA (the page's second ink moment) gets the airy density step. */
   :global(section.cta-band) { padding: 128px 0; }
+  @media (max-width: 700px) {
+    :global(section.cta-band) { padding: 88px 0; }
+  }
 </style>

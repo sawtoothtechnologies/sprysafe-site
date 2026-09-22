@@ -191,6 +191,10 @@ img { max-width: 100%; height: auto; }
 .section { padding: 88px 0; }
 .section--tight { padding: 56px 0; }
 .section--air { padding: 128px 0; }
+@media (max-width: 700px) {
+  .section { padding: 72px 0; }
+  .section--air { padding: 80px 0; }
+}
 .section--paper { background: var(--sand); }
 
 /* The ink band. `.section--pine` is the legacy class name kept so existing
@@ -372,6 +376,19 @@ p, li, dd, dt, figcaption, blockquote { text-wrap: pretty; }
 .compare .compare__who { font-weight: 800; letter-spacing: -0.01em; color: var(--ink); }
 .compare .compare__who > .who-inline { display: inline-flex; align-items: center; gap: 8px; }
 .table-scroll { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--line); }
+/* Narrow screens: each table row becomes a stacked card, so nothing is squeezed
+   into three skinny columns or clipped off the right edge. */
+@media (max-width: 640px) {
+  .table-scroll { overflow: visible; border: 0; border-radius: 0; }
+  .compare, .compare tbody, .compare tr, .compare td { display: block; width: 100%; }
+  .compare thead { display: none; }
+  .compare tr { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px 6px; margin-bottom: 12px; }
+  .compare td { padding: 0 0 14px; border-bottom: 0; }
+  .compare td.compare__who { font-size: 1.15rem; padding-bottom: 10px; }
+  .compare td[data-label]::before { content: attr(data-label); display: block; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-500); margin-bottom: 3px; }
+  .compare .compare__hero { background: var(--amber-row); border-color: var(--amber); }
+  .compare .compare__hero td { background: transparent; }
+}
 
 /* ---------- FAQ accordion ---------- */
 .faq-item { background: var(--white); border: 1px solid var(--line); border-radius: 12px; margin-bottom: 12px; box-shadow: none; }
