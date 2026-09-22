@@ -11,17 +11,17 @@ const { variant = 'full', tone = 'dark', cobrand = false } = Astro.props;
 const trimmed = variant === 'trimmed';
 
 const fullDrills = [
-  { what: 'Fake bank “account locked” email', outcome: 'reported', coached: false },
+  { what: 'Fake sheriff impersonation text', outcome: 'ignored', coached: false },
   { what: 'Prize-sweepstakes email', outcome: 'deleted', coached: false },
-  { what: 'Fake delivery text', outcome: 'ignored', coached: false },
-  { what: 'Utility “past-due” email', outcome: 'reported', coached: false },
-  { what: 'Fake bank text', outcome: 'responded & coached', coached: true },
+  { what: 'Fake family emergency call', outcome: 'hung up', coached: false },
+  { what: 'Utility “past-due” email', outcome: 'ignored', coached: false },
+  { what: 'Fake tech support email', outcome: 'responded & coached', coached: true },
 ];
 
 const trimmedDrills = [
-  { what: 'Fake bank “account locked” email', outcome: 'reported', coached: false },
-  { what: 'Fake delivery text', outcome: 'ignored', coached: false },
-  { what: 'Fake bank text', outcome: 'coached, 30 sec', coached: true },
+  { what: 'Fake sheriff impersonation text', outcome: 'ignored', coached: false },
+  { what: 'Fake family emergency call', outcome: 'hung up', coached: false },
+  { what: 'Fake tech support email', outcome: 'clicked & coached', coached: true },
 ];
 
 const drills = trimmed ? trimmedDrills : fullDrills;
@@ -36,23 +36,23 @@ const drills = trimmed ? trimmedDrills : fullDrills;
         <span class="report__brand-mark" aria-hidden="true">AR</span>
         <div class="report__brand-text">
           <p class="report__brand-firm">Alder Ridge Wealth Partners</p>
-          <p class="report__brand-for">Prepared for Margaret's family</p>
+          <p class="report__brand-for">Prepared for Mary’s family</p>
         </div>
       </div>
     )}
     <header class="report__head">
       <div>
-        <p class="report__title">Margaret's Resilience Report</p>
-        <p class="report__month">Summer</p>
+        <p class="report__title">Mary’s Resilience Report</p>
+        <p class="report__month">Fall 2026</p>
       </div>
-      <div class="report__status" role="img" aria-label="Status: mostly strong, improving since spring">
+      <div class="report__status" role="img" aria-label="Status: mostly strong, improving since summer">
         {!trimmed && <span class="report__status-label" aria-hidden="true">Status</span>}
         <span class="report__status-pill" aria-hidden="true">Mostly strong ↑</span>
-        {!trimmed && <span class="report__status-sub" aria-hidden="true">improving since spring</span>}
+        {!trimmed && <span class="report__status-sub" aria-hidden="true">improving since summer</span>}
       </div>
     </header>
 
-    <p class="report__headline">Spotted <strong>13 of 15</strong> practice scams this quarter</p>
+    <p class="report__headline">Spotted <strong>12 of 15</strong> practice scams this quarter</p>
 
     <ul class="report__list">
       {drills.map((d) => (
@@ -73,7 +73,7 @@ const drills = trimmed ? trimmedDrills : fullDrills;
       <>
         <p class="report__briefings">Plus: <strong>10 more drills</strong>, and briefings on the newest scams in circulation</p>
         <footer class="report__foot">
-          <strong>What we're reinforcing next quarter:</strong> spotting look-alike sender numbers in texts.
+          <strong>What we're reinforcing next quarter:</strong> identifying voice cloning in phone calls and spotting look-alike sender numbers.
         </footer>
       </>
     )}

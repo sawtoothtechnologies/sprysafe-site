@@ -6,8 +6,8 @@
 export const faqs = [
   {
     id: 'knows',
-    q: 'Does my parent know they’re enrolled?',
-    a: `<p>Always. Personal consent is required, and we never test anyone in secret. What keeps it effective is that they don't know <em>when</em> the next drill will come or <em>what form</em> it will take. Real scammers don't make appointments either.</p>`,
+    q: 'Does the learner know they’re enrolled?',
+    a: `<p>Always. Personal consent is required, and we never test anyone in secret. What keeps ScamPrep effective is learners don't know <em>when</em> the next drill will come or <em>what form</em> it will take. Real scammers don't make appointments either.</p>`,
   },
   {
     id: 'upset',
@@ -17,7 +17,7 @@ export const faqs = [
   {
     id: 'never-fall',
     q: 'What if they never fall for a single drill?',
-    a: `<p>Wonderful. The Resilience Report proves it, quarter after quarter, and that proof is worth as much as the training. Scams change constantly, so staying enrolled keeps skills current against tactics that didn't exist a few months ago. Think of it like a smoke detector that also texts you "all clear, and here's why."</p>`,
+    a: `<p>Wonderful. The Resilience Report proves it, quarter after quarter, and that proof is worth as much as the training. Scams change constantly, so staying enrolled keeps skills current against tactics that didn't exist a few months ago. Think of it like a smoke detector: even if you haven’t had a fire yet, you have it in case of one.</p>`,
   },
   {
     id: 'work',
@@ -27,12 +27,12 @@ export const faqs = [
   {
     id: 'bank',
     q: 'Do you access bank accounts or financial information?',
-    a: `<p>Never. ScamPrep doesn't monitor money at all. That's a different, complementary kind of product. We only need contact channels: an email address, and optionally a phone number and mailing address.</p>`,
+    a: `<p>Never. ScamPrep doesn't monitor money. We only need contact channels, like an email address and phone number.</p>`,
   },
   {
     id: 'app',
     q: "Is this another app they'll have to manage?",
-    a: `<p>No, and that's deliberate. There is nothing to download and no password to remember. Drills and briefings arrive through the channels they already use every day, like their inbox and their text messages. There's nothing new to check or keep charged. If they can read an email, they're already set up.</p>`,
+    a: `<p>No, and that's deliberate. There is nothing to download and no password to remember. Drills and briefings arrive through the channels they already use every day, like their email inbox and cell phone. There's nothing new to check or keep charged. If they can read a text, they're ready to get set up.</p>`,
   },
   {
     id: 'kinds',
@@ -46,8 +46,8 @@ export const faqs = [
   },
   {
     id: 'sharp',
-    q: "My dad is sharp as a tack. Isn't this insulting?",
-    a: `<p>Sharp people get scammed every day. Optimism bias ("it won't happen to me") is exactly what scammers count on, and today's AI voice scams fool professionals. A framing that helps: this is the same training Fortune 500 companies require of every employee, CEO included. Being sharp is the starting point. Practice is what keeps it that way.</p>`,
+    q: 'My loved one is sharp as a tack. Will they be offended by this?',
+    a: `<p>Sharp people get scammed every day. Optimism bias ("it won't happen to me") is exactly what scammers count on, and today's AI voice scams fool professionals. A framing that helps: this is the same training Fortune 500 companies require of every employee, CEO included. Being sharp is the starting point, and practice is what keeps it that way.</p>`,
   },
   {
     id: 'self',
