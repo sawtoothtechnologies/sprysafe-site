@@ -80,7 +80,7 @@ import CtaBand from '../components/CtaBand.astro';
             <div>
               <h3>Briefings on the newest scams.</h3>
               <p>
-                Alongside the drills, quick heads-ups on what's newly circulating and the tells to
+                Alongside the drills, quick snippets on what's newly circulating and the tells to
                 look for, sent through the channels they already use. Each one takes less than two
                 minutes to read. Because briefings refresh continuously from what's reported to the
                 FBI and FTC, they hear about new scams while they're still new.
@@ -128,30 +128,39 @@ import CtaBand from '../components/CtaBand.astro';
   <section class="section section--paper">
     <div class="wrap prose">
       <h2>What a drill actually looks like</h2>
-      <p>
+      <div class="drill-ex">
+        <span class="drill-ex__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M3.5 7l8.5 6 8.5-6"/></svg></span>
+        <p>
         <strong>The “account locked” email.</strong> Dad gets an email that looks like it's from a
         bank: <em>“Unusual sign-in detected. Verify your account within 24 hours.”</em> If he
         pauses, checks the sender, and deletes or reports it, that's a win on his Resilience Report. If
         he clicks, a calm page opens: “This was a ScamPrep practice drill. Real banks never ask you
         to ‘verify’ through an email link. Here are the three tells you can check in five seconds.”
         Total time: under a minute.
-      </p>
-      <p>
+        </p>
+      </div>
+      <div class="drill-ex">
+        <span class="drill-ex__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 3.5h3l1.6 4-2 1.4a12 12 0 0 0 6.9 6.9l1.4-2 4 1.6v3a2 2 0 0 1-2.1 2A16.5 16.5 0 0 1 3.5 5.6a2 2 0 0 1 2-2.1z"/><path d="M14.5 3.8a6 6 0 0 1 5.7 5.7"/><path d="M14.5 7.2a2.6 2.6 0 0 1 2.3 2.3"/></svg></span>
+        <p>
         <strong>The practice “grandparent” call.</strong> The phone rings, and a voice that sounds
         like her grandson says he's been in an accident, needs money for bail, and please don't tell
         his parents. The voice is an AI clone, and the call is simulated. If she hangs up and calls
         his real number, that's a win on her Resilience Report. If she stays on the line, the voice
         drops the act: “This was a ScamPrep practice call. Scammers can copy a voice from a few
         seconds of audio. The counter-move: hang up and call the real number, every time.”
-      </p>
-      <p>
+        </p>
+      </div>
+      <div class="drill-ex">
+        <span class="drill-ex__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v7a2.5 2.5 0 0 1-2.5 2.5H10l-4.5 3.5V16A2.5 2.5 0 0 1 4 13.5z"/><path d="M8.5 9h7M8.5 12h4.5"/></svg></span>
+        <p>
         <strong>The practice “Social Security” text.</strong> A text arrives: “SSA notice: your
         Social Security number has been suspended due to suspicious activity. Call this number
         within 24 hours to avoid losing benefits.” If she ignores it or reports it, that's a win. The
         moment she calls or taps, the coaching kicks in: “Social Security never suspends numbers,
         and never texts you to call back. The counter-move: hang up and call the number on
         ssa.gov, or ask a family member to check with you.”
-      </p>
+        </p>
+      </div>
       <p>
         <em>Every drill is modeled on current tactics reported to the FBI, FTC, and state regulators, updated monthly as scams evolve.</em>
       </p>
@@ -169,7 +178,7 @@ import CtaBand from '../components/CtaBand.astro';
 
       <h2>The briefings: a quiet drip of education</h2>
       <p>
-        Alongside the drills, we send very brief heads-ups: the newest scams in circulation and
+        Alongside the drills, we send very brief snippets: the newest scams in circulation and
         the tells to look out for. Each one takes less than two minutes to read, and they're spaced
         over time so the warnings stay fresh instead of fading the way a one-time seminar does.
       </p>
@@ -228,6 +237,17 @@ import CtaBand from '../components/CtaBand.astro';
 </Base>
 
 <style>
+  /* Drill examples: a small channel icon beside each scenario. */
+  .drill-ex { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; align-items: start; margin: 0 0 1.1em; }
+  .drill-ex p { margin: 0; }
+  .drill-ex__icon {
+    width: 44px; height: 44px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--amber-row); border: 1px solid var(--line); color: var(--amber-deep);
+    margin-top: 2px;
+  }
+  .drill-ex__icon svg { width: 22px; height: 22px; }
+
   .report-split {
     display: grid;
     gap: 48px;
