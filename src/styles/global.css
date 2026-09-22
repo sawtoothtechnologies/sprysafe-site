@@ -361,7 +361,7 @@ p, li, dd, dt, figcaption, blockquote { text-wrap: pretty; }
 
 /* ---------- Comparison table ---------- */
 .compare { width: 100%; border-collapse: collapse; background: var(--white); font-size: 1rem; }
-.compare th, .compare td { padding: 18px 20px; text-align: left; border-bottom: 1px solid var(--sand); vertical-align: top; }
+.compare th, .compare td { padding: 16px 20px; text-align: left; border-bottom: 1px solid var(--sand); vertical-align: top; }
 .compare thead th {
   background: var(--ink);
   color: var(--paper-bg);
@@ -374,6 +374,11 @@ p, li, dd, dt, figcaption, blockquote { text-wrap: pretty; }
 .compare tbody tr:last-child td { border-bottom: none; }
 .compare .compare__hero td { background: var(--amber-row); font-weight: 600; color: #3d2905; }
 .compare .compare__who { font-weight: 800; letter-spacing: -0.01em; color: var(--ink); }
+.compare .compare__hero td.compare__who { font-weight: 800; color: var(--ink); }
+/* Fixed column proportions so the two text columns share the width evenly. */
+.compare { table-layout: fixed; }
+.compare th:nth-child(1) { width: 22%; }
+.compare th:nth-child(2), .compare th:nth-child(3) { width: 39%; }
 .compare .compare__who > .who-inline { display: inline-flex; align-items: center; gap: 8px; }
 .table-scroll { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--line); }
 /* Narrow screens: each table row becomes a stacked card, so nothing is squeezed
