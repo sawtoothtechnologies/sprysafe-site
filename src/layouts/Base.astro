@@ -55,13 +55,8 @@ const orgSchema = {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
     <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
-    <!-- Cloudflare Web Analytics. Paste the site token from
-         Cloudflare dashboard → Analytics & Logs → Web Analytics. -->
-    <script
-      defer
-      src="https://static.cloudflareinsights.com/beacon.min.js"
-      data-cf-beacon='{"token": "REPLACE_WITH_CF_BEACON_TOKEN"}'
-    ></script>
+    <!-- Analytics: Cloudflare Web Analytics is injected at the edge for getscamprep.com
+         (Web Analytics > getscamprep.com > Automatic setup). No script needed here. -->
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
