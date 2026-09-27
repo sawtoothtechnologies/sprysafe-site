@@ -9,7 +9,7 @@ import Faq from '../../components/Faq.astro';
 const advisorFaqs = [
   {
     q: 'How will my clients react?',
-    a: `<p>Clients are worried about this too, and the program is offered as a benefit, never an accusation. It's the same simulate-and-coach training Fortune 500 firms require of every employee, including the CEO. Every participant opts in personally, drills are gentle, and coaching is private. Catching a practice scam feels good, and the quarterly report lets them show their family the proof.</p>`,
+    a: `<p>Clients are worried about this too, and the program is offered as a benefit, never an accusation. It's the same simulate-and-coach training Fortune 500 firms require of every employee, including the CEO. Every participant opts in personally, drills are gentle, and coaching is private. Catching a practice scam feels good, and the quarterly report shows them the proof.</p>`,
   },
   {
     q: 'What will our compliance team ask?',
@@ -23,36 +23,11 @@ const advisorFaqs = [
   },
   {
     q: 'What happens when a client misses a drill?',
-    a: `<p>When a client slips (as we all do!) they see a private, 30-second, friendly lesson in the moment, no shame or public score. The family sees the quarter's trend, not a &ldquo;gotcha&rdquo; log, and you see aggregates. The design follows published research on older-adult learning: positive framing, immediate reassurance, never fear.</p>`,
+    a: `<p>When a client slips (as we all do!) they see or hear a private, 30-second, friendly lesson. No shame or public score. Recipients of the resilience report see the quarter's trend, not a &ldquo;gotcha&rdquo; log, and you see aggregates. The design follows published research on older-adult learning: positive framing, immediate reassurance, never fear.</p>`,
   },
   {
     q: 'Where does this sit with the Senior Safe Act and trusted-contact rules?',
-    a: `<p>ScamPrep is not a compliance product and doesn't claim to satisfy any legal requirements. But the regulatory direction is clear: the Senior Safe Act protects firms that train and report, and trusted-contact rules push firms to engage families <em>before</em> there's a problem. A prevention program with quarterly family touchpoints is exactly that posture, documented.</p>`,
-  },
-];
-
-// Advisor-first: the page speaks only to the cohorts we're actively doing
-// outreach to. Order matches the rotating hero; each entry has an anchor id
-// for deep links. (Home care, senior living, and community banks were cut
-// 2026-08 — restore from git history if outreach widens.)
-const audiences = [
-  {
-    id: 'financial-advisors',
-    name: 'Financial advisors',
-    hook: 'A portfolio is only as safe as the person who can move it.',
-    body: "You can diversify away market risk. You can't diversify away a persuasive phone call. ScamPrep trains your clients to hang up on the scams aimed at their savings, and puts the proof in front of their families.",
-  },
-  {
-    id: 'credit-unions',
-    name: 'Credit unions',
-    hook: 'Fraud prevention that starts with the member.',
-    body: 'Every scammed member costs you twice: drained deposits, then the fraud-ops hours and the shaken trust. ScamPrep works upstream of transaction monitoring, training members to hang up before anything moves. Nothing for branch staff to run.',
-  },
-  {
-    id: 'wealth-advisors',
-    name: 'Wealth advisors',
-    hook: 'The bridge to the next generation.',
-    body: 'Estate plans assume the money is still there when it transfers. ScamPrep protects the balance sheet you plan around, and gives the heirs a reason to know your firm before the estate settles.',
+    a: `<p>ScamPrep is not a compliance product and doesn't satisfy any legal requirements. But the regulatory direction is clear: the Senior Safe Act protects firms that train and report, and trusted-contact rules push firms to engage families <em>before</em> there's a problem. A prevention program with quarterly family touchpoints is exactly that posture, documented.</p>`,
   },
 ];
 
@@ -60,17 +35,16 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
 ---
 
 <Base
-  title="ScamPrep for Financial Advisors, Credit Unions & Wealth Managers"
-  description="One provable scam-resilience program for the advisors families trust — financial advisors, credit unions, and wealth managers. Co-branded quarterly Resilience Report, nothing for staff to run, never touches accounts. Founding-partner pilots open."
+  title="ScamPrep for financial advisors"
+  description="One provable scam-resilience program for financial advisors. Defend your clients and your fees. White-labeled quarterly Resilience Report, nothing for staff to run, never touches accounts."
 >
   <!-- ============ HERO ============ -->
   <section class="section soln-hero">
     <div class="wrap center">
-      <p class="kicker">For organizations</p>
-      <h1 class="soln-hero__title">ScamPrep for financial advisors and credit unions.</h1>
+      <p class="kicker">For financial advisors</p>
+      <h1 class="soln-hero__title">Defend your clients against scams and differentiate your practice.</h1>
       <p class="lede" style="margin-inline: auto;">
-        Train your clients to catch scams before money moves, protecting their financial
-        well-being and building goodwill with the next generation.
+        Train clients to catch scams before money moves, protecting their financial well-being, defending your fees, and building a bridge to the next generation.
       </p>
       <div class="btn-row" style="justify-content: center; margin-top: 30px;">
         <a class="btn btn--primary" href={partnerCall}>Book a 20-minute call</a>
@@ -99,19 +73,19 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
           </div>
         </div>
 
-        <!-- $124T -->
-        <div class="stat-col">
-          <div class="stat-line">
-            <span class="stat__num">$124T</span>
-            <p class="stat__label">changing hands in the great wealth transfer</p>
-          </div>
-        </div>
-
         <!-- 12,000+ -->
         <div class="stat-col">
           <div class="stat-line">
             <span class="stat__num">12,000+</span>
             <p class="stat__label">people each lost $100k+ to fraud in 2025</p>
+          </div>
+        </div>
+
+        <!-- $124T -->
+        <div class="stat-col">
+          <div class="stat-line">
+            <span class="stat__num">$124T</span>
+            <p class="stat__label">changing hands in the great wealth transfer</p>
           </div>
         </div>
       </div>
@@ -124,19 +98,19 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
 
       <ul class="why-list">
         <li>
+          <h3><span class="blip" aria-hidden="true"></span>Differentiate your practice from the pack</h3>
+          <p>Demonstrate your unique value to clients. Show them, and their families, you have their holistic financial well-being in mind with scam defense training. No rate table or model portfolio says that.</p>
+        </li>
+        <li>
           <h3><span class="blip" aria-hidden="true"></span>Keep the assets through the wealth transfer</h3>
-          <p>When assets pass on to heirs, the financial advisor usually doesn't. The Resilience Report puts your name in front of clients' adult children every quarter, associated with good news about their parent.</p>
+          <p>When assets pass to the next generation, the financial advisor usually doesn't. The Resilience Report puts your firm’s name in front of clients' adult children every quarter, associated with good news about their parent.</p>
         </li>
         <li>
-          <h3><span class="blip" aria-hidden="true"></span>A scam is an AUM event</h3>
-          <p>More than twelve thousand people each lost $100k+ to fraud in 2025. And that's just what was reported. Those are withdrawals no portfolio plans for, and sometimes the greater cost is the family conversation after. Trained clients lower the odds of both.</p>
+          <h3><span class="blip" aria-hidden="true"></span>Scams threaten AUM</h3>
+          <p>More than twelve thousand people reported losing $100k+ to fraud in 2025. Those are withdrawals no portfolio plans for. Trained clients lower the odds of unexpected loss to their portfolio and hits to your bottom line.</p>
         </li>
         <li>
-          <h3><span class="blip" aria-hidden="true"></span>Differentiation that takes one sentence</h3>
-          <p>Show you care for the whole of your client's financial well-being. “We train our clients against scams, and show their families the progress.” No rate table or model portfolio says that.</p>
-        </li>
-        <li>
-          <h3><span class="blip" aria-hidden="true"></span>Fewer fire drills of the bad kind</h3>
+          <h3><span class="blip" aria-hidden="true"></span>Stop the drain on your time</h3>
           <p>Talking clients out of scams, or supporting them through the fallout, can take days or weeks. Trained clients spare your practice those unforeseen costs.</p>
         </li>
       </ul>
@@ -155,19 +129,18 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
         <p class="kicker">The deliverable</p>
         <h2>A quarterly report with your name on it</h2>
         <p class="lede">
-          Every three months, the family members each client chooses receive a one-page Resilience
-          Report: what was practiced, what was caught, and what comes next.
+          Every three months your client and their chosen family members receive a one-page Resilience Report: what was practiced, what was caught, and what comes next.
         </p>
         <ul class="deliv-list">
-          <li><strong>Good news, on a schedule.</strong> Monitoring tools write to families after something goes wrong. This is recurring proof their parent is getting harder to fool.</li>
-          <li><strong>Your name on every one.</strong> Each report is co-branded to your firm and lands in the inboxes of the generation that inherits.</li>
+          <li><strong>Good news, on a schedule.</strong> Most alerts arrive after something goes wrong. ScamPrep provides recurring proof they’re getting harder to fool.</li>
+          <li><strong>Your name on every one.</strong> Each report is white-labeled with your firm and, if they choose, lands in the inboxes of the generation that inherits.</li>
           <li><strong>Your view stays aggregate.</strong> Participation, catch rates, and who might need a closer look.</li>
         </ul>
       </div>
       <div class="report-band__stage">
         <!-- Callout: the point of the artifact, planted above the letterhead. -->
         <div class="annot annot--top">
-          <p class="annot__label annot__label--lg">Your name, in family inboxes, every quarter</p>
+          <p class="annot__label annot__label--lg">Good news with your name on it every quarter</p>
           <span class="annot__line" aria-hidden="true"></span>
         </div>
 
@@ -179,7 +152,7 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
         <div class="annot annot--stat">
           <p class="annot__chip">
             <span class="annot__num">92%</span>
-            <span>practice-wide catch rate · 34 clients enrolled</span>
+            <span>practice-wide catch rate with 34 clients enrolled</span>
           </p>
           <span class="annot__line" aria-hidden="true"></span>
           <p class="annot__label">The stat your practice quotes</p>
@@ -191,46 +164,25 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
   <!-- ============ HOW PARTNERSHIPS WORK (reveal panels) ============ -->
   <section class="section">
     <div class="wrap">
-      <h2>One program, built to run itself</h2>
+      <h2>Simple to set up, runs on autopilot</h2>
 
       <!-- Titles show first; hover, tap, or tab into a panel for the detail.
            Without JS every panel renders open, so nothing is ever hidden. -->
       <div class="runs" id="runs">
         <button type="button" class="runs__panel" aria-expanded="true">
-          <span class="runs__title">Folds into your onboarding<span class="runs__plus" aria-hidden="true">+</span></span>
-          <span class="runs__body"><span>Enrollment and consent ride along with your existing client-onboarding or membership flow. We screen for cognitive fit together: appropriate participants only.</span></span>
+          <span class="runs__title">Folds into your tools and onboarding<span class="runs__plus" aria-hidden="true">+</span></span>
+          <span class="runs__body"><span>Enrollment integrates simply into your client onboarding and takes two minutes to complete. Benefits compound from there. No CRM integration needed.</span></span>
         </button>
         <button type="button" class="runs__panel" aria-expanded="true">
           <span class="runs__title">Nothing for your staff to run<span class="runs__plus" aria-hidden="true">+</span></span>
-          <span class="runs__body"><span>Email-first drills, in-the-moment coaching, and briefings on the newest scams are all handled by ScamPrep. Your team is never in the alert loop.</span></span>
-        </button>
-        <button type="button" class="runs__panel" aria-expanded="true">
-          <span class="runs__title">A co-branded quarterly touchpoint<span class="runs__plus" aria-hidden="true">+</span></span>
-          <span class="runs__body"><span>The Resilience Report reaches the family members each client chooses: a recurring, co-branded bridge to the next generation.</span></span>
+          <span class="runs__body"><span>Scam drills, in-the-moment coaching, and briefings on the newest scams are all handled by ScamPrep. Your team is never in the alert loop.</span></span>
         </button>
         <button type="button" class="runs__panel" aria-expanded="true">
           <span class="runs__title">Clean on compliance<span class="runs__plus" aria-hidden="true">+</span></span>
-          <span class="runs__body"><span>ScamPrep never touches money, accounts, or core systems. No integrations, no data feeds, no client credentials. Vendor review stays short.</span></span>
+          <span class="runs__body"><span>ScamPrep never touches money, accounts, or core systems. There’s no managing integrations, data feeds, or client credentials. Vendor review stays short.</span></span>
         </button>
       </div>
 
-    </div>
-  </section>
-
-  <!-- ============ AUDIENCE GRID ============ -->
-  <section class="section--tight section section--paper">
-    <div class="wrap">
-      <h2 style="max-width: 34rem;">Built for the people families already trust</h2>
-      <!-- Rule-separated ledger mirroring the why-practices list — not another card grid. -->
-      <ul class="aud-list">
-        {audiences.map((a) => (
-          <li id={a.id}>
-            <h3><span class="blip" aria-hidden="true"></span>{a.name}</h3>
-            <p class="aud-list__hook">{a.hook}</p>
-            <p>{a.body}</p>
-          </li>
-        ))}
-      </ul>
     </div>
   </section>
 
@@ -238,10 +190,7 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
   <section class="section--tight section">
     <div class="wrap center">
       <p class="lede" style="max-width: 48rem; margin-inline: auto;">
-        A 2024 federal research review found one-time scam education fades within weeks, and
-        called training that <em>simulates</em> scams “promising.” A University of Florida study
-        found performance on safe practice drills predicts real-world risk. It's the same
-        simulate-coach-measure loop enterprise security teams have run for years.
+        A 2024 federal research review found one-time scam education fades within weeks. A University of Florida study showed performance on safe practice drills predicts real-world risk. ScamPrep uses the same simulate-coach-measure loop enterprise security teams have run for years.
         <a href="/why-it-works">Read the full case</a>
       </p>
     </div>
@@ -273,15 +222,15 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
         </li>
         <li>
           <h3>You select clients to enroll</h3>
-          <p>We suggest enrolling every client. You can also start with the clients who may benefit most.</p>
+          <p>We suggest enrolling every client, though you can also start with the clients who may benefit most.</p>
         </li>
         <li>
-          <h3>We handle invitations and consent; nothing for your staff</h3>
-          <p>Participants opt in personally, families get visibility, and nobody is monitored behind their back.</p>
+          <h3>We handle invitations and consent</h3>
+          <p>Participants opt in personally, families get visibility if they choose, and nobody is monitored behind their back.</p>
         </li>
         <li>
           <h3>Drills begin within two weeks</h3>
-          <p>You see your book's baseline catch rate in the first month. The first co-branded Resilience Report lands at quarter's end, alongside your day-90 readout and founding pilot decision.</p>
+          <p>You see your book's baseline catch rate in the first month. The first white-labeled Resilience Report lands at quarter's end, alongside your day-90 readout and founding pilot decision.</p>
         </li>
         </ol>
       </div>
@@ -300,14 +249,10 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
           <h2>Simple, volume-based pricing</h2>
           <ul class="price-points">
             <li>
-              <strong>Practice-sponsored.</strong> You cover enrollment for the clients you
-              choose, at partner pricing. Reads as client appreciation, and you control the
-              roster.
+              <strong>Practice-sponsored.</strong> You cover enrollment for the clients you choose, at partner pricing.
             </li>
             <li>
-              <strong>Client-referred.</strong> Families pay for their own plan at a discounted
-              rate. Your practice still gets the co-branded Resilience Report and the
-              aggregate stat.
+              <strong>Practice-referred.</strong> Families pay for their own plan at a discounted rate. Your practice still gets the white-labeled Resilience Report.
             </li>
           </ul>
           <p class="price-points__note">
@@ -327,7 +272,7 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
   <CtaBand
     layout="split"
     headline="Become a founding partner."
-    body="A 20-minute call is enough to see whether ScamPrep fits your practice or institution, and how a pilot works."
+    body="Book a 20-minute call to see whether ScamPrep fits your practice and get your pilot started."
     cta="Book a 20-minute call"
     href={partnerCall}
   />
@@ -346,6 +291,9 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
 </Base>
 
 <style>
+  /* The middle stat (12,000+) is the widest number; give that column more room. */
+  @media (min-width: 880px) { #why-stats { grid-template-columns: 0.9fr 1.25fr 0.85fr; } }
+
   .soln-hero { padding-bottom: 64px; }
   .soln-hero__title {
     font-size: clamp(1.9rem, 4.2vw, 3rem);
@@ -543,7 +491,7 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
        doesn't leave its panel shorter than its neighbors, closed or open. */
     .runs__title { min-height: 2.6em; }
   }
-  @media (min-width: 1040px) { .runs { grid-template-columns: repeat(4, 1fr); } }
+  @media (min-width: 1040px) { .runs { grid-template-columns: repeat(3, 1fr); } }
   .runs__panel {
     display: block;
     width: 100%;
