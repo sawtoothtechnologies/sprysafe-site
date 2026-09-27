@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import CtaBand from '../components/CtaBand.astro';
-import OrgPricing from '../components/OrgPricing.astro';
+import Faq from '../components/Faq.astro';
 import { checkoutLinks } from '../data/checkout.js';
 
 // Checkout URL for a plan + billing period, falling back to the waitlist
@@ -9,11 +9,34 @@ import { checkoutLinks } from '../data/checkout.js';
 // Falls back to the early-access list, carrying which plan they picked. When Stripe
 // Payment Links are pasted into checkout.js, buttons revert to checkout automatically.
 const co = (plan, mode) => checkoutLinks[plan]?.[mode] || `/early-access?plan=${plan}`;
+
+const pricingFaqs = [
+  {
+    q: 'Which plan should I choose?',
+    a: `<p>We suggest <strong>Pairs</strong> for two loved ones (like parents): one bill, and each person gets their own drills, coaching, and report. Choose Individual for one person, or Family if you're protecting up to four people, like both parents plus an aunt or in-law. You can change plans anytime.</p>`,
+  },
+  {
+    q: 'Why does this cost more than a call blocker?',
+    a: `<p>A blocker filters some scams. ScamPrep changes what happens when one gets through… and one always gets through. You’re paying for a skill, not just a service, plus quarterly proof it's growing.</p>`,
+  },
+  {
+    q: 'When can we start?',
+    a: `<p>Plans open this fall, in small onboarding cohorts. Join the early-access list and you're at the front. Every plan starts with a 14-day free trial and carries a 60-day money-back guarantee.</p>`,
+  },
+  {
+    q: "What if my loved one doesn't want it?",
+    a: `<p>Then we don't enroll them, and you get a refund. Nobody gets drilled without their own yes. If they're unsure, ask us for a sample drill to show them first: <a href="mailto:hello@getscamprep.com">hello@getscamprep.com</a></p>`,
+  },
+  {
+    q: 'Is there a contract?',
+    a: `<p>None. Monthly plans cancel anytime. Annual plans extend access through the end of your billing period.</p>`,
+  },
+];
 ---
 
 <Base
-  title="ScamPrep Pricing: Plans from $9/month, with a 14-Day Free Trial"
-  description="Three simple plans: one person ($9/mo), up to two ($15/mo), or up to four ($19/mo), billed annually. Family plans open this fall — join the early-access list. Business pricing for communities, agencies, and advisors."
+  title="ScamPrep pricing: simulated scams from $9/month, with a free trial"
+  description="Three simple plans: one person ($9/mo), up to two ($15/mo), or up to four ($19/mo), billed annually. Family plans open this fall, join the early-access list. Advisor pricing is on the For financial advisors page."
 >
   <!-- Availability notice: one slim, dismissible line instead of a paragraph in the
        header. Dismissal sticks for the browser session. Without JS it simply shows
@@ -21,8 +44,8 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || `/early-access?plan=${
   <div class="notice" id="pricing-notice">
     <div class="wrap notice__inner">
       <p>
-        <strong>Family plans open this fall</strong> — <a href="/early-access">join the
-        early-access list</a> to be first in. Organizations can <a href="https://cal.com/scamprep/partner-call">start now</a>.
+        <strong>Family plans open this fall.</strong> <a href="/early-access">Join the
+        early-access list</a> to be first in. Financial advisor? <a href="/solutions">Get started now</a>.
       </p>
       <button type="button" class="notice__close" aria-label="Dismiss notice">&times;</button>
     </div>
@@ -40,7 +63,7 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || `/early-access?plan=${
         </div>
       </div>
       <p class="billing-note is-on" aria-live="polite">3 months free, every year</p>
-      <p class="org-jump">Buying for a community, practice, or team? <a href="#org-pricing">Organization pricing is below</a>.</p>
+      <p class="org-jump">Financial advisor? <a href="/solutions#pricing">See partner pricing</a>.</p>
     </div>
 
     <div class="wrap">
@@ -52,33 +75,33 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || `/early-access?plan=${
           <p class="price-card__price">
             <span class="price-card__num" data-annual="$9" data-monthly="$12">$9</span>/month
           </p>
-          <p class="price-card__billing" data-annual="$108 a year, billed annually" data-monthly="billed monthly, cancel anytime">$108 a year, billed annually</p>
+          <p class="price-card__billing" data-annual="$108 / year, billed annually" data-monthly="billed monthly, cancel anytime">$108 / year, billed annually</p>
           <ul>
             <li>4–6 safe, realistic drills a month, modeled on current scams</li>
             <li>Gentle 30-second coaching the moment a drill lands</li>
-            <li>Quarterly Resilience Report, with trend line and briefings, shared with up to 4 family members</li>
+            <li>Quarterly Resilience Report, with trend line and briefings</li>
           </ul>
           <a class="btn btn--ghost" data-checkout href={co('individual', 'annual')} data-annual-href={co('individual', 'annual')} data-monthly-href={co('individual', 'monthly')}>Join the early-access list</a>
-          <p class="price-card__trial">Opens this fall — list members are first in</p>
+          <p class="price-card__trial">Opens this fall. Be first in.</p>
         </div>
 
         <!-- Tier 2 — up to two (RECOMMENDED) -->
         <div class="price-card price-card--featured">
-          <span class="price-badge">Recommended for two parents</span>
+          <span class="price-badge">Recommended for couples</span>
           <p class="price-card__label">Up to two people</p>
-          <h2>Couples &amp; pairs</h2>
+          <h2>Pairs</h2>
           <p class="price-card__price">
             <span class="price-card__num" data-annual="$15" data-monthly="$20">$15</span>/month
           </p>
-          <p class="price-card__billing" data-annual="$180 a year, billed annually" data-monthly="billed monthly, cancel anytime">$180 a year, billed annually</p>
+          <p class="price-card__billing" data-annual="$180 / year, billed annually" data-monthly="billed monthly, cancel anytime">$180 / year, billed annually</p>
           <p class="price-card__inherit">Everything in <strong>Individual</strong>, plus:</p>
           <ul>
             <li>Covers up to <strong>two</strong> people, each with their own drills, coaching, and Resilience Report</li>
             <li>Ideal for both parents, or you and someone you love</li>
-            <li>One subscription, one bill, about <span data-annual="$7.50" data-monthly="$10">$7.50</span> per person</li>
+            <li>One subscription, one bill, about the cost of two coffees per person</li>
           </ul>
           <a class="btn btn--primary" data-checkout href={co('couples', 'annual')} data-annual-href={co('couples', 'annual')} data-monthly-href={co('couples', 'monthly')}>Join the early-access list</a>
-          <p class="price-card__trial">Opens this fall — list members are first in</p>
+          <p class="price-card__trial">Opens this fall. Be first in.</p>
         </div>
 
         <!-- Tier 3 — up to four -->
@@ -88,83 +111,34 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || `/early-access?plan=${
           <p class="price-card__price">
             <span class="price-card__num" data-annual="$19" data-monthly="$25">$19</span>/month
           </p>
-          <p class="price-card__billing" data-annual="$228 a year, billed annually" data-monthly="billed monthly, cancel anytime">$228 a year, billed annually</p>
-          <p class="price-card__inherit">Everything in <strong>Couples &amp; pairs</strong>, plus:</p>
+          <p class="price-card__billing" data-annual="$228 / year, billed annually" data-monthly="billed monthly, cancel anytime">$228 / year, billed annually</p>
+          <p class="price-card__inherit">Everything in <strong>Pairs</strong>, plus:</p>
           <ul>
             <li>Covers up to <strong>four</strong> people, each with their own drills, coaching, and Resilience Report</li>
             <li>Room for both parents plus an aunt, uncle, or in-law</li>
             <li>Add or swap enrolled people anytime</li>
-            <li>The best per-person value, about <span data-annual="$4.75" data-monthly="$6.25">$4.75</span> per person</li>
+            <li>The best per-person value, about the cost of a cup of coffee per person</li>
           </ul>
           <a class="btn btn--ghost" data-checkout href={co('family', 'annual')} data-annual-href={co('family', 'annual')} data-monthly-href={co('family', 'monthly')}>Join the early-access list</a>
-          <p class="price-card__trial">Opens this fall — list members are first in</p>
+          <p class="price-card__trial">Opens this fall. Be first in.</p>
         </div>
       </div>
       <p class="guarantee center">
-        Every plan comes with a <strong>60-day money-back guarantee</strong>: if ScamPrep isn't a
-        fit, we refund in full. No questions, no forms.
+        Every plan comes with a <strong>60-day money-back guarantee</strong>. If ScamPrep isn't a fit, we refund in full. No questions, no forms.
       </p>
       <p class="plan-fineprint center">
-        All plans: nothing to install, cancel anytime. Email drills from day one, and text and
-        phone drills with their written consent.
+        All plans: nothing to install, cancel anytime. Email drills from day one, and text and phone drills with written consent.
       </p>
     </div>
   </section>
 
-  <!-- ============ FOR ORGANIZATIONS ============ -->
-  <section class="section--tight section section--paper" id="org-pricing">
-    <div class="wrap center">
-      <p class="kicker">For organizations</p>
-      <h2>Communities, agencies, advisors &amp; institutions</h2>
-      <div style="margin-top: 32px;">
-        <OrgPricing />
-      </div>
-    </div>
-  </section>
 
   <section class="section">
-    <div class="wrap" style="max-width: 980px;">
+    <div class="wrap" style="max-width: 800px;">
       <h2 class="center">Pricing questions</h2>
-      <!-- Compact two-column definition list — the answers are short enough
-           that hiding them behind an accordion costs more than it saves. -->
-      <dl class="price-faq">
-        <div class="price-faq__item">
-          <dt>Which plan should I choose?</dt>
-          <dd>
-            We suggest <strong>Couples &amp; pairs</strong> for two parents (or a couple): one
-            bill, and each person gets their own drills, coaching, and report. Choose Individual
-            for one person, or Family if you're protecting up to four people, like both parents
-            plus an aunt or in-law. You can move up a plan anytime.
-          </dd>
-        </div>
-        <div class="price-faq__item">
-          <dt>Why does this cost more than a call blocker?</dt>
-          <dd>
-            A blocker filters some scams. ScamPrep changes what happens when one gets through —
-            and one always gets through. What you're paying for is a skill, plus quarterly proof
-            it's growing.
-          </dd>
-        </div>
-        <div class="price-faq__item">
-          <dt>When can we start?</dt>
-          <dd>
-            Family plans open this fall, in small onboarding cohorts — join the early-access
-            list and you're at the front. Every plan will start with a 14-day free trial and
-            carry a 60-day money-back&nbsp;guarantee.
-          </dd>
-        </div>
-        <div class="price-faq__item">
-          <dt>What if my parent doesn't want it?</dt>
-          <dd>
-            Then we don't enroll them. Nobody gets drilled without their own yes. If they're
-            unsure, ask us for a sample drill to show them first.
-          </dd>
-        </div>
-        <div class="price-faq__item">
-          <dt>Contracts?</dt>
-          <dd>None. Monthly plans cancel anytime; annual plans refund unused months.</dd>
-        </div>
-      </dl>
+      <div style="margin-top: 32px;">
+        <Faq items={pricingFaqs} />
+      </div>
     </div>
   </section>
 
@@ -295,21 +269,21 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || `/early-access?plan=${
   .billing-toggle {
     display: none;
     background: var(--paper);
-    border: 1.5px solid var(--line);
+    border: 1px solid var(--line);
     border-radius: 999px;
-    padding: 5px;
-    gap: 4px;
+    padding: 3px;
+    gap: 2px;
   }
   .billing--js .billing-toggle { display: inline-flex; }
   .billing-toggle__btn {
     font-family: var(--font-body);
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     font-weight: 700;
     color: var(--ink-soft);
     background: transparent;
     border: none;
     border-radius: 999px;
-    padding: 12px 20px;
+    padding: 7px 14px;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
@@ -420,25 +394,6 @@ const co = (plan, mode) => checkoutLinks[plan]?.[mode] || `/early-access?plan=${
     margin: 10px 0 0;
   }
   .price-card .btn { width: 100%; }
-  /* Pricing questions — compact two-column definition list. */
-  .price-faq {
-    margin: 34px 0 0;
-    display: grid;
-    gap: 30px 56px;
-  }
-  @media (min-width: 800px) {
-    .price-faq { grid-template-columns: 1fr 1fr; }
-  }
-  .price-faq__item { margin: 0; }
-  .price-faq dt {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: 1.08rem;
-    letter-spacing: -0.01em;
-    color: var(--ink);
-    margin: 0 0 7px;
-  }
-  .price-faq dd { margin: 0; font-size: 1rem; color: var(--gray-700); line-height: 1.6; }
 
   .guarantee {
     font-size: 1rem;

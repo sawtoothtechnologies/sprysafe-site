@@ -9,17 +9,16 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
 
 <Base
   title="Get Early Access | ScamPrep"
-  description="Family plans open this fall. Join the early-access list — small onboarding cohorts, white-glove setup, and a direct line to the founder."
+  description="Family plans open this fall. Join the early-access list: small onboarding cohorts, white-glove setup, and a direct line to the founder."
 >
   <section class="section">
     <div class="wrap form-layout">
       <div>
         <p class="kicker">Early access</p>
-        <h1>Join the founding families.</h1>
+        <h1>Join the founding cohort.</h1>
         <p class="lede">
           Family plans open this fall. We onboard in small cohorts so every family gets
-          white-glove setup — <strong>join the list and you're at the front</strong>, with a
-          direct line to the founder.
+          white-glove setup. <strong>Join the list and you're at the front</strong>, with a direct line to the founder.
         </p>
         <p class="trust-line">
           Consent-first. No bank access. Cancel anytime. 60-day money-back guarantee. We'll never
@@ -27,10 +26,9 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
         </p>
 
         <div class="org-callout">
-          <p class="org-callout__head">Representing an organization?</p>
+          <p class="org-callout__head">Financial advisor or enterprise?</p>
           <p class="org-callout__body">
-            Financial advisors, credit unions, wealth managers —
-            this form isn't your door. Founding-partner pilots start with a short call.
+            Financial advisors, credit unions, and others: pilots start with a short call.
           </p>
           <a class="btn btn--ghost" href="/solutions">See partner options</a>
         </div>
@@ -53,17 +51,12 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
         </div>
 
         <div class="field">
-          <label for="role">I am…</label>
+          <label for="role">I want to…</label>
           <select id="role" name="role">
-            <option>A family member protecting someone I love</option>
-            <option>An individual protecting myself</option>
+            <option>Protect someone I care for</option>
+            <option>Protect myself</option>
             <option>Other</option>
           </select>
-        </div>
-
-        <div class="field" id="enroll-field">
-          <label for="who">Who would you like to enroll? <span class="hint">(optional)</span></label>
-          <input type="text" id="who" name="who" />
         </div>
 
         <div class="field">
@@ -74,9 +67,7 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
         <button class="btn btn--primary" type="submit" style="width: 100%;">Get early access</button>
 
         <p class="footnote" style="margin: 16px 0 0;">
-          We'll email you about early access and nothing else, and you'll hear from us within a
-          few days. If you write about a specific worry, our founder will read it and reach out
-          personally.
+                    We'll email you about early access and nothing else. If you write about a specific worry, our founder will reach out personally.
         </p>
       </form>
     </div>
@@ -103,18 +94,6 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
   if (refEl && document.referrer && !document.referrer.includes(location.hostname)) {
     refEl.value = document.referrer;
   }
-
-  // Show "Who would you like to enroll?" only when signing up for someone else.
-  const role = document.getElementById('role') as HTMLSelectElement | null;
-  const enrollField = document.getElementById('enroll-field');
-  const whoInput = document.getElementById('who') as HTMLInputElement | null;
-  const syncEnroll = () => {
-    if (!role || !enrollField) return;
-    const forSomeoneElse = role.value.startsWith('A family member');
-    enrollField.hidden = !forSomeoneElse;
-    if (!forSomeoneElse && whoInput) whoInput.value = '';
-  };
-  if (role) { role.addEventListener('change', syncEnroll); syncEnroll(); }
 
   // Submit via fetch so visitors land on our own /thanks page. (Formspree's hosted
   // redirect is a paid feature; this works on the free plan.) No-JS falls back to a
