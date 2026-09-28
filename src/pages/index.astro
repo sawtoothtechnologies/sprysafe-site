@@ -49,7 +49,7 @@ import { homeFaqs } from '../data/faqs.js';
           <p class="drill-card__label">Example practice drill</p>
 
           <div class="drill-card__msg">
-            <svg class="drill-card__tail" width="28" height="26" viewBox="0 0 28 26" aria-hidden="true"><path d="M28 0v26H2c6-4 16-14 26-22z" fill="#ebe8df" /></svg>
+            <svg class="drill-card__tail" width="36" height="24" viewBox="0 0 36 24" aria-hidden="true"><path d="M36 0H16v4c0 10-4 16-16 20h36z" fill="#ebe8df" /></svg>
             <p class="drill-card__msg-head">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v7a2.5 2.5 0 0 1-2.5 2.5H10l-4.5 3.5V16A2.5 2.5 0 0 1 4 13.5z"/><path d="M8.5 9h7M8.5 12h4.5"/></svg>
               Text from an unfamiliar number
@@ -459,12 +459,12 @@ import { homeFaqs } from '../data/faqs.js';
   /* Incoming text: soft gray bubble with an explicit tail at the bottom left.
      Gray, not blue: blue is the sender's own message in most apps. */
   .drill-card__msg {
-    position: relative; margin-left: 12px;
+    position: relative; margin: 0 18px 0 16px;
     background: #ebe8df;
-    border-radius: 18px 18px 18px 4px;
+    border-radius: 20px;
     padding: 16px 18px;
   }
-  .drill-card__tail { position: absolute; left: -24px; bottom: 0; }
+  .drill-card__tail { position: absolute; left: -16px; bottom: 0; }
   .drill-card__body { font-size: 1rem; line-height: 1.55; }
   .drill-card__body + .drill-card__body { margin-top: 8px !important; }
   /* Inert: a span, not an anchor. Nothing to focus, nowhere to go. */
