@@ -12,7 +12,7 @@ export const faqs = [
   {
     id: 'upset',
     q: 'What if it upsets or embarrasses them?',
-    a: `<p>Drills follow published research on how older adults learn best: private and positive, with reassurance right away. Missing a drill brings a 30-second friendly lesson, visible only to the family members your parent approved. If it isn't landing well, unenroll in one click.</p>`,
+    a: `<p>Drills follow published research on how older adults learn best: private and positive, with reassurance right away. Missing a drill brings a 30-second friendly lesson, visible only to them and the people they've approved. If it isn't landing well, unenroll in one click.</p>`,
   },
   {
     id: 'never-fall',
@@ -37,17 +37,27 @@ export const faqs = [
   {
     id: 'kinds',
     q: 'What kinds of practice scams do you send?',
-    a: `<p>Practice versions of what's actually circulating: fake bank alerts, delivery texts, prize notifications, tech-support pop-ups, "grandparent in trouble" messages, and new AI-driven variants. The library is refreshed monthly from FBI, FTC, and state regulator reporting. Nothing ever involves real money or real personal risk.</p>`,
+    a: `<p>Practice versions of what's actually circulating: fake bank alerts, delivery texts, Social Security notices, tech-support emails, "grandparent in trouble" calls, and new variants as they appear. The library is refreshed monthly from FBI, FTC, and state regulator reporting. Nothing ever involves real money or real personal risk.</p>`,
+  },
+  {
+    id: 'channels',
+    q: 'Which channels do drills use?',
+    a: `<p>Email from day one. Text and phone drills are added with their written consent. Between drills, short snippets on the newest scams arrive through the same channels.</p>`,
   },
   {
     id: 'legal',
     q: 'Is it legal to send simulated scam texts and calls?',
-    a: `<p>Yes, with proper consent, which we collect in writing before any text or voice drill, as the Telephone Consumer Protection Act requires. It's why every enrollment starts with email, and why we treat consent as a feature rather than paperwork.</p>`,
+    a: `<p>Yes, with proper consent, which we collect in writing before any text or voice drill, as the Telephone Consumer Protection Act requires. It's why every enrollment starts with email, and why we treat consent as a feature rather than paperwork. The full detail is in <a href="/promise">Our promise</a>.</p>`,
   },
   {
     id: 'sharp',
     q: 'My loved one is sharp as a tack. Will they be offended by this?',
     a: `<p>Sharp people get scammed every day. Optimism bias ("it won't happen to me") is exactly what scammers count on, and today's AI voice scams fool professionals. A framing that helps: this is the same training Fortune 500 companies require of every employee, CEO included. Being sharp is the starting point, and practice is what keeps it that way.</p>`,
+  },
+  {
+    id: 'report',
+    q: 'Who sees the Resilience Report?',
+    a: `<p>Your loved one and the family members they choose, every quarter. It shows which drills ran, what was caught, what was missed, and what we're reinforcing next. Nobody else sees it, and nobody is monitored behind their back.</p>`,
   },
   {
     id: 'self',
@@ -57,12 +67,12 @@ export const faqs = [
   {
     id: 'cost',
     q: 'What does it cost?',
-    a: `<p>$9/month for one person or $15/month for two, billed annually ($12 and $20 if billed monthly). Family plans open this fall, and every plan will start with a 14-day free trial and carry a 60-day money-back guarantee. For organizations, founding-partner pilots are open now, with volume pricing from $4 to $8 per person monthly. <a href="/pricing">See pricing</a></p>`,
+    a: `<p>$9 a month for one person, $15 for two (the Pairs plan), or $19 for up to four, billed annually. Every plan starts with a 14-day free trial and carries a 60-day money-back guarantee. Financial advisors can sponsor their clients at partner pricing, starting with a founding pilot. <a href="/pricing">See pricing</a></p>`,
   },
   {
     id: 'start',
     q: 'When can we start?',
-    a: `<p>We're onboarding founding families from the early-access list now, in small cohorts so every family gets white-glove setup. Join the list and we'll tell you exactly where you are in line.</p>`,
+    a: `<p>Family plans open this fall. We onboard from the early-access list in small groups, so every family gets white-glove setup. <a href="/early-access">Join the list</a> and we'll tell you exactly where you are in line.</p>`,
   },
 ];
 
