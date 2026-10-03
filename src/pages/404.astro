@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+
+// Cloudflare Pages serves this with a 404 status for any unknown path, so it has
+// no address of its own: no canonical or og:url, and it stays out of search.
+---
+
+<Base
+  title="Page not found | ScamPrep"
+  description="We can't find that page."
+  noindex
+  noCanonical
+>
+  <section class="section">
+    <div class="wrap center" style="max-width: 640px;">
+      <h1>We can't find that page.</h1>
+      <p class="lede" style="margin-inline: auto;">
+        It may have moved, or there may be a typo in the link.
+      </p>
+      <p style="margin-top: 28px;">
+        <a class="btn btn--primary" href="/">Go to the homepage</a>
+      </p>
+    </div>
+  </section>
+</Base>

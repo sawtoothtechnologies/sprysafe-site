@@ -1,11 +1,19 @@
 ---
 import '../styles/global.css';
+import { publicUrl } from '../lib/public-url.js';
 
-const { title, description, image = '/og.png' } = Astro.props;
+const {
+  title,
+  description,
+  image = '/og.png',
+  noindex = false, // keep the page out of search results (it still returns 200)
+  noCanonical = false, // omit canonical and og:url, for pages with no address of their own (404)
+} = Astro.props;
 const year = new Date().getFullYear();
 const site = Astro.site ?? new URL('https://getscamprep.com');
 const ogImage = new URL(image, site).href;
-const canonical = new URL(Astro.url.pathname, site).href;
+// The page's public, extensionless address (Astro.url.pathname is /about.html at build time).
+const canonical = publicUrl(Astro.url.pathname, site);
 
 // Organization structured data: tells Google that "ScamPrep" the brand entity
 // lives at this domain and owns these social profiles. Add profiles to sameAs
@@ -35,7 +43,8 @@ const orgSchema = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    {!noCanonical && <link rel="canonical" href={canonical} />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -47,7 +56,7 @@ const orgSchema = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonical} />
+    {!noCanonical && <meta property="og:url" content={canonical} />}
     <meta property="og:image" content={ogImage} />
     <meta property="og:site_name" content="ScamPrep" />
     <meta name="twitter:card" content="summary_large_image" />

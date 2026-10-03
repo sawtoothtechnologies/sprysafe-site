@@ -4,11 +4,13 @@ import Base from '../layouts/Base.astro';
 // Early-access confirmation. The /early-access form redirects here after a
 // successful submission. When Stripe checkout goes live, give checkout its own
 // /welcome page with trial copy rather than reusing this one (see STRIPE-SETUP.md).
+// Kept out of search: noindex here, and filtered from the sitemap in astro.config.mjs.
 ---
 
 <Base
   title="You're on the list | ScamPrep"
   description="You're on the ScamPrep early-access list. Here's what happens next."
+  noindex
 >
   <section class="section">
     <div class="wrap center" style="max-width: 640px;">
