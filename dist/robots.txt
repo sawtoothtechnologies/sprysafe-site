@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://getscamprep.com/sitemap-index.xml

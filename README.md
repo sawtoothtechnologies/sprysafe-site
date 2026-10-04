@@ -10,34 +10,53 @@ Built with [Astro](https://astro.build) — a static site, no database, no serve
 
 ## How the site runs
 
-- **Code lives here:** `~/Documents/sprysafe-site` — this folder IS the git repository
-  (the repo root is this folder; `git add .` from inside it is safe).
+- **Code lives here:** `~/Documents/sprysafe-site` — this folder IS the git repository.
+  `node_modules/`, `dist/` and `.astro/` are build output and are git-ignored; after a fresh
+  clone or pull, run `npm ci` once to reinstall packages.
 - **GitHub:** https://github.com/sawtoothtechnologies/sprysafe-site (private). GitHub is the
   source of truth for deploys.
-- **Hosting/deploy:** Cloudflare Pages, connected to the GitHub repo. Every push to `main`
-  triggers an automatic build (`npm run build`, output `dist/`, root directory = repo root)
-  and deploys to getscamprep.com within a minute or two.
+- **Hosting/deploy:** Cloudflare Pages, connected to the GitHub repo. Cloudflare installs
+  packages and builds (`npm run build`, output `dist/`, root directory = repo root) on every
+  push. A push to `main` deploys to getscamprep.com within a minute or two; a push to any
+  other branch builds a private preview at its own `*.sprysafe-site.pages.dev` address
+  (marked `noindex`, so search engines skip it).
 - **Auth:** the GitHub personal access token is saved in the macOS keychain
   (`credential.helper osxkeychain`) — pushes won't prompt for credentials.
 
 ## How to update the live site
 
-```
-cd ~/Documents/sprysafe-site
-# ...edit files...
-git add .
-git commit -m "describe what changed"
-git push
-```
+Never edit `main` directly. Make each change on a branch, check its preview, then merge.
 
-That's it. Cloudflare redeploys automatically on push. If the site looks unchanged in the
-browser afterward, hard-refresh (Cmd+Shift+R) — it's usually browser cache.
+1. **Branch and edit.** Ask Claude Code to make the change on a new branch and open a pull
+   request, or by hand:
+   ```
+   cd ~/Documents/sprysafe-site
+   git switch main && git pull
+   git switch -c describe-the-change
+   # ...edit files...
+   git add -- path/to/each/changed/file
+   git commit -m "describe what changed"
+   git push -u origin describe-the-change
+   ```
+   Stage files by name rather than `git add .`, so stray local files never ride along.
+2. **Preview.** Cloudflare builds the branch in a minute or two. The preview link appears on
+   the commit or pull request on GitHub (the "Cloudflare Pages" check) and under Workers &
+   Pages → sprysafe-site → Deployments. Each later push to the branch updates it.
+3. **Publish.** Merge the pull request on GitHub. That push to `main` is the only step that
+   changes getscamprep.com. Then `git switch main && git pull` on your Mac.
+
+If the live site looks unchanged afterward, hard-refresh (Cmd+Shift+R) — it's usually browser
+cache.
 
 A green ✓ next to the commit on GitHub = Cloudflare build succeeded. A red ✗ = build failed;
 check Workers & Pages → sprysafe-site → Deployments in the Cloudflare dashboard for the log.
 (A failed build never takes the site down — it keeps serving the last good deploy.)
 
-To preview locally before pushing: `npm run dev` → http://localhost:4321
+**Undo a bad deploy:** Workers & Pages → sprysafe-site → Deployments → the previous production
+deployment → Rollback. It takes effect instantly; then fix or revert the commit on `main`.
+
+**Quick local preview** while editing: `npm run dev` → http://localhost:4321 (updates as you
+save; nothing is published).
 
 ## Design system
 
@@ -131,6 +150,6 @@ src/
 ├── data/faqs.js                all FAQ copy
 ├── data/checkout.js            Stripe payment links
 ├── styles/global.css           the whole design system
-└── pages/                      one file per page, incl. solutions/
-    └── solutions/              senior-living, home-care, financial-advisors, credit-unions
+└── pages/                      one file per page; 404.astro is the not-found page
+    └── solutions/index.astro   /solutions (old audience pages 301 here via public/_redirects)
 ```
