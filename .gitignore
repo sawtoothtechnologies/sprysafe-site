@@ -1,3 +1,13 @@
 adv_data/
 *.xml
 *.gz
+
+# Build output and installed packages. Cloudflare Pages runs `npm ci` and
+# `npm run build` itself on every push, so none of this belongs in git.
+node_modules/
+dist/
+.astro/
+
+# Local tooling and OS clutter
+.wrangler/
+.DS_Store
