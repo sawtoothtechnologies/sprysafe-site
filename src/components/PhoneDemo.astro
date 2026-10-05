@@ -50,7 +50,6 @@ const show = (i) => !single || scene === i;
       {show(1) && (
       <div class="scene is-static" data-scene="1">
         <div class="beat beat--buzz bubble bubble--in bubble--scam" style="--d: 0.3s;">
-          <span class="bubble__tag">Simulated</span>
           USPS: your package is on hold. Pay a $1.95 redelivery fee at
           <span class="bubble__link">usps-track-19.co</span>
         </div>
@@ -104,6 +103,7 @@ const show = (i) => !single || scene === i;
       {!single && <span class="phone__home"></span>}
     </div>
   </div>
+  {!single && <figcaption class="phone__caption">Illustrative example</figcaption>}
 </figure>
 
 <script>
@@ -301,6 +301,9 @@ const show = (i) => !single || scene === i;
   .phone--bare .notif__body { font-size: 0.9375rem; }
   .phone--bare .callcard__who strong,
   .phone--bare .notif__body strong { font-size: 1rem; }
+  /* The label sits outside the messages, so no message looks as if it says
+     "Simulated" itself. Every simulated artifact still carries a label. */
+  .phone__caption { font-size: 0.875rem; font-weight: 700; line-height: 1.3; color: var(--gray-500); text-align: center; }
   .phone__label { margin: 0 0 12px; font-size: 0.875rem; font-weight: 700; line-height: 1.3; color: var(--amber-deep); }
 
   /* ---------- Message bubbles ---------- */
@@ -327,22 +330,8 @@ const show = (i) => !single || scene === i;
     font-weight: 700;
   }
   .bubble--scam { border-color: var(--line); background: var(--white); }
-  /* Sits inside the first line of the message without making that line
-     taller than the ones below it. */
-  .bubble__tag {
-    display: inline-block;
-    font-size: 0.72rem;
-    font-weight: 600;
-    line-height: 1.2;
-    color: var(--ink);
-    background: var(--sand);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-chip);
-    padding: 1px 7px;
-    margin: 0 3px 0 0;
-    vertical-align: 0.08em;
-  }
-  .bubble__link { color: var(--amber-text); text-decoration: underline; word-break: break-all; }
+  /* The made-up address stays in one piece on its own line. */
+  .bubble__link { color: var(--amber-text); text-decoration: underline; white-space: nowrap; }
 
   /* ---------- Chips & banner ---------- */
   .chip {

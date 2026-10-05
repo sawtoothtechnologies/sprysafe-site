@@ -130,7 +130,7 @@ import { homeFaqs } from '../data/faqs.js';
       </div>
 
       <p class="lede" style="margin-top: 32px; max-width: 44rem;">
-        From voice clones to deepfakes, it's easier than ever for fraudsters to create convincing pitches and ploys. But detecting scams, even the trickiest ones surfacing today, is a skill that can be practiced.
+        From voice clones to deepfakes, it's easier than ever for fraudsters to create convincing ploys. But detecting scams, even the trickiest ones surfacing today, is a skill that can be practiced.
       </p>
     </div>
   </section>
@@ -571,11 +571,22 @@ import { homeFaqs } from '../data/faqs.js';
   /* A little more room between the two columns, and one faint hairline that
      stops short at both ends, so the example reads as its own thing. */
   @media (min-width: 920px) {
-    .hero[data-hero='glow'] .hero__grid { column-gap: clamp(64px, 7.5vw, 104px); }
+    .hero[data-hero='glow'] .hero__grid {
+      grid-template-columns: 1.32fr 1fr;
+      column-gap: clamp(56px, 6.5vw, 88px);
+    }
+    /* The sentence under the headline holds to two even lines: the copy
+       column is a little wider, and the type eases down (never below 16px)
+       as the window narrows. */
+    .hero[data-hero='glow'] .lede {
+      max-width: none;
+      font-size: clamp(1rem, 1.5vw, 1.15rem);
+      text-wrap: balance;
+    }
     .hero[data-hero='glow'] .hero__card::before {
       content: '';
       position: absolute;
-      left: calc(clamp(64px, 7.5vw, 104px) / -2);
+      left: calc(clamp(56px, 6.5vw, 88px) / -2);
       top: 6%;
       bottom: 6%;
       width: 1px;
