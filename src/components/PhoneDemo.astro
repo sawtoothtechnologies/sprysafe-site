@@ -1,16 +1,8 @@
 ---
-// Animated phone mockup for the homepage "How it works" section.
-// Each step of the walkthrough gets a matching "scene" on the phone:
-//   1 — the opt-in welcome text     2 — a simulated drill (text + call)
-//   3 — a drip briefing             4 — the Resilience Report notification
-// The scenes are driven by the how-it-works script in index.astro, which
-// dispatches a `scamprep:hiwchange` event whenever the active step changes.
-//
-// Progressive enhancement / accessibility:
-// - Without JS, the drill scene (the most illustrative one) renders statically.
-// - With prefers-reduced-motion, scenes still switch but beats appear instantly.
-// - The whole phone is decorative for screen readers (the step panels carry the
-//   real explanation), so the internals are aria-hidden.
+// Manual homepage walkthrough. The chosen scene appears together so the
+// visitor can read at their own pace. Reduced motion removes the short fade.
+// Without JS, the drill example remains visible. The illustration is decorative;
+// the buttons carry the accessible explanation.
 ---
 
 <figure class="phone" id="phone-demo" aria-label="Illustrative example of ScamPrep practice drills arriving on a phone, simulated and safe">
@@ -28,24 +20,23 @@
 
       <!-- Scene 1 — Enroll / opt-in -->
       <div class="scene" data-scene="0">
-        <div class="beat bubble bubble--in" style="--d: 0.3s;">
+        <div class="beat bubble bubble--in">
           Hi Mary, this is ScamPrep. Michael set up scam practice for you: a few short, friendly drills a month, so the real ones are easier to spot. Reply YES to start.
         </div>
-        <div class="beat bubble bubble--out" style="--d: 1.5s;">YES</div>
-        <div class="beat chip chip--ok" style="--d: 2.3s;"><span class="blip"></span>Opted in. Always in control</div>
+        <div class="beat bubble bubble--out">YES</div>
+        <div class="beat chip chip--ok"><span class="blip"></span>Opted in. Always in control</div>
       </div>
 
       <!-- Scene 2 — A simulated drill (default when JS is off) -->
       <div class="scene is-static" data-scene="1">
-        <div class="beat beat--buzz bubble bubble--in bubble--scam" style="--d: 0.3s;">
+        <div class="beat bubble bubble--in bubble--scam">
           <span class="bubble__tag">Simulated</span>
           USPS: your package is on hold. Pay a $1.95 redelivery fee at
           <span class="bubble__link">usps-track-19.co</span>
         </div>
-        <div class="beat chip chip--ok" style="--d: 1.7s;"><span class="blip"></span>Didn't tap the link</div>
-        <div class="beat beat--buzz callcard" style="--d: 2.7s;">
+        <div class="beat chip chip--ok"><span class="blip"></span>Didn't tap the link</div>
+        <div class="beat callcard">
           <span class="callcard__ring">
-            <span class="callcard__rings"></span>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#121110" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
             </svg>
@@ -55,21 +46,21 @@
             “Granddaughter in trouble” (spoofed number)
           </span>
         </div>
-        <div class="beat chip chip--ok" style="--d: 4.2s;"><span class="blip"></span>Hung up, called the real number</div>
-        <div class="beat banner" style="--d: 5.1s;">Drills passed. When one slips by, coached in 30 seconds.</div>
+        <div class="beat chip chip--ok"><span class="blip"></span>Hung up, called the real number</div>
+        <div class="beat banner">Drills passed. When one slips by, coached in 30 seconds.</div>
       </div>
 
       <!-- Scene 3 — Drip briefing -->
       <div class="scene" data-scene="2">
-        <div class="beat bubble bubble--in" style="--d: 0.3s;">
+        <div class="beat bubble bubble--in">
           <strong>ScamPrep heads-up:</strong> a new IRS scam is making the rounds. The tell: they threaten arrest unless you pay right away. The IRS never calls to threaten arrest or demand immediate payment.
         </div>
-        <div class="beat chip" style="--d: 1.9s;">Quick read, and always current</div>
+        <div class="beat chip">Quick read, and always current</div>
       </div>
 
       <!-- Scene 4 — Resilience Report -->
       <div class="scene" data-scene="3">
-        <div class="beat notif" style="--d: 0.3s;">
+        <div class="beat notif">
           <span class="notif__icon">
             <svg width="22" height="22" viewBox="10 10 76 76" fill="none">
               <path d="M 57.02 19.39 A 30 30 0 1 0 76.61 38.98" stroke="#121110" stroke-width="8.5" stroke-linecap="round" />
@@ -81,7 +72,7 @@
             Status: <span class="notif__delta">Mostly strong ↑</span><br />Spotted 12 of 15 practice scams
           </span>
         </div>
-        <div class="beat chip chip--ok" style="--d: 1.8s;"><span class="blip"></span>Proof they’re getting savvier, without feeling supervised</div>
+        <div class="beat chip chip--ok"><span class="blip"></span>Proof they’re getting savvier, without feeling supervised</div>
       </div>
 
       <span class="phone__home"></span>
@@ -92,29 +83,21 @@
 <script>
   const phone = document.getElementById('phone-demo');
   if (phone) {
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     phone.classList.add('phone--js');
-    if (!reduce) phone.classList.add('phone--anim');
-    const scenes = Array.from(phone.querySelectorAll('.scene'));
-
-    const setScene = (i) => {
-      scenes.forEach((s) => {
-        const active = Number(s.dataset.scene) === i;
-        s.classList.remove('is-static');
-        if (active && !s.classList.contains('is-active')) {
-          // Force a reflow between class toggles so CSS animations restart
-          // every time a scene becomes active again.
-          s.classList.remove('is-active');
-          void s.offsetWidth;
-          s.classList.add('is-active');
-        } else if (!active) {
-          s.classList.remove('is-active');
-        }
+    const scenes = Array.from(phone.querySelectorAll<HTMLElement>('.scene'));
+    const setScene = (index: number) => {
+      scenes.forEach((scene) => {
+        scene.classList.remove('is-static');
+        scene.classList.toggle('is-active', Number(scene.dataset.scene) === index);
       });
     };
-
-    document.addEventListener('scamprep:hiwchange', (e) => setScene(e.detail.index));
-    setScene(0);
+    document.addEventListener('scamprep:hiwchange', (event) => {
+      setScene((event as CustomEvent<{ index: number }>).detail.index);
+    });
+    const selected = Array.from(document.querySelectorAll('.hiw__card')).findIndex(
+      (card) => card.getAttribute('aria-pressed') === 'true'
+    );
+    setScene(Math.max(0, selected));
   }
 </script>
 
@@ -223,32 +206,10 @@
   .phone--js .scene { display: none; }
   .phone--js .scene.is-active { display: flex; }
 
-  /* Beats: visible by default (no-JS / reduced motion). Only when the
-     phone is allowed to animate do we hide them and play them in. */
-  .phone--anim .scene.is-active .beat {
-    opacity: 0;
-    animation: beatIn 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
-    animation-delay: var(--d, 0s);
+  @media (prefers-reduced-motion: no-preference) {
+    .phone--js .scene.is-active { animation: sceneIn 220ms ease-out both; }
   }
-  .phone--anim .scene.is-active .beat--buzz {
-    animation-name: beatIn, buzz;
-    animation-duration: 0.45s, 0.5s;
-    animation-delay: var(--d, 0s), calc(var(--d, 0s) + 0.1s);
-    animation-fill-mode: forwards, none;
-  }
-  @keyframes beatIn {
-    from { opacity: 0; transform: translateY(12px) scale(0.97); }
-    to { opacity: 1; transform: none; }
-  }
-  @keyframes buzz {
-    0%, 100% { transform: translateX(0); }
-    15% { transform: translateX(-3px) rotate(-0.4deg); }
-    30% { transform: translateX(3px) rotate(0.4deg); }
-    45% { transform: translateX(-3px); }
-    60% { transform: translateX(3px); }
-    75% { transform: translateX(-2px); }
-    90% { transform: translateX(2px); }
-  }
+  @keyframes sceneIn { from { opacity: 0; } to { opacity: 1; } }
 
   /* ---------- Message bubbles ---------- */
   .bubble {
@@ -337,26 +298,6 @@
     background: var(--glow);
     display: grid;
     place-items: center;
-  }
-  .callcard__rings,
-  .callcard__rings::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    border: 1.5px solid rgba(240, 161, 28, 0.8);
-    opacity: 0;
-  }
-  .phone--anim .scene.is-active .callcard__rings,
-  .phone--anim .scene.is-active .callcard__rings::after {
-    /* The simulated call rings twice and stops. Nothing loops. */
-    animation: ringPulse 1.4s ease-out 2;
-    animation-delay: calc(var(--d, 0s) + 0.3s);
-  }
-  .phone--anim .scene.is-active .callcard__rings::after { animation-delay: calc(var(--d, 0s) + 1s); }
-  @keyframes ringPulse {
-    0% { transform: scale(1); opacity: 0.8; }
-    100% { transform: scale(1.85); opacity: 0; }
   }
   .callcard__who { font-size: 0.86rem; line-height: 1.4; color: var(--gray-700); }
   .callcard__who strong { display: block; color: var(--ink); font-size: 0.94rem; }

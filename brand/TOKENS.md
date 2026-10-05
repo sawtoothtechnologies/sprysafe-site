@@ -89,11 +89,24 @@ No uppercase micro-labels anywhere (section labels, table headers, footer headin
 
 ## Shape, spacing, motion
 
+- October 5 review refinements: the header uses "Pamphlets fade. Practice sticks."
+  The walkthrough is visitor-controlled, with all step descriptions visible. A
+  selection reveals the full phone scene with a 220ms fade (instant with reduced
+  motion); on smaller screens the phone sits below the selected step. No timers,
+  automatic progression, delayed messages, or shaking.
+- Hero decision, October 5: keep the existing ripple from `e64d6ec`. Seven
+  rings spread once from the amber point over about 5.5s and remain faintly
+  visible. The fading-ripple and soft-light alternatives were reviewed and
+  declined; their comparison page was removed. Reduced motion shows the
+  finished rings immediately; small screens retain the original subdued ripple.
+- Restrained glow tokens (also defined in `global.css`):
+  - `--glow-button`: `0 0 0 2px rgba(240,161,28,.10), 0 6px 20px -8px rgba(240,161,28,.38)`
+  - `--glow-pricing`: `0 0 32px 6px rgba(249,227,174,.46), 0 14px 32px -20px rgba(240,161,28,.22)`
+
 - Radius: **6** chips/tags · **9** buttons/inputs/rows · **14** cards. No pills except toggles.
 - Spacing: 4px base. Sections 56 / 88; the closing band 104. Content max 1120px.
 - Motion: everything plays once and then holds still. Nothing loops.
-  - hero ripple: the amber point swells, then rings leave it one at a time (about half a
-    second apart, outermost first) at an even, unhurried speed. About 5.5s in all
+  - hero: original ripple spreads once over about 5.5s, then holds still
   - primary button glow fades up once (0.9s)
   - stat dots light up one after another, once, when scrolled into view
   - report rows rise in and the string of lights comes on, once, on scroll

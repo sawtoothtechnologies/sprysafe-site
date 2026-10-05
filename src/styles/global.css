@@ -71,6 +71,8 @@
   --radius-ctrl: 9px;   /* buttons, inputs, drill rows */
   --radius: 14px;       /* cards */
   --radius-lg: 14px;
+  --glow-button: 0 0 0 2px rgba(240, 161, 28, 0.10), 0 6px 20px -8px rgba(240, 161, 28, 0.38);
+  --glow-pricing: 0 0 32px 6px rgba(249, 227, 174, 0.46), 0 14px 32px -20px rgba(240, 161, 28, 0.22);
   --shadow: none;
   --shadow-lg: 0 24px 56px rgba(18, 17, 15, 0.18);
   --shadow-float: 0 24px 56px rgba(0, 0, 0, 0.35); /* light cards on ink */
@@ -269,7 +271,7 @@ p, li, dd, dt, figcaption, blockquote { text-wrap: pretty; }
    It carries a soft, still glow that fades up once on load. */
 .btn--primary {
   background: var(--amber); color: var(--ink);
-  box-shadow: 0 0 0 6px rgba(240, 161, 28, 0.2), 0 12px 28px -10px rgba(240, 161, 28, 0.85);
+  box-shadow: var(--glow-button);
 }
 .btn--primary:hover { background: #f6b23e; color: var(--ink); }
 @media (prefers-reduced-motion: no-preference) {
