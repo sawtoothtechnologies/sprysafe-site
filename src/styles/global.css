@@ -6,7 +6,7 @@
    honey; selected states are lit (glow + amber line), not
    inverted; the primary button has a still glow instead of a
    ping; small labels are sentence case, never uppercase.
-   Motifs: radar = state (hero only), lit button = the one
+   Motifs: still rings = state (hero only), lit button = the one
    primary action, blips = status.
 
    Replaces "Evergreen Modern" (pine / Plus Jakarta Sans / pills).
@@ -124,27 +124,12 @@ img { max-width: 100%; height: auto; }
 }
 
 /* ---------- Motion primitives ---------- */
-@keyframes spryRot { to { transform: rotate(360deg); } }
 /* The primary button's halo fades up once on load, then holds still.
    (v1.0 had a looping ping ring here; it was retired in v1.1.) */
 @keyframes glowSettle {
   from { box-shadow: 0 0 0 0 rgba(240, 161, 28, 0), 0 0 0 0 rgba(240, 161, 28, 0); }
 }
 @keyframes spryBlip { 0%, 8% { opacity: 1; } 45%, 100% { opacity: 0.25; } }
-/* Radar contact: pops the instant the sweep line reaches it (the 100% -> 0%
-   wrap is the flash), then fades as the trail passes. Pair with a delay so
-   0% lines up with the sweep angle. spryRadarPing is the ring that expands
-   off the contact at the same moment. */
-@keyframes spryRadarBlip {
-  0% { opacity: 1; transform: scale(1.35); }
-  8% { opacity: 1; transform: scale(1); }
-  45%, 100% { opacity: 0.22; transform: scale(0.9); }
-}
-@keyframes spryRadarPing {
-  0% { opacity: 0.85; transform: scale(1); }
-  22%, 100% { opacity: 0; transform: scale(3.4); }
-}
-
 /* ---------- Motif utilities ---------- */
 /* Status blip: <span class="blip"></span> / .blip--alert / .blip--pending */
 .blip {
@@ -173,28 +158,14 @@ img { max-width: 100%; height: auto; }
 
 .blip--pending { background: transparent; border: 1.5px solid var(--gray-400); box-shadow: none; }
 
-/* Radar layers for dark sections (parent needs position:relative + overflow:hidden) */
-.radar-rings, .radar-sweep {
+/* Radar rings for the hero (parent needs position:relative + overflow:hidden).
+   Still: the sweeping line was retired in v1.1. */
+.radar-rings {
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
 }
 .radar-rings { background: repeating-radial-gradient(circle, transparent 0 41px, rgba(240, 161, 28, 0.22) 41px 42px); }
-/* The sweep turns clockwise. The bright edge at 0deg is the line; the wedge
-   behind it (270deg to 360deg) is its fading trail, so the trail follows the
-   line the way a real radar's does. */
-.radar-sweep {
-  background: conic-gradient(
-    from 0deg,
-    rgba(240, 161, 28, 0.55) 0deg,
-    rgba(240, 161, 28, 0.3) 1.2deg,
-    transparent 2deg,
-    transparent 270deg,
-    rgba(240, 161, 28, 0.3) 360deg
-  );
-  animation: spryRot 8s linear infinite;
-}
-
 /* ---------- Layout helpers ---------- */
 .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
 /* Density scale — assigned per page for cadence, not a metronome:

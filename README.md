@@ -60,7 +60,7 @@ save; nothing is published).
 
 ## Design system
 
-**"Signal · Amber" v1.1** (October 2026) — warm near-black ink, radar amber, Manrope. v1.1
+**"Signal · Amber" v1.1** (October 2026) — warm near-black ink, signal amber, Manrope. v1.1
 lightened v1.0: ink is kept for the hero, footer and table headers; the report section is
 honey; the closing band is amber; selected states are lit, not inverted; the primary button
 has a still glow instead of a ping; small labels are sentence case.
@@ -139,8 +139,10 @@ lapse — for a fraud-prevention brand, a lapsed old domain is a phishing gift.
 ```
 brand/                          design system source of truth
 ├── TOKENS.md                   colors, type, motifs, usage rules, known deviations
-├── logo-ink.svg                radar mark for light backgrounds
-└── logo-on-dark.svg            radar mark for ink backgrounds
+├── logo-ink.svg                Open Ring mark for light backgrounds
+├── logo-on-dark.svg            Open Ring mark for ink backgrounds
+├── lockup-ink.svg              mark + wordmark, light backgrounds
+└── lockup-on-dark.svg          mark + wordmark, ink backgrounds
 public/                         favicon.svg · apple-touch-icon.png · og.png
 src/
 ├── layouts/Base.astro          header, footer, SEO, fonts

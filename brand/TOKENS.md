@@ -23,9 +23,10 @@ and imports the parts of the preview that worked:
 | Resilience Report card | rows only | adds a **string of lights** under the count: 12 lit, 3 open dusk rings (`.lights`) |
 | Consent promise (homepage) | amber dot | **outline icon in a soft amber circle**, same family as the drill-example icons |
 | Callout boxes | white card with a thick rule down the left edge | **whole box softly lit** (glow fill, honey border). No left-edge accent rules |
+| Logo | radar dial (two rings, needle, amber center) | **the Open Ring**: one ring left open at the upper right, amber center |
 | Recommended pricing card | gray drop shadow | **warm yellow halo** behind the white card |
 
-Unchanged from v1.0: the dark radar hero, the radar-dial logo, Manrope with 800 headlines,
+Unchanged from v1.0: the dark hero, Manrope with 800 headlines,
 paper and sand bands, the amber coaching panel in the hero drill card.
 
 The full Lamplight exploration (guide, logo set) is archived in
@@ -33,11 +34,12 @@ The full Lamplight exploration (guide, logo set) is archived in
 
 ## The idea
 
-One typeface, warm near-black, radar amber. Amber is a *signal*, not a theme.
+One typeface, warm near-black, signal amber. Amber is a *signal*, not a theme.
 
 | Motif | Means | Where |
 | --- | --- | --- |
-| **Radar** | state | the hero only |
+| **The Open Ring** | the brand | the logo: one ring left open at the upper right around a steady amber center. Attention, with a way in |
+| **Still rings** | state | the hero only: the logo at room scale. Still rings around one steady amber point. No sweeping line, no blinking contacts (retired 2026-10-05: a scan reads as surveillance) |
 | **Lit button** | the one primary action | the amber button with its still glow |
 | **Blip** | status | amber dot = fine; open dusk ring = coached |
 
@@ -81,7 +83,7 @@ No uppercase micro-labels anywhere (section labels, table headers, footer headin
 
 - Radius: **6** chips/tags · **9** buttons/inputs/rows · **14** cards. No pills except toggles.
 - Spacing: 4px base. Sections 56 / 88; the closing band 104. Content max 1120px.
-- Motion: radar sweep 8s (hero only) · primary button glow fades up once (0.9s) · report rows
+- Motion: primary button glow fades up once (0.9s) · report rows
   rise in once on scroll · UI transitions 150ms. All behind `prefers-reduced-motion`.
 
 ## Usage rules — quick reference
@@ -100,6 +102,14 @@ No uppercase micro-labels anywhere (section labels, table headers, footer headin
 
 ## Assets
 
-- `brand/logo-ink.svg`, `brand/logo-on-dark.svg`: the radar-dial mark (active)
-- `public/favicon.svg`, `public/apple-touch-icon.png`, `public/og.png`: v1.0 assets (active)
+- `brand/logo-ink.svg`, `brand/logo-on-dark.svg`: the Open Ring mark (active since 2026-10-05)
+- `brand/lockup-ink.svg`, `brand/lockup-on-dark.svg`: mark + wordmark (Manrope 800, -0.03em,
+  outlined) for use off the site: decks, documents, email signature
+- `public/favicon.svg`, `public/apple-touch-icon.png`: paper ring, amber center, on ink
+- `public/og.png`: share image, ink with still rings (1200 x 630)
+
+Logo rules: the ring is ink on light and paper (`#f8f7f4`) on ink; the center is always
+amber. Never put the ink ring on amber or honey without checking it at small size. Minimum
+size 16px. Clear space: one ring-stroke width on every side. Do not rotate the gap, close
+the ring, or animate it. The radar-dial mark is retired; it lives in git history.
 - `brand/lamplight-exploration/`: archived October 2026 exploration, not in use

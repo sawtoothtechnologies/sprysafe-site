@@ -29,6 +29,7 @@ Read `brand/TOKENS.md` before changing colors, type, or motion. The short versio
 - **The primary button has a still glow**, not a pulsing ring. Nothing new should loop.
 - **Coached items are dusk blue**, never red. No blue in the hero drill card.
 - **Small labels are sentence case**, never uppercase. Headlines stay Manrope 800.
+- **The logo is the Open Ring** (`brand/logo-*.svg`, `brand/lockup-*.svg`). The radar dial is retired.
 - `brand/lamplight-exploration/` is an archived exploration, not the active brand.
 
 ## Workflow
