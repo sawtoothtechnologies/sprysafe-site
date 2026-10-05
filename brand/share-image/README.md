@@ -1,8 +1,8 @@
 # Share image
 
 The picture that shows up when someone pastes a ScamPrep link into a text, email,
-LinkedIn, Slack or X. One image for every page: `public/og-v2.png` (also copied to
-`public/og.png` for links shared before the rename). It is made from
+LinkedIn, Slack or X. One image for every page: `public/og-v3.png` (also copied to
+`public/og.png` and `public/og-v2.png` for links shared before the rename). It is made from
 `share-image.html`, so the font and colors match the site.
 
 ## Design (Signal Amber v1.1)
@@ -32,7 +32,7 @@ the domain. So:
 
 1. Edit `share-image.html`.
 2. Render at exactly 1200 x 630 under a **new file name**:
-   `python3 brand/share-image/render.py public og-v3.png` (needs Python Playwright),
+   `python3 brand/share-image/render.py public og-v4.png` (needs Python Playwright),
    or ask Claude to render it.
 3. Point `image` in `src/layouts/Base.astro` at the new file. LinkedIn, iMessage and
    Slack cache the old picture for days or weeks under the old name.
