@@ -39,7 +39,7 @@ One typeface, warm near-black, signal amber. Amber is a *signal*, not a theme.
 | Motif | Means | Where |
 | --- | --- | --- |
 | **The Open Ring** | the brand | the logo: one ring left open at the upper right around a steady amber center. Attention, with a way in |
-| **Still rings** | state | the hero only: the logo at room scale. Still rings around one steady amber point. No sweeping line, no blinking contacts (retired 2026-10-05: a scan reads as surveillance) |
+| **Ripple** | state | the hero only: rings spreading from one steady amber point, farther apart and fainter as they travel out. They spread once on load, then hold still. No sweeping line, no blinking contacts, nothing looping (the radar sweep was retired 2026-10-05: a scan reads as surveillance) |
 | **Lit button** | the one primary action | the amber button with its still glow |
 | **Blip** | status | amber dot = fine; open dusk ring = coached |
 

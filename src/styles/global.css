@@ -6,7 +6,7 @@
    honey; selected states are lit (glow + amber line), not
    inverted; the primary button has a still glow instead of a
    ping; small labels are sentence case, never uppercase.
-   Motifs: still rings = state (hero only), lit button = the one
+   Motifs: ripple = state (hero only), lit button = the one
    primary action, blips = status.
 
    Replaces "Evergreen Modern" (pine / Plus Jakarta Sans / pills).
@@ -129,7 +129,6 @@ img { max-width: 100%; height: auto; }
 @keyframes glowSettle {
   from { box-shadow: 0 0 0 0 rgba(240, 161, 28, 0), 0 0 0 0 rgba(240, 161, 28, 0); }
 }
-@keyframes spryBlip { 0%, 8% { opacity: 1; } 45%, 100% { opacity: 0.25; } }
 /* ---------- Motif utilities ---------- */
 /* Status blip: <span class="blip"></span> / .blip--alert / .blip--pending */
 .blip {
@@ -158,14 +157,6 @@ img { max-width: 100%; height: auto; }
 
 .blip--pending { background: transparent; border: 1.5px solid var(--gray-400); box-shadow: none; }
 
-/* Radar rings for the hero (parent needs position:relative + overflow:hidden).
-   Still: the sweeping line was retired in v1.1. */
-.radar-rings {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-}
-.radar-rings { background: repeating-radial-gradient(circle, transparent 0 41px, rgba(240, 161, 28, 0.22) 41px 42px); }
 /* ---------- Layout helpers ---------- */
 .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
 /* Density scale — assigned per page for cadence, not a metronome:

@@ -11,13 +11,21 @@ import { homeFaqs } from '../data/faqs.js';
   title="ScamPrep: Simulated scam drills and online threat training"
   description="Simulated scam drills, coaching and a quarterly Resilience Report for older adults and the family members who look out for them."
 >
-  <!-- ============ HERO — radar (state) ============ -->
+  <!-- ============ HERO — ripple (state) ============ -->
   <section class="hero section--ink">
-    <!-- The radar, frozen: still concentric rings around one steady amber
-         point (the logo's centre). No sweeping line and no blinking contacts:
-         it reads as a signal, not a scan. Decorative. -->
+    <!-- The ripple: rings spreading from one steady amber point (the logo's
+         centre). They sit farther apart and fainter as they travel out. They
+         spread once on load, then hold still. Nothing loops. Decorative. -->
     <div class="hero__radar" aria-hidden="true">
-      <div class="radar-rings"></div>
+      <svg class="hero__ripple" viewBox="-500 -500 1000 1000" width="1000" height="1000" fill="none">
+        <circle r="36" stroke="rgba(240,161,28,0.62)" stroke-width="2.2" style="--i: 0;" />
+        <circle r="82" stroke="rgba(240,161,28,0.46)" stroke-width="1.9" style="--i: 1;" />
+        <circle r="140" stroke="rgba(240,161,28,0.33)" stroke-width="1.6" style="--i: 2;" />
+        <circle r="210" stroke="rgba(240,161,28,0.23)" stroke-width="1.4" style="--i: 3;" />
+        <circle r="292" stroke="rgba(240,161,28,0.15)" stroke-width="1.2" style="--i: 4;" />
+        <circle r="386" stroke="rgba(240,161,28,0.09)" stroke-width="1" style="--i: 5;" />
+        <circle r="492" stroke="rgba(240,161,28,0.05)" stroke-width="1" style="--i: 6;" />
+      </svg>
       <span class="hero__center"></span>
     </div>
 
@@ -376,7 +384,7 @@ import { homeFaqs } from '../data/faqs.js';
 </script>
 
 <style>
-  /* ---------- Hero: the radar surface ---------- */
+  /* ---------- Hero: the ripple surface ---------- */
   .hero { padding: 0; }
   .hero__grid {
     position: relative;
@@ -483,9 +491,9 @@ import { homeFaqs } from '../data/faqs.js';
      the grid gap); balanced two-line wrap below that. */
   .hero .trust-line { text-wrap: balance; }
 
-  /* Radar: a 560px dial anchored in the top-right corner. Its center sits at
-     (right 64px, top 120px) so it stays clear of the report card down to
-     1280px wide, and clear of the headline on phones. */
+  /* Ripple: centred on a point in the top-right corner, at (right 64px,
+     top 120px), so the bright inner rings stay clear of the report card down
+     to 1280px wide, and clear of the headline on phones. */
   .hero__radar {
     position: absolute;
     right: -216px;
@@ -494,7 +502,20 @@ import { homeFaqs } from '../data/faqs.js';
     height: 560px;
     pointer-events: none;
   }
-  .hero__radar > .radar-rings { inset: 0; }
+  .hero__ripple { position: absolute; left: -220px; top: -220px; overflow: visible; }
+  /* One spread on load: each ring grows out from the centre and fades in, the
+     inner ones first. Then it is still. */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__ripple circle {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: rippleOut 1.3s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+      animation-delay: calc(0.15s + var(--i) * 0.11s);
+    }
+    .hero__center { animation: rippleDrop 0.5s ease-out both; }
+  }
+  @keyframes rippleOut { from { opacity: 0; transform: scale(0.55); } }
+  @keyframes rippleDrop { from { opacity: 0; transform: scale(0.4); } }
 
   /* Center dot: the logo's solid amber pupil, with a soft halo. */
   .hero__center {
@@ -510,7 +531,7 @@ import { homeFaqs } from '../data/faqs.js';
   }
 
   @media (max-width: 919px) {
-    .hero__radar { opacity: 0.55; }
+    .hero__radar { opacity: 0.42; }
   }
 
   .hero h1 { color: var(--paper-bg); }
@@ -529,13 +550,15 @@ import { homeFaqs } from '../data/faqs.js';
   .dot { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid #b5b0a6; }
   .dot--on { background: var(--amber); border-color: var(--amber); }
   .stats--anim .dot--on { opacity: 0.25; }
-  .stats--play .dot--on { animation: spryBlip 2.8s linear infinite; }
+  /* The lit dots count up once, then stay lit. Nothing loops. */
+  .stats--play .dot--on { animation: dotOn 0.45s ease-out both; }
   .stats--play .dot--on:nth-child(2) { animation-delay: 0.25s; }
   .stats--play .dot--on:nth-child(3) { animation-delay: 0.5s; }
   .stats--play .dot--on:nth-child(4) { animation-delay: 0.75s; }
   .stats--play .dot--on:nth-child(5) { animation-delay: 1s; }
   .stats--play .dot--on:nth-child(6) { animation-delay: 1.25s; }
   .stats--play .dot--on:nth-child(7) { animation-delay: 1.5s; }
+  @keyframes dotOn { from { opacity: 0.25; transform: scale(0.7); } to { opacity: 1; transform: scale(1); } }
 
 
   /* ---------- Report band: honey, and the report gets the wider column ---------- */
