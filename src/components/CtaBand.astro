@@ -11,17 +11,12 @@ const split = layout === 'split';
 ---
 
 <section class:list={['section', 'section--ink', 'cta-band', split ? 'cta-band--split' : 'center']}>
-  <div class="radar-rings cta-band__radar" aria-hidden="true"></div>
-  <div class="radar-sweep cta-band__radar cta-band__sweep" aria-hidden="true"></div>
   <div class="wrap cta-band__inner">
     <div class="cta-band__copy">
       <h2>{headline}</h2>
       <p class="lede">{body}</p>
       <p style="margin-top: 28px;">
-        <span class="ping-wrap">
-          <span class="ping-ring" aria-hidden="true"></span>
-          <a class="btn btn--primary" href={href}>{cta}</a>
-        </span>
+        <a class="btn btn--primary" href={href}>{cta}</a>
       </p>
       {note && <p class="cta-band__note" set:html={note} />}
     </div>
@@ -34,24 +29,25 @@ const split = layout === 'split';
 <style>
   .cta-band__inner { position: relative; }
   .cta-band .lede { max-width: 40rem; }
-  .cta-band__note { margin: 22px 0 0; font-size: 0.95rem; color: var(--gray-400); max-width: 40rem; }
-  .cta-band__note a { color: var(--paper-bg); text-decoration: underline; text-underline-offset: 3px; }
-  .cta-band__radar {
-    left: 50%;
-    top: 50%;
-    width: 720px;
-    height: 720px;
-    margin: -360px;
-    background: repeating-radial-gradient(circle, transparent 0 53px, rgba(240, 161, 28, 0.12) 53px 54px);
+  /* The closing band is the page's one saturated moment: full amber, with
+     a gently arched top edge like the rim of a pool of light. Walnut text on
+     amber is 6.5:1. This deliberately bends the guide's "the button is the
+     only amber fill" rule, once per page; the button here turns white. */
+  .cta-band {
+    width: 100%;
+    background: var(--amber);
+    color: var(--color-text);
+    border-radius: 50% 50% 0 0 / 56px 56px 0 0;
+    padding: 104px 0 88px;
   }
-  .cta-band__sweep {
-    /* Same orientation as the global sweep: line leads, trail follows. */
-    background: conic-gradient(from 0deg, transparent 0deg 270deg, rgba(240, 161, 28, 0.14) 360deg);
-    animation: spryRot 10s linear infinite;
+  @media (max-width: 700px) {
+    .cta-band { width: 100%; border-radius: 50% 50% 0 0 / 28px 28px 0 0; padding: 80px 0 72px; }
   }
+  .cta-band__note { margin: 22px 0 0; font-size: 0.95rem; color: var(--color-text); max-width: 40rem; }
+  .cta-band__note a { color: var(--color-text); text-decoration: underline; text-underline-offset: 3px; }
 
   /* Split layout: copy left, a reserved right-hand column for the aside slot.
-     With no aside, the centered radar fills the open right half. */
+     With no aside, the right half stays open. */
   .cta-band--split .cta-band__inner {
     text-align: left;
     display: grid;

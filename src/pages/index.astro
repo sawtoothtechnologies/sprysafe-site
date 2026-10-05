@@ -11,20 +11,8 @@ import { homeFaqs } from '../data/faqs.js';
   title="ScamPrep: Simulated scam drills and online threat training"
   description="Simulated scam drills, coaching and a quarterly Resilience Report for older adults and the family members who look out for them."
 >
-  <!-- ============ HERO — radar (state) ============ -->
-  <section class="hero section--ink">
-    <!-- Radar: rings, a sweeping line, three contacts that light up as the line
-         passes over them, and a solid center dot (the logo's pupil). Blip timing
-         is tied to the sweep's 8s rotation; see .hero__blip in the styles below. -->
-    <div class="hero__radar" aria-hidden="true">
-      <div class="radar-rings"></div>
-      <div class="radar-sweep"></div>
-      <span class="hero__blip hero__blip--1"></span>
-      <span class="hero__blip hero__blip--2"></span>
-      <span class="hero__blip hero__blip--3"></span>
-      <span class="hero__center"></span>
-    </div>
-
+  <!-- ============ HERO ============ -->
+  <section class="hero">
     <div class="wrap hero__grid">
       <div>
         <h1>Help your loved&nbsp;ones spot scams.</h1>
@@ -33,22 +21,23 @@ import { homeFaqs } from '../data/faqs.js';
         </p>
         <p class="hero__metaphor">A pamphlet won't help. Practice will.</p>
         <div class="btn-row" style="margin-top: 30px;">
-          <span class="ping-wrap">
-            <span class="ping-ring" aria-hidden="true"></span>
-            <a class="btn btn--primary" href="/early-access">Get early access</a>
-          </span>
+          <a class="btn btn--primary" href="/early-access">Get early access</a>
           <a class="btn btn--ghost" href="#how">How practice works</a>
         </div>
         <p class="trust-line">You invite, they opt in. Nothing to install. No bank access.</p>
       </div>
       <div class="hero__card">
+        <!-- The stage: the drill card, sitting in a pool of warm light. The
+             light is decorative and fades up once when the page opens. -->
+        <div class="hero__stage">
+          <div class="hero__light" aria-hidden="true"></div>
         <!-- Example drill: one static card, message then coaching, both visible at
              once. No phone frame, no sequence. The "link" is inert text. -->
         <div class="drill-card" aria-label="Example practice simulation">
           <p class="drill-card__label">Example practice simulation</p>
 
           <div class="drill-card__msg">
-            <svg class="drill-card__tail" width="36" height="24" viewBox="0 0 36 24" aria-hidden="true"><path d="M36 0H16v4c0 10-4 16-16 20h36z" fill="#ebe8df" /></svg>
+            <svg class="drill-card__tail" width="36" height="24" viewBox="0 0 36 24" aria-hidden="true"><path d="M36 0H16v4c0 10-4 16-16 20h36z" fill="#f4ecd9" /></svg>
             <p class="drill-card__msg-head">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v7a2.5 2.5 0 0 1-2.5 2.5H10l-4.5 3.5V16A2.5 2.5 0 0 1 4 13.5z"/><path d="M8.5 9h7M8.5 12h4.5"/></svg>
               Text from an unfamiliar number
@@ -62,11 +51,9 @@ import { homeFaqs } from '../data/faqs.js';
 
           <div class="drill-card__coach">
             <p class="drill-card__coach-title">
-              <svg width="18" height="18" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-                <circle cx="20" cy="20" r="16" fill="none" stroke="currentColor" stroke-width="3" />
-                <circle cx="20" cy="20" r="10" fill="none" stroke="currentColor" stroke-width="1.6" opacity="0.45" />
-                <line x1="20" y1="20" x2="30.6" y2="9.4" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                <circle cx="20" cy="20" r="5.5" fill="#f0a11c" />
+              <svg width="20" height="20" viewBox="0 0 32 32" aria-hidden="true">
+                <path d="M16 4 30 18h-6.6L16 10.6 8.6 18H2z" fill="#332b23" />
+                <circle cx="16" cy="21.2" r="5.3" fill="#f0a11c" />
               </svg>
               This was a ScamPrep drill.
             </p>
@@ -75,12 +62,13 @@ import { homeFaqs } from '../data/faqs.js';
           </div>
 
         </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ============ THE PROBLEM — stats ============ -->
-  <section class="section section--paper section--stats">
+  <section class="section section--stats">
     <div class="wrap">
       <p class="kicker">Why now</p>
       <h2 style="max-width: 34rem;">AI strengthens scammers and multiplies losses</h2>
@@ -178,7 +166,6 @@ import { homeFaqs } from '../data/faqs.js';
 
   <!-- ============ RESILIENCE REPORT ============ -->
   <section class="section section--air section--ink" id="report">
-    <div class="radar-rings report__radar" aria-hidden="true"></div>
     <div class="wrap hero__grid">
       <div>
         <p class="kicker">The Resilience Report</p>
@@ -254,7 +241,7 @@ import { homeFaqs } from '../data/faqs.js';
   <section class="section--tight section">
     <div class="wrap">
       <div class="card promise">
-        <span class="blip promise__blip" aria-hidden="true"></span>
+        <svg class="promise__icon" viewBox="0 0 24 24" width="40" height="40" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2.5" fill="#FBEFD3" stroke="#332B23" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="m8.5 9.5 2.5 2.5 4.5-5" fill="none" stroke="#332B23" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 17h8" fill="none" stroke="#332B23" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <p style="margin: 0; font-size: 1.08rem;">
           <strong>Consent-first, always.</strong> Every participant opts in personally. Drills are
           gentle, immediately debriefed, and designed based on best practices for older-adult learning. No shame or fear tactics. <a href="/promise">Read our full promise</a>
@@ -279,7 +266,7 @@ import { homeFaqs } from '../data/faqs.js';
 
   <!-- ============ SOURCES ============ -->
   <div class="wrap">
-    <p class="footnote center" style="padding: 26px 0 34px; margin: 0;">
+    <p class="footnote center" style="padding: 24px 0 28px; margin: 0;">
       Sources: <a href="https://apnorc.org/projects/fifty-eight-percent-of-adults-report-receiving-scam-attempts-daily/">AP-NORC Center poll (2026)</a> ·
       <a href="https://www.fbi.gov/news/stories/scammers-target-older-adult-victims">FBI, on the IC3 2025 Internet Crime Report</a>
     </p>
@@ -384,44 +371,100 @@ import { homeFaqs } from '../data/faqs.js';
 </script>
 
 <style>
-  /* ---------- Hero: the radar surface ---------- */
-  .hero { padding: 0; }
+  /* ---------- Hero: paper, with one pool of warm light ---------- */
+  .hero { padding: 0; background: var(--color-bg); position: relative; overflow: hidden; }
   .hero__grid {
     position: relative;
     display: grid;
     gap: 56px;
     align-items: center;
   }
-  .hero > .hero__grid { padding-top: 84px; padding-bottom: 96px; }
+  .hero > .hero__grid { padding-top: 72px; padding-bottom: 96px; }
   @media (max-width: 700px) {
-    .hero > .hero__grid { padding-top: 64px; padding-bottom: 64px; gap: 40px; }
+    .hero > .hero__grid { padding-top: 48px; padding-bottom: 64px; gap: 40px; }
   }
   @media (min-width: 920px) {
     .hero__grid { grid-template-columns: 1.15fr 1fr; }
   }
+  /* Copy sits above the light so the gradient never tints the text. */
+  .hero__grid > div:first-child { position: relative; z-index: 1; }
   .hero__card { display: flex; justify-content: center; }
-  .hero .lede { color: #d5d3ca; }
-  .hero .trust-line { font-size: 0.95rem; font-weight: 500; color: #d5d3ca; margin-top: 16px; }
+  .hero .trust-line { font-size: 1rem; font-weight: 400; color: var(--color-text-muted); margin-top: 20px; }
+
+  .hero__stage {
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    max-width: 520px;
+  }
+  /* The light: one large, soft ellipse centred behind the drill card, as if
+     a lamp were on just behind it. Warm amber at the very centre, honey
+     around it, and gone before it reaches the edges of the hero. When the
+     page opens it spreads outward and fades up once, then holds still.
+     There is no illustration here on purpose: the light is the motif. */
+  .hero__light {
+    position: absolute;
+    left: 50%;
+    top: 42%;
+    width: 1900px;
+    height: 1300px;
+    margin: -650px 0 0 -950px;
+    border-radius: 50%;
+    background: radial-gradient(
+      closest-side,
+      rgba(240, 161, 28, 0.5) 0%,
+      rgba(246, 200, 110, 0.72) 14%,
+      rgba(249, 227, 174, 0.92) 30%,
+      rgba(249, 227, 174, 0.62) 48%,
+      rgba(251, 239, 211, 0.4) 66%,
+      rgba(251, 239, 211, 0.14) 84%,
+      rgba(248, 247, 244, 0) 100%
+    );
+    pointer-events: none;
+    z-index: -1;
+  }
+  /* The light is clipped by the hero, so it is feathered back to paper over
+     the hero's bottom padding. Without this it ends in a hard line. */
+  .hero::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 96px;
+    background: linear-gradient(to bottom, rgba(248, 247, 244, 0), var(--color-bg));
+    pointer-events: none;
+  }
+  @media (max-width: 700px) { .hero::after { height: 64px; } }
+  @keyframes lightUp {
+    from { opacity: 0; transform: scale(0.72); }
+    to { opacity: 1; transform: none; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__light { animation: lightUp 1.4s cubic-bezier(0.22, 0.61, 0.36, 1) both; }
+  }
+  /* Stacked layout: the card sits below the copy, so the light moves up to
+     the seam between them and the first screen is lit too. */
+  @media (max-width: 919px) {
+    .hero__light { width: 1200px; height: 1200px; margin: -600px 0 0 -600px; top: -40px; }
+  }
 
   /* ---------- Example drill card ---------- */
   .drill-card {
     position: relative;
     width: 100%;
     max-width: 520px;
-    background: #f7f5ee;
-    color: #23231f;
-    border: 1px solid rgba(35, 35, 31, 0.08);
-    border-radius: 20px;
+    background: var(--color-surface);
+    color: var(--color-text);
+    /* Drawn like the illustrations: one walnut line. */
+    border: 2px solid var(--color-text);
+    border-radius: var(--radius);
     padding: 28px;
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
   }
   .drill-card p { margin: 0; }
   .drill-card__label {
-    font-size: 0.8rem;
-    font-weight: 800;
-    letter-spacing: 0.11em;
-    text-transform: uppercase;
-    color: var(--amber-deep);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--color-text-muted);
     margin-bottom: 20px !important;
   }
   /* Captions above each box, the way messaging apps label a thread. */
@@ -433,11 +476,10 @@ import { homeFaqs } from '../data/faqs.js';
     position: relative;
     margin: 4px 0 4px 32px;
     padding: 16px 0 16px 18px;
-    font-size: 0.8rem;
-    font-weight: 800;
-    letter-spacing: 0.11em;
-    text-transform: uppercase;
-    color: var(--gray-500);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--color-text-muted);
   }
   .drill-card__then::before {
     content: '';
@@ -445,7 +487,7 @@ import { homeFaqs } from '../data/faqs.js';
     left: 0;
     top: 0;
     bottom: 0;
-    border-left: 2px dotted #c9c6bb;
+    border-left: 2px dotted var(--color-control-border);
   }
   /* Sender line inside the bubble, mirroring the mark + title in the coaching panel. */
   .drill-card__msg-head {
@@ -457,35 +499,38 @@ import { homeFaqs } from '../data/faqs.js';
     color: var(--gray-500);
     margin-bottom: 8px !important;
   }
-  /* Incoming text: soft gray bubble with an explicit tail at the bottom left.
-     Gray, not blue: blue is the sender's own message in most apps. */
+  /* Incoming text: soft oat bubble with an explicit tail at the bottom left
+     (the tail's fill in the markup must match). Not blue: blue is the
+     sender's own message in most apps, and dusk blue means coaching here. */
   .drill-card__msg {
     position: relative; margin: 0 18px 0 16px;
-    background: #ebe8df;
-    border-radius: 20px;
+    background: var(--color-band-alt);
+    border-radius: var(--radius);
     padding: 16px 18px;
   }
   .drill-card__tail { position: absolute; left: -16px; bottom: 0; }
   .drill-card__body { font-size: 1rem; line-height: 1.55; }
   .drill-card__body + .drill-card__body { margin-top: 8px !important; }
   /* Inert: a span, not an anchor. Nothing to focus, nowhere to go. */
-  .drill-card__fakelink { color: #4a5c85; text-decoration: underline; text-underline-offset: 3px; pointer-events: none; }
+  .drill-card__fakelink { color: var(--color-link); text-decoration: underline; text-underline-offset: 3px; pointer-events: none; }
+  /* Coaching is dusk blue, so amber never means "careful". */
   .drill-card__coach {
-    background: #fff0cf;
-    border-radius: 18px;
+    background: var(--color-coach-bg);
+    border-radius: var(--radius);
     padding: 18px 20px;
   }
   .drill-card__coach-title {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-weight: 800;
+    font-weight: 700;
     font-size: 1.05rem;
+    color: var(--color-coach-text);
     margin-bottom: 8px !important;
   }
   .drill-card__action { font-weight: 700; font-size: 1rem; line-height: 1.5; margin-top: 10px !important; }
   @media (max-width: 700px) {
-    .drill-card { padding: 20px; border-radius: 16px; }
+    .drill-card { padding: 20px; }
     .drill-card__msg, .drill-card__coach { padding: 16px; }
   }
 
@@ -493,106 +538,40 @@ import { homeFaqs } from '../data/faqs.js';
      the grid gap); balanced two-line wrap below that. */
   .hero .trust-line { text-wrap: balance; }
 
-  /* Radar: a 560px dial anchored in the top-right corner. Its center sits at
-     (right 64px, top 120px) so it stays clear of the report card down to
-     1280px wide, and clear of the headline on phones. */
-  .hero__radar {
-    position: absolute;
-    right: -216px;
-    top: -160px;
-    width: 560px;
-    height: 560px;
-    pointer-events: none;
-  }
-  .hero__radar > .radar-rings,
-  .hero__radar > .radar-sweep { inset: 0; }
-
-  /* Center dot: the logo's solid amber pupil, with a soft halo. */
-  .hero__center {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 18px;
-    height: 18px;
-    margin: -9px 0 0 -9px;
-    border-radius: 50%;
-    background: var(--amber);
-    box-shadow: 0 0 0 5px rgba(240, 161, 28, 0.16), 0 0 22px rgba(240, 161, 28, 0.45);
-  }
-
-  /* Contacts. Each sits at (--dx, --dy) from the center. The sweep line turns
-     once every 8s (spryRot on .radar-sweep), clockwise from 12 o'clock, so a
-     contact at angle A is reached at A/360 * 8s. A negative delay of
-     (A/360 * 8 - 8)s lands the flash exactly as the line passes, first pass
-     included. Placed in the regions that stay visible: the band above the
-     report card and the strip to its right. */
-  .hero__blip {
-    position: absolute;
-    left: calc(50% + var(--dx));
-    top: calc(50% + var(--dy));
-    width: 9px;
-    height: 9px;
-    margin: -4.5px 0 0 -4.5px;
-    border-radius: 50%;
-    background: var(--amber);
-    opacity: 0.22;
-    animation: spryRadarBlip 8s linear infinite;
-    animation-delay: var(--delay);
-  }
-  .hero__blip::after {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    border-radius: 50%;
-    border: 1.5px solid rgba(240, 161, 28, 0.85);
-    opacity: 0;
-    animation: spryRadarPing 8s linear infinite;
-    animation-delay: var(--delay);
-  }
-  .hero__blip--1 { --dx: -150px; --dy: -70px; --delay: -1.444s; }  /* 295.0deg */
-  .hero__blip--2 { --dx: 44px; --dy: -92px; --delay: -7.432s; width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px; }  /* 25.6deg */
-  .hero__blip--3 { --dx: 40px; --dy: 120px; --delay: -4.410s; }  /* 161.6deg */
-  @media (max-width: 919px) {
-    .hero__radar { opacity: 0.55; }
-  }
-
-  .hero h1 { color: var(--paper-bg); }
   .hero__metaphor {
     font-size: 1.3rem;
     font-weight: 700;
-    color: var(--amber);
+    color: var(--color-link);
     line-height: 1.3;
     letter-spacing: -0.01em;
     margin: 0 0 18px;
   }
 
   /* ---------- Stats: dots ---------- */
-  .section--stats { padding: 64px 0 56px; }
-  .dots { display: flex; gap: 9px; align-items: center; }
-  .dot { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid #b5b0a6; }
-  .dot--on { background: var(--amber); border-color: var(--amber); }
+  .section--stats { padding: 24px 0 88px; }
+  @media (max-width: 700px) { .section--stats { padding: 16px 0 72px; } }
+  /* A string of lights: seven of ten lit. */
+  .dots { display: flex; gap: 11px; align-items: center; padding-left: 4px; }
+  .dot { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--color-control-border); }
+  .dot--on { background: var(--amber); border-color: var(--amber); box-shadow: 0 0 0 4px rgba(240, 161, 28, 0.2); }
   .stats--anim .dot--on { opacity: 0.25; }
-  .stats--play .dot--on { animation: spryBlip 2.8s linear infinite; }
-  .stats--play .dot--on:nth-child(2) { animation-delay: 0.25s; }
-  .stats--play .dot--on:nth-child(3) { animation-delay: 0.5s; }
-  .stats--play .dot--on:nth-child(4) { animation-delay: 0.75s; }
-  .stats--play .dot--on:nth-child(5) { animation-delay: 1s; }
-  .stats--play .dot--on:nth-child(6) { animation-delay: 1.25s; }
-  .stats--play .dot--on:nth-child(7) { animation-delay: 1.5s; }
+  /* String of lights: each one comes on once, 80ms apart, then stays on. */
+  .stats--play .dot--on { animation: lampOn 0.3s ease-out both; }
+  .stats--play .dot--on:nth-child(2) { animation-delay: 0.08s; }
+  .stats--play .dot--on:nth-child(3) { animation-delay: 0.16s; }
+  .stats--play .dot--on:nth-child(4) { animation-delay: 0.24s; }
+  .stats--play .dot--on:nth-child(5) { animation-delay: 0.32s; }
+  .stats--play .dot--on:nth-child(6) { animation-delay: 0.4s; }
+  .stats--play .dot--on:nth-child(7) { animation-delay: 0.48s; }
 
-
-  /* ---------- Report band ---------- */
-  .report__radar {
-    left: -140px;
-    bottom: -180px;
-    width: 480px;
-    height: 480px;
-    background: repeating-radial-gradient(circle, transparent 0 35px, rgba(240, 161, 28, 0.14) 35px 36px);
-  }
 
   /* ---------- Promise ---------- */
-  .promise { display: flex; gap: 16px; align-items: flex-start; padding: 28px; }
-  .promise__blip { width: 10px; height: 10px; box-shadow: 0 0 0 4px rgba(240, 161, 28, 0.2); margin-top: 9px; }
+  /* The consent icon from the brand set, as in the guide's own card. */
+  .promise { display: flex; gap: 20px; align-items: flex-start; padding: 28px 32px; }
+  .promise__icon { flex: none; margin-top: 2px; }
+  @media (max-width: 700px) {
+    .promise { flex-direction: column; gap: 12px; padding: 24px; }
+  }
 
   /* ---------- How-it-works — expanding step carousel ---------- */
   .hiw {
@@ -625,7 +604,8 @@ import { homeFaqs } from '../data/faqs.js';
   }
   .hiw__card:hover { border-color: var(--line-strong); }
   @media (min-width: 1040px) {
-    .hiw__card.is-active { background: var(--ink); border-color: var(--ink); }
+    /* Active step: lit, not inverted. Glow fill with an amber line. */
+    .hiw__card.is-active { background: var(--color-tint); border-color: var(--amber); }
   }
   .hiw__card-num {
     width: 34px;
@@ -634,7 +614,7 @@ import { homeFaqs } from '../data/faqs.js';
     border: 1.5px solid var(--line-strong);
     background: transparent;
     color: var(--ink);
-    font-weight: 800;
+    font-weight: 700;
     font-size: 1rem;
     display: grid;
     place-items: center;
@@ -646,16 +626,13 @@ import { homeFaqs } from '../data/faqs.js';
   .hiw__card-body { display: block; min-width: 0; }
   .hiw__card-title {
     display: block;
-    font-weight: 800;
+    font-weight: 700;
     font-size: 1.1rem;
     letter-spacing: -0.01em;
     color: var(--ink);
     line-height: 1.25;
     padding-top: 5px;
     transition: color 0.25s ease;
-  }
-  @media (min-width: 1040px) {
-    .hiw__card.is-active .hiw__card-title { color: var(--paper-bg); }
   }
   /* Teaser: expands open on the active card (0fr → 1fr grid trick).
      Without JS every teaser stays open, so nothing is hidden. */
@@ -676,7 +653,6 @@ import { homeFaqs } from '../data/faqs.js';
   .hiw__card-teaser > span::before { content: ''; display: block; height: 7px; }
   @media (min-width: 1040px) {
     .hiw--js .hiw__card:not(.is-active) .hiw__card-teaser { grid-template-rows: 0fr; opacity: 0; }
-    .hiw__card.is-active .hiw__card-teaser > span { color: var(--gray-400); }
   }
   @media (max-width: 1039px) {
     .hiw__progress { display: none; }
@@ -700,9 +676,4 @@ import { homeFaqs } from '../data/faqs.js';
     transform-origin: left center;
   }
 
-  /* Final CTA (the page's second ink moment) gets the airy density step. */
-  :global(section.cta-band) { padding: 128px 0; }
-  @media (max-width: 700px) {
-    :global(section.cta-band) { padding: 88px 0; }
-  }
 </style>

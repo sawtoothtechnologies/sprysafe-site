@@ -47,7 +47,7 @@
           <span class="callcard__ring">
             <span class="callcard__rings"></span>
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <circle cx="10" cy="10" r="6.5" fill="none" stroke="#f0a11c" stroke-width="1.4" opacity="0.7" />
+              <circle cx="10" cy="10" r="6.5" fill="none" stroke="#332b23" stroke-width="1.6" />
               <circle cx="10" cy="10" r="2.2" fill="#f0a11c" />
             </svg>
           </span>
@@ -72,11 +72,9 @@
       <div class="scene" data-scene="3">
         <div class="beat notif" style="--d: 0.3s;">
           <span class="notif__icon">
-            <svg width="22" height="22" viewBox="0 0 40 40" fill="none">
-              <circle cx="20" cy="20" r="16" fill="none" stroke="#121110" stroke-width="3" />
-              <circle cx="20" cy="20" r="10" fill="none" stroke="#121110" stroke-width="1.6" opacity="0.45" />
-              <line x1="20" y1="20" x2="30.6" y2="9.4" stroke="#121110" stroke-width="2" stroke-linecap="round" />
-              <circle cx="20" cy="20" r="5.5" fill="#f0a11c" />
+            <svg width="22" height="22" viewBox="0 0 32 32">
+              <path d="M16 4 30 18h-6.6L16 10.6 8.6 18H2z" fill="#332b23" />
+              <circle cx="16" cy="21.2" r="5.3" fill="#f0a11c" />
             </svg>
           </span>
           <span class="notif__body">
@@ -125,20 +123,16 @@
   .phone { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 18px; }
 
   /* ---------- The device ----------
-     A thin, slightly brushed bezel with a hairline rim highlight, side
-     buttons, layered shadow for lift, and a screen with a camera island and
-     home indicator. Proportions sit close to a modern phone at this scale. */
+     Drawn the Lamplight way: a line drawing of a phone, not a dark slab.
+     One walnut outline, a white screen, a camera island and a home
+     indicator. No bezel gradient, no drop shadow. */
   .phone__frame {
     position: relative;
     width: min(312px, 86vw);
-    border-radius: 46px;
-    padding: 7px;
-    background: linear-gradient(160deg, #2e2b27 0%, #17160f 50%, #0d0c0a 100%);
-    box-shadow:
-      inset 0 0 0 1px rgba(255, 255, 255, 0.1),
-      0 1px 2px rgba(18, 17, 15, 0.22),
-      0 14px 28px -10px rgba(18, 17, 15, 0.35),
-      0 44px 80px -24px rgba(18, 17, 15, 0.5);
+    border-radius: 44px;
+    padding: 6px;
+    background: var(--color-surface);
+    border: 2.5px solid var(--color-text);
   }
   /* Side buttons: power on the right; volume up and down on the left (the
      second volume button is the box-shadow copy). */
@@ -148,21 +142,20 @@
     position: absolute;
     width: 3px;
     border-radius: 2px;
-    background: #26231f;
+    background: var(--color-text);
   }
-  .phone__frame::before { right: -3px; top: 138px; height: 64px; }
-  .phone__frame::after { left: -3px; top: 108px; height: 36px; box-shadow: 0 46px 0 #26231f; }
+  .phone__frame::before { right: -5.5px; top: 138px; height: 64px; }
+  .phone__frame::after { left: -5.5px; top: 108px; height: 36px; box-shadow: 0 46px 0 var(--color-text); }
 
   .phone__screen {
     position: relative;
     background: var(--paper-bg);
-    border-radius: 39px;
+    border-radius: 36px;
     min-height: 528px;
     padding: 12px 14px 12px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    box-shadow: inset 0 0 0 1px rgba(18, 17, 15, 0.06);
   }
   .phone__island {
     position: absolute;
@@ -199,7 +192,7 @@
     display: inline-block;
     width: 22px;
     height: 11px;
-    border: 1.5px solid rgba(18, 17, 15, 0.45);
+    border: 1.5px solid var(--color-control-border);
     border-radius: 3.5px;
   }
   .phone__battery::after {
@@ -210,7 +203,7 @@
     width: 1.5px;
     height: 4px;
     border-radius: 0 1px 1px 0;
-    background: rgba(18, 17, 15, 0.45);
+    background: var(--color-control-border);
   }
   .phone__battery i { position: absolute; top: 1.5px; bottom: 1.5px; left: 1.5px; width: 72%; border-radius: 1.5px; background: var(--ink); }
   .phone__home {
@@ -272,11 +265,11 @@
     border: 1px solid var(--line);
     border-bottom-left-radius: 5px;
     align-self: flex-start;
-    box-shadow: 0 1px 3px rgba(18, 17, 15, 0.06);
   }
+  /* The learner's own reply: honey, not a dark fill. */
   .bubble--out {
-    background: var(--ink);
-    color: var(--paper-bg);
+    background: var(--color-band);
+    color: var(--color-text);
     border-bottom-right-radius: 5px;
     align-self: flex-end;
     font-weight: 700;
@@ -284,13 +277,12 @@
   .bubble--scam { border-color: var(--line); background: var(--white); }
   .bubble__tag {
     display: inline-block;
-    font-size: 0.64rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--amber-deep);
-    background: var(--amber-tint);
-    border-radius: 5px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text);
+    background: var(--color-band-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-chip);
     padding: 2px 8px;
     margin-bottom: 6px;
   }
@@ -303,19 +295,19 @@
     align-items: center;
     gap: 8px;
     font-size: 0.8rem;
-    font-weight: 800;
-    color: var(--gray-700);
-    background: var(--sand);
-    border-radius: 7px;
+    font-weight: 700;
+    color: var(--color-text);
+    background: var(--color-band-alt);
+    border-radius: var(--radius-chip);
     padding: 6px 14px;
     text-align: center;
   }
   .chip--ok { color: var(--amber-deep); background: var(--amber-tint); }
   .chip .blip { width: 7px; height: 7px; box-shadow: 0 0 0 3px rgba(240, 161, 28, 0.25); }
   .banner {
-    background: var(--ink);
-    color: var(--paper-bg);
-    border-radius: 11px;
+    background: var(--color-tint);
+    color: var(--color-link);
+    border-radius: var(--radius-ctrl);
     padding: 11px 14px;
     font-size: 0.88rem;
     font-weight: 700;
@@ -330,9 +322,8 @@
     align-items: center;
     background: var(--white);
     border: 1px solid var(--line);
-    border-radius: 12px;
+    border-radius: var(--radius-ctrl);
     padding: 12px 14px;
-    box-shadow: 0 1px 3px rgba(18, 17, 15, 0.06);
   }
   .callcard__ring {
     position: relative;
@@ -340,7 +331,7 @@
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    background: var(--ink);
+    background: var(--color-tint);
     display: grid;
     place-items: center;
   }
@@ -355,7 +346,8 @@
   }
   .phone--anim .scene.is-active .callcard__rings,
   .phone--anim .scene.is-active .callcard__rings::after {
-    animation: ringPulse 1.4s ease-out infinite;
+    /* The simulated call rings twice and stops. Nothing loops. */
+    animation: ringPulse 1.4s ease-out 2;
     animation-delay: calc(var(--d, 0s) + 0.3s);
   }
   .phone--anim .scene.is-active .callcard__rings::after { animation-delay: calc(var(--d, 0s) + 1s); }
@@ -373,12 +365,11 @@
     align-items: flex-start;
     background: var(--white);
     border: 1px solid var(--line);
-    border-radius: 12px;
+    border-radius: var(--radius-ctrl);
     padding: 13px 14px;
-    box-shadow: 0 1px 3px rgba(18, 17, 15, 0.06);
   }
   .notif__icon { flex: none; display: grid; place-items: center; padding-top: 2px; }
   .notif__body { font-size: 0.86rem; line-height: 1.45; color: var(--gray-700); }
   .notif__body strong { display: block; color: var(--ink); font-size: 0.92rem; margin-bottom: 2px; }
-  .notif__delta { color: var(--amber-deep); font-weight: 800; }
+  .notif__delta { color: var(--amber-deep); font-weight: 700; }
 </style>

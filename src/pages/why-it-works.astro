@@ -114,7 +114,7 @@ import CtaBand from '../components/CtaBand.astro';
     padding-bottom: 44px;
   }
   .case-step:last-child { padding-bottom: 0; }
-  /* The connecting trace between nodes. */
+  /* The line connecting the nodes. */
   .case-step::before {
     content: '';
     position: absolute;
@@ -122,7 +122,7 @@ import CtaBand from '../components/CtaBand.astro';
     top: 52px;
     bottom: 6px;
     width: 1.5px;
-    background: var(--line-strong, var(--line));
+    background: var(--color-border);
   }
   .case-step:last-child::before { display: none; }
   .case-step__num {
@@ -137,13 +137,13 @@ import CtaBand from '../components/CtaBand.astro';
     border: 1.5px solid var(--amber);
     color: var(--amber-deep);
     font-family: var(--font-display);
-    font-weight: 800;
+    font-weight: 700;
     font-size: 1.05rem;
   }
   .case-step__body h2 { margin: 8px 0 10px; font-size: 1.45rem; }
   .case-step__body p { margin: 0; }
 
-  /* Scroll-in: node lands with a one-time ping, body rises after — the same
+  /* Scroll-in: the node appears, then the body rises after it, once. The same
      grammar as the Resilience Report card. Classes are armed by JS only when
      motion is allowed, so the hidden states never apply without JS. */
   .case-step--anim .case-step__num,
@@ -154,25 +154,10 @@ import CtaBand from '../components/CtaBand.astro';
   .case-step.is-in .case-step__body {
     animation: caseRise 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) 0.12s forwards;
   }
-  .case-step.is-in .case-step__num::after {
-    content: '';
-    position: absolute;
-    inset: -14px;
-    border-radius: 50%;
-    border: 1.5px solid rgba(240, 161, 28, 0.8);
-    opacity: 0;
-    pointer-events: none;
-    animation: casePing 0.9s cubic-bezier(0, 0, 0.2, 1) 0.25s forwards;
-  }
   @keyframes caseRise {
     from { opacity: 0; transform: translateY(12px); }
     to { opacity: 1; transform: none; }
   }
-  @keyframes casePing {
-    from { transform: scale(0.55); opacity: 0.9; }
-    to { transform: scale(1); opacity: 0; }
-  }
-
   @media (max-width: 560px) {
     .case-step { grid-template-columns: 36px minmax(0, 1fr); gap: 0 16px; }
     .case-step__num { width: 36px; height: 36px; font-size: 0.95rem; }

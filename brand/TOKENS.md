@@ -1,105 +1,162 @@
-# ScamPrep brand — "Signal · Amber" v1.0
+# ScamPrep brand: "Lamplight" v2.0
 
-Adopted 2026-08-04. Replaces "Evergreen Modern" (pine green / Plus Jakarta Sans / pill buttons).
+Adopted 2026-10-04. Replaces "Signal Amber" v1.0 (ink surfaces, radar, ping, trace).
 Implemented in `src/styles/global.css`; this file is the human-readable source of truth.
+The full visual guide (logo, icons, illustration, applications) is
+`brand/scamprep-brand-guide.html`. Open it in a browser.
 **If you change a token, change it in both places.**
 
 ## The idea
 
-One typeface, warm near-black, radar amber, signal red. Amber is a *signal*, not a theme.
+Amber is the light left on at home. The same paper, type, and amber as before, now steady
+and warm instead of sweeping and watchful. No radar, no dark surfaces, no surveillance tone.
 
-Three motifs, one job each — **never two on the same surface**:
+Three hard rules:
+
+1. **No dark surfaces.** Walnut ink is for text and thin lines only. Never a background,
+   not even the footer.
+2. **Nothing loops.** A light that blinks is an alarm. Motion settles once and holds still.
+3. **No people or faces** in illustration. Draw objects from a home: a lamp, a table, a mug,
+   a phone. Three objects per scene at most.
+
+Three motifs, none of which looks at anyone:
 
 | Motif | Means | Where |
 | --- | --- | --- |
-| **Radar** | state — "always watching" | ink surfaces only: hero, report band, final CTA |
-| **Ping** | event — "something happened" | the one primary CTA per page; confirmations |
-| **Trace** | data — "the record" | charts, progress, stat graphics |
+| **Steady light** | ongoing status | a small amber dot that is simply on (`.blip`) |
+| **Lit button** | the one primary action | the amber button with a soft, still glow (`.btn--primary`) |
+| **String of lights** | progress data | rows of dots: lit means spotted, an open ring means coached |
 
 ## Color
 
-| Token | Value | Use |
-| --- | --- | --- |
-| ink | `#121110` | text, dark surfaces, standard primary buttons |
-| amber | `#F0A11C` | THE accent — one amber moment per viewport; fills, blips, sweeps |
-| amber-deep | `#6E4A0A` | amber-toned text on light backgrounds |
-| amber-text | `#8A5D0A` | links on light |
-| amber-tint | `#F9E9C9` | badge fills ("Mostly strong ↑") |
-| amber-row | `#FDF4E1` | highlighted table row |
-| alert | `#B3362E` | errors + "coached" moments ONLY — never decoration |
-| paper | `#F8F7F4` | page background |
-| sand | `#EFEDE8` | alternate section band |
-| line | `#E7E5E0` | borders/dividers |
-| gray-700 / 500 / 400 | `#55524C` / `#84817B` / `#A3A09A` | body / muted / on-dark text |
-| on-dark line / muted | `#33302B` / `#4D4841` | borders + dimmed elements on ink |
+| Name | Token | Value | Use |
+| --- | --- | --- | --- |
+| Paper | `--color-bg` | `#F8F7F4` | page background |
+| White | `--color-surface` | `#FFFFFF` | cards and inputs |
+| Honey | `--color-band` | `#F9E3AE` | the one deeper band (use once per page) |
+| Oat | `--color-band-alt` | `#F4ECD9` | alternate band, tags, footer |
+| Glow | `--color-tint` | `#FBEFD3` | soft fills, strong badge, active states, closing band |
+| Walnut ink | `--color-text` | `#332B23` | text and thin lines, never a surface |
+| Pencil | `--color-text-muted` | `#675B4C` | muted text, labels |
+| Amber | `--color-primary` | `#F0A11C` | primary button fill, lights |
+| Deep amber | `--color-link` | `#6E4A0A` | links, amber-toned text, strong state text, focus ring |
+| Dusk | `--color-coach-text` | `#2F4A73` | coaching state text |
+| Dusk tint | `--color-coach-bg` | `#E8EEF6` | coaching state fill |
+| Line | `--color-border` | `#E3E0D9` | borders, dividers |
+| Control line | `--color-control-border` | `#8A857C` | input borders, unlit lights |
 
-Rules: amber never carries body text. On light surfaces amber text is always `#6E4A0A`.
-One amber moment per viewport. Red only for coached moments and errors.
+Rules: amber never carries text on a light surface; amber text is always deep amber.
+Coaching uses dusk blue, so amber never means "careful." Every text pair above passes
+WCAG AA on every surface above (pencil on honey is the tightest at 5.2:1).
 
-## Type — Manrope, one family
+Not in the guide, kept on purpose: `--alert` `#B3362E` for **form errors only**. The guide
+has no error color, and a form still needs one. It must never be used for coached moments.
 
-Loaded from Google Fonts at 400/500/600/700/800 in `Base.astro`.
+## Type: Manrope, one family
 
-- display: 800 / −0.04em / clamp(2.3–3.4rem)
-- h2: 800 / −0.03em · h3: 800 / −0.02em
+Loaded from Google Fonts at 400/500/600/700 in `Base.astro`. Nothing heavier than 700.
+
+- display: 700 / 36 to 52px / 1.08 / -0.03em
+- h2: 700 / 32px / 1.15 / -0.02em
+- h3: 700 / 22px / 1.25 / -0.01em
 - body: 400 / 17px / 1.65
-- UI: 600–700 / 15px
-- eyebrow: 800 / 11–12px / 0.13em uppercase (amber-text on light, amber on dark)
-- data numbers: 800 / −0.03em
+- small: 400 / 16px / 1.55
+- label: 600 / 15px / 1.3, **sentence case** (this replaced the uppercase eyebrow; `.kicker`)
+
+No uppercase, no letter-spaced caps, anywhere.
 
 ## Shape, spacing, motion
 
-- Radius: **6** chips/tags · **9** buttons/inputs/rows · **14** cards. Blips and gauges are circles.
-  No pills except toggle switches.
-- Spacing: 4px base (8 / 12 / 16 / 24 / 32 / 48). Sections on a 56 / 88 / 128 density scale —
-  56 for connective strips, 88 default, 128 for ink moments (stats band stays 64px). Content max 1120px.
-- Motion: radar sweep 6–10s linear · ping 2.4–2.7s ease-out · trace draw 3.8s **once, on scroll**
-  (the design reference loops it; production plays it once) · UI transitions 150ms.
-- All motion sits behind `prefers-reduced-motion`. Count-ups are skipped entirely under it.
+- Radius: **6** tags · **10** buttons, inputs, rows · **16** cards. No pills except toggle switches.
+- Cards use a 1px line and no shadow. The only shadow in the system is the amber glow under
+  the primary button (`--shadow-primary`).
+- Spacing: 4px base (4 / 8 / 12 / 16 / 24 / 32 / 48 / 64). Sections 56 or 88px. Content max 1120px.
+- Tap targets 44px at minimum. Buttons and inputs are 48px tall.
+- Motion: the primary button's glow fades up over 900ms on load and holds. Lights in a row
+  come on one at a time, 80ms apart, once, when scrolled into view. Hover and focus changes
+  take 150ms ease-out. With reduced motion on, everything appears in its final state.
 
-## Usage rules — quick reference
+## Usage rules: quick reference
 
-- One motif per surface: radar on dark heroes, ping on the primary action, trace on data. Never two.
-- The amber fill is reserved for the one conversion action on a page; every other primary is ink.
-- Blip dots replace icons for status. No emoji, no checkmark circles.
-- Minimum body size 16px; hit targets 44px+ (the audience skews older).
-- Every participant-facing simulation artifact is labeled "Illustrative report" / "Simulated".
+- One amber button per view: the primary button. Every other button is outlined (white,
+  walnut line).
+- Active or selected states are lit, not inverted: glow fill with an amber line.
+- Coached items are dusk blue (open ring, dusk text, dusk tint fill). Never red, never amber.
+- Minimum body size 16px (the audience skews older).
+- Every simulated artifact is labeled ("Illustrative report", "Simulated").
+- Logo: never on a dark surface, never recolored, never outlined, no glow or shadow. Below
+  24px tall, use the symbol alone. Clear space equals the width of the light.
 
-## Known deviations from the design reference
+## How the site keeps Lamplight from going flat (added 2026-10-05)
 
-Recorded deliberately so nobody "fixes" them back:
+A straight token swap left every surface in one narrow, pale value range. These six moves
+put the contrast back without a single dark surface. Keep them when adding pages.
 
-1. **Hero fine print is 0.8rem, not 0.75rem.** The reference sets 12px; the system's own
-   legibility floor says otherwise for this audience. Split the difference and revisit.
-2. **The how-it-works steps stay an interactive carousel.** The reference shows a static
-   four-card stack — which is the carousel with step 1 active. The interaction (synced with the
-   phone demo) is existing product behavior and was not in scope to remove.
-3. **Source links are real URLs.** The reference replaced the live FTC / PNAS Nexus / AP-NORC /
-   FBI links with `href="#"`. Live links were kept — unsourced statistics are a credibility risk
-   for a fraud-prevention brand.
-4. **Two pinging CTAs exist on the homepage** (hero + final band), per the reference. They are
-   never in the viewport at the same time, which satisfies the "never two pings in view" rule.
-5. **Keyframe names keep the `spry` prefix** (`spryRot`, `spryPing`, `spryDash`, `spryBlip`,
-   `spryPingBtn`) to match the design handoff verbatim. Rename in a later pass if desired.
+1. **One pool of light in the hero.** A large, soft elliptical gradient sits behind the
+   homepage drill card: warm amber at the centre, honey around it, gone before the edges
+   (`.hero__light` in `index.astro`). It spreads and fades up once when the page opens,
+   then holds. There is deliberately no lamp drawing: the light itself is the motif.
+2. **Product artifacts are drawn, not boxed.** The drill card, the Resilience Report, the
+   phone, pricing cards and the simulated mock cards carry a 1.5 to 2.5px walnut outline,
+   the same line as the illustrations. Ordinary content cards keep the 1px line.
+3. **Tinted sections are panels, not stripes.** `.section--paper` (oat) and
+   `.section--band` (honey) are rounded panels set into the paper, 32px radius. A page is
+   mostly paper and white, with one honey panel at most.
+4. **Icons yes, sticker illustrations no.** The brand icon set marks the steps and drill
+   examples on How it works and the consent promise on the homepage. The guide's
+   home-object illustrations were tried at thumbnail size (a lamp on the hero card, a door,
+   a letter) and removed on 2026-10-05: small, they read as clip art. Use them only where
+   one can be large enough to carry a section, or off-site (share image, email, print).
+5. **String of lights for counts.** The Resilience Report shows one light per drill
+   (`.lights`; 12 lit, 3 open dusk rings). Stat pictographs use the same lights.
+6. **One saturated moment per page: the closing band.** `CtaBand` is full amber with an
+   arched top edge and walnut text (6.5:1). **This knowingly bends the guide's "the button
+   is the only amber fill" rule**, once per page, and its button turns white with a walnut
+   line. Do not add a second amber surface to a page.
 
-## Legacy aliases — read before deleting
+## Implementation notes: read before editing `global.css`
 
-`global.css` keeps the Evergreen variable names as aliases so unmigrated components restyle in
-place. Two of them changed **meaning**, not just value:
+**Legacy names are aliases.** `global.css` keeps the Signal Amber variable names
+(`--ink`, `--gray-700`, `--amber-tint`, `--sand`, ...) and the older Evergreen names
+(`--pine-deep`, `--ink-soft`, ...) pointing at Lamplight values, so existing components
+restyle in place. New work should use the `--color-*` names. Three aliases changed
+**meaning**, not just value:
 
-- `--ok` was a green; it is now `--amber-deep` (a brown-gold **text** color).
-- `--warn` was a gold; it is now `--alert` (red).
+- `--ink` was a surface color. It is now text and thin lines only. Never write
+  `background: var(--ink)` on anything bigger than a glyph.
+- `--gray-400` was "text on ink." It is now simply muted text (same as `--gray-500`).
+- `--alert` was "errors and coached moments." It is now form errors only.
 
-Any future component using them as a **fill** must be reviewed, not just recolored. As of v1.0
-every in-repo usage is a text color.
+**Legacy class names survive too.** `.section--ink` is now the honey band (prefer
+`.section--band`), `.section--paper` is the oat band, `.btn--ink` is an outlined button,
+`.blip--alert` is the open dusk ring for a coached item, and `ReportCard`'s
+`tone="dark"` prop no longer changes anything visible.
+
+**The radar and ping markup is gone.** It was removed from every template on 2026-10-05.
+
+## Layout rhythm
+
+- Two plain paper sections in a row share one gap (the second drops its top padding).
+- The footer is paper with a hairline, so the amber closing band is the last color on a page.
+- Body text is walnut everywhere. Pencil is for labels and fine print only.
+
+## Still open
+
+- Coaching panels still carry the logo symbol; the guide's lightbulb "coaching tip" icon is
+  an option.
+- Interior page heroes (About, Pricing, Advisors) are plain paper with no light.
+- Copy items to review, not changed: "trend line" on the pricing page (the report shows
+  lights and a status, not a line), and the two USPS examples on the homepage quote
+  different fees ($1.95 in the hero card, $1.99 in the phone demo).
 
 ## Assets
 
-- `brand/logo-ink.svg` — radar-dial mark for light backgrounds
-- `brand/logo-on-dark.svg` — same mark, near-white strokes, for ink backgrounds
-- `public/favicon.svg` — on-dark variant on an ink rounded square
-- `public/apple-touch-icon.png` — 180×180 raster of the same
-- `public/og.png` — 1200×630 social share card (regenerate if the tagline changes)
+- `brand/logo-horizontal.svg`, `brand/logo-stacked.svg`, `brand/logo-one-color.svg`:
+  lockups with the wordmark outlined to paths, so they render without the font
+- `brand/symbol.svg`: the roof with the light on
+- `brand/favicon.svg` and `public/favicon.svg`: symbol on an amber rounded square, white light
+- `public/apple-touch-icon.png`: 180×180, same mark on a full-bleed amber square
+- `public/og.png`: 1200×630 share card (regenerate if its headline changes)
+- `brand/scamprep-brand-guide.html`: the full guide
 
-Inline the mark rather than linking it where it needs to inherit color (header uses
-`currentColor`). Drop the inner ring below ~20px.
+The site header and footer inline the symbol next to live "ScamPrep" text in Manrope 700.

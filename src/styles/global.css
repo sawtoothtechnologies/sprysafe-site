@@ -1,69 +1,95 @@
 /* ============================================================
-   ScamPrep design system — "Signal · Amber" v1.0 (2026-08-04)
-   Warm near-black ink, radar amber accent, Manrope only.
-   Motifs: radar = state, ping = event, trace = data.
+   ScamPrep design system: "Lamplight" v2.0 (2026-10-04)
+   Amber is the light left on at home. Paper, walnut ink, one
+   accent, Manrope. Steady and warm; nothing sweeps or blinks.
+   Motifs: steady light = status, lit button = the one primary
+   action, string of lights = progress data.
 
-   Replaces "Evergreen Modern" (pine / Plus Jakarta Sans / pills).
-   Legacy variable names are kept as ALIASES at the bottom of
-   :root so any component not yet migrated restyles in place.
+   Replaces "Signal Amber" v1.0 (ink surfaces, radar, ping, trace).
+   Hard rules: no dark surfaces (walnut ink is for text and thin
+   lines only), no looping animation, amber never carries text.
    Canonical token reference: /brand/TOKENS.md
    ============================================================ */
 
 :root {
-  /* Color — new tokens */
-  --ink: #121110;
-  --ink-2: #33302b;
-  --ink-3: #4d4841;
-  --gray-700: #55524c;
-  --gray-500: #6b6862; /* muted text on light surfaces. Was #84817b, which
-                          measured 3.3 to 3.9:1 on paper, sand, and white; this
-                          passes 4.5:1 on all three. On ink use --gray-400. */
-  --gray-400: #a3a09a;
-  --amber: #f0a11c;
-  --amber-deep: #6e4a0a;
-  --amber-text: #8a5d0a;
-  --amber-tint: #f9e9c9;
-  --amber-row: #fdf4e1;
-  --alert: #b3362e;
+  /* ---- Lamplight tokens (the names to use going forward) ---- */
+  --color-bg: #f8f7f4;            /* paper */
+  --color-surface: #ffffff;       /* cards and inputs */
+  --color-band: #f9e3ae;          /* honey: the one deeper band */
+  --color-band-alt: #f4ecd9;      /* oat: alternate band, tags */
+  --color-tint: #fbefd3;          /* glow: soft fills, strong badge */
+  --color-text: #332b23;          /* walnut ink: text and thin lines only */
+  --color-text-muted: #675b4c;    /* pencil */
+  --color-primary: #f0a11c;       /* amber: primary button fill */
+  --color-on-primary: #332b23;
+  --color-link: #6e4a0a;          /* deep amber */
+  --color-strong-bg: #fbefd3;
+  --color-strong-text: #6e4a0a;
+  --color-coach-bg: #e8eef6;      /* dusk tint */
+  --color-coach-text: #2f4a73;    /* dusk: coaching, so amber never says "careful" */
+  --color-border: #e3e0d9;
+  --color-control-border: #8a857c;
+  --color-focus: #6e4a0a;
+  --shadow-primary: 0 0 0 6px rgba(240, 161, 28, 0.18), 0 12px 26px -10px rgba(240, 161, 28, 0.8);
+  --control-height: 48px;
+  --transition: 150ms ease-out;
+
+  /* ---- Signal Amber names, kept as ALIASES so every existing
+     component restyles in place. Values now point at Lamplight.
+     NOTE: three of these changed MEANING, not just value:
+     --ink was a surface color and is now text/thin lines only
+       (never `background: var(--ink)` on anything bigger than a glyph);
+     --gray-400 was "text on ink" and is now simply muted text;
+     --alert is for form errors only. Coached moments use
+       --color-coach-text / --color-coach-bg (dusk blue). ---- */
+  --ink: var(--color-text);
+  --ink-2: var(--color-border);
+  --ink-3: var(--color-control-border);
+  --gray-700: var(--color-text);        /* body text is walnut ink */
+  --gray-500: var(--color-text-muted);
+  --gray-400: var(--color-text-muted);
+  --amber: var(--color-primary);
+  --amber-deep: var(--color-link);
+  --amber-text: var(--color-link);
+  --amber-tint: var(--color-tint);
+  --amber-row: var(--color-tint);
+  --alert: #b3362e;                     /* form errors only */
   --alert-tint: #fbf0ef;
   --alert-line: #e5b5b1;
-  --paper-bg: #f8f7f4;
-  --sand: #efede8;
-  --line: #e7e5e0;
-  --line-strong: #d9d6d0;
-  --divider: #ded9d0;
-  --white: #ffffff;
+  --paper-bg: var(--color-bg);
+  --sand: var(--color-band-alt);
+  --line: var(--color-border);
+  --line-strong: var(--color-control-border);
+  --divider: var(--color-border);
+  --white: var(--color-surface);
 
-  /* Legacy aliases (Evergreen names → Signal Amber values).
-     Keep until every usage is migrated, then delete.
-     NOTE: --ok and --warn changed MEANING, not just value:
-     --ok was a green, it is now amber-deep (a brown-gold text
-     color); --warn was a gold, it is now the alert red. Any
-     component using them as a FILL must be reviewed, not just
-     recolored. As of v1.0 all in-repo usages are text colors. */
-  --pine: var(--ink);
-  --pine-deep: var(--ink);
-  --pine-soft: var(--amber-text);
-  --sage: var(--gray-500);
-  --sage-pale: var(--gray-400);
-  --cream: var(--paper-bg);
-  --paper: var(--sand);
-  --ink-soft: var(--gray-700);
-  --ok: var(--amber-deep);
+  /* Evergreen-era aliases (two systems back). Still referenced by
+     pricing, about and OrgPricing; delete once those are migrated. */
+  --pine: var(--color-text);
+  --pine-deep: var(--color-text);
+  --pine-soft: var(--color-link);
+  --sage: var(--color-text-muted);
+  --sage-pale: var(--color-text-muted);
+  --cream: var(--color-bg);
+  --paper: var(--color-band-alt);
+  --ink-soft: var(--color-text);          /* was the body-text gray; body text is walnut now */
+  --ok: var(--color-link);
   --warn: var(--alert);
 
-  /* Type — Manrope only; hierarchy from weight + tracking */
-  --font-display: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-body: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* Type: Manrope only; 700 at most, tracking opened up */
+  --font-display: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
-  /* Rhythm */
-  --radius-chip: 6px;
-  --radius-ctrl: 9px;   /* buttons, inputs, drill rows */
-  --radius: 14px;       /* cards */
-  --radius-lg: 14px;
+  /* Shape */
+  --radius-chip: 6px;   /* tags */
+  --radius-ctrl: 10px;  /* buttons, inputs, rows */
+  --radius: 16px;       /* cards */
+  --radius-lg: 16px;
+  /* Cards use a 1px line and no shadow. The only shadow in the system
+     is the amber glow under the primary button (--shadow-primary). */
   --shadow: none;
-  --shadow-lg: 0 24px 56px rgba(18, 17, 15, 0.18);
-  --shadow-float: 0 24px 56px rgba(0, 0, 0, 0.35); /* light cards on ink */
+  --shadow-lg: none;
+  --shadow-float: none;
   --maxw: 1120px;
   --maxw-text: 46rem;
 }
@@ -81,23 +107,23 @@ body {
   font-family: var(--font-body);
   font-size: 1.0625rem; /* 17px — generous for older readers */
   line-height: 1.65;
-  color: var(--gray-700);
-  background: var(--paper-bg);
+  color: var(--color-text);
+  background: var(--color-bg);
   -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
-  font-weight: 800;
-  line-height: 1.12;
+  font-weight: 700;
+  line-height: 1.15;
   color: var(--ink);
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   margin: 0 0 0.5em;
 }
-h3, h4 { letter-spacing: -0.02em; }
-h1 { font-size: clamp(2.3rem, 4.8vw, 3.4rem); line-height: 1.08; letter-spacing: -0.035em; }
-h2 { font-size: clamp(1.7rem, 3.3vw, 2.3rem); }
-h3 { font-size: 1.35rem; }
+h3, h4 { letter-spacing: -0.01em; line-height: 1.25; }
+h1 { font-size: clamp(2.25rem, 5.2vw, 3.25rem); line-height: 1.08; letter-spacing: -0.03em; }
+h2 { font-size: clamp(1.7rem, 3.3vw, 2rem); }
+h3 { font-size: 1.375rem; }
 
 p { margin: 0 0 1em; }
 a { color: var(--amber-text); text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
@@ -105,137 +131,112 @@ a:hover { color: var(--amber-deep); }
 img { max-width: 100%; height: auto; }
 ::selection { background: var(--amber); color: var(--ink); }
 
-/* Keyboard focus is always visible, everywhere. The amber ring on inputs
-   below is decorative reinforcement — this is the accessibility floor. */
+/* Keyboard focus is always visible, everywhere. Deep amber, not amber:
+   amber on paper is only 2:1 and would vanish for low-vision users. */
 :focus-visible {
-  outline: 3px solid var(--amber);
+  outline: 3px solid var(--color-focus);
   outline-offset: 2px;
   border-radius: 2px;
 }
 
-/* ---------- Motion primitives ---------- */
-@keyframes spryRot { to { transform: rotate(360deg); } }
-/* The CTA ping grows by a fixed 14px on every side (animating inset, not
-   scale), so the ring stays an even distance from a wide button instead of
-   flaring at the ends and barely moving at the top and bottom. */
-@keyframes spryPingBtn {
-  0% { inset: 0; border-radius: 9px; opacity: 0.7; }
-  100% { inset: -14px; border-radius: 23px; opacity: 0; }
+/* ---------- Motion primitives ----------
+   Lamplight motion: things settle once and then hold still. Nothing loops.
+   glowSettle = the primary button's halo fading up on load.
+   lampOn     = one light in a row of lights coming on (stagger 80ms). */
+@keyframes glowSettle {
+  from { box-shadow: 0 0 0 0 rgba(240, 161, 28, 0), 0 0 0 0 rgba(240, 161, 28, 0); }
 }
-@keyframes spryBlip { 0%, 8% { opacity: 1; } 45%, 100% { opacity: 0.25; } }
-/* Radar contact: pops the instant the sweep line reaches it (the 100% -> 0%
-   wrap is the flash), then fades as the trail passes. Pair with a delay so
-   0% lines up with the sweep angle. spryRadarPing is the ring that expands
-   off the contact at the same moment. */
-@keyframes spryRadarBlip {
-  0% { opacity: 1; transform: scale(1.35); }
-  8% { opacity: 1; transform: scale(1); }
-  45%, 100% { opacity: 0.22; transform: scale(0.9); }
-}
-@keyframes spryRadarPing {
-  0% { opacity: 0.85; transform: scale(1); }
-  22%, 100% { opacity: 0; transform: scale(3.4); }
-}
+@keyframes lampOn { from { opacity: 0.25; } to { opacity: 1; } }
 
 /* ---------- Motif utilities ---------- */
-/* Status blip: <span class="blip"></span> / .blip--alert / .blip--pending */
+/* Steady light: <span class="blip"></span>. A small amber light that is
+   simply on. It never blinks, sweeps, or pulses.
+   .blip--alert is the legacy class name for a COACHED item: an open dusk
+   ring ("lit means spotted, an open ring means coached").
+   .blip--pending is an unlit light. */
 .blip {
   display: inline-block;
   width: 8px; height: 8px;
   border-radius: 50%;
   background: var(--amber);
-  box-shadow: 0 0 0 3px rgba(240, 161, 28, 0.18);
+  box-shadow: 0 0 0 3px rgba(240, 161, 28, 0.2);
   flex: none;
 }
-.blip--alert { background: var(--alert); box-shadow: 0 0 0 3px rgba(179, 54, 46, 0.16); }
-.blip--pending { background: transparent; border: 1.5px solid var(--gray-400); box-shadow: none; }
+.blip--alert { background: transparent; border: 2px solid var(--color-coach-text); box-shadow: none; }
+.blip--pending { background: transparent; border: 1.5px solid var(--color-control-border); box-shadow: none; }
 
-/* Ping ring for the ONE primary CTA per page:
-   <span class="ping-wrap"><span class="ping-ring"></span><a class="btn btn--primary">…</a></span> */
-.ping-wrap { position: relative; display: inline-block; }
-.ping-wrap > .btn { position: relative; z-index: 1; }
-.ping-ring {
-  position: absolute; inset: 0;
-  border-radius: var(--radius-ctrl);
-  border: 1.5px solid rgba(240, 161, 28, 0.8);
-  animation: spryPingBtn 2.6s cubic-bezier(0, 0, 0.2, 1) infinite;
-  pointer-events: none;
-}
-
-/* Radar layers for dark sections (parent needs position:relative + overflow:hidden) */
-.radar-rings, .radar-sweep {
-  position: absolute;
+/* String of lights: <div class="lights"><i></i>…<i class="c"></i></div>.
+   Each light is one item. Lit means spotted; an open dusk ring (.c) means
+   coached. Counts you can see at a glance. */
+.lights { display: flex; flex-wrap: wrap; gap: 10px 9px; padding: 4px; }
+.lights i {
+  width: 16px; height: 16px;
   border-radius: 50%;
-  pointer-events: none;
+  background: var(--amber);
+  box-shadow: 0 0 0 4px rgba(240, 161, 28, 0.2);
+  flex: none;
 }
-.radar-rings { background: repeating-radial-gradient(circle, transparent 0 41px, rgba(240, 161, 28, 0.22) 41px 42px); }
-/* The sweep turns clockwise. The bright edge at 0deg is the line; the wedge
-   behind it (270deg to 360deg) is its fading trail, so the trail follows the
-   line the way a real radar's does. */
-.radar-sweep {
-  background: conic-gradient(
-    from 0deg,
-    rgba(240, 161, 28, 0.55) 0deg,
-    rgba(240, 161, 28, 0.3) 1.2deg,
-    transparent 2deg,
-    transparent 270deg,
-    rgba(240, 161, 28, 0.3) 360deg
-  );
-  animation: spryRot 8s linear infinite;
-}
+.lights i.c { background: var(--color-surface); border: 2.5px solid var(--color-coach-text); box-shadow: none; }
 
 /* ---------- Layout helpers ---------- */
 .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
-/* Density scale — assigned per page for cadence, not a metronome:
-   --tight 56 (connective strips) · 88 (default) · --air 128 (ink moments). */
+/* Density scale: 56 for connective strips, 88 default. (.section--air was
+   Signal Amber's 128px "ink moment" step; Lamplight has two steps only.) */
 .section { padding: 88px 0; }
 .section--tight { padding: 56px 0; }
-.section--air { padding: 128px 0; }
+.section--air { padding: 88px 0; }
 @media (max-width: 700px) {
   .section { padding: 72px 0; }
-  .section--air { padding: 80px 0; }
+  .section--air { padding: 72px 0; }
 }
-.section--paper { background: var(--sand); }
+/* Two plain (paper) sections in a row share one gap instead of stacking
+   two. With no band between them, doubled padding reads as a hole. */
+.section:not(.section--paper, .section--band, .section--ink, .section--pine)
+  + .section:not(.section--paper, .section--band, .section--ink, .section--pine) { padding-top: 0; }
 
-/* The ink band. `.section--pine` is the legacy class name kept so existing
-   pages restyle without edits; `.section--ink` is the name to use going forward. */
+/* Tinted sections are PANELS, not full-width stripes: a rounded pool of
+   color set into the paper, so a page is mostly paper and white with a few
+   shaped moments. The inner .wrap is narrower than the panel, so content
+   lines up with every other section.
+
+   .section--paper = oat panel (class name predates the palette).
+   .section--band  = honey panel, the one deeper moment; use once per page.
+   .section--ink / .section--pine are legacy names for the honey panel from
+   the dark-surface systems. There are no dark surfaces any more. */
+.section--paper,
+.section--band,
 .section--ink,
 .section--pine {
-  background: var(--ink);
-  color: var(--gray-400);
+  width: min(100% - 24px, 1280px);
+  margin-inline: auto;
+  border-radius: 32px;
   position: relative;
   overflow: hidden;
 }
-.section--ink h2, .section--ink h3,
-.section--pine h2, .section--pine h3 { color: var(--paper-bg); }
-.section--ink a, .section--pine a { color: var(--gray-400); }
-.section--ink a:hover, .section--pine a:hover { color: var(--amber); }
-/* ...but buttons and light-surface cards sitting on an ink band keep their
-   own colors. Without these, `.section--ink a` (0,1,1) out-specifies
-   `.btn--primary` (0,1,0) and washes the CTA label out to gray. */
-.section--ink .btn--primary, .section--pine .btn--primary,
-.section--ink .btn--primary:hover, .section--pine .btn--primary:hover { color: var(--ink); }
-.section--ink .btn--ink, .section--pine .btn--ink,
-.section--ink .btn--ink:hover, .section--pine .btn--ink:hover { color: var(--paper-bg); }
-.section--ink .card a, .section--pine .card a,
-.section--ink .report a, .section--pine .report a { color: var(--amber-text); }
-.section--ink .card a:hover, .section--pine .card a:hover,
-.section--ink .report a:hover, .section--pine .report a:hover { color: var(--amber-deep); }
-.section--ink .kicker, .section--pine .kicker { color: var(--amber); }
+@media (max-width: 700px) {
+  .section--paper, .section--band, .section--ink, .section--pine { width: calc(100% - 16px); border-radius: 24px; }
+}
+.section--paper { background: var(--color-band-alt); }
+.section--band, .section--ink, .section--pine { background: var(--color-band); color: var(--color-text); }
+/* Two panels in a row get a sliver of paper between them. */
+:is(.section--paper, .section--band, .section--ink, .section--pine):not(.cta-band)
+  + :is(.section--paper, .section--band, .section--ink, .section--pine):not(.cta-band) { margin-top: 16px; }
+/* A panel never butts up against the closing band or the footer. */
+:is(.section--paper, .section--band, .section--ink, .section--pine):not(.cta-band) + .cta-band { margin-top: 64px; }
+main > :is(.section--paper, .section--band, .section--ink, .section--pine):not(.cta-band):last-child { margin-bottom: 64px; }
 
+/* Label (was the uppercase "kicker" eyebrow): sentence case, 600, pencil. */
 .kicker {
   display: inline-block;
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-  color: var(--amber-text);
-  margin-bottom: 14px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-text-muted);
+  margin-bottom: 12px;
   white-space: nowrap;
 }
 
-.lede { font-size: 1.15rem; line-height: 1.6; color: var(--gray-700); max-width: var(--maxw-text); }
-.section--ink .lede, .section--pine .lede { color: var(--gray-400); }
+.lede { font-size: 1.15rem; line-height: 1.6; color: var(--color-text); max-width: var(--maxw-text); }
 /* Typographic hygiene: balanced multi-line headings, and no single-word
    last lines (orphans) in body text. Progressive enhancement — browsers
    without text-wrap support simply ignore these. */
@@ -254,26 +255,33 @@ p, li, dd, dt, figcaption, blockquote { text-wrap: pretty; }
   font-family: var(--font-body);
   font-weight: 700;
   font-size: 1.05rem;
-  padding: 15px 30px;
+  line-height: 1.3;
+  text-align: center;
+  padding: 11px 26px;
+  min-height: var(--control-height);
   border-radius: var(--radius-ctrl);
   text-decoration: none;
   border: 1.5px solid transparent;
   cursor: pointer;
-  transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  transition: transform var(--transition), background var(--transition), color var(--transition), border-color var(--transition);
 }
 .btn:active { transform: translateY(1px); }
 
-/* Amber fill = the one conversion action on a page; other primaries use .btn--ink */
-.btn--primary { background: var(--amber); color: var(--ink); }
-.btn--primary:hover { background: #f6b23e; color: var(--ink); }
-.btn--ink { background: var(--ink); color: var(--paper-bg); }
-.btn--ink:hover { background: #2a2724; color: var(--paper-bg); }
-.btn--ghost { background: var(--white); color: var(--ink); border-color: var(--line-strong); }
-.btn--ghost:hover { border-color: var(--ink); color: var(--ink); }
-.section--ink .btn--ghost, .section--pine .btn--ghost {
-  background: transparent; color: var(--paper-bg); border-color: var(--ink-3);
+/* The lit button: the one amber fill on a page, with a soft, still glow
+   beneath it. The glow fades up once on load and then holds. */
+.btn--primary { background: var(--amber); color: var(--color-on-primary); box-shadow: var(--shadow-primary); }
+.btn--primary:hover { background: #f6b23e; color: var(--color-on-primary); }
+@media (prefers-reduced-motion: no-preference) {
+  .btn--primary { animation: glowSettle 0.9s ease-out both; }
 }
-.section--ink .btn--ghost:hover, .section--pine .btn--ghost:hover { border-color: var(--gray-400); color: var(--paper-bg); }
+/* Every other button is outlined: white, walnut line. `.btn--ink` was the
+   solid ink button; walnut is never a fill now, so it shares this style. */
+.btn--ink, .btn--ghost { background: var(--color-surface); color: var(--color-text); border-color: var(--color-text); }
+.btn--ink:hover, .btn--ghost:hover { background: var(--color-tint); color: var(--color-text); border-color: var(--color-text); }
+/* On the amber closing band the band itself is the amber moment, so its
+   button turns white with a walnut line and no glow. */
+.cta-band .btn--primary, .cta-band .btn--primary:hover { background: var(--color-surface); border-color: var(--color-text); box-shadow: none; animation: none; }
+.cta-band .btn--primary:hover { background: var(--color-tint); }
 .btn-row { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
 
 /* ---------- Cards & grids ---------- */
@@ -310,8 +318,8 @@ p, li, dd, dt, figcaption, blockquote { text-wrap: pretty; }
 .stat__num {
   font-family: var(--font-display);
   font-size: clamp(2.6rem, 4.5vw, 3.6rem);
-  font-weight: 800;
-  letter-spacing: -0.045em;
+  font-weight: 700;
+  letter-spacing: -0.03em;
   line-height: 1;
   color: var(--amber-deep);
   white-space: nowrap;
@@ -341,7 +349,7 @@ p, li, dd, dt, figcaption, blockquote { text-wrap: pretty; }
   border-radius: var(--radius);
   padding: 20px 22px;
 }
-.step--featured { background: var(--ink); border-color: var(--ink); }
+.step--featured { background: var(--color-tint); border-color: var(--amber); }
 .step__num {
   flex: none;
   width: 34px; height: 34px;
@@ -349,32 +357,30 @@ p, li, dd, dt, figcaption, blockquote { text-wrap: pretty; }
   border: 1.5px solid var(--line-strong);
   color: var(--ink);
   font-size: 1rem;
-  font-weight: 800;
+  font-weight: 700;
   display: grid;
   place-items: center;
 }
 .step--featured .step__num { background: var(--amber); border-color: var(--amber); color: var(--ink); }
 .step h3 { font-size: 1.1rem; letter-spacing: -0.01em; margin: 5px 0 0; }
-.step--featured h3 { color: var(--paper-bg); }
 .step p { font-size: 1rem; line-height: 1.55; color: var(--gray-700); margin: 7px 0 0; }
-.step--featured p { color: var(--gray-400); }
 
 /* ---------- Comparison table ---------- */
 .compare { width: 100%; border-collapse: collapse; background: var(--white); font-size: 1rem; }
-.compare th, .compare td { padding: 16px 20px; text-align: left; border-bottom: 1px solid var(--sand); vertical-align: top; }
+.compare th, .compare td { padding: 16px 20px; text-align: left; border-bottom: 1px solid var(--color-border); vertical-align: top; }
 .compare thead th {
-  background: var(--ink);
-  color: var(--paper-bg);
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-  padding: 16px 20px;
+  background: var(--color-band-alt);
+  color: var(--color-text);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.3;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--color-border);
 }
 .compare tbody tr:last-child td { border-bottom: none; }
-.compare .compare__hero td { background: var(--amber-row); font-weight: 600; color: #3d2905; }
-.compare .compare__who { font-weight: 800; letter-spacing: -0.01em; color: var(--ink); }
-.compare .compare__hero td.compare__who { font-weight: 800; color: var(--ink); }
+.compare .compare__hero td { background: var(--color-tint); font-weight: 600; color: var(--color-text); }
+.compare .compare__who { font-weight: 700; letter-spacing: -0.01em; color: var(--ink); }
+.compare .compare__hero td.compare__who { font-weight: 700; color: var(--ink); }
 /* Fixed column proportions so the two text columns share the width evenly. */
 .compare { table-layout: fixed; }
 .compare th:nth-child(1) { width: 22%; }
@@ -390,13 +396,13 @@ p, li, dd, dt, figcaption, blockquote { text-wrap: pretty; }
   .compare tr { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px 6px; margin-bottom: 12px; }
   .compare td { padding: 0 0 14px; border-bottom: 0; }
   .compare td.compare__who { font-size: 1.15rem; padding-bottom: 10px; }
-  .compare td[data-label]::before { content: attr(data-label); display: block; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-500); margin-bottom: 3px; }
+  .compare td[data-label]::before { content: attr(data-label); display: block; font-size: 0.875rem; font-weight: 600; color: var(--color-text-muted); margin-bottom: 3px; }
   .compare .compare__hero { background: var(--amber-row); border-color: var(--amber); }
   .compare .compare__hero td { background: transparent; }
 }
 
 /* ---------- FAQ accordion ---------- */
-.faq-item { background: var(--white); border: 1px solid var(--line); border-radius: 12px; margin-bottom: 12px; box-shadow: none; }
+.faq-item { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); margin-bottom: 12px; box-shadow: none; }
 .faq-item summary {
   cursor: pointer;
   padding: 20px 24px;
@@ -411,7 +417,7 @@ p, li, dd, dt, figcaption, blockquote { text-wrap: pretty; }
   align-items: center;
 }
 .faq-item summary::-webkit-details-marker { display: none; }
-.faq-item summary::after { content: '+'; font-size: 1.5rem; font-weight: 400; color: var(--amber); flex: none; line-height: 1; }
+.faq-item summary::after { content: '+'; font-size: 1.5rem; font-weight: 400; color: var(--color-link); flex: none; line-height: 1; }
 .faq-item[open] summary::after { content: '–'; }
 .faq-item .faq-body { padding: 0 24px 22px; color: var(--gray-700); }
 .faq-item .faq-body p:last-child { margin-bottom: 0; }
@@ -425,15 +431,16 @@ p, li, dd, dt, figcaption, blockquote { text-wrap: pretty; }
   width: 100%;
   font-family: var(--font-body);
   font-size: 1rem;
-  padding: 12px 14px;
-  border: 1.5px solid var(--line-strong);
+  min-height: var(--control-height);
+  padding: 11px 14px;
+  border: 1.5px solid var(--color-control-border);
   border-radius: var(--radius-ctrl);
   background: var(--white);
   color: var(--ink);
 }
 .field input:focus, .field select:focus, .field textarea:focus {
-  border-color: var(--amber);
-  box-shadow: 0 0 0 3px rgba(240, 161, 28, 0.16);
+  border-color: var(--color-focus);
+  box-shadow: 0 0 0 3px rgba(240, 161, 28, 0.25);
 }
 .field .field-error { border-color: var(--alert); box-shadow: 0 0 0 3px rgba(179, 54, 46, 0.12); }
 .checkbox { display: flex; gap: 12px; align-items: flex-start; font-size: 1rem; }
@@ -445,8 +452,7 @@ p, li, dd, dt, figcaption, blockquote { text-wrap: pretty; }
 /* Fine print under the hero CTA. The design reference sets this at 0.75rem;
    raised to 0.8rem to stay closer to the system's own "audience skews older"
    legibility floor. */
-.trust-line { font-size: 0.8rem; color: var(--gray-700); font-weight: 600; margin-top: 20px; }
-.section--ink .trust-line, .section--pine .trust-line { color: #ffffff; }
+.trust-line { font-size: 0.8rem; color: var(--color-text-muted); font-weight: 600; margin-top: 20px; }
 
 /* ---------- Touch targets ----------
    44px minimum hit areas on touch-width screens (the audience skews older).
