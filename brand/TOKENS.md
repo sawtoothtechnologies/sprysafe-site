@@ -90,7 +90,9 @@ No uppercase micro-labels anywhere (section labels, table headers, footer headin
 ## Shape, spacing, motion
 
 - October 5 review refinements: the header uses "Pamphlets fade. Practice sticks."
-  The walkthrough is visitor-controlled, with all step descriptions visible. A
+  The walkthrough is visitor-controlled. Step titles show first; a step's
+  description appears when it is chosen (wide screens) or opened (smaller
+  screens), like the reveal panels on the advisors page. A
   selection reveals the full phone scene with a 220ms fade (instant with reduced
   motion). On smaller screens (under 1040px) there is no shared phone: each step
   opens its own example in place, without the phone frame, and stays open until

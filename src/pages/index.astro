@@ -149,7 +149,7 @@ import { homeFaqs } from '../data/faqs.js';
             <span class="hiw__card-body">
               <span class="hiw__card-title">Enroll in 2 minutes</span>
               <span class="hiw__card-teaser"><span>Tell us about the person you'd like us to contact for signup. They opt in, and there's nothing for them to install or manage.</span></span>
-              <span class="hiw__card-hint" aria-hidden="true"><span class="hiw__hint-show">Show example</span><span class="hiw__hint-hide">Hide example</span></span>
+              <span class="hiw__card-hint" aria-hidden="true"><span class="hiw__hint-show">Show details</span><span class="hiw__hint-hide">Hide details</span></span>
             </span>
           </button>
           <div class="hiw__example" id="hiw-example-0">
@@ -160,7 +160,7 @@ import { homeFaqs } from '../data/faqs.js';
             <span class="hiw__card-body">
               <span class="hiw__card-title">Practice on safe, simulated scams</span>
               <span class="hiw__card-teaser"><span>Realistic practice arrives by email, text, and phone on no set schedule, 4–6 times per month. Never dangerous, always debriefed for the recipient immediately.</span></span>
-              <span class="hiw__card-hint" aria-hidden="true"><span class="hiw__hint-show">Show example</span><span class="hiw__hint-hide">Hide example</span></span>
+              <span class="hiw__card-hint" aria-hidden="true"><span class="hiw__hint-show">Show details</span><span class="hiw__hint-hide">Hide details</span></span>
             </span>
           </button>
           <div class="hiw__example" id="hiw-example-1">
@@ -171,7 +171,7 @@ import { homeFaqs } from '../data/faqs.js';
             <span class="hiw__card-body">
               <span class="hiw__card-title">Hear about new scams first</span>
               <span class="hiw__card-teaser"><span>Quick snippets on what's newly circulating, sent through the channels they already use.</span></span>
-              <span class="hiw__card-hint" aria-hidden="true"><span class="hiw__hint-show">Show example</span><span class="hiw__hint-hide">Hide example</span></span>
+              <span class="hiw__card-hint" aria-hidden="true"><span class="hiw__hint-show">Show details</span><span class="hiw__hint-hide">Hide details</span></span>
             </span>
           </button>
           <div class="hiw__example" id="hiw-example-2">
@@ -182,7 +182,7 @@ import { homeFaqs } from '../data/faqs.js';
             <span class="hiw__card-body">
               <span class="hiw__card-title">Get the quarterly Resilience Report</span>
               <span class="hiw__card-teaser"><span>One page to you and the learner: what was practiced, what was caught, and what's being reinforced next.</span></span>
-              <span class="hiw__card-hint" aria-hidden="true"><span class="hiw__hint-show">Show example</span><span class="hiw__hint-hide">Hide example</span></span>
+              <span class="hiw__card-hint" aria-hidden="true"><span class="hiw__hint-show">Show details</span><span class="hiw__hint-hide">Hide details</span></span>
             </span>
           </button>
           <div class="hiw__example" id="hiw-example-3">
@@ -203,10 +203,10 @@ import { homeFaqs } from '../data/faqs.js';
   <section class="section section--band" id="report">
     <div class="wrap hero__grid report-panel">
       <div>
-        <p class="kicker">The Resilience Report</p>
-        <h2>Every quarter, reassurance they’re stronger against scams</h2>
+        <p class="kicker">The quarterly Resilience Report</p>
+        <h2>Reassurance they’re stronger against scams</h2>
         <p class="lede">
-          Standard monitoring tools feel like surveillance, but the Resilience Report feels like something to be proud of. All while you get reassurance.
+          Standard monitoring tools feel like surveillance, but the Resilience Report feels like something to be proud of.
         </p>
 
       </div>
@@ -339,6 +339,7 @@ import { homeFaqs } from '../data/faqs.js';
   // A manual walkthrough: content stays readable until the visitor chooses
   // another step. Native buttons support Tab, Enter and Space without a timer.
   //
+  // Step titles show first. A step's description appears once it is chosen.
   // Wide screens: one step is selected and the phone beside the list shows it.
   // Smaller screens: each step opens its own example right beneath it, and a
   // second tap closes it. Steps open and close independently, so nothing above
@@ -412,7 +413,8 @@ import { homeFaqs } from '../data/faqs.js';
   }
   .hero__card { display: flex; justify-content: center; }
   .hero .lede { color: #d5d3ca; }
-  .hero .trust-line { font-size: 0.95rem; font-weight: 500; color: #d5d3ca; margin-top: 16px; }
+  /* A quiet note under the button: it recedes into the ink (about 6.5:1). */
+  .hero .trust-line { font-size: 0.95rem; font-weight: 500; color: #9a978f; margin-top: 16px; }
 
   /* ---------- Example drill card ---------- */
   .drill-card {
@@ -778,13 +780,37 @@ import { homeFaqs } from '../data/faqs.js';
     padding-top: 5px;
     transition: color 0.25s ease;
   }
-  /* Every description stays visible; selecting a step never takes text away. */
-  .hiw__card-teaser { display: block; margin-top: 7px; }
+  /* Titles first: a step shows its description once it is chosen (wide
+     screens) or opened (smaller screens), the same idea as the reveal panels
+     on the advisors page. The 0fr to 1fr grid row lets the height ease open.
+     Without JS every description stays open, so nothing is ever hidden. */
+  .hiw__card-teaser { display: grid; grid-template-rows: 1fr; }
   .hiw__card-teaser > span {
     display: block;
+    overflow: hidden;
+    min-height: 0;
     font-size: 1rem;
     line-height: 1.55;
     color: var(--gray-700);
+  }
+  .hiw__card-teaser > span::before { content: ''; display: block; height: 7px; }
+  .hiw--js .hiw__card:not(.is-active) .hiw__card-teaser { grid-template-rows: 0fr; opacity: 0; }
+  @media (prefers-reduced-motion: no-preference) {
+    .hiw--js .hiw__card-teaser { transition: grid-template-rows 0.35s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.3s ease; }
+  }
+  /* Wide screens: a small plus marks the steps that have more to show. */
+  @media (min-width: 1040px) {
+    .hiw--js .hiw__card:not(.is-active)::after {
+      content: '+';
+      position: absolute;
+      right: 22px;
+      top: 22px;
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--amber-text);
+    }
+    .hiw--js .hiw__card-title { padding-right: 28px; }
   }
   /* Smaller screens: no shared phone. Each step opens its own example in
      place and stays open until it is tapped again. */
