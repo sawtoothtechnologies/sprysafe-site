@@ -1,0 +1,118 @@
+<!doctype html>
+<!--
+  ScamPrep share images (Signal Amber v1.1). One template, two versions:
+    share-image.html?v=family     -> public/og-v2.png        (sitewide default)
+    share-image.html?v=advisors   -> public/og-advisors.png  (/solutions)
+  Capture at exactly 1200 x 630. See brand/share-image/README.md.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>ScamPrep share image</title>
+<style>
+  @font-face { font-family: 'Manrope'; font-weight: 700; src: url('fonts/manrope-latin-700-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Manrope'; font-weight: 800; src: url('fonts/manrope-latin-800-normal.woff2') format('woff2'); }
+
+  :root {
+    --ink: #121110;
+    --paper: #f8f7f4;
+    --amber: #f0a11c;
+    --gray-400: #a3a09a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; background: var(--ink); }
+  body {
+    position: relative;
+    font-family: 'Manrope', system-ui, sans-serif;
+    color: var(--paper);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* The hero's warm light, softened for the share image: its center sits just
+     past the right edge, so it reads as light coming in from the side rather
+     than a spot on the page. Same amber as .hero__light, lower and wider. */
+  .light {
+    position: absolute;
+    left: 1290px; top: 360px;
+    width: 1500px; height: 1300px;
+    margin: -650px 0 0 -750px;
+    border-radius: 50%;
+    background: radial-gradient(
+      closest-side,
+      rgba(246, 178, 62, 0.34) 0%,
+      rgba(240, 161, 28, 0.20) 28%,
+      rgba(240, 161, 28, 0.08) 58%,
+      rgba(240, 161, 28, 0) 100%
+    );
+  }
+
+  .frame {
+    position: relative;
+    height: 100%;
+    padding: 76px 88px 84px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .logo { display: flex; align-items: center; gap: 14px; }
+  .logo svg { width: 46px; height: 46px; color: var(--paper); }
+  .logo span { font-weight: 800; font-size: 34px; letter-spacing: -0.03em; }
+
+  .copy { margin: auto 0; padding-top: 12px; max-width: 960px; }
+  .kicker { font-weight: 700; font-size: 28px; color: var(--amber); margin-bottom: 18px; }
+  h1 {
+    font-weight: 800;
+    font-size: 94px;
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+  }
+  .tag {
+    margin-top: 30px;
+    font-weight: 700;
+    font-size: 36px;
+    letter-spacing: -0.015em;
+    color: var(--amber);
+  }
+
+  /* Advisor version: longer headline, a touch smaller. */
+  body.advisors h1 { font-size: 84px; max-width: 800px; }
+</style>
+</head>
+<body>
+  <div class="light" aria-hidden="true"></div>
+  <div class="frame">
+    <div class="logo">
+      <!-- The Open Ring: paper ring on ink, amber center. -->
+      <svg viewBox="10 10 76 76" fill="none" aria-hidden="true">
+        <path d="M 57.02 19.39 A 30 30 0 1 0 76.61 38.98" stroke="currentColor" stroke-width="8.5" stroke-linecap="round" />
+        <circle cx="48" cy="48" r="11" fill="#f0a11c" />
+      </svg>
+      <span>ScamPrep</span>
+    </div>
+    <div class="copy">
+      <p class="kicker" id="kicker" hidden></p>
+      <h1 id="headline">Help your loved&nbsp;ones spot scams.</h1>
+      <p class="tag">Pamphlets fade. Practice sticks.</p>
+    </div>
+  </div>
+<script>
+  const versions = {
+    family: {
+      headline: 'Help your loved ones spot scams.',
+    },
+    advisors: {
+      headline: 'Help your clients spot scams before money moves.',
+    },
+  };
+  const key = new URLSearchParams(location.search).get('v') || 'family';
+  const v = versions[key] || versions.family;
+  document.body.classList.add(key);
+  document.getElementById('headline').textContent = v.headline;
+  if (v.kicker) {
+    const k = document.getElementById('kicker');
+    k.textContent = v.kicker;
+    k.hidden = false;
+  }
+</script>
+</body>
+</html>

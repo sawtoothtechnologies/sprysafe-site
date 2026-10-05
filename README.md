@@ -73,7 +73,10 @@ hero's example drill replaces the sweep. Decorative motion plays once, then hold
 
 - Full visual specification: `brand/TOKENS.md`.
 - Implementation: `src/styles/global.css` and the relevant pages and components.
-- Logo assets: `brand/logo-*.svg` and `brand/lockup-*.svg`; favicon and share image: `public/`.
+- Logo assets: `brand/logo-*.svg` and `brand/lockup-*.svg`; favicon and share images: `public/`.
+  The share image is made from `brand/share-image/share-image.html`; see the README there.
+  Each page sets `title` (tab and Google, Title Case, ends in "| ScamPrep") and `shareTitle` (link
+  previews, no brand name, never the tagline).
 - Portable brief: `~/ScamPrep/brand/visual-brand.md`.
 - Refresh status and remaining work: `~/ScamPrep/00_CONTEXT.md` and its linked dated
   brand record. Design adoption, branch implementation, and publication are separate.

@@ -3,9 +3,11 @@ import '../styles/global.css';
 import { publicUrl } from '../lib/public-url.js';
 
 const {
-  title,
+  title, // browser tab and Google: Title Case, keeps "| ScamPrep"
+  shareTitle = title, // link previews: no brand (the share image shows it), never the tagline
   description,
-  image = '/og.png',
+  image = '/og-v2.png', // share image; see brand/share-image/README.md
+  imageAlt = 'ScamPrep. Pamphlets fade. Practice sticks.',
   noindex = false, // keep the page out of search results (it still returns 200)
   noCanonical = false, // omit canonical and og:url, for pages with no address of their own (404)
 } = Astro.props;
@@ -53,16 +55,20 @@ const orgSchema = {
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <meta property="og:title" content={title} />
+    <meta property="og:title" content={shareTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     {!noCanonical && <meta property="og:url" content={canonical} />}
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={imageAlt} />
     <meta property="og:site_name" content="ScamPrep" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
+    <meta name="twitter:title" content={shareTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={imageAlt} />
     <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
     <!-- Analytics: Cloudflare Web Analytics is injected at the edge for getscamprep.com
          (Web Analytics > getscamprep.com > Automatic setup). No script needed here. -->

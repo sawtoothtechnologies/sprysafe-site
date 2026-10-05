@@ -159,8 +159,14 @@ No uppercase micro-labels anywhere (section labels, table headers, footer headin
 - `brand/lockup-ink.svg`, `brand/lockup-on-dark.svg`: mark + wordmark (Manrope 800, -0.03em,
   outlined) for use off the site: decks, documents, email signature
 - `public/favicon.svg`, `public/apple-touch-icon.png`: paper ring, amber center, on ink
-- `public/og.png`: share image, ink with still, evenly spaced rings (1200 x 630). Not yet
-  redrawn to match the hero's warm light
+- `public/og-v2.png`: the share image, one for every page (1200 x 630), redrawn
+  2026-10-05: ink, the Open Ring lockup large and centered, the tagline "Pamphlets fade.
+  Practice sticks." in amber, and the hero's warm light coming in softly from the right
+  edge (its center sits just off the image, so there is no focal spot). No rings, no
+  headline. `public/og.png` is the same picture, kept for links shared before the rename.
+  Made from `brand/share-image/share-image.html`; how to change it, and how each page's
+  share title pairs with it, is in `brand/share-image/README.md`. A new version gets a
+  new file name, because link previews are cached under the old one.
 
 Logo rules: the ring is ink on light and paper (`#f8f7f4`) on ink; the center is always
 amber. Never put the ink ring on amber or honey without checking it at small size. Minimum
