@@ -92,13 +92,22 @@ No uppercase micro-labels anywhere (section labels, table headers, footer headin
 - October 5 review refinements: the header uses "Pamphlets fade. Practice sticks."
   The walkthrough is visitor-controlled, with all step descriptions visible. A
   selection reveals the full phone scene with a 220ms fade (instant with reduced
-  motion); on smaller screens the phone sits below the selected step. No timers,
-  automatic progression, delayed messages, or shaking.
+  motion). On smaller screens (under 1040px) there is no shared phone: each step
+  opens its own example in place, without the phone frame, and stays open until
+  it is tapped again. Steps open and close independently, so the page never
+  jumps. Step 1 starts open. No timers, automatic progression, delayed messages,
+  or shaking.
 - Hero decision, October 5: keep the existing ripple from `e64d6ec`. Seven
   rings spread once from the amber point over about 5.5s and remain faintly
   visible. The fading-ripple and soft-light alternatives were reviewed and
   declined; their comparison page was removed. Reduced motion shows the
   finished rings immediately; small screens retain the original subdued ripple.
+- Hero trial, October 5 (preview only, **not adopted**): `data-hero="glow"` on the
+  homepage hero swaps the ripple for one warm light that fades up once (2.6s) up
+  and to the right of the example drill, with no formal dot, and removes the card
+  behind the example so the text and coaching sit straight on the ink. The ripple
+  and card remain in the source and show with `?hero=classic`. Before publishing,
+  keep one version and delete the other along with the toggle script.
 - Restrained glow tokens (also defined in `global.css`):
   - `--glow-button`: `0 0 0 2px rgba(240,161,28,.10), 0 6px 20px -8px rgba(240,161,28,.38)`
   - `--glow-pricing`: `0 0 32px 6px rgba(249,227,174,.46), 0 14px 32px -20px rgba(240,161,28,.22)`

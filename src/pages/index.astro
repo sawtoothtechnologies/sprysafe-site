@@ -11,8 +11,18 @@ import { homeFaqs } from '../data/faqs.js';
   title="ScamPrep: Simulated scam drills and online threat training"
   description="Simulated scam drills, coaching and a quarterly Resilience Report for older adults and the family members who look out for them."
 >
-  <!-- ============ HERO — ripple (state) ============ -->
-  <section class="hero section--ink">
+  <!-- ============ HERO ============ -->
+  <!-- TRIAL (October 5 preview, not adopted): data-hero="glow" swaps the ripple
+       for a warm light that fades up once, and drops the card behind the
+       example drill. Add ?hero=classic to the address to see the ripple and
+       the card again. Before publishing, keep one version and remove the
+       other, along with this script. -->
+  <section class="hero section--ink" data-hero="glow">
+    <script is:inline>
+      if (new URLSearchParams(location.search).get('hero') === 'classic') {
+        document.currentScript.parentElement.dataset.hero = 'classic';
+      }
+    </script>
     <!-- The ripple: rings spreading from one steady amber point (the logo's
          centre). They sit farther apart and fainter as they travel out. They
          spread once on load, then hold still. Nothing loops. Decorative. -->
@@ -30,7 +40,7 @@ import { homeFaqs } from '../data/faqs.js';
     </div>
 
     <div class="wrap hero__grid">
-      <div>
+      <div class="hero__copy">
         <h1>Help your loved&nbsp;ones spot scams.</h1>
         <p class="lede">
           ScamPrep delivers research-backed simulations and coaching to keep older adults ahead of the latest, most cunning scams.
@@ -43,6 +53,9 @@ import { homeFaqs } from '../data/faqs.js';
         <p class="trust-line">You invite, they opt in. Nothing to install. No bank access.</p>
       </div>
       <div class="hero__card">
+        <!-- Trial: one warm light, up and to the right of the example. It
+             fades up once and holds still. Decorative. -->
+        <span class="hero__light" aria-hidden="true"></span>
         <!-- Example drill: one static card, message then coaching, both visible at
              once. No phone frame, no sequence. The "link" is inert text. -->
         <div class="drill-card" aria-label="Example practice simulation">
@@ -137,29 +150,45 @@ import { homeFaqs } from '../data/faqs.js';
             <span class="hiw__card-body">
               <span class="hiw__card-title">Enroll in 2 minutes</span>
               <span class="hiw__card-teaser"><span>Tell us about the person you'd like us to contact for signup. They opt in, and there's nothing for them to install or manage.</span></span>
+              <span class="hiw__card-hint" aria-hidden="true"><span class="hiw__hint-show">Show example</span><span class="hiw__hint-hide">Hide example</span></span>
             </span>
           </button>
+          <div class="hiw__example" id="hiw-example-0">
+            <PhoneDemo scene={0} />
+          </div>
           <button class="hiw__card" type="button" aria-pressed="false" aria-controls="phone-demo">
             <span class="hiw__card-num">2</span>
             <span class="hiw__card-body">
               <span class="hiw__card-title">Practice on safe, simulated scams</span>
               <span class="hiw__card-teaser"><span>Realistic practice arrives by email, text, and phone on no set schedule, 4–6 times per month. Never dangerous, always debriefed for the recipient immediately.</span></span>
+              <span class="hiw__card-hint" aria-hidden="true"><span class="hiw__hint-show">Show example</span><span class="hiw__hint-hide">Hide example</span></span>
             </span>
           </button>
+          <div class="hiw__example" id="hiw-example-1">
+            <PhoneDemo scene={1} />
+          </div>
           <button class="hiw__card" type="button" aria-pressed="false" aria-controls="phone-demo">
             <span class="hiw__card-num">3</span>
             <span class="hiw__card-body">
               <span class="hiw__card-title">Hear about new scams first</span>
               <span class="hiw__card-teaser"><span>Quick snippets on what's newly circulating, sent through the channels they already use.</span></span>
+              <span class="hiw__card-hint" aria-hidden="true"><span class="hiw__hint-show">Show example</span><span class="hiw__hint-hide">Hide example</span></span>
             </span>
           </button>
+          <div class="hiw__example" id="hiw-example-2">
+            <PhoneDemo scene={2} />
+          </div>
           <button class="hiw__card" type="button" aria-pressed="false" aria-controls="phone-demo">
             <span class="hiw__card-num">4</span>
             <span class="hiw__card-body">
               <span class="hiw__card-title">Get the quarterly Resilience Report</span>
               <span class="hiw__card-teaser"><span>One page to you and the learner: what was practiced, what was caught, and what's being reinforced next.</span></span>
+              <span class="hiw__card-hint" aria-hidden="true"><span class="hiw__hint-show">Show example</span><span class="hiw__hint-hide">Hide example</span></span>
             </span>
           </button>
+          <div class="hiw__example" id="hiw-example-3">
+            <PhoneDemo scene={3} />
+          </div>
         </div>
 
         <div class="hiw__phone">
@@ -310,40 +339,60 @@ import { homeFaqs } from '../data/faqs.js';
 
   // A manual walkthrough: content stays readable until the visitor chooses
   // another step. Native buttons support Tab, Enter and Space without a timer.
+  //
+  // Wide screens: one step is selected and the phone beside the list shows it.
+  // Smaller screens: each step opens its own example right beneath it, and a
+  // second tap closes it. Steps open and close independently, so nothing above
+  // the tapped step ever changes height and the page never jumps.
+  // Without JS every example is simply shown.
   const hiw = document.getElementById('hiw');
   if (hiw) {
+    hiw.classList.add('hiw--js');
     const cards = Array.from(hiw.querySelectorAll<HTMLButtonElement>('.hiw__card'));
-    const phone = hiw.querySelector<HTMLElement>('.hiw__phone');
+    const examples = cards.map((_, i) => document.getElementById('hiw-example-' + i));
     const compact = window.matchMedia('(max-width: 1039px)');
-    let current = 0;
+    let selected = 0;
+    const open = new Set<number>([0]);
 
-    const positionPhone = () => {
-      if (!phone) return;
-      if (compact.matches) cards[current].after(phone);
-      else hiw.append(phone);
-    };
-    const show = (index: number) => {
-      current = index;
+    const render = () => {
       cards.forEach((card, i) => {
-        card.classList.toggle('is-active', i === index);
-        card.setAttribute('aria-pressed', String(i === index));
+        const example = examples[i];
+        if (compact.matches) {
+          const isOpen = open.has(i);
+          card.classList.toggle('is-active', isOpen);
+          card.removeAttribute('aria-pressed');
+          card.setAttribute('aria-expanded', String(isOpen));
+          if (example) {
+            card.setAttribute('aria-controls', example.id);
+            example.hidden = !isOpen;
+          }
+        } else {
+          card.classList.toggle('is-active', i === selected);
+          card.removeAttribute('aria-expanded');
+          card.setAttribute('aria-pressed', String(i === selected));
+          card.setAttribute('aria-controls', 'phone-demo');
+          if (example) example.hidden = true;
+        }
       });
-      positionPhone();
-      document.dispatchEvent(new CustomEvent('scamprep:hiwchange', { detail: { index } }));
     };
-    cards.forEach((card, index) => card.addEventListener('click', () => {
-      if (index === current) return;
-      show(index);
-      // Moving the example out from above a step must not leave that selected
-      // button behind the sticky header on a small screen.
-      if (compact.matches && card.getBoundingClientRect().top < 96) {
-        card.scrollIntoView({ block: 'start', behavior: 'instant' });
-      }
-    }));
-    compact.addEventListener('change', positionPhone);
-    show(0);
-  }
+    const showOnPhone = () =>
+      document.dispatchEvent(new CustomEvent('scamprep:hiwchange', { detail: { index: selected } }));
 
+    cards.forEach((card, i) => card.addEventListener('click', () => {
+      if (compact.matches) {
+        if (open.has(i)) open.delete(i);
+        else open.add(i);
+      } else {
+        if (i === selected) return;
+        selected = i;
+        showOnPhone();
+      }
+      render();
+    }));
+    compact.addEventListener('change', render);
+    render();
+    showOnPhone();
+  }
 </script>
 
 <style>
@@ -512,6 +561,69 @@ import { homeFaqs } from '../data/faqs.js';
   }
 
   .hero h1 { color: var(--paper-bg); }
+
+  /* ---------- TRIAL hero: warm light, no card (data-hero="glow") ----------
+     Everything in this block is the October 5 preview alternative. The
+     classic ripple and card above are untouched and show with ?hero=classic. */
+  .hero__light { display: none; }
+  .hero[data-hero='glow'] .hero__radar { display: none; }
+  .hero[data-hero='glow'] .hero__copy { position: relative; z-index: 1; }
+  .hero[data-hero='glow'] .hero__card { position: relative; }
+  /* The light sits up and to the right of the example, so the text bubble
+     catches the brightest part and the light thins out toward the headline. */
+  .hero[data-hero='glow'] .hero__light {
+    display: block;
+    position: absolute;
+    left: 76%;
+    top: 14%;
+    width: 1040px;
+    height: 1040px;
+    margin: -520px 0 0 -520px;
+    border-radius: 50%;
+    background: radial-gradient(
+      closest-side,
+      rgba(246, 178, 62, 0.46) 0%,
+      rgba(240, 161, 28, 0.25) 24%,
+      rgba(240, 161, 28, 0.1) 52%,
+      rgba(240, 161, 28, 0) 100%
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+  /* It comes up once, like a lamp warming, and then holds still. */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero[data-hero='glow'] .hero__light { animation: heroLightUp 2.6s cubic-bezier(0.3, 0.1, 0.3, 1) 0.15s both; }
+  }
+  @keyframes heroLightUp {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: none; }
+  }
+  /* No card: the label, the text and the coaching sit straight on the ink.
+     The text leans left like an incoming message; the coaching steps in to
+     the right, lit, as the reply. */
+  .hero[data-hero='glow'] .drill-card {
+    z-index: 1;
+    max-width: 480px;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+  .hero[data-hero='glow'] .drill-card__label { color: var(--amber); }
+  .hero[data-hero='glow'] .drill-card__msg { margin-right: 64px; }
+  .hero[data-hero='glow'] .drill-card__then { margin-left: 76px; color: #c9c6bb; }
+  .hero[data-hero='glow'] .drill-card__then::before { border-left-color: rgba(255, 255, 255, 0.3); }
+  .hero[data-hero='glow'] .drill-card__coach {
+    margin-left: 48px;
+    box-shadow: 0 0 0 1px rgba(240, 161, 28, 0.4), 0 20px 48px -20px rgba(240, 161, 28, 0.5);
+  }
+  @media (max-width: 700px) {
+    .hero[data-hero='glow'] .hero__light { width: 760px; height: 760px; margin: -380px 0 0 -380px; }
+    .hero[data-hero='glow'] .drill-card__msg { margin-right: 28px; }
+    .hero[data-hero='glow'] .drill-card__then { margin-left: 44px; }
+    .hero[data-hero='glow'] .drill-card__coach { margin-left: 20px; }
+  }
   .hero__metaphor {
     font-size: 1.3rem;
     font-weight: 700;
@@ -569,7 +681,6 @@ import { homeFaqs } from '../data/faqs.js';
   .hiw__cards { display: grid; gap: 12px; }
   .hiw__card {
     position: relative;
-    scroll-margin-top: 96px;
     overflow: hidden;
     display: grid;
     grid-template-columns: 38px 1fr;
@@ -620,10 +731,56 @@ import { homeFaqs } from '../data/faqs.js';
     line-height: 1.55;
     color: var(--gray-700);
   }
-  @media (max-width: 1039px) {
-    .hiw__phone { padding: 16px 0 24px; }
-    .hiw__card { padding: 20px 18px; column-gap: 12px; }
+  /* Smaller screens: no shared phone. Each step opens its own example in
+     place and stays open until it is tapped again. */
+  .hiw__card-hint { display: none; }
+  .hiw__example[hidden] { display: none; }
+  @media (min-width: 1040px) {
+    .hiw__example { display: none; }
   }
+  @media (max-width: 1039px) {
+    .hiw__phone { display: none; }
+    .hiw__card { padding: 20px 18px; column-gap: 12px; }
+    .hiw__example {
+      background: var(--paper-bg);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+    /* With JS, an open step and its example join into one lit box. */
+    .hiw--js .hiw__card.is-active { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+    .hiw--js .hiw__card.is-active + .hiw__example {
+      margin-top: -13px;
+      border-color: var(--amber);
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+    .hiw--js .hiw__card-hint {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--amber-text);
+    }
+    .hiw__card-hint::after {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: translateY(-2px) rotate(45deg);
+    }
+    .hiw__card.is-active .hiw__card-hint::after { transform: translateY(2px) rotate(-135deg); }
+    .hiw__hint-hide { display: none; }
+    .hiw__card.is-active .hiw__hint-show { display: none; }
+    .hiw__card.is-active .hiw__hint-hide { display: inline; }
+  }
+  @media (max-width: 1039px) and (prefers-reduced-motion: no-preference) {
+    .hiw--js .hiw__example:not([hidden]) { animation: exampleIn 220ms ease-out both; }
+  }
+  @keyframes exampleIn { from { opacity: 0; } to { opacity: 1; } }
 
   /* Final CTA band: generous above the headline, tighter below the button,
      because the sources line closes the band. */
