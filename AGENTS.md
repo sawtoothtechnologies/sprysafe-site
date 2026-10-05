@@ -58,12 +58,18 @@ These reminders do not replace reading `voice.md` and `00_CONTEXT.md`.
 ## Website design: Signal Amber v1.1
 
 Read `brand/TOKENS.md` before changing colors, type, layout, or motion. If changing
-a token, update both that document and `src/styles/global.css`.
+a token, update both that document and `src/styles/global.css`. For an adopted brand
+decision, also align `~/ScamPrep/brand/visual-brand.md` and the visual-brand section
+of `~/ScamPrep/PROJECT-INSTRUCTIONS.md`. Track rollout in the dated brand record
+linked from `~/ScamPrep/00_CONTEXT.md`; a preview implementation is not a completed
+rollout. Keep those business originals in their own folder.
 
 - Dark ink surfaces are the hero, footer, and table headers only.
 - The Resilience Report section is honey; the closing band is amber.
 - Selected states are lit: glow fill and a thin amber line, never inverted to black.
-- The primary button has a still glow. Nothing new should loop; respect reduced motion.
+- The hero ripple spreads once from an amber point and holds still. The primary
+  button glow, stat dots, and report lights also play once. Nothing loops or sweeps;
+  respect reduced motion. Do not animate the Open Ring logo.
 - Coached items are dusk blue, never red. No blue in the hero drill card.
 - Small labels are sentence case. Headlines stay Manrope 800.
 - Use the Open Ring logo (`brand/logo-*.svg`, `brand/lockup-*.svg`). The radar dial

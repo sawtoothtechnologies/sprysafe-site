@@ -143,7 +143,11 @@ and current dashboard controls before acting.
 changes synchronized with `src/styles/global.css`. Preserve the Open Ring logo, ink
 hero/footer/table headers, honey report section, amber closing band, lit selected
 states, still button glow, dusk-blue coaching, sentence-case labels, and Manrope 800
-headlines. No new looping motion. The Lamplight exploration is archived.
+headlines. The hero ripple spreads once from an amber point, then holds still; the
+button glow, stat dots, and report lights also play once. Nothing loops or sweeps.
+The Lamplight exploration is archived. Keep the portable summary in
+`~/ScamPrep/brand/visual-brand.md` aligned with adopted design changes and read the
+rollout record linked from `~/ScamPrep/00_CONTEXT.md` for publication and off-site status.
 
 | To change | Edit |
 | --- | --- |

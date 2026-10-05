@@ -1,8 +1,15 @@
-# ScamPrep brand — "Signal · Amber" v1.1
+# ScamPrep brand: Signal Amber v1.1 with the Open Ring
 
 v1.0 adopted 2026-08-04. **v1.1 adopted 2026-10-05**: the same system, lightened.
 Implemented in `src/styles/global.css`; this file is the human-readable source of truth.
 **If you change a token, change it in both places.**
+
+The portable business summary is `~/ScamPrep/brand/visual-brand.md`. Keep it and the
+visual-brand section of `~/ScamPrep/PROJECT-INSTRUCTIONS.md` aligned with decisions
+here. Rollout status lives in `~/ScamPrep/00_CONTEXT.md` and its linked dated brand
+record. Adoption of the design does not establish that it is published or that
+off-site assets have been updated. The `lamplight-reskin` branch name is historical;
+Signal Amber v1.1 is the chosen brand.
 
 ## What v1.1 changed, and why
 
@@ -14,8 +21,9 @@ and imports the parts of the preview that worked:
 | --- | --- | --- |
 | Ink surfaces | hero, report band, closing band, footer, table header | **hero, footer, table header only** |
 | Resilience Report section | ink band with radar rings | **honey panel** (`.section--band`): rounded (32px), inset from the page edges; report in the wider column, no outline on the card |
-| Closing CTA band | ink with radar sweep | **amber band** with a shallow arched top edge, ink text, white button |
+| Closing CTA band | ink with radar sweep | **amber band** with a shallow arched top edge, ink text, white button. On the homepage the sources line sits inside it, so amber runs straight into the footer |
 | Selected / active states | inverted (ink fill, light text) | **lit**: glow fill, thin amber line, dark text |
+| Hero motif | radar sweep | **ripple** from one amber point, spreading once and then holding still |
 | Primary button | looping ping ring | **still glow** that fades up once on load |
 | Phone demo | dark device with heavy shadow | **line drawing**: one ink outline, white screen |
 | Coached items | red outline, red text | **dusk blue** tint and text, open ring |
@@ -63,10 +71,10 @@ One typeface, warm near-black, signal amber. Amber is a *signal*, not a theme.
 | gray-700 / 500 / 400 | `#55524C` / `#6B6862` / `#A3A09A` | body / muted / on-dark text |
 
 Rules: amber never carries body text. On light surfaces amber text is `#6E4A0A` or
-`#8A5D0A`. Dusk blue is for coached items in reports only; **not** in the hero drill card,
+`#8A5D0A`. Dusk blue is for coached items in reports and the coaching mock card; **not** in the hero drill card,
 where a blue block under a text bubble reads as a sent iMessage (that panel is amber tint).
 
-## Type — Manrope, one family
+## Type: Manrope, one family
 
 Loaded from Google Fonts at 400/500/600/700/800 in `Base.astro`.
 
@@ -83,10 +91,16 @@ No uppercase micro-labels anywhere (section labels, table headers, footer headin
 
 - Radius: **6** chips/tags · **9** buttons/inputs/rows · **14** cards. No pills except toggles.
 - Spacing: 4px base. Sections 56 / 88; the closing band 104. Content max 1120px.
-- Motion: primary button glow fades up once (0.9s) · report rows
-  rise in once on scroll · UI transitions 150ms. All behind `prefers-reduced-motion`.
+- Motion: everything plays once and then holds still. Nothing loops.
+  - hero ripple: the amber point swells, then rings leave it one at a time (about half a
+    second apart, outermost first) at an even, unhurried speed. About 5.5s in all
+  - primary button glow fades up once (0.9s)
+  - stat dots light up one after another, once, when scrolled into view
+  - report rows rise in and the string of lights comes on, once, on scroll
+  - UI transitions 150ms
+  All behind `prefers-reduced-motion` (those visitors see the finished state at once).
 
-## Usage rules — quick reference
+## Usage rules: quick reference
 
 - Ink is for the hero, footer and table headers. Do not add new dark sections.
 - Curves sit on whatever is above them. After a gray (sand) band, the honey panel and the
@@ -106,7 +120,8 @@ No uppercase micro-labels anywhere (section labels, table headers, footer headin
 - `brand/lockup-ink.svg`, `brand/lockup-on-dark.svg`: mark + wordmark (Manrope 800, -0.03em,
   outlined) for use off the site: decks, documents, email signature
 - `public/favicon.svg`, `public/apple-touch-icon.png`: paper ring, amber center, on ink
-- `public/og.png`: share image, ink with still rings (1200 x 630)
+- `public/og.png`: share image, ink with still, evenly spaced rings (1200 x 630). Not yet
+  redrawn to match the hero ripple
 
 Logo rules: the ring is ink on light and paper (`#f8f7f4`) on ink; the center is always
 amber. Never put the ink ring on amber or honey without checking it at small size. Minimum

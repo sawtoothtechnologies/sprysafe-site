@@ -1,5 +1,10 @@
 # ScamPrep marketing site
 
+> Current guidance, October 5, 2026: read `AGENTS.md` and `SITE-OPS.md` first. Business
+> facts and voice come from the original files in `~/ScamPrep`; visual details come
+> from `brand/TOKENS.md`. Older pricing, setup, and launch notes later in this README
+> need checking against those sources before use.
+
 Built with [Astro](https://astro.build) — a static site, no database, no server. Live at
 **https://getscamprep.com** (sprysafe.com 301-redirects here).
 
@@ -60,30 +65,36 @@ save; nothing is published).
 
 ## Design system
 
-**"Signal · Amber" v1.1** (October 2026) — warm near-black ink, signal amber, Manrope. v1.1
-lightened v1.0: ink is kept for the hero, footer and table headers; the report section is
-honey; the closing band is amber; selected states are lit, not inverted; the primary button
-has a still glow instead of a ping; small labels are sentence case.
+**Signal Amber v1.1 with the Open Ring**, adopted October 5, 2026. Warm near-black ink,
+signal amber, Manrope. Ink surfaces are the hero, footer, and table headers; the report
+section is honey; the closing band is amber. Selected states are lit. Labels are
+sentence case. The Open Ring replaces the radar dial, and a ripple replaces the hero
+sweep. Decorative motion plays once, then holds still.
 
-- Tokens and usage rules: **`brand/TOKENS.md`** — read this before changing colors or type.
-- Implementation: `src/styles/global.css`. Old Evergreen variable names survive as aliases;
-  `brand/TOKENS.md` and the comments in `global.css` explain the ones that changed meaning.
-- Logo, favicon, OG image: `brand/` and `public/`.
-- `brand/lamplight-exploration/` holds an archived light-surface rebrand that was previewed
-  and not adopted. It is reference only.
+- Full visual specification: `brand/TOKENS.md`.
+- Implementation: `src/styles/global.css` and the relevant pages and components.
+- Logo assets: `brand/logo-*.svg` and `brand/lockup-*.svg`; favicon and share image: `public/`.
+- Portable brief: `~/ScamPrep/brand/visual-brand.md`.
+- Refresh status and remaining work: `~/ScamPrep/00_CONTEXT.md` and its linked dated
+  brand record. Design adoption, branch implementation, and publication are separate.
+- `brand/lamplight-exploration/` is an archived direction that was not adopted.
+  The historical branch name `lamplight-reskin` does not change the chosen brand.
 
-## Copy & naming conventions
+## Copy and naming conventions
 
-- The product is **ScamPrep**. Never "Spry" in customer-facing copy.
-- The monthly report is the **"Resilience Report"** — never "report card" (teacherly, wrong
-  power dynamic). The sample component file is still named `ReportCard.astro` internally.
-- Family-facing copy says **"the person you care about"** — not "your parent," "Mom," or
-  "grandparent." (B2B pages may name audiences like "older adults" or "members" factually.)
-- The primary CTA is **"Start your free trial"** everywhere. ("Get early access" is retired.)
-- Core positioning: **practice beats lecture** — simulated drills + coaching at the moment
-  they slip, married to a drip of always-current scam briefings. One-time education fades;
-  practice sticks.
-- Every simulated artifact on the site is labeled — "Illustrative report", "Simulated".
+Read `~/ScamPrep/voice.md` for copy and `~/ScamPrep/00_CONTEXT.md` for current business
+facts. These originals take precedence over older examples in this repo.
+
+- The product is **ScamPrep**. The legacy repo and infrastructure names stay as they are.
+- The **Resilience Report** comes every three months from each person's signup date.
+  The internal component filename remains `ReportCard.astro`.
+- The tagline is **"Pamphlets fade. Practice sticks."**
+- As of October 5, the consumer CTA is **"Get early access."** The product and checkout
+  are not built. Do not imply a working trial signup or paying customers.
+- Explain personal consent: "You invite, they opt in." Label simulated artifacts
+  "Illustrative report" or "Simulated."
+- Use sentence case and plain, warm language. No em dashes, fear, shame, or invented
+  social proof. Follow the original voice file for the full rules.
 
 ## Pricing — one source of truth
 
