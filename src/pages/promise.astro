@@ -79,11 +79,14 @@ import CtaBand from '../components/CtaBand.astro';
 </Base>
 
 <style>
+  /* Six numbered commitments, separated by hairlines. (No accent rule down
+     the left edge: the numbers already do that job.) */
   .promise-item {
-    border-left: 4px solid var(--amber);
-    padding-left: 26px;
-    margin-bottom: 40px;
+    border-top: 1px solid var(--line);
+    padding-top: 30px;
+    margin-bottom: 34px;
   }
-  .promise-item h2 { font-size: 1.5rem; }
+  .promise-item:first-child { border-top: 0; padding-top: 0; }
+  .promise-item h2 { font-size: 1.5rem; margin-top: 0; }
   .promise-item p { color: var(--ink-soft); margin-bottom: 0; }
 </style>

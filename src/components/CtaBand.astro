@@ -10,7 +10,7 @@ const {
 const split = layout === 'split';
 ---
 
-<section class:list={['section', 'section--ink', 'cta-band', split ? 'cta-band--split' : 'center']}>
+<section class:list={['section', 'cta-band', split ? 'cta-band--split' : 'center']}>
   <div class="wrap cta-band__inner">
     <div class="cta-band__copy">
       <h2>{headline}</h2>
@@ -29,22 +29,27 @@ const split = layout === 'split';
 <style>
   .cta-band__inner { position: relative; }
   .cta-band .lede { max-width: 40rem; }
-  /* The closing band is the page's one saturated moment: full amber, with
-     a gently arched top edge like the rim of a pool of light. Walnut text on
-     amber is 6.5:1. This deliberately bends the guide's "the button is the
-     only amber fill" rule, once per page; the button here turns white. */
+  /* The closing band is amber, not ink (v1.1): the page's one saturated
+     moment before the dark footer. Ink text on amber is about 7:1. */
+  /* Its top edge is a shallow arch, like the rim of a pool of light. */
   .cta-band {
-    width: 100%;
     background: var(--amber);
-    color: var(--color-text);
+    position: relative;
     border-radius: 50% 50% 0 0 / 56px 56px 0 0;
-    padding: 104px 0 88px;
   }
   @media (max-width: 700px) {
-    .cta-band { width: 100%; border-radius: 50% 50% 0 0 / 28px 28px 0 0; padding: 80px 0 72px; }
+    .cta-band { border-radius: 50% 50% 0 0 / 28px 28px 0 0; }
   }
-  .cta-band__note { margin: 22px 0 0; font-size: 0.95rem; color: var(--color-text); max-width: 40rem; }
-  .cta-band__note a { color: var(--color-text); text-decoration: underline; text-underline-offset: 3px; }
+  /* After a full-width sand band, the arch rises straight out of the sand:
+     the spread shadow fills the corner notches with gray, and the clip-path
+     keeps it inside the band's own box. */
+  :global(.section--paper) + .cta-band {
+    box-shadow: 0 0 0 100vmax var(--sand);
+    clip-path: inset(0);
+  }
+  .cta-band h2, .cta-band .lede { color: var(--ink); }
+  .cta-band__note { margin: 22px 0 0; font-size: 0.95rem; color: var(--ink); max-width: 40rem; }
+  .cta-band__note a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
 
   /* Split layout: copy left, a reserved right-hand column for the aside slot.
      With no aside, the right half stays open. */

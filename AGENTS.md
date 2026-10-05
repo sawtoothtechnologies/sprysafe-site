@@ -19,23 +19,17 @@ Rules for anyone, human or AI, drafting or editing copy in this repo.
 - The product is **ScamPrep** in all copy; the repo/domain names (sprysafe) are
   infrastructure and stay as-is until the domain migration in README.md.
 
-## Design rules ("Lamplight", adopted 2026-10-04)
+## Design rules (Signal Amber v1.1, 2026-10-05)
 
 Read `brand/TOKENS.md` before changing colors, type, or motion. The short version:
 
-- **No dark surfaces.** Walnut ink (`#332B23`) is for text and thin lines only. Never a
-  section, card, button, or footer background.
-- **Nothing loops.** No sweeping, pulsing, or blinking. Motion settles once and holds.
-- **One amber button per view:** the primary button. Every other button is outlined. The
-  amber closing band (`CtaBand`) is the single allowed amber surface per page.
-- **Tinted sections are rounded panels**, not full-width stripes. One honey panel per page.
-- **Product artifacts get a walnut outline** (drill card, report, phone, pricing cards).
-- **Amber never carries text.** Amber-toned text is deep amber (`#6E4A0A`).
-- **Coaching is dusk blue** (`#2F4A73` on `#E8EEF6`). Never red, never amber.
-- **Manrope, 700 at most, sentence case.** No uppercase eyebrows or letter-spaced caps.
-- **No people or faces** in illustration. Household objects only.
-- Use the `--color-*` tokens in new CSS. The older names (`--ink`, `--pine-deep`, ...) are
-  aliases; three of them changed meaning (see `brand/TOKENS.md`).
+- **Dark (ink) surfaces are the hero, footer and table headers only.** Do not add more.
+- **The Resilience Report section is honey; the closing band is amber.**
+- **Selected states are lit** (glow fill, thin amber line), never inverted to black.
+- **The primary button has a still glow**, not a pulsing ring. Nothing new should loop.
+- **Coached items are dusk blue**, never red. No blue in the hero drill card.
+- **Small labels are sentence case**, never uppercase. Headlines stay Manrope 800.
+- `brand/lamplight-exploration/` is an archived exploration, not the active brand.
 
 ## Workflow
 

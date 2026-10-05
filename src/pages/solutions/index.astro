@@ -119,7 +119,7 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
   </section>
 
   <!-- ============ THE DELIVERABLE (Resilience Report) ============ -->
-  <section class="section section--air section--ink" id="report">
+  <section class="section section--band" id="report">
     <div class="wrap report-band">
       <div>
         <p class="kicker">The deliverable</p>
@@ -274,8 +274,9 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
     note="Credit union, caregiving facility, wealth manager, or something else? Write to <a href='mailto:hello@getscamprep.com'>hello@getscamprep.com</a> and we'll talk."
   />
 
-  <!-- Sources for the stats quoted across this page: a quiet strip between
-       the closing band and the footer. -->
+  <!-- Sources for the stats quoted across this page — a quiet gray-on-ink
+       strip between the CTA band and the footer, deliberately low-contrast
+       so it reads as footer matter, not a section. -->
   <div class="sources-strip">
     <div class="wrap center">
       <p class="footnote">
@@ -308,18 +309,17 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
 
   /* Why-practices stat band — same dot treatment as the homepage "Why now"
      band (CSS mirrored from index.astro). */
-  .dots { display: flex; gap: 11px; align-items: center; padding-left: 4px; }
-  .dot { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--color-control-border); }
-  .dot--on { background: var(--amber); border-color: var(--amber); box-shadow: 0 0 0 4px rgba(240, 161, 28, 0.2); }
+  .dots { display: flex; gap: 9px; align-items: center; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid #b5b0a6; }
+  .dot--on { background: var(--amber); border-color: var(--amber); }
   .stats--anim .dot--on { opacity: 0.25; }
-  /* String of lights: each one comes on once, 80ms apart, then stays on. */
-  .stats--play .dot--on { animation: lampOn 0.3s ease-out both; }
-  .stats--play .dot--on:nth-child(2) { animation-delay: 0.08s; }
-  .stats--play .dot--on:nth-child(3) { animation-delay: 0.16s; }
-  .stats--play .dot--on:nth-child(4) { animation-delay: 0.24s; }
-  .stats--play .dot--on:nth-child(5) { animation-delay: 0.32s; }
-  .stats--play .dot--on:nth-child(6) { animation-delay: 0.4s; }
-  .stats--play .dot--on:nth-child(7) { animation-delay: 0.48s; }
+  .stats--play .dot--on { animation: spryBlip 2.8s linear infinite; }
+  .stats--play .dot--on:nth-child(2) { animation-delay: 0.25s; }
+  .stats--play .dot--on:nth-child(3) { animation-delay: 0.5s; }
+  .stats--play .dot--on:nth-child(4) { animation-delay: 0.75s; }
+  .stats--play .dot--on:nth-child(5) { animation-delay: 1s; }
+  .stats--play .dot--on:nth-child(6) { animation-delay: 1.25s; }
+  .stats--play .dot--on:nth-child(7) { animation-delay: 1.5s; }
 
   /* ---------- Report band. Inverted from the homepage's: the artifact is
      large and carries the co-branding as a letterhead; one loud tag above,
@@ -336,19 +336,19 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
   .report-band__stage { width: 100%; max-width: 600px; margin-inline: auto; }
   .report-band__stage :global(.report-wrap) { max-width: none; position: relative; z-index: 1; }
 
-  /* Callout labels: sentence-case labels joined by a dashed connector. */
+  /* Callout labels: mini-kickers joined by a dashed amber connector. */
   .annot__label {
     font-size: 0.9375rem;
-    font-weight: 600;
+    font-weight: 700;
     line-height: 1.3;
-    color: var(--color-link);
+    color: var(--amber-deep);
     margin: 0;
   }
   .annot__line {
     display: block;
     width: 1.5px;
     height: 18px;
-    background: repeating-linear-gradient(to bottom, var(--color-link) 0 3px, transparent 3px 6px);
+    background: repeating-linear-gradient(to bottom, var(--amber-deep) 0 3px, transparent 3px 6px);
     margin: 6px 0;
   }
 
@@ -361,7 +361,7 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
     align-items: flex-start;
     margin-left: 28px;
   }
-  .annot__label--lg { font-size: 1.0625rem; font-weight: 700; }
+  .annot__label--lg { font-size: 1.0625rem; }
 
   /* Aggregate stat: chip overlapping the card's bottom-right corner. */
   .annot--stat {
@@ -379,21 +379,21 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
     align-items: baseline;
     gap: 8px;
     margin: 0;
-    background: var(--color-surface);
-    border: 1.5px solid var(--color-text);
+    background: var(--white);
+    border: 1.5px solid var(--ink);
     border-radius: var(--radius-ctrl);
     padding: 10px 14px;
     font-size: 0.875rem;
     font-weight: 600;
-    color: var(--color-text-muted);
+    color: var(--gray-700);
   }
   .annot__num {
     font-family: var(--font-display);
-    font-weight: 700;
+    font-weight: 800;
     font-size: 1.35rem;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
     line-height: 1;
-    color: var(--color-text);
+    color: var(--ink);
   }
   @media (min-width: 920px) {
     /* Dock the chip over the card corner on wide screens only. */
@@ -423,7 +423,7 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
     background: var(--amber);
     box-shadow: 0 0 0 3px rgba(240, 161, 28, 0.25);
   }
-  .deliv-list strong { color: var(--color-text); }
+  .deliv-list strong { color: var(--ink); }
   /* ---------- Why-practices ledger: rule-separated entries, no card boxes,
      so the section reads differently from every grid on the page ---------- */
   .why-list {
@@ -469,15 +469,15 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
     transition: background 0.3s ease, border-color 0.25s ease;
   }
   .runs__panel:hover { border-color: var(--line-strong); }
-  /* Open panel: lit, not inverted. */
-  .runs__panel.is-open { background: var(--color-tint); border-color: var(--amber); }
+  /* Open panel: lit, not inverted (same as the homepage steps). */
+  .runs__panel.is-open { background: var(--glow); border-color: var(--amber); }
   .runs__title {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     gap: 12px;
     font-family: var(--font-display);
-    font-weight: 700;
+    font-weight: 800;
     font-size: 1.08rem;
     letter-spacing: -0.01em;
     line-height: 1.3;
@@ -486,7 +486,7 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
   }
   .runs__plus {
     flex: none;
-    color: var(--color-link);
+    color: var(--amber);
     font-size: 1.35rem;
     font-weight: 400;
     line-height: 1;
@@ -531,11 +531,11 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
     left: 0;
     top: 0;
     font-family: var(--font-display);
-    font-weight: 700;
+    font-weight: 800;
     font-size: 1.5rem;
     line-height: 1.2;
     letter-spacing: -0.02em;
-    color: var(--color-control-border);
+    color: var(--gray-400);
   }
   .pilot-steps h3 { margin: 0 0 6px; font-size: 1.15rem; }
   .pilot-steps p { margin: 0; color: var(--ink-soft); font-size: 1rem; }
@@ -637,13 +637,19 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
     .price-open { grid-template-columns: minmax(0, 1fr) minmax(0, 620px); align-items: center; }
   }
 
-  /* Sources strip: quiet footer matter on paper, between the closing band
-     and the footer. */
+  /* Final CTA band gets a little more air than a standard section. */
+  :global(section.cta-band) { padding: 104px 0; }
+
+  /* Sources strip — ink surface continuous with the CTA band and footer;
+     hairline divider above, muted gray text so it stays out of the way. */
+  .sources-strip { background: var(--ink); }
   .sources-strip .footnote {
     margin: 0;
-    padding: 22px 0 26px;
-    color: var(--color-text-muted);
+    padding: 20px 0 24px;
+    border-top: 1px solid var(--ink-2);
+    color: var(--gray-400);
   }
+  .sources-strip .footnote a { color: var(--gray-400); }
 </style>
 
 <script>

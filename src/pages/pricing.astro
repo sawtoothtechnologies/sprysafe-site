@@ -253,10 +253,10 @@ const pricingFaqs = [
     margin: 0 auto 28px;
   }
   /* Quiet FYI, not a call to action. */
-  .org-jump { margin: 18px 0 0; font-size: 0.85rem; color: var(--color-text-muted); }
+  .org-jump { margin: 18px 0 0; font-size: 0.85rem; color: var(--ink-soft); }
   .org-jump a {
     font-weight: 500;
-    color: var(--color-text-muted);
+    color: var(--ink-soft);
     text-decoration: underline;
     text-decoration-style: dotted;
     text-decoration-thickness: 1px;
@@ -269,7 +269,7 @@ const pricingFaqs = [
   .billing-toggle {
     display: none;
     background: var(--paper);
-    border: 1px solid var(--color-control-border);
+    border: 1px solid var(--line);
     border-radius: 999px;
     padding: 3px;
     gap: 2px;
@@ -279,7 +279,7 @@ const pricingFaqs = [
     font-family: var(--font-body);
     font-size: 0.85rem;
     font-weight: 700;
-    color: var(--color-text-muted);
+    color: var(--ink-soft);
     background: transparent;
     border: none;
     border-radius: 999px;
@@ -291,9 +291,8 @@ const pricingFaqs = [
     transition: background 0.12s ease, color 0.12s ease;
   }
   .billing-toggle__btn:hover { color: var(--pine-deep); }
-  .billing-toggle__btn:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; }
-  /* Selected segment: a white chip on the oat track, not a dark fill. */
-  .billing-toggle__btn.is-active { background: var(--color-surface); color: var(--color-text); box-shadow: inset 0 0 0 1.5px var(--color-text); }
+  .billing-toggle__btn:focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
+  .billing-toggle__btn.is-active { background: var(--pine-deep); color: var(--cream); }
   /* Savings note under the pill — pops in on Annual, hides on Monthly. */
   .billing-note {
     margin: 12px 0 0;
@@ -319,14 +318,19 @@ const pricingFaqs = [
   }
   .price-card {
     background: var(--white);
-    border: 1.5px solid var(--color-text);
+    border: 1px solid var(--line);
     border-radius: var(--radius-lg);
     padding: 38px 32px;
     box-shadow: var(--shadow);
   }
+  .price-card:not(.price-card--featured) { position: relative; z-index: 1; }
   .price-card--featured {
-    border: 2.5px solid var(--ink);
-    background: linear-gradient(var(--color-tint), var(--color-surface) 150px);
+    border: 2px solid var(--ink);
+    /* A warm halo around the white card, in place of the gray drop shadow.
+       The neighbouring cards sit above it (z-index below), so the light
+       shows in the gaps and never washes over them. */
+    z-index: 0;
+    box-shadow: 0 0 0 10px rgba(249, 227, 174, 0.55), 0 0 70px 26px rgba(249, 227, 174, 0.95), 0 26px 60px -18px rgba(240, 161, 28, 0.45);
     position: relative;
   }
   @media (min-width: 900px) {
@@ -338,15 +342,13 @@ const pricingFaqs = [
   }
   .price-badge {
     position: absolute;
-    top: -16px;
+    top: -13px;
     left: 50%;
     transform: translateX(-50%);
-    /* A glow tag, not an amber fill: the amber fill belongs to the button. */
-    background: var(--color-tint);
-    color: var(--color-link);
-    border: 1px solid var(--color-band);
-    font-weight: 600;
-    font-size: 0.9375rem;
+    background: var(--amber);
+    color: var(--pine-deep);
+    font-weight: 700;
+    font-size: 0.875rem;
     line-height: 1.3;
     padding: 5px 14px;
     border-radius: var(--radius-chip);
@@ -355,22 +357,22 @@ const pricingFaqs = [
   }
   .price-card__label {
     font-size: 0.9375rem;
-    font-weight: 600;
+    font-weight: 700;
     line-height: 1.3;
-    color: var(--color-text-muted);
+    color: var(--amber-deep);
     margin-bottom: 6px;
   }
   .price-card h2 { margin-bottom: 10px; }
-  .price-card__price { font-size: 1.15rem; color: var(--color-text-muted); margin-bottom: 2px; }
+  .price-card__price { font-size: 1.15rem; color: var(--ink-soft); margin-bottom: 2px; }
   .price-card__num {
     font-family: var(--font-display);
     font-size: 3rem;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: -0.03em;
     color: var(--ink);
   }
   .price-card__billing {
-    color: var(--color-text-muted);
+    color: var(--ink-soft);
     font-size: 0.9rem;
     margin: 0 0 4px;
   }
@@ -391,7 +393,7 @@ const pricingFaqs = [
   .price-card__note { font-size: 0.95rem; color: var(--ink-soft); margin-bottom: 24px; }
   .price-card__trial {
     font-size: 0.9rem;
-    color: var(--color-text-muted);
+    color: var(--ink-soft);
     margin: 10px 0 0;
   }
   .price-card .btn { width: 100%; }
@@ -404,7 +406,7 @@ const pricingFaqs = [
   .guarantee strong { color: var(--pine-deep); }
   .plan-fineprint {
     font-size: 0.85rem;
-    color: var(--color-text-muted);
+    color: var(--ink-soft);
     margin-top: 8px;
   }
 </style>

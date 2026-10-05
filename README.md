@@ -60,17 +60,17 @@ save; nothing is published).
 
 ## Design system
 
-**"Lamplight" v2.0** (October 2026): amber is the light left on at home. Paper, walnut ink,
-one amber accent, Manrope at 700 or lighter. No dark surfaces, nothing that loops, no people
-in illustration. Three motifs: steady light (status), lit button (the one primary action),
-string of lights (progress). It replaced "Signal Amber" (ink surfaces, radar, ping, trace),
-which replaced "Evergreen Modern."
+**"Signal · Amber" v1.1** (October 2026) — warm near-black ink, radar amber, Manrope. v1.1
+lightened v1.0: ink is kept for the hero, footer and table headers; the report section is
+honey; the closing band is amber; selected states are lit, not inverted; the primary button
+has a still glow instead of a ping; small labels are sentence case.
 
-- Tokens and usage rules: **`brand/TOKENS.md`**. Read this before changing colors or type.
-- Full visual guide: `brand/scamprep-brand-guide.html` (open in a browser).
-- Implementation: `src/styles/global.css`. Older variable and class names survive as
-  aliases; `brand/TOKENS.md` explains which ones changed meaning and must not be blind-swapped.
-- Logo, favicon, share image: `brand/` and `public/`.
+- Tokens and usage rules: **`brand/TOKENS.md`** — read this before changing colors or type.
+- Implementation: `src/styles/global.css`. Old Evergreen variable names survive as aliases;
+  `brand/TOKENS.md` and the comments in `global.css` explain the ones that changed meaning.
+- Logo, favicon, OG image: `brand/` and `public/`.
+- `brand/lamplight-exploration/` holds an archived light-surface rebrand that was previewed
+  and not adopted. It is reference only.
 
 ## Copy & naming conventions
 
@@ -138,11 +138,9 @@ lapse — for a fraud-prevention brand, a lapsed old domain is a phishing gift.
 
 ```
 brand/                          design system source of truth
-├── TOKENS.md                   colors, type, motifs, usage rules, implementation notes
-├── scamprep-brand-guide.html   the full Lamplight guide (open in a browser)
-├── logo-horizontal.svg         lockup; also logo-stacked.svg and logo-one-color.svg
-├── symbol.svg                  the roof with the light on
-└── favicon.svg                 symbol on an amber square
+├── TOKENS.md                   colors, type, motifs, usage rules, known deviations
+├── logo-ink.svg                radar mark for light backgrounds
+└── logo-on-dark.svg            radar mark for ink backgrounds
 public/                         favicon.svg · apple-touch-icon.png · og.png
 src/
 ├── layouts/Base.astro          header, footer, SEO, fonts
