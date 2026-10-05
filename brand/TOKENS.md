@@ -95,19 +95,26 @@ No uppercase micro-labels anywhere (section labels, table headers, footer headin
   motion). On smaller screens (under 1040px) there is no shared phone: each step
   opens its own example in place, without the phone frame, and stays open until
   it is tapped again. Steps open and close independently, so the page never
-  jumps. Step 1 starts open. No timers, automatic progression, delayed messages,
-  or shaking.
+  jumps. Step 1 starts open. No timers or automatic progression between steps.
+  Inside a scene the messages arrive one after another, once, when the scene is
+  on screen: the simulated text gives a small buzz and the simulated call rings
+  twice (restored October 5 at Bryce's request; reduced motion shows the whole
+  scene at once).
 - Hero decision, October 5: keep the existing ripple from `e64d6ec`. Seven
   rings spread once from the amber point over about 5.5s and remain faintly
   visible. The fading-ripple and soft-light alternatives were reviewed and
   declined; their comparison page was removed. Reduced motion shows the
   finished rings immediately; small screens retain the original subdued ripple.
 - Hero trial, October 5 (preview only, **not adopted**): `data-hero="glow"` on the
-  homepage hero swaps the ripple for one warm light that fades up once (2.6s) up
-  and to the right of the example drill, with no formal dot, and removes the card
-  behind the example so the text and coaching sit straight on the ink. The ripple
-  and card remain in the source and show with `?hero=classic`. Before publishing,
-  keep one version and delete the other along with the toggle script.
+  homepage hero removes the ripple and the card behind the example, so the text
+  and coaching sit straight on the ink. The headline side is present at once;
+  the example then arrives in a light sequence (text bubble, "If they tap the
+  link", coaching panel, about 3s in all), and one warm light fades up behind
+  the coaching panel as it arrives, with no formal dot. On wide screens the
+  columns sit farther apart with one faint hairline between them that stops
+  short at both ends. The ripple and card remain in the source and show with
+  `?hero=classic`. Before publishing, keep one version and delete the other
+  along with the toggle script.
 - Restrained glow tokens (also defined in `global.css`):
   - `--glow-button`: `0 0 0 2px rgba(240,161,28,.10), 0 6px 20px -8px rgba(240,161,28,.38)`
   - `--glow-pricing`: `0 0 32px 6px rgba(249,227,174,.46), 0 14px 32px -20px rgba(240,161,28,.22)`

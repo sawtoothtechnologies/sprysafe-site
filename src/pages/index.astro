@@ -53,8 +53,8 @@ import { homeFaqs } from '../data/faqs.js';
         <p class="trust-line">You invite, they opt in. Nothing to install. No bank access.</p>
       </div>
       <div class="hero__card">
-        <!-- Trial: one warm light, up and to the right of the example. It
-             fades up once and holds still. Decorative. -->
+        <!-- Trial: one warm light behind the coaching panel. It fades up once,
+             as the coaching arrives, and holds still. Decorative. -->
         <span class="hero__light" aria-hidden="true"></span>
         <!-- Example drill: one static card, message then coaching, both visible at
              once. No phone frame, no sequence. The "link" is inert text. -->
@@ -569,16 +569,35 @@ import { homeFaqs } from '../data/faqs.js';
   .hero[data-hero='glow'] .hero__radar { display: none; }
   .hero[data-hero='glow'] .hero__copy { position: relative; z-index: 1; }
   .hero[data-hero='glow'] .hero__card { position: relative; }
-  /* The light sits up and to the right of the example, so the text bubble
-     catches the brightest part and the light thins out toward the headline. */
+  /* A little more room between the two columns, and one faint hairline that
+     stops short at both ends, so the example reads as its own thing. */
+  @media (min-width: 920px) {
+    .hero[data-hero='glow'] .hero__grid { column-gap: clamp(64px, 7.5vw, 104px); }
+    .hero[data-hero='glow'] .hero__card::before {
+      content: '';
+      position: absolute;
+      left: calc(clamp(64px, 7.5vw, 104px) / -2);
+      top: 6%;
+      bottom: 6%;
+      width: 1px;
+      background: linear-gradient(
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.2) 22%,
+        rgba(255, 255, 255, 0.2) 78%,
+        rgba(255, 255, 255, 0) 100%
+      );
+    }
+  }
+  /* The light sits behind the coaching panel, low on the right, so the
+     reassurance is the warm part of the picture. */
   .hero[data-hero='glow'] .hero__light {
     display: block;
     position: absolute;
-    left: 76%;
-    top: 14%;
-    width: 1040px;
-    height: 1040px;
-    margin: -520px 0 0 -520px;
+    left: 58%;
+    top: 74%;
+    width: 1000px;
+    height: 820px;
+    margin: -410px 0 0 -500px;
     border-radius: 50%;
     background: radial-gradient(
       closest-side,
@@ -590,9 +609,26 @@ import { homeFaqs } from '../data/faqs.js';
     pointer-events: none;
     z-index: 0;
   }
-  /* It comes up once, like a lamp warming, and then holds still. */
+  /* A light sequence, once. The headline side is there from the start. The
+     text from an unfamiliar number arrives shortly after, then the
+     "if they tap the link" step, then the coaching, and the light comes up
+     with the coaching. Then everything holds still. */
   @media (prefers-reduced-motion: no-preference) {
-    .hero[data-hero='glow'] .hero__light { animation: heroLightUp 2.6s cubic-bezier(0.3, 0.1, 0.3, 1) 0.15s both; }
+    .hero[data-hero='glow'] .drill-card__label,
+    .hero[data-hero='glow'] .drill-card__msg,
+    .hero[data-hero='glow'] .drill-card__then,
+    .hero[data-hero='glow'] .drill-card__coach {
+      animation: drillIn 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+    }
+    .hero[data-hero='glow'] .drill-card__label { animation-delay: 0.45s; }
+    .hero[data-hero='glow'] .drill-card__msg { animation-delay: 0.65s; }
+    .hero[data-hero='glow'] .drill-card__then { animation-delay: 1.8s; }
+    .hero[data-hero='glow'] .drill-card__coach { animation-delay: 2.5s; }
+    .hero[data-hero='glow'] .hero__light { animation: heroLightUp 2.4s cubic-bezier(0.3, 0.1, 0.3, 1) 2.4s both; }
+  }
+  @keyframes drillIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: none; }
   }
   @keyframes heroLightUp {
     from { opacity: 0; transform: scale(0.9); }
@@ -619,7 +655,7 @@ import { homeFaqs } from '../data/faqs.js';
     box-shadow: 0 0 0 1px rgba(240, 161, 28, 0.4), 0 20px 48px -20px rgba(240, 161, 28, 0.5);
   }
   @media (max-width: 700px) {
-    .hero[data-hero='glow'] .hero__light { width: 760px; height: 760px; margin: -380px 0 0 -380px; }
+    .hero[data-hero='glow'] .hero__light { width: 760px; height: 700px; margin: -350px 0 0 -380px; }
     .hero[data-hero='glow'] .drill-card__msg { margin-right: 28px; }
     .hero[data-hero='glow'] .drill-card__then { margin-left: 44px; }
     .hero[data-hero='glow'] .drill-card__coach { margin-left: 20px; }
