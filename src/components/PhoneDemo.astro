@@ -274,16 +274,20 @@
     font-weight: 700;
   }
   .bubble--scam { border-color: var(--line); background: var(--white); }
+  /* Sits inside the first line of the message without making that line
+     taller than the ones below it. */
   .bubble__tag {
     display: inline-block;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 600;
+    line-height: 1.2;
     color: var(--ink);
     background: var(--sand);
     border: 1px solid var(--line);
     border-radius: var(--radius-chip);
-    padding: 2px 8px;
-    margin-bottom: 6px;
+    padding: 1px 7px;
+    margin: 0 3px 0 0;
+    vertical-align: 0.08em;
   }
   .bubble__link { color: var(--amber-text); text-decoration: underline; word-break: break-all; }
 

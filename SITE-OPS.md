@@ -1,73 +1,164 @@
-# SPRY-SITE-OPS — sprysafe.com infrastructure & edit workflow
+# ScamPrep website operations
 
-> Read this before making any website changes. Last updated: 2026-07-17 (site overhaul v2 + repo restructure).
+Last reviewed: October 5, 2026. Repository details below were checked against the
+local source and configuration. External account settings were not inspected.
 
-## The stack (all free except the domain)
+## Sources of guidance
 
-| Piece | What/where |
-|---|---|
-| Live site | **https://sprysafe.com** (+ www) — also at sprysafe-site.pages.dev |
-| Code | GitHub repo **sawtoothtechnologies/sprysafe-site** (private) |
-| Source of truth | The local `~/Documents/sprysafe-site` folder on Bryce's Mac. **As of 2026-07-17 the folder itself IS the git repo** (repo root = site folder). The zip in this Drive folder is a pre-launch snapshot — do NOT edit the zip. |
-| Hosting | Cloudflare Pages, connected to the GitHub repo. Auto-deploys on every push to `main` (~2 min). **Build config: Astro preset, root directory BLANK (repo root).** ⚠️ Historical note: before 2026-07-17 the repo was accidentally rooted in the Mac home directory with the site nested at `Documents/sprysafe-site/`, and the root-directory setting pointed there. That layout is retired — do not restore it. |
-| Domain + DNS | Cloudflare (registrar + DNS + HTTPS) |
-| Waitlist form | Formspree (free) — endpoint set in `src/pages/early-access.astro` (`FORM_ACTION`) |
-| Payments | **Stripe Payment Links** (no backend). Link URLs pasted into `src/data/checkout.js`; pricing buttons fall back to /early-access until then. Post-checkout page: `/thanks`. Full dashboard walkthrough: `SPRY-STRIPE-SETUP.md` in the repo root. |
-| Email | hello@sprysafe.com → forwards to hello@sawtoothtechnologies.com via Cloudflare Email Routing (verify it's active) |
-| Framework | Astro (static, no server/database). Node + npm to build locally. |
+Read `AGENTS.md` before website work. Both Codex and Claude use those shared rules.
+Business documents stay in `~/ScamPrep`:
 
-## How to publish any change
+- `00_CONTEXT.md` controls current status, goals, offers, and decisions.
+- `voice.md` controls all copy, including when an older website document disagrees.
+- `PROJECT-INSTRUCTIONS.md` describes Bryce's working preferences.
+- `product/decisions.md` contains detailed product decisions when needed.
 
-1. Edit files in `~/Documents/sprysafe-site` (by hand, with Claude Code, or in a Cowork session with the folder connected)
-2. Either:
-   - **Terminal:** `cd ~/Documents/sprysafe-site && git add . && git commit -m "summary" && git push` (GitHub token is saved in the macOS keychain — no password prompt), or
-   - **GitHub Desktop:** one-line summary → Commit to main → Push origin
-3. Cloudflare auto-deploys in ~2 min. Green ✓ on the commit in GitHub = build succeeded. If the browser still shows the old site, hard-refresh (Cmd+Shift+R).
-4. Broke something? Cloudflare Pages → Deployments → find last good deploy → **Rollback**. (A failed build never takes the site down — it keeps serving the last good deploy.)
+Do not treat this runbook as a replacement for those originals. `README.md` and
+`STRIPE-SETUP.md` contain older business and launch guidance; verify their instructions
+against the originals and current code before using them. Archived material is history.
+Google Drive is frozen, subject to the existing-share-link exception in the project
+instructions; website work belongs in this repo.
 
-`git add .` from inside the site folder is now safe — the repo can't see anything outside it.
+## Current business and copy guidance
 
-Optional local preview before pushing: `npm run dev` in the folder → localhost:4321.
+As of this review, the product is **ScamPrep**, live marketing is at
+**https://getscamprep.com**, and the consumer CTA is **"Get early access."** The
+product MVP and checkout are still to be built. Do not imply paying customers,
+working enrollment, or an available trial checkout. The consumer path comes first,
+with financial advisors as the parallel channel. There are no stage or kill gates.
 
-## Where things live in the code
+Use the original voice guidance, including these corrections to the old runbook:
 
-| To change… | Edit… |
-|---|---|
-| Page copy | `src/pages/*.astro` (one file per page; solutions pages in `src/pages/solutions/` — senior-living, home-care, financial-advisors, credit-unions) |
-| FAQ answers | `src/data/faqs.js` (used by both homepage teaser and /faq; `homeFaqs` picks the homepage subset) |
-| Colors, fonts, spacing | tokens at top of `src/styles/global.css` |
-| Header, footer, nav, SEO/meta defaults | `src/layouts/Base.astro` |
-| Sample Resilience Report mockup | `src/components/ReportCard.astro` (real HTML/CSS — intended to become the actual product template; file keeps its old internal name) |
-| Bottom CTA bands | `src/components/CtaBand.astro` |
-| Waitlist form + Formspree endpoint | `src/pages/early-access.astro` |
-| Stripe checkout links (per plan/billing) | `src/data/checkout.js` |
-| Homepage interactions (stat count-up, how-it-works tiles) | `<script>`/`<style>` blocks at the bottom of `src/pages/index.astro` |
-| Pricing toggle (families ↔ businesses) | `<script>`/`<style>` blocks in `src/pages/pricing.astro` |
+- Tagline: "Pamphlets fade. Practice sticks."
+- Describe realistic practice with personal consent: "You invite, they opt in."
+  Drills arrive 4 to 6 times a month on no set schedule, with friendly coaching and
+  current scam briefings.
+- The Resilience Report arrives every three months, timed from each person's signup.
+  Name sample reports for their arrival season; use "autumn," not "fall."
+- Address the reader as "you" and name older adults or loved ones early. The old
+  blanket ban on saying "your parent" is not current guidance.
+- No fear, shame, em dashes, fake urgency, or unsupported social proof. Do not make
+  guarantees of fraud prevention or imply research organizations endorse ScamPrep.
+  Verify evidence for factual claims before adding or revising them.
+- Personal consent cannot be replaced by power of attorney. Partners see only
+  aggregate, anonymized stats. Drills never touch real financial information or
+  falsify caller ID. Simulated artifacts must be labeled.
+- Advisor pilot terms are internal. Read them only in the original business context;
+  do not copy them into website documentation or publish them.
 
-## Copy & positioning (v2 — overhauled 2026-07-17)
+Current consumer prices shown in `src/pages/pricing.astro` are $9, $15, and $19 per
+month billed annually ($108, $180, and $228 per year). The monthly toggle shows $12,
+$20, and $25. Plans cover one, two, or up to four people. The stated offer includes a
+14-day free trial and a 60-day money-back guarantee, but purchases are not available.
+Recheck `00_CONTEXT.md` and the pricing source before changing any offer.
 
-- **Hero/positioning: practice beats lecture.** "A pamphlet won't stop the next scam. Practice will." Simulated drills + coaching at the moment they slip, married to a drip of always-current scam briefings. One-time education fades within a month (FTC-review-backed claim); practice sticks.
-- **"Resilience Report"** — never "report card" (teacherly; wrong power dynamic). Renamed site-wide 2026-07-17.
-- **"The person you care about"** — family-facing copy never says "your parent," "Mom," or "grandparent." (B2B pages may name audiences factually: "older adults," "residents," "members," "clients.")
-- **Simplicity promise:** "No apps. No downloads. No logins." — nothing to install, monitor, or troubleshoot.
-- **Pricing (changed 2026-07-17):** Individual $9/mo billed annually ($12 monthly) · Two people $15/mo billed annually ($20 monthly) · 14-day free trial ("Start free trial" CTAs) · 60-day money-back guarantee · businesses $4–8/person/mo. **The old "founding families lock $9/mo for life" offer was removed** ($9 is now simply the annual price). Note: "Start free trial" buttons currently link to the early-access waitlist — align when billing exists.
-- **B2B pages:** financial-advisors page rebuilt with Carefull-inspired positioning (reduce risk / retain assets / whole-family relationships; next-gen bridge; "Spry does the work — you're never in the drill flow") and renamed **"Financial & wealth advisors"** (URL unchanged). New analogous **credit-unions** page ("Protect the member, not just the account"). Senior-living and home-care pages NOT yet upgraded to this standard.
+The legacy `sprysafe-site` repo, local folder, and Cloudflare project names are
+intentional. `sprysafe.com` is the old redirect domain. Do not rename infrastructure
+or revive Spry or ScamDrill as product names.
 
-## Brand rules baked into the site (don't undo)
+## Technical details and verification limits
 
-- Brand is **Spry**; domain is sprysafe.com. **Never use "ScamDrill"** in copy — it's a competitor (scamdrill.com).
-- Voice: protective never patronizing; agency and positivity, never fear/shame (per FTC messaging research).
-- Claim guardrails: no "prevents fraud"/guarantees; no implied FTC/AARP endorsement; no fabricated testimonials (samples use fictional "Margaret," labeled illustrative); no unverifiable ROI/leads claims on B2B pages; text/voice drills described as consent-gated (TCPA); stats must match FBI IC3 2025 sourcing.
-- Full spec: `Spry_Website_Brief.md` in this folder (predates the v2 overhaul — where they conflict, the live site + this file win).
+| Piece | Checked source or operational instruction |
+| --- | --- |
+| Repository | `~/Documents/sprysafe-site` is the Git root. `origin` is `https://github.com/sawtoothtechnologies/sprysafe-site.git`. |
+| Framework | Static Astro site. `package.json` defines `dev`, `build`, and `preview`; it has no test or lint script. Install dependencies with `npm ci` after a fresh checkout or lockfile change. |
+| Production deployment | A push to `main`, including a merged pull request, publishes through Cloudflare Pages to getscamprep.com. Treat it as a release, not a backup operation. |
+| Build settings | Build from the repository root with `npm run build`; output is `dist/`. Match these when checking Cloudflare settings. The dashboard configuration was not independently verified in this review. |
+| Branch previews | The existing repo workflow uses Cloudflare branch deployments. Get the actual preview URL from the commit/PR checks or Cloudflare Deployments. Do not assume a branch preview is private or access-controlled. |
+| URLs and sitemap | `astro.config.mjs` sets `https://getscamprep.com`, `trailingSlash: 'never'`, and flat HTML output. `src/lib/public-url.js` normalizes canonical URLs. Sitemap generation excludes `/thanks`; that page also sets `noindex`. `public/robots.txt` points to `/sitemap-index.xml`. |
+| Early-access form | `src/pages/early-access.astro` sets `FORM_ACTION` to `https://formspree.io/f/moeajjvb`. It submits through fetch, redirects success to `/thanks`, and has a normal POST fallback. The code documents reCAPTCHA as off for this integration. Inbox delivery and Formspree settings still need an account or end-to-end check before claiming they work. |
+| Payments | All six Stripe link slots in `src/data/checkout.js` are empty. `src/pages/pricing.astro` falls back to `/early-access?plan=...`. Adding links changes the button destinations automatically, so do not do it as routine documentation cleanup. |
+| Confirmation page | `/thanks` is the early-access confirmation. It is not a checkout confirmation. Its source calls for a separate `/welcome` page when billing launches; that page does not exist yet. |
+| Booking | `https://cal.com/scamprep/partner-call` is already used in `src/pages/solutions/index.astro`, `src/components/OrgPricing.astro`, and `src/layouts/Base.astro`. Account availability was not tested. |
+| Email | Current site links use `hello@getscamprep.com`. DNS, mailbox delivery, and legacy email forwarding cannot be verified from these links. Check the relevant service before changing routing. |
+| Analytics | `Base.astro` documents Cloudflare Web Analytics injection at the edge. Verify the live response or Cloudflare settings before adding another tracker; absence of a source script does not prove analytics are missing. |
+| Legal pages | `privacy.astro` and `terms.astro` show August 9, 2026 effective dates and no DRAFT labels. This does not establish attorney-review status. The old claim that checkout is already live and review is now blocking is obsolete. |
+| Redirects | `public/_redirects` redirects the retired senior-living, home-care, financial-advisors, and credit-unions solution URLs to `/solutions`. Old-domain redirects and DNS are external configuration, not this file. |
 
-## Outstanding pre-marketing checklist
+Do not infer account activation, pricing tiers, credentials, legal approval, or
+successful delivery from old notes or source comments. Verify those details in the
+relevant service when a task depends on them. Do not delete the legacy domain or its
+DNS zone as part of a branding update.
 
-- [ ] **Stripe:** activate account, create 3 products / 6 prices / 6 payment links (14-day trial, redirect to /thanks), paste URLs into `src/data/checkout.js` — steps in `SPRY-STRIPE-SETUP.md` (repo root). Test mode first.
-- [ ] **Attorney review of /privacy + /terms is now blocking** — checkout is wired, so "before charging customers" is here.
-- [ ] Confirm Formspree endpoint is wired (replace `YOUR_FORM_ID` if not done) + test a submission
-- [ ] Confirm hello@sprysafe.com routing verified
-- [ ] Swap "Book a 20-minute call" mailto links → Cal.com/Calendly link when created (`src/pages/solutions/*`, `src/pages/pricing.astro`)
-- [ ] Attorney review of /privacy and /terms (currently marked DRAFT) before charging customers
-- [ ] Attorney quick-screen of SPRY/SPRYSAFE marks before paid marketing (key record: SPRY reg. 5329213, Spry Methods, classes 36/42; SPRYSAFE screened clear 2026-07-14)
-- [ ] Upgrade senior-living + home-care pages to match advisor/credit-union quality
-- [ ] Optional: add Plausible/Fathom analytics script to `src/layouts/Base.astro`
+## Edit, preview, build, then publish
+
+1. Read the original guidance and inspect the current branch and working tree. Preserve
+   existing edits. Use a suitable non-`main` branch; do not switch branches by discarding
+   someone else's work.
+2. Make the requested changes. Stage only named files for that task. A documentation
+   request does not authorize page, stylesheet, configuration, or dependency changes.
+3. For website edits, show Bryce a usable preview before publishing. Use `npm run dev`
+   while editing, or the built preview below. Inspect affected pages at desktop and
+   mobile sizes, relevant interactions, links, and reduced motion where applicable.
+   Documentation-only work can be reviewed through its diff.
+4. Run the clean build below. Resolve failures, and rebuild if source changes after
+   the check. Report what passed and anything that could not be verified.
+5. Commit only the intended files with a plain-English message. Give the exact push
+   command for the actual branch. Uploading a non-`main` branch can create a hosted
+   preview; do not present it as publishing production.
+6. After preview review and successful build checks, publish only when Bryce has asked
+   to publish. Merging a reviewed PR into `main` or pushing to `main` makes the site live.
+   Verify the production deployment result and affected pages before calling it done.
+
+Run these commands from `~/Documents/sprysafe-site`. Commands are separate so it is
+clear which steps only preview or build, and which can publish.
+
+Open the local development preview (use the address printed by Astro):
+
+```sh
+npm run dev
+```
+
+Remove only the generated build and Astro cache directories for a clean build:
+
+```sh
+rm -rf dist .astro
+```
+
+Run the production build:
+
+```sh
+npm run build
+```
+
+Serve the completed build locally and share the printed address with Bryce:
+
+```sh
+npm run preview
+```
+
+These local commands do not publish. Build output and dependencies (`dist/`, `.astro/`,
+`node_modules/`) are ignored and should not be committed. There is no separate test or
+lint command configured; choose additional checks based on the actual change.
+
+If production has a problem, inspect its deployment status in Cloudflare Pages before
+diagnosing a stale browser. The existing recovery procedure is to select the previous
+successful production deployment under the `sprysafe-site` project's Deployments and
+roll back, then fix or revert the corresponding code. Confirm the available deployment
+and current dashboard controls before acting.
+
+## Editing map and design
+
+`brand/TOKENS.md` is the active **Signal Amber v1.1** design reference. Keep token
+changes synchronized with `src/styles/global.css`. Preserve the Open Ring logo, ink
+hero/footer/table headers, honey report section, amber closing band, lit selected
+states, still button glow, dusk-blue coaching, sentence-case labels, and Manrope 800
+headlines. No new looping motion. The Lamplight exploration is archived.
+
+| To change | Edit |
+| --- | --- |
+| Page copy | `src/pages/*.astro`; the consolidated partner page is `src/pages/solutions/index.astro`. |
+| Shared FAQ answers | `src/data/faqs.js`; `homeFaqs` picks the homepage subset. Pricing and solutions also define their own FAQs. |
+| Colors, type, spacing, and motion | `brand/TOKENS.md` and `src/styles/global.css`, plus page/component styles where relevant. |
+| Header, footer, navigation, and shared SEO | `src/layouts/Base.astro`; URL normalization is in `src/lib/public-url.js`. |
+| Sample Resilience Report | `src/components/ReportCard.astro`; the internal filename is intentional. |
+| Phone example and closing CTA | `src/components/PhoneDemo.astro` and `src/components/CtaBand.astro`. |
+| Early-access form and confirmation | `src/pages/early-access.astro` and `src/pages/thanks.astro`. |
+| Consumer prices, billing toggle, and link destinations | `src/pages/pricing.astro` and `src/data/checkout.js`. |
+| Partner pricing and booking | `src/components/OrgPricing.astro` and `src/pages/solutions/index.astro`. |
+| Homepage interactions | Script and style blocks in `src/pages/index.astro`. |
+| Redirects, robots, and sitemap configuration | `public/_redirects`, `public/robots.txt`, and `astro.config.mjs`. |
+
+When billing work begins, revisit `STRIPE-SETUP.md` against the current business
+context, source code, and Stripe settings. Its old waitlist-placeholder, checkout
+confirmation, and brand instructions are not current launch requirements.

@@ -18,13 +18,13 @@ import { homeFaqs } from '../data/faqs.js';
          spread once on load, then hold still. Nothing loops. Decorative. -->
     <div class="hero__radar" aria-hidden="true">
       <svg class="hero__ripple" viewBox="-500 -500 1000 1000" width="1000" height="1000" fill="none">
-        <circle r="36" stroke="#f0a11c" stroke-width="2.2" style="--i: 0; --o: 0.62; --peak: 1;" />
-        <circle r="82" stroke="#f0a11c" stroke-width="1.9" style="--i: 1; --o: 0.46; --peak: 0.99;" />
-        <circle r="140" stroke="#f0a11c" stroke-width="1.6" style="--i: 2; --o: 0.33; --peak: 0.75;" />
-        <circle r="210" stroke="#f0a11c" stroke-width="1.4" style="--i: 3; --o: 0.23; --peak: 0.56;" />
-        <circle r="292" stroke="#f0a11c" stroke-width="1.2" style="--i: 4; --o: 0.15; --peak: 0.4;" />
-        <circle r="386" stroke="#f0a11c" stroke-width="1" style="--i: 5; --o: 0.09; --peak: 0.29;" />
-        <circle r="492" stroke="#f0a11c" stroke-width="1" style="--i: 6; --o: 0.05; --peak: 0.21;" />
+        <circle r="36" stroke="#f0a11c" stroke-width="2.2" style="--i: 0; --o: 0.62; --peak: 0.9;" />
+        <circle r="82" stroke="#f0a11c" stroke-width="1.9" style="--i: 1; --o: 0.46; --peak: 0.68;" />
+        <circle r="140" stroke="#f0a11c" stroke-width="1.6" style="--i: 2; --o: 0.33; --peak: 0.51;" />
+        <circle r="210" stroke="#f0a11c" stroke-width="1.4" style="--i: 3; --o: 0.23; --peak: 0.37;" />
+        <circle r="292" stroke="#f0a11c" stroke-width="1.2" style="--i: 4; --o: 0.15; --peak: 0.26;" />
+        <circle r="386" stroke="#f0a11c" stroke-width="1" style="--i: 5; --o: 0.09; --peak: 0.18;" />
+        <circle r="492" stroke="#f0a11c" stroke-width="1" style="--i: 6; --o: 0.05; --peak: 0.13;" />
       </svg>
       <span class="hero__center"></span>
     </div>
@@ -509,28 +509,29 @@ import { homeFaqs } from '../data/faqs.js';
   .hero__ripple { position: absolute; left: -220px; top: -220px; overflow: visible; }
   /* Each ring rests at its own faintness (--o): the farther out, the fainter. */
   .hero__ripple circle { opacity: var(--o); vector-effect: non-scaling-stroke; }
-  /* One ripple on load, like a drop landing in still water. The amber point
-     lands first. Then the rings leave the centre one after another, the
-     outermost first, each travelling to its resting place: quick at the
-     start, slowing as it arrives, brighter in motion and fading as it
-     settles. About three seconds, then it is still. */
+  /* One ripple on load, paced like a drop landing in still water. The amber
+     point swells first. Then the rings leave the centre one at a time, about
+     half a second apart, the outermost first. Each travels at an unhurried,
+     nearly even speed and eases to a stop at its resting place, fading from
+     a soft glow to its resting faintness as it goes. About five and a half
+     seconds, then it is still. Nothing loops. */
   @media (prefers-reduced-motion: no-preference) {
     .hero__ripple circle {
       transform-box: fill-box;
       transform-origin: center;
-      animation: rippleOut calc(1.5s + var(--i) * 0.26s) cubic-bezier(0.16, 0.84, 0.3, 1) both;
-      animation-delay: calc(0.35s + (6 - var(--i)) * 0.13s);
+      animation: rippleOut calc(1.7s + var(--i) * 0.56s) cubic-bezier(0.33, 0.6, 0.5, 1) both;
+      animation-delay: calc(0.5s + (6 - var(--i)) * 0.55s);
     }
-    .hero__center { animation: rippleDrop 1.1s cubic-bezier(0.3, 0.7, 0.3, 1) both; }
+    .hero__center { animation: rippleDrop 1.6s cubic-bezier(0.4, 0, 0.3, 1) both; }
   }
   @keyframes rippleOut {
-    0% { opacity: 0; transform: scale(0.03); }
-    22% { opacity: var(--peak); }
+    0% { opacity: 0; transform: scale(0.04); }
+    30% { opacity: var(--peak); }
     100% { opacity: var(--o); transform: scale(1); }
   }
   @keyframes rippleDrop {
-    0% { opacity: 0; transform: scale(0.3); box-shadow: 0 0 0 0 rgba(240, 161, 28, 0.5), 0 0 0 rgba(240, 161, 28, 0); }
-    45% { opacity: 1; transform: scale(1.22); box-shadow: 0 0 0 12px rgba(240, 161, 28, 0.1), 0 0 34px rgba(240, 161, 28, 0.7); }
+    0% { opacity: 0; transform: scale(0.5); }
+    40% { opacity: 1; transform: scale(1.12); box-shadow: 0 0 0 9px rgba(240, 161, 28, 0.1), 0 0 30px rgba(240, 161, 28, 0.6); }
     100% { transform: scale(1); }
   }
 
