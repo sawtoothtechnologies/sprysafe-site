@@ -161,7 +161,7 @@ const show = (i) => !single || scene === i;
      indicator. No bezel gradient, no drop shadow. */
   .phone__frame {
     position: relative;
-    width: min(312px, 86vw);
+    width: min(300px, 86vw);
     border-radius: 44px;
     padding: 6px;
     background: var(--white);
@@ -184,7 +184,9 @@ const show = (i) => !single || scene === i;
     position: relative;
     background: var(--paper-bg);
     border-radius: 36px;
-    min-height: 528px;
+    /* Just tall enough for the fullest scene (the drill), so the phone keeps
+       one height across all four scenes without a tall empty screen. */
+    min-height: 446px;
     padding: 12px 14px 12px;
     overflow: hidden;
     display: flex;
