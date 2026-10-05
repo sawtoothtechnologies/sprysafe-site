@@ -23,8 +23,9 @@ and imports the parts of the preview that worked:
 | Resilience Report section | ink band with radar rings | **honey panel** (`.section--band`): rounded (32px), inset from the page edges; report in the wider column, no outline on the card |
 | Closing CTA band | ink with radar sweep | **amber band** with a shallow arched top edge, ink text, white button. On the homepage the sources line sits inside it, so amber runs straight into the footer |
 | Selected / active states | inverted (ink fill, light text) | **lit**: glow fill, thin amber line, dark text |
-| Hero motif | radar sweep | **ripple** from one amber point, spreading once and then holding still |
+| Hero motif | radar sweep | **one warm light** behind the example drill, fading up once and then holding still (a ripple came first and was replaced the same day) |
 | Primary button | looping ping ring | **still glow** that fades up once on load |
+| Hero example drill | text and coaching on a light card | **no card**: the text bubble and the coaching panel sit straight on the ink |
 | Phone demo | dark device with heavy shadow | **line drawing**: one ink outline, white screen |
 | Coached items | red outline, red text | **dusk blue** tint and text, open ring |
 | Small labels | uppercase, letter-spaced | **sentence case**, weight 700 |
@@ -47,7 +48,7 @@ One typeface, warm near-black, signal amber. Amber is a *signal*, not a theme.
 | Motif | Means | Where |
 | --- | --- | --- |
 | **The Open Ring** | the brand | the logo: one ring left open at the upper right around a steady amber center. Attention, with a way in |
-| **Ripple** | state | the hero only: rings spreading from one steady amber point, farther apart and fainter as they travel out. They spread once on load, then hold still. No sweeping line, no blinking contacts, nothing looping (the radar sweep was retired 2026-10-05: a scan reads as surveillance) |
+| **Warm light** | state | the hero only: one soft amber glow behind the coaching panel of the example drill. It fades up once as the coaching arrives, then holds still. No rings, no formal dot, no sweeping line, nothing looping (the radar sweep was retired 2026-10-05 because a scan reads as surveillance; the ripple that briefly replaced it was retired the same day in favor of the light) |
 | **Lit button** | the one primary action | the amber button with its still glow |
 | **Blip** | status | amber dot = fine; open dusk ring = coached |
 
@@ -89,37 +90,39 @@ No uppercase micro-labels anywhere (section labels, table headers, footer headin
 
 ## Shape, spacing, motion
 
-- October 5 review refinements: the header uses "Pamphlets fade. Practice sticks."
-  The walkthrough is visitor-controlled. Step titles show first; a step's
-  description appears when it is chosen (wide screens) or opened (smaller
-  screens), like the reveal panels on the advisors page. A
-  selection reveals the full phone scene with a 220ms fade (instant with reduced
-  motion). On smaller screens (under 1040px) there is no shared phone: each step
-  opens its own example in place, without the phone frame, and stays open until
-  it is tapped again. Steps open and close independently, so the page never
-  jumps. Step 1 starts open. No timers or automatic progression between steps.
-  Inside a scene the messages arrive one after another, once, when the scene is
-  on screen: the simulated text gives a small buzz and the simulated call rings
-  twice (restored October 5 at Bryce's request; reduced motion shows the whole
-  scene at once).
-- Hero decision, October 5: keep the existing ripple from `e64d6ec`. Seven
-  rings spread once from the amber point over about 5.5s and remain faintly
-  visible. The fading-ripple and soft-light alternatives were reviewed and
-  declined; their comparison page was removed. Reduced motion shows the
-  finished rings immediately; small screens retain the original subdued ripple.
-- Hero trial, October 5 (preview only, **not adopted**): `data-hero="glow"` on the
-  homepage hero removes the ripple and the card behind the example, so the text
-  and coaching sit straight on the ink. The headline side is present at once;
-  the example then arrives in a light sequence, about 3s in all: the text bubble
-  pops in from its tail corner like an arriving text, the dotted "If they tap
-  the link" line draws downward, and the coaching panel fades up where it
-  lands. One warm light fades up behind the coaching panel as it arrives, with
-  no formal dot. The hero has one button ("Get early access"); the "How practice
-  works" anchor button was removed in this trial. On wide screens the
-  columns sit farther apart with one faint hairline between them that stops
-  short at both ends. The ripple and card remain in the source and show with
-  `?hero=classic`. Before publishing, keep one version and delete the other
-  along with the toggle script.
+- Hero, adopted October 5 (it replaced the ripple, which is gone from the source):
+  - The headline side is present at once. It has one button, "Get early access";
+    the "How practice works" anchor button was removed. The sentence under the
+    headline holds to two even lines from about 980px wide (wider copy column,
+    type easing between 16px and 18.4px, balanced wrapping). The trust line under
+    the button is quiet (`#9A978F`).
+  - The example drill has no card. It arrives once, in order, over about 3s: the
+    text bubble pops in from its tail corner like an arriving text, the dotted
+    "If they tap the link" line draws downward, and the coaching panel fades up
+    where the line lands.
+  - One warm light fades up behind the coaching panel as it arrives (2.4s), low
+    on the right, with no formal dot. Then everything holds still.
+  - On wide screens the two columns sit up to 88px apart, with one faint white
+    hairline between them that stops short at both ends.
+  - Reduced motion shows the finished hero at once.
+- Walkthrough ("How it works"), adopted October 5:
+  - Visitor-controlled. No timers or automatic progression between steps.
+  - Step titles show first. A step's description appears when it is chosen (wide
+    screens) or opened (smaller screens), like the reveal panels on the advisors
+    page. Click or tap only, no hover.
+  - Wide screens: the chosen step is lit and the phone beside the list shows its
+    scene. The phone is 300px wide and just tall enough for its fullest scene,
+    with an "Illustrative example" caption beneath it. No "Simulated" tag inside
+    a message.
+  - Under 1040px there is no shared phone: each step opens its description and
+    its own example in place, without the phone frame, and stays open until it
+    is tapped again. Steps open and close independently, so the page never
+    jumps. Step 1 starts open.
+  - Inside a scene the messages arrive one after another, once, when the scene
+    is on screen: the simulated text gives a small buzz and the simulated call
+    rings twice. Reduced motion shows the whole scene at once.
+- The header tagline and the footer use "Pamphlets fade. Practice sticks." The
+  closing band headline is "Help them practice before the real thing arrives."
 - Restrained glow tokens (also defined in `global.css`):
   - `--glow-button`: `0 0 0 2px rgba(240,161,28,.10), 0 6px 20px -8px rgba(240,161,28,.38)`
   - `--glow-pricing`: `0 0 32px 6px rgba(249,227,174,.46), 0 14px 32px -20px rgba(240,161,28,.22)`
@@ -127,7 +130,9 @@ No uppercase micro-labels anywhere (section labels, table headers, footer headin
 - Radius: **6** chips/tags · **9** buttons/inputs/rows · **14** cards. No pills except toggles.
 - Spacing: 4px base. Sections 56 / 88; the closing band 104. Content max 1120px.
 - Motion: everything plays once and then holds still. Nothing loops.
-  - hero: original ripple spreads once over about 5.5s, then holds still
+  - hero: the example drill arrives in order and one warm light fades up behind
+    the coaching panel, about 5s in all, then holds still
+  - phone scenes: messages arrive in sequence once per showing
   - primary button glow fades up once (0.9s)
   - stat dots light up one after another, once, when scrolled into view
   - report rows rise in and the string of lights comes on, once, on scroll
@@ -155,7 +160,7 @@ No uppercase micro-labels anywhere (section labels, table headers, footer headin
   outlined) for use off the site: decks, documents, email signature
 - `public/favicon.svg`, `public/apple-touch-icon.png`: paper ring, amber center, on ink
 - `public/og.png`: share image, ink with still, evenly spaced rings (1200 x 630). Not yet
-  redrawn to match the hero ripple
+  redrawn to match the hero's warm light
 
 Logo rules: the ring is ink on light and paper (`#f8f7f4`) on ink; the center is always
 amber. Never put the ink ring on amber or honey without checking it at small size. Minimum

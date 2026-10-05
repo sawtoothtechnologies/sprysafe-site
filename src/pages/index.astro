@@ -11,34 +11,8 @@ import { homeFaqs } from '../data/faqs.js';
   title="ScamPrep: Simulated scam drills and online threat training"
   description="Simulated scam drills, coaching and a quarterly Resilience Report for older adults and the family members who look out for them."
 >
-  <!-- ============ HERO ============ -->
-  <!-- TRIAL (October 5 preview, not adopted): data-hero="glow" swaps the ripple
-       for a warm light that fades up once, and drops the card behind the
-       example drill. Add ?hero=classic to the address to see the ripple and
-       the card again. Before publishing, keep one version and remove the
-       other, along with this script. -->
-  <section class="hero section--ink" data-hero="glow">
-    <script is:inline>
-      if (new URLSearchParams(location.search).get('hero') === 'classic') {
-        document.currentScript.parentElement.dataset.hero = 'classic';
-      }
-    </script>
-    <!-- The ripple: rings spreading from one steady amber point (the logo's
-         centre). They sit farther apart and fainter as they travel out. They
-         spread once on load, then hold still. Nothing loops. Decorative. -->
-    <div class="hero__radar" aria-hidden="true">
-      <svg class="hero__ripple" viewBox="-500 -500 1000 1000" width="1000" height="1000" fill="none">
-        <circle r="36" stroke="#f0a11c" stroke-width="2.2" style="--i: 0; --o: 0.62; --peak: 0.9;" />
-        <circle r="82" stroke="#f0a11c" stroke-width="1.9" style="--i: 1; --o: 0.46; --peak: 0.68;" />
-        <circle r="140" stroke="#f0a11c" stroke-width="1.6" style="--i: 2; --o: 0.33; --peak: 0.51;" />
-        <circle r="210" stroke="#f0a11c" stroke-width="1.4" style="--i: 3; --o: 0.23; --peak: 0.37;" />
-        <circle r="292" stroke="#f0a11c" stroke-width="1.2" style="--i: 4; --o: 0.15; --peak: 0.26;" />
-        <circle r="386" stroke="#f0a11c" stroke-width="1" style="--i: 5; --o: 0.09; --peak: 0.18;" />
-        <circle r="492" stroke="#f0a11c" stroke-width="1" style="--i: 6; --o: 0.05; --peak: 0.13;" />
-      </svg>
-      <span class="hero__center"></span>
-    </div>
-
+  <!-- ============ HERO: lit example on ink ============ -->
+  <section class="hero section--ink">
     <div class="wrap hero__grid">
       <div class="hero__copy">
         <h1>Help your loved&nbsp;ones spot scams.</h1>
@@ -52,11 +26,12 @@ import { homeFaqs } from '../data/faqs.js';
         <p class="trust-line">You invite, they opt in. Nothing to install. No bank access.</p>
       </div>
       <div class="hero__card">
-        <!-- Trial: one warm light behind the coaching panel. It fades up once,
-             as the coaching arrives, and holds still. Decorative. -->
+        <!-- One warm light behind the coaching panel. It fades up once, as the
+             coaching arrives, and holds still. Decorative. -->
         <span class="hero__light" aria-hidden="true"></span>
-        <!-- Example drill: one static card, message then coaching, both visible at
-             once. No phone frame, no sequence. The "link" is inert text. -->
+        <!-- Example drill: the message, then the coaching, straight on the ink
+             with no card or phone frame. They arrive once, in order, and then
+             hold still. The "link" is inert text. -->
         <div class="drill-card" aria-label="Example practice simulation">
           <p class="drill-card__label">Example practice simulation</p>
 
@@ -396,7 +371,7 @@ import { homeFaqs } from '../data/faqs.js';
 </script>
 
 <style>
-  /* ---------- Hero: the ripple surface ---------- */
+  /* ---------- Hero: the lit surface ---------- */
   .hero { padding: 0; }
   .hero__grid {
     position: relative;
@@ -417,23 +392,20 @@ import { homeFaqs } from '../data/faqs.js';
   .hero .trust-line { font-size: 0.95rem; font-weight: 500; color: #9a978f; margin-top: 16px; }
 
   /* ---------- Example drill card ---------- */
+  /* No card: the label, the text and the coaching sit straight on the ink. */
   .drill-card {
     position: relative;
+    z-index: 1;
     width: 100%;
-    max-width: 520px;
-    background: #f7f5ee;
+    max-width: 480px;
     color: #23231f;
-    border: 1px solid rgba(35, 35, 31, 0.08);
-    border-radius: 20px;
-    padding: 28px;
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
   }
   .drill-card p { margin: 0; }
   .drill-card__label {
     font-size: 0.9375rem;
     font-weight: 700;
     line-height: 1.3;
-    color: var(--amber-deep);
+    color: var(--amber);
     margin-bottom: 20px !important;
   }
   /* Captions above each box, the way messaging apps label a thread. */
@@ -496,7 +468,6 @@ import { homeFaqs } from '../data/faqs.js';
   }
   .drill-card__action { font-weight: 700; font-size: 1rem; line-height: 1.5; margin-top: 10px !important; }
   @media (max-width: 700px) {
-    .drill-card { padding: 20px; border-radius: 16px; }
     .drill-card__msg, .drill-card__coach { padding: 16px; }
   }
 
@@ -504,88 +475,29 @@ import { homeFaqs } from '../data/faqs.js';
      the grid gap); balanced two-line wrap below that. */
   .hero .trust-line { text-wrap: balance; }
 
-  /* Ripple: centred on a point in the top-right corner, at (right 64px,
-     top 120px), so the bright inner rings stay clear of the report card down
-     to 1280px wide, and clear of the headline on phones. */
-  .hero__radar {
-    position: absolute;
-    right: -216px;
-    top: -160px;
-    width: 560px;
-    height: 560px;
-    pointer-events: none;
-  }
-  .hero__ripple { position: absolute; left: -220px; top: -220px; overflow: visible; }
-  /* Each ring rests at its own faintness (--o): the farther out, the fainter. */
-  .hero__ripple circle { opacity: var(--o); vector-effect: non-scaling-stroke; }
-  /* One ripple on load, paced like a drop landing in still water. The amber
-     point swells first. Then the rings leave the centre one at a time, about
-     half a second apart, the outermost first. Each travels at an unhurried,
-     nearly even speed and eases to a stop at its resting place, fading from
-     a soft glow to its resting faintness as it goes. About five and a half
-     seconds, then it is still. Nothing loops. */
-  @media (prefers-reduced-motion: no-preference) {
-    .hero__ripple circle {
-      transform-box: fill-box;
-      transform-origin: center;
-      animation: rippleOut calc(1.7s + var(--i) * 0.56s) cubic-bezier(0.33, 0.6, 0.5, 1) both;
-      animation-delay: calc(0.5s + (6 - var(--i)) * 0.55s);
-    }
-    .hero__center { animation: rippleDrop 1.6s cubic-bezier(0.4, 0, 0.3, 1) both; }
-  }
-  @keyframes rippleOut {
-    0% { opacity: 0; transform: scale(0.04); }
-    30% { opacity: var(--peak); }
-    100% { opacity: var(--o); transform: scale(1); }
-  }
-  @keyframes rippleDrop {
-    0% { opacity: 0; transform: scale(0.5); }
-    40% { opacity: 1; transform: scale(1.12); box-shadow: 0 0 0 9px rgba(240, 161, 28, 0.1), 0 0 30px rgba(240, 161, 28, 0.6); }
-    100% { transform: scale(1); }
-  }
-
-  /* Center dot: the logo's solid amber pupil, with a soft halo. */
-  .hero__center {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 18px;
-    height: 18px;
-    margin: -9px 0 0 -9px;
-    border-radius: 50%;
-    background: var(--amber);
-    box-shadow: 0 0 0 5px rgba(240, 161, 28, 0.16), 0 0 22px rgba(240, 161, 28, 0.45);
-  }
-
-  @media (max-width: 919px) {
-    .hero__radar { opacity: 0.42; }
-  }
-
   .hero h1 { color: var(--paper-bg); }
 
-  /* ---------- TRIAL hero: warm light, no card (data-hero="glow") ----------
-     Everything in this block is the October 5 preview alternative. The
-     classic ripple and card above are untouched and show with ?hero=classic. */
-  .hero__light { display: none; }
-  .hero[data-hero='glow'] .hero__radar { display: none; }
-  .hero[data-hero='glow'] .hero__copy { position: relative; z-index: 1; }
-  .hero[data-hero='glow'] .hero__card { position: relative; }
+  /* ---------- Hero: warm light, no card ----------
+     Adopted October 5, 2026. It replaced the ripple and the card behind the
+     example drill. */
+  .hero .hero__copy { position: relative; z-index: 1; }
+  .hero .hero__card { position: relative; }
   /* A little more room between the two columns, and one faint hairline that
      stops short at both ends, so the example reads as its own thing. */
   @media (min-width: 920px) {
-    .hero[data-hero='glow'] .hero__grid {
+    .hero .hero__grid {
       grid-template-columns: 1.32fr 1fr;
       column-gap: clamp(56px, 6.5vw, 88px);
     }
     /* The sentence under the headline holds to two even lines: the copy
        column is a little wider, and the type eases down (never below 16px)
        as the window narrows. */
-    .hero[data-hero='glow'] .lede {
+    .hero .lede {
       max-width: none;
       font-size: clamp(1rem, 1.5vw, 1.15rem);
       text-wrap: balance;
     }
-    .hero[data-hero='glow'] .hero__card::before {
+    .hero .hero__card::before {
       content: '';
       position: absolute;
       left: calc(clamp(56px, 6.5vw, 88px) / -2);
@@ -602,7 +514,7 @@ import { homeFaqs } from '../data/faqs.js';
   }
   /* The light sits behind the coaching panel, low on the right, so the
      reassurance is the warm part of the picture. */
-  .hero[data-hero='glow'] .hero__light {
+  .hero .hero__light {
     display: block;
     position: absolute;
     left: 58%;
@@ -627,15 +539,15 @@ import { homeFaqs } from '../data/faqs.js';
      label fades in beside it, and the coaching fades up where the line lands,
      with the light coming up behind it. Then everything holds still. */
   @media (prefers-reduced-motion: no-preference) {
-    .hero[data-hero='glow'] .drill-card__label { animation: drillIn 0.5s ease-out 0.45s both; }
-    .hero[data-hero='glow'] .drill-card__msg {
+    .hero .drill-card__label { animation: drillIn 0.5s ease-out 0.45s both; }
+    .hero .drill-card__msg {
       transform-origin: 0% 100%;
       animation: textIn 0.5s cubic-bezier(0.2, 0.8, 0.3, 1) 0.65s both;
     }
-    .hero[data-hero='glow'] .drill-card__then::before { animation: lineDown 0.7s ease-in-out 1.6s both; }
-    .hero[data-hero='glow'] .drill-card__then span { animation: fadeIn 0.5s ease-out 1.85s both; }
-    .hero[data-hero='glow'] .drill-card__coach { animation: drillIn 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 2.4s both; }
-    .hero[data-hero='glow'] .hero__light { animation: heroLightUp 2.4s cubic-bezier(0.3, 0.1, 0.3, 1) 2.3s both; }
+    .hero .drill-card__then::before { animation: lineDown 0.7s ease-in-out 1.6s both; }
+    .hero .drill-card__then span { animation: fadeIn 0.5s ease-out 1.85s both; }
+    .hero .drill-card__coach { animation: drillIn 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 2.4s both; }
+    .hero .hero__light { animation: heroLightUp 2.4s cubic-bezier(0.3, 0.1, 0.3, 1) 2.3s both; }
   }
   @keyframes textIn {
     0% { opacity: 0; transform: translate(-12px, 16px) scale(0.74); }
@@ -655,31 +567,20 @@ import { homeFaqs } from '../data/faqs.js';
     from { opacity: 0; transform: scale(0.9); }
     to { opacity: 1; transform: none; }
   }
-  /* No card: the label, the text and the coaching sit straight on the ink.
-     The text leans left like an incoming message; the coaching steps in to
+  /* The text leans left like an incoming message; the coaching steps in to
      the right, lit, as the reply. */
-  .hero[data-hero='glow'] .drill-card {
-    z-index: 1;
-    max-width: 480px;
-    background: transparent;
-    border: 0;
-    border-radius: 0;
-    padding: 0;
-    box-shadow: none;
-  }
-  .hero[data-hero='glow'] .drill-card__label { color: var(--amber); }
-  .hero[data-hero='glow'] .drill-card__msg { margin-right: 64px; }
-  .hero[data-hero='glow'] .drill-card__then { margin-left: 76px; color: #c9c6bb; }
-  .hero[data-hero='glow'] .drill-card__then::before { border-left-color: rgba(255, 255, 255, 0.3); }
-  .hero[data-hero='glow'] .drill-card__coach {
+  .hero .drill-card__msg { margin-right: 64px; }
+  .hero .drill-card__then { margin-left: 76px; color: #c9c6bb; }
+  .hero .drill-card__then::before { border-left-color: rgba(255, 255, 255, 0.3); }
+  .hero .drill-card__coach {
     margin-left: 48px;
     box-shadow: 0 0 0 1px rgba(240, 161, 28, 0.4), 0 20px 48px -20px rgba(240, 161, 28, 0.5);
   }
   @media (max-width: 700px) {
-    .hero[data-hero='glow'] .hero__light { width: 760px; height: 700px; margin: -350px 0 0 -380px; }
-    .hero[data-hero='glow'] .drill-card__msg { margin-right: 28px; }
-    .hero[data-hero='glow'] .drill-card__then { margin-left: 44px; }
-    .hero[data-hero='glow'] .drill-card__coach { margin-left: 20px; }
+    .hero .hero__light { width: 760px; height: 700px; margin: -350px 0 0 -380px; }
+    .hero .drill-card__msg { margin-right: 28px; }
+    .hero .drill-card__then { margin-left: 44px; }
+    .hero .drill-card__coach { margin-left: 20px; }
   }
   .hero__metaphor {
     font-size: 1.3rem;

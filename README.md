@@ -68,8 +68,8 @@ save; nothing is published).
 **Signal Amber v1.1 with the Open Ring**, adopted October 5, 2026. Warm near-black ink,
 signal amber, Manrope. Ink surfaces are the hero, footer, and table headers; the report
 section is honey; the closing band is amber. Selected states are lit. Labels are
-sentence case. The Open Ring replaces the radar dial, and a ripple replaces the hero
-sweep. Decorative motion plays once, then holds still.
+sentence case. The Open Ring replaces the radar dial, and one warm light behind the
+hero's example drill replaces the sweep. Decorative motion plays once, then holds still.
 
 - Full visual specification: `brand/TOKENS.md`.
 - Implementation: `src/styles/global.css` and the relevant pages and components.

@@ -67,9 +67,11 @@ rollout. Keep those business originals in their own folder.
 - Dark ink surfaces are the hero, footer, and table headers only.
 - The Resilience Report section is honey; the closing band is amber.
 - Selected states are lit: glow fill and a thin amber line, never inverted to black.
-- The hero ripple spreads once from an amber point and holds still. The primary
-  button glow, stat dots, and report lights also play once. Nothing loops or sweeps;
-  respect reduced motion. Do not animate the Open Ring logo.
+- The hero has no rings and no card: the example drill arrives once, in order, on
+  the ink, and one warm light fades up behind its coaching panel and holds still.
+  The primary button glow, stat dots, report lights, and phone scenes also play
+  once. Nothing loops or sweeps; respect reduced motion. Do not animate the Open
+  Ring logo. The ripple and the radar are both retired.
 - Coached items are dusk blue, never red. No blue in the hero drill card.
 - Small labels are sentence case. Headlines stay Manrope 800.
 - Use the Open Ring logo (`brand/logo-*.svg`, `brand/lockup-*.svg`). The radar dial
