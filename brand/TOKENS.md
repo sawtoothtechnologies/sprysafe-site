@@ -108,9 +108,12 @@ No uppercase micro-labels anywhere (section labels, table headers, footer headin
 - Hero trial, October 5 (preview only, **not adopted**): `data-hero="glow"` on the
   homepage hero removes the ripple and the card behind the example, so the text
   and coaching sit straight on the ink. The headline side is present at once;
-  the example then arrives in a light sequence (text bubble, "If they tap the
-  link", coaching panel, about 3s in all), and one warm light fades up behind
-  the coaching panel as it arrives, with no formal dot. On wide screens the
+  the example then arrives in a light sequence, about 3s in all: the text bubble
+  pops in from its tail corner like an arriving text, the dotted "If they tap
+  the link" line draws downward, and the coaching panel fades up where it
+  lands. One warm light fades up behind the coaching panel as it arrives, with
+  no formal dot. The hero has one button ("Get early access"); the "How practice
+  works" anchor button was removed in this trial. On wide screens the
   columns sit farther apart with one faint hairline between them that stops
   short at both ends. The ripple and card remain in the source and show with
   `?hero=classic`. Before publishing, keep one version and delete the other

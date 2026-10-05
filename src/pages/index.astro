@@ -48,7 +48,6 @@ import { homeFaqs } from '../data/faqs.js';
         <p class="hero__metaphor">Pamphlets fade. Practice sticks.</p>
         <div class="btn-row" style="margin-top: 30px;">
           <a class="btn btn--primary" href="/early-access">Get early access</a>
-          <a class="btn btn--ghost" href="#how">How practice works</a>
         </div>
         <p class="trust-line">You invite, they opt in. Nothing to install. No bank access.</p>
       </div>
@@ -609,23 +608,32 @@ import { homeFaqs } from '../data/faqs.js';
     pointer-events: none;
     z-index: 0;
   }
-  /* A light sequence, once. The headline side is there from the start. The
-     text from an unfamiliar number arrives shortly after, then the
-     "if they tap the link" step, then the coaching, and the light comes up
-     with the coaching. Then everything holds still. */
+  /* A light sequence, once, read top to bottom. The headline side is there
+     from the start. The text from an unfamiliar number pops in from its tail
+     corner, the way a text arrives. The dotted line then draws downward, its
+     label fades in beside it, and the coaching fades up where the line lands,
+     with the light coming up behind it. Then everything holds still. */
   @media (prefers-reduced-motion: no-preference) {
-    .hero[data-hero='glow'] .drill-card__label,
-    .hero[data-hero='glow'] .drill-card__msg,
-    .hero[data-hero='glow'] .drill-card__then,
-    .hero[data-hero='glow'] .drill-card__coach {
-      animation: drillIn 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+    .hero[data-hero='glow'] .drill-card__label { animation: drillIn 0.5s ease-out 0.45s both; }
+    .hero[data-hero='glow'] .drill-card__msg {
+      transform-origin: 0% 100%;
+      animation: textIn 0.5s cubic-bezier(0.2, 0.8, 0.3, 1) 0.65s both;
     }
-    .hero[data-hero='glow'] .drill-card__label { animation-delay: 0.45s; }
-    .hero[data-hero='glow'] .drill-card__msg { animation-delay: 0.65s; }
-    .hero[data-hero='glow'] .drill-card__then { animation-delay: 1.8s; }
-    .hero[data-hero='glow'] .drill-card__coach { animation-delay: 2.5s; }
-    .hero[data-hero='glow'] .hero__light { animation: heroLightUp 2.4s cubic-bezier(0.3, 0.1, 0.3, 1) 2.4s both; }
+    .hero[data-hero='glow'] .drill-card__then::before { animation: lineDown 0.7s ease-in-out 1.6s both; }
+    .hero[data-hero='glow'] .drill-card__then span { animation: fadeIn 0.5s ease-out 1.85s both; }
+    .hero[data-hero='glow'] .drill-card__coach { animation: drillIn 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 2.4s both; }
+    .hero[data-hero='glow'] .hero__light { animation: heroLightUp 2.4s cubic-bezier(0.3, 0.1, 0.3, 1) 2.3s both; }
   }
+  @keyframes textIn {
+    0% { opacity: 0; transform: translate(-12px, 16px) scale(0.74); }
+    65% { opacity: 1; transform: scale(1.015); }
+    100% { opacity: 1; transform: none; }
+  }
+  @keyframes lineDown {
+    from { clip-path: inset(0 0 100% 0); }
+    to { clip-path: inset(0 0 0 0); }
+  }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   @keyframes drillIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: none; }
