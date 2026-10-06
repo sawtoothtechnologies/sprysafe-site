@@ -387,6 +387,16 @@ for (const pg of pages) {
 // Product facts that must hold on specific pages.
 const textOf = (p) => byPath.get(p)?.$('body').text().replace(/\s+/g, ' ') || '';
 const all = PAGES_FOR_COPY.map((p) => textOf(p.path)).join(' ');
+// Check joined text too: a private offer can span a <strong> and its parent,
+// which the own-text-node copy checks above deliberately inspect separately.
+// Report the rule, never copy private offer details into the test report.
+const advisorText = textOf('/solutions');
+if (/\bpilot\b[^.]{0,80}\b\d+\s*days\b|\b\d+[- ]day\b[^.]{0,35}\bpilot\b/i.test(advisorText))
+  fail('facts /solutions', 'public advisor copy includes a pilot duration; pilot terms are internal');
+if (/\bReport\b[^.]{0,65}\bquarter['’]s end\b/i.test(advisorText))
+  fail('facts /solutions', 'report timing is tied to a calendar quarter instead of every three months from signup');
+if (/\baggregate\b[^.]{0,90}\bwho\b|\baggregate\.[^.]{0,90}\bwho\b/i.test(advisorText))
+  fail('facts /solutions', 'aggregate reporting copy implies identifying individual participants; check against the aggregate-only decision');
 if (!/Pamphlets fade\. Practice sticks\./.test(all)) fail('facts', 'tagline "Pamphlets fade. Practice sticks." not found');
 if (!/You invite, they opt in/i.test(textOf('/'))) warn('facts', 'homepage does not say "You invite, they opt in."');
 if (!/4(–|-| to )6/.test(textOf('/'))) fail('facts', 'homepage does not say how often drills arrive (4 to 6 a month)');

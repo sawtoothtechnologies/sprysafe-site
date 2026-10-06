@@ -22,8 +22,9 @@ export const PAGES = [
 ];
 
 export const test = base.extend({
-  errors: [async ({ page }, use) => {
+  errors: [async ({ page, baseURL }, use) => {
     const errors = [];
+    const localOrigin = new URL(baseURL).origin;
     page.on('console', (m) => {
       if (m.type() !== 'error') return;
       const loc = m.location()?.url || '';
@@ -35,11 +36,11 @@ export const test = base.extend({
     page.on('pageerror', (e) => errors.push(`exception: ${e.message}`));
     page.on('requestfailed', (r) => {
       const u = r.url();
-      if (u.startsWith('http://localhost') && r.failure()?.errorText !== 'net::ERR_ABORTED') errors.push(`request failed: ${u} ${r.failure()?.errorText}`);
+      if (!/cloudflareinsights\.com/.test(u) && !(OFFLINE && !u.startsWith(localOrigin)) && r.failure()?.errorText !== 'net::ERR_ABORTED') errors.push(`request failed: ${u} ${r.failure()?.errorText}`);
     });
     page.on('response', (r) => {
       const u = r.url();
-      if (u.startsWith('http://localhost') && r.status() >= 400 && r.request().resourceType() !== 'document') errors.push(`HTTP ${r.status()}: ${u}`);
+      if (u.startsWith(localOrigin) && r.status() >= 400 && r.request().resourceType() !== 'document') errors.push(`HTTP ${r.status()}: ${u}`);
     });
     await use(errors);
   }, { auto: true }],

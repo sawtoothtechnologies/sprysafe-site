@@ -8,6 +8,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import tls from 'node:tls';
 import { fileURLToPath } from 'node:url';
+import { createHash } from 'node:crypto';
+import * as cheerio from 'cheerio';
+import { pageSignature, formEndpointStatus } from './live-evidence.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const BASE = (process.env.LIVE_URL || 'https://getscamprep.com').replace(/\/$/, '');
@@ -35,11 +38,12 @@ const expectRedirect = async (from, to, label) => {
 };
 
 // 1. Every page answers 200 and matches the local build (catches stale deploys).
-const localTitle = (p) => {
+const localHtml = (p) => {
   const f = path.join(here, '..', 'dist', (p === '/' ? 'index' : p.slice(1)) + '.html');
-  return fs.existsSync(f) ? fs.readFileSync(f, 'utf8').match(/<title>(.*?)<\/title>/)?.[1] : null;
+  return fs.existsSync(f) ? fs.readFileSync(f, 'utf8') : null;
 };
 let homeHtml = '';
+const localAssets = new Set();
 for (const p of PAGES) {
   try {
     const r = await get(BASE + p);
@@ -47,11 +51,26 @@ for (const p of PAGES) {
     if (p === '/') homeHtml = html;
     if (r.status !== 200) { fail(`page ${p}: HTTP ${r.status}`); continue; }
     if (!/text\/html/.test(r.headers.get('content-type') || '')) fail(`page ${p}: content-type ${r.headers.get('content-type')}`);
-    const live = html.match(/<title>(.*?)<\/title>/)?.[1];
-    const local = localTitle(p);
-    if (local && live !== local) warn(`page ${p}: live title "${live}" differs from your local build "${local}" (deploy not finished, or local changes not published)`);
+    const local = localHtml(p);
+    if (!local) fail(`page ${p}: local build missing; deployment comparison is unverified`);
+    else {
+      if (pageSignature(html) !== pageSignature(local)) fail(`page ${p}: deployed content or behavior differs from the local build; verify the intended release and deployed commit`);
+      else pass(`page ${p}: authored content and behavior match the local build`);
+      const $ = cheerio.load(local);
+      $('link[rel="stylesheet"][href^="/"], script[src^="/"], img[src^="/"]').each((_, el) => localAssets.add($(el).attr('href') || $(el).attr('src')));
+    }
     pass(`page ${p}: 200`);
   } catch (e) { fail(`page ${p}: ${e.cause?.code || e.message}`); }
+}
+
+for (const asset of localAssets) {
+  try {
+    const file = path.join(here, '..', 'dist', asset.split('?')[0]);
+    const r = await get(BASE + asset);
+    const hash = (b) => createHash('sha256').update(b).digest('hex');
+    if (r.status !== 200 || !fs.existsSync(file) || hash(Buffer.from(await r.arrayBuffer())) !== hash(fs.readFileSync(file))) fail(`asset ${asset}: missing or differs from the local build`);
+    else pass(`asset ${asset}: matches the local build`);
+  } catch (e) { fail(`asset ${asset}: ${e.message}`); }
 }
 
 // 2. One address per page (no duplicate URLs for Google), and a real 404.
@@ -79,6 +98,7 @@ if (PROD) {
       s.end(); resolve();
     });
     s.on('error', (e) => { fail(`TLS check failed: ${e.message}`); resolve(); });
+    s.setTimeout(20000, () => { fail('TLS check timed out'); s.destroy(); resolve(); });
   });
 }
 
@@ -88,10 +108,11 @@ try {
   const h = (k) => r.headers.get(k) || '';
   if (!/max-age=\d{7,}/.test(h('strict-transport-security'))) fail('missing Strict-Transport-Security (HSTS) header');
   if (h('x-content-type-options') !== 'nosniff') fail('missing X-Content-Type-Options: nosniff');
-  if (!h('x-frame-options') && !/frame-ancestors/.test(h('content-security-policy'))) fail('page can be framed by other sites (no X-Frame-Options or CSP frame-ancestors)');
+  if (!/^(DENY|SAMEORIGIN)$/i.test(h('x-frame-options')) && !/frame-ancestors\s+'(none|self)'\s*(;|$)/.test(h('content-security-policy'))) fail('framing protection missing or permissive');
   if (!h('referrer-policy')) fail('missing Referrer-Policy header');
   if (!h('permissions-policy')) warn('no Permissions-Policy header');
   if (!h('content-security-policy')) warn('no Content-Security-Policy header');
+  else if (!/(script-src|default-src)\s/.test(h('content-security-policy'))) warn('CSP restricts framing only; script injection protection is not configured');
   const css = homeHtml.match(/href="(\/_astro\/[^"]+\.css)"/)?.[1];
   if (css) {
     const c = await get(BASE + css);
@@ -127,8 +148,10 @@ if (PROD) {
 // 7. Third parties the site depends on.
 {
   const r = await get('https://formspree.io/f/moeajjvb').catch((e) => ({ status: e.message }));
-  if (r.status === 404) fail('Formspree form moeajjvb returns 404: early-access signups would be lost');
-  else pass(`Formspree form endpoint answers (${r.status})`);
+  const status = formEndpointStatus(r.status);
+  if (status === 'missing') fail('Formspree form moeajjvb returns 404: early-access signups would be lost');
+  else if (status === 'unverified') fail(`Formspree endpoint could not be verified (${r.status}); do not count this as a signup pass`);
+  else pass(`Formspree endpoint reachable (${r.status}); acceptance and inbox delivery still require a real signup`);
 }
 const extFile = path.join(here, '.external-links.json');
 const externals = fs.existsSync(extFile) ? JSON.parse(fs.readFileSync(extFile, 'utf8')) : [];

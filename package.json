@@ -10,7 +10,7 @@
     "test:setup": "npm --prefix tests ci && npm --prefix tests run setup",
     "test": "rm -rf dist .astro && astro build && (npm --prefix tests run static; s=$?; npm --prefix tests run browser; b=$?; exit $((s || b)))",
     "test:quick": "rm -rf dist .astro && astro build && (npm --prefix tests run static; s=$?; npm --prefix tests run browser:chromium; b=$?; exit $((s || b)))",
-    "test:live": "npm --prefix tests run static >/dev/null; npm --prefix tests run live"
+    "test:live": "npm --prefix tests run static; s=$?; npm --prefix tests run live; l=$?; exit $((s || l))"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
