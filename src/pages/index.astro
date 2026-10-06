@@ -450,6 +450,8 @@ import { homeFaqs } from '../data/faqs.js';
     padding: 16px 18px;
   }
   .drill-card__tail { position: absolute; left: -16px; bottom: 0; }
+  /* Text paints above the tail, so the tail never covers the start of the last line. */
+  .drill-card__msg > p { position: relative; }
   .drill-card__body { font-size: 1rem; line-height: 1.55; }
   .drill-card__body + .drill-card__body { margin-top: 8px !important; }
   /* Inert: a span, not an anchor. Nothing to focus, nowhere to go. */

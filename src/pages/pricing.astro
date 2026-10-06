@@ -55,7 +55,6 @@ const pricingFaqs = [
   <!-- ============ FOR FAMILIES ============ -->
   <section class="section pricing" id="family-plans">
     <div class="wrap center pricing__head">
-      <p class="kicker">For families</p>
       <h1 class="pricing__title">Simple, transparent pricing</h1>
       <div class="billing-toggle-row">
         <div class="billing-toggle" role="group" aria-label="Billing period">
@@ -64,7 +63,7 @@ const pricingFaqs = [
         </div>
       </div>
       <p class="billing-note is-on">3 months free, every year</p>
-      <p class="org-jump">Financial advisor? <a href="/solutions#pricing">See partner pricing</a>.</p>
+      <p class="org-jump org-jump--top">Financial advisor? <a href="/solutions#pricing">See partner pricing</a>.</p>
     </div>
 
     <div class="wrap">
@@ -131,6 +130,8 @@ const pricingFaqs = [
       <p class="plan-fineprint center">
         All plans: nothing to install, cancel anytime. Email drills from day one, and text and phone drills with written consent.
       </p>
+      <!-- Phones: the advisor link sits below the family plans instead of above them. -->
+      <p class="org-jump org-jump--bottom center">Financial advisor? <a href="/solutions#pricing">See partner pricing</a>.</p>
     </div>
   </section>
 
@@ -263,6 +264,11 @@ const pricingFaqs = [
   }
   /* Quiet FYI, not a call to action. */
   .org-jump { margin: 18px 0 0; font-size: 0.85rem; color: var(--ink-soft); }
+  .org-jump--bottom { display: none; margin-top: 28px; }
+  @media (max-width: 899px) {
+    .org-jump--top { display: none; }
+    .org-jump--bottom { display: block; }
+  }
   .org-jump a {
     font-weight: 500;
     color: var(--ink-soft);

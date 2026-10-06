@@ -81,7 +81,7 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 96px; } /* focused fields and anchors land below the sticky header */
+html { scroll-behavior: smooth; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -397,6 +397,7 @@ p, li, dd, dt, figcaption, blockquote { text-wrap: pretty; }
    into three skinny columns or clipped off the right edge. */
 @media (max-width: 640px) {
   .table-scroll { overflow: visible; border: 0; border-radius: 0; }
+  .compare { background: transparent; } /* only the cards are white, not the gaps around them */
   .compare, .compare tbody, .compare tr, .compare td { display: block; width: 100%; }
   .compare thead { display: none; }
   .compare tr { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px 6px; margin-bottom: 12px; }

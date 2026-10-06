@@ -162,6 +162,9 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
 </script>
 
 <style>
+  /* On this page only: when the browser jumps to a field (for example an empty
+     required field on submit), it lands below the sticky header, not under it. */
+  :global(html) { scroll-padding-top: 96px; }
   .form-layout {
     display: grid;
     gap: 48px;
