@@ -67,7 +67,7 @@ export const faqs = [
   {
     id: 'cost',
     q: 'What does it cost?',
-    a: `<p>$9 a month for one person, $15 for two (the Pairs plan), or $19 for up to four, billed annually. Every plan starts with a 14-day free trial and carries a 60-day money-back guarantee. Financial advisors can sponsor their clients at partner pricing, starting with a founding pilot. <a href="/pricing">See pricing</a></p>`,
+    a: `<p>$9 a month for one person, $15 for two (the Pairs plan), or $19 for up to four, billed annually. Every plan carries a 60-day money-back guarantee. Financial advisors can sponsor their clients at partner pricing, starting with a founding pilot. <a href="/pricing">See pricing</a></p>`,
   },
   {
     id: 'start',

@@ -49,7 +49,7 @@ Use the original voice guidance, including these corrections to the old runbook:
 Current consumer prices shown in `src/pages/pricing.astro` are $9, $15, and $19 per
 month billed annually ($108, $180, and $228 per year). The monthly toggle shows $12,
 $20, and $25. Plans cover one, two, or up to four people. The stated offer includes a
-14-day free trial and a 60-day money-back guarantee, but purchases are not available.
+60-day money-back guarantee and no free trial; purchases are not available.
 Recheck `00_CONTEXT.md` and the pricing source before changing any offer.
 
 The legacy `sprysafe-site` repo, local folder, and Cloudflare project names are
