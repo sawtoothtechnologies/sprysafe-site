@@ -257,10 +257,15 @@ const pricingFaqs = [
 
   /* Compact header sits in the same section as the cards, so there's no big gap. */
   .pricing__head { margin-bottom: 40px; }
+  /* No label above the heading, so less space above it and a little more below. */
+  .section.pricing { padding-top: 64px; }
+  @media (max-width: 700px) {
+    .section.pricing { padding-top: 48px; }
+  }
   .pricing__title {
     font-size: clamp(1.7rem, 3.2vw, 2.3rem);
     max-width: 34rem;
-    margin: 0 auto 28px;
+    margin: 0 auto 36px;
   }
   /* Quiet FYI, not a call to action. */
   .org-jump { margin: 18px 0 0; font-size: 0.85rem; color: var(--ink-soft); }

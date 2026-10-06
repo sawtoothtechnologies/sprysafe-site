@@ -26,7 +26,7 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
           sell your information.
         </p>
 
-        <div class="org-callout">
+        <div class="org-callout org-callout--top">
           <p class="org-callout__head">Financial advisor or enterprise?</p>
           <p class="org-callout__body">
             Financial advisors, credit unions, and others: pilots start with a short call.
@@ -73,6 +73,15 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
                     We'll email you about early access and nothing else. If you write about a specific worry, our founder will reach out personally.
         </p>
       </form>
+
+      <!-- Phones: the partner box sits after the form instead of before it. -->
+      <div class="org-callout org-callout--bottom">
+          <p class="org-callout__head">Financial advisor or enterprise?</p>
+          <p class="org-callout__body">
+            Financial advisors, credit unions, and others: pilots start with a short call.
+          </p>
+          <a class="btn btn--ghost" href="/solutions">See partner options</a>
+        </div>
     </div>
   </section>
 </Base>
@@ -179,6 +188,11 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
     border: 1px solid var(--line);
     border-radius: 14px;
     background: var(--sand);
+  }
+  .org-callout--bottom { display: none; margin-top: 0; }
+  @media (max-width: 919px) {
+    .org-callout--top { display: none; }
+    .org-callout--bottom { display: block; }
   }
   .org-callout__head {
     font-weight: 800;
