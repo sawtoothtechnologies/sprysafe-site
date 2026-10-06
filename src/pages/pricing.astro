@@ -39,18 +39,6 @@ const pricingFaqs = [
   shareTitle="Plans from $9 a month"
   description="Plans for one to four people, billed monthly or yearly, each with a 60-day money-back guarantee. Opens this fall."
 >
-  <!-- Availability notice: one slim, dismissible line instead of a paragraph in the
-       header. Dismissal sticks for the browser session. Without JS it simply shows
-       (the close button only appears once JS confirms). -->
-  <div class="notice" id="pricing-notice">
-    <div class="wrap notice__inner">
-      <p>
-        <a href="/early-access">Join the early-access list</a> to be first in.
-        Financial advisor? <a href="/solutions">Get started now</a>.
-      </p>
-      <button type="button" class="notice__close" aria-label="Dismiss notice">&times;</button>
-    </div>
-  </div>
 
   <!-- ============ FOR FAMILIES ============ -->
   <section class="section pricing" id="family-plans">
@@ -189,76 +177,9 @@ const pricingFaqs = [
     }
   }
 
-  // Dismissible availability notice. Dismissal persists for the browser session only,
-  // so returning visitors in a new session see it again. The close button is hidden
-  // until JS is confirmed (there's no point showing a button that can't work).
-  const notice = document.getElementById('pricing-notice');
-  if (notice) {
-    const KEY = 'scamprep-pricing-notice';
-    notice.classList.add('notice--js');
-    let dismissed = false;
-    try { dismissed = sessionStorage.getItem(KEY) === '1'; } catch (e) { /* storage blocked — just show it */ }
-    if (dismissed) notice.classList.add('is-hidden');
-    const close = notice.querySelector('.notice__close');
-    if (close) {
-      close.addEventListener('click', () => {
-        notice.classList.add('is-hidden');
-        try { sessionStorage.setItem(KEY, '1'); } catch (e) { /* fine — hides for this page view */ }
-      });
-    }
-  }
 </script>
 
 <style>
-  /* ---------- Availability notice banner ---------- */
-  .notice {
-    background: var(--amber-tint);
-    border-bottom: 1px solid var(--line);
-  }
-  .notice.is-hidden { display: none; }
-  .notice__inner {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-top: 11px;
-    padding-bottom: 11px;
-  }
-  .notice p {
-    margin: 0;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: var(--amber-deep);
-    text-align: center;
-    padding: 0 44px; /* keeps text clear of the 44px close button */
-  }
-  /* Phones: left-aligned with room only for the close button, so the notice
-     stays within two lines. */
-  @media (max-width: 600px) {
-    .notice p { text-align: left; padding: 0 40px 0 0; font-size: 0.9375rem; }
-  }
-  .notice strong { color: var(--amber-deep); }
-  .notice a { color: var(--amber-deep); font-weight: 700; }
-  .notice a:hover { color: var(--ink); }
-  .notice__close {
-    display: none;
-    position: absolute;
-    right: 4px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    font-size: 1.35rem;
-    line-height: 1;
-    color: var(--amber-deep);
-    cursor: pointer;
-    min-width: 44px;
-    min-height: 44px;
-    padding: 0;
-    border-radius: 6px;
-  }
-  .notice--js .notice__close { display: block; }
-  .notice__close:hover { color: var(--ink); }
 
   /* Compact header sits in the same section as the cards, so there's no big gap. */
   .pricing__head { margin-bottom: 40px; }

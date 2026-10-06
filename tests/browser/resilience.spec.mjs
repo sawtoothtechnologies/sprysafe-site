@@ -60,8 +60,6 @@ test('blocked browser storage does not prevent pricing or signup', async ({ page
     });
   });
   await page.goto('/pricing');
-  await page.getByRole('button', { name: 'Dismiss notice' }).click();
-  await expect(page.locator('#pricing-notice')).toBeHidden();
   await page.locator('.price-card [data-checkout]').first().click();
   await page.fill('#email', 'test@example.com');
   await submit(page).click();

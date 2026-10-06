@@ -136,21 +136,6 @@ test.describe('pricing', () => {
       await expect(page.locator('#plan')).toHaveValue(plan);
     });
   }
-
-  test('availability notice: dismiss sticks for the visit, returns next visit', async ({ page, browser }) => {
-    await page.goto('/pricing');
-    const notice = page.locator('#pricing-notice');
-    await expect(notice).toBeVisible();
-    await page.getByRole('button', { name: 'Dismiss notice' }).click();
-    await expect(notice).toBeHidden();
-    await page.reload();
-    await expect(notice).toBeHidden();
-    const fresh = await browser.newContext();
-    const p2 = await fresh.newPage();
-    await p2.goto(page.url());
-    await expect(p2.locator('#pricing-notice')).toBeVisible();
-    await fresh.close();
-  });
 });
 
 // ---------------------------------------------------------------------------
