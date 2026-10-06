@@ -163,6 +163,9 @@ for (const u of externals) {
     const host = new URL(u).hostname;
     if (r.status >= 400) {
       if (/linkedin|facebook|x\.com|twitter/.test(host) && [403, 429, 999].includes(r.status)) warn(`${u}: ${r.status} (social sites block scripts; open it by hand)`);
+      // 403, 429 and 999 usually mean the site blocks automated visitors (the FBI and
+      // Oxford Academic do), not that the link is broken. Open it by hand to confirm.
+      else if ([403, 429, 999].includes(r.status)) warn(`${u}: ${r.status} (likely blocks automated checks; open it by hand)`);
       else fail(`outbound link ${u}: HTTP ${r.status}`);
     } else pass(`outbound link ${u}: ${r.status}`);
   } catch (e) { fail(`outbound link ${u}: ${e.cause?.code || e.message}`); }
