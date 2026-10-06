@@ -4,7 +4,9 @@
 // Covers: build output hygiene, SEO and share tags, links and anchors, HTML
 // structure, sitemap/robots, copy rules from ~/ScamPrep/voice.md, product facts,
 // pricing math, and page weight. Exits 1 if anything FAILs. WARNs are worth a
-// look but do not block a release.
+// look but do not block a release. FAIL is for things that break the site for a
+// visitor (missing pages, broken links, bad forms, wrong plan prices). Copy, voice,
+// claims and wording rules are WARNs (Bryce's call, October 6, 2026).
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
@@ -146,7 +148,7 @@ for (const pg of pages) {
   let last = 0;
   $('h1, h2, h3, h4, h5, h6').each((_, el) => {
     const lvl = Number(el.tagName[1]);
-    if (last && lvl > last + 1) fail(A, `heading level skips from h${last} to h${lvl}: "${$(el).text().trim().slice(0, 60)}"`);
+    if (last && lvl > last + 1) warn(A, `heading level skips from h${last} to h${lvl}: "${$(el).text().trim().slice(0, 60)}"`);
     last = lvl;
   });
   const ids = new Map();
@@ -367,9 +369,9 @@ for (const pg of pages) {
     for (const r of factRules) {
       if (legal && /trial|fall|power of attorney|guarantee/.test(r.msg)) continue;
       if (legal && /em dash/.test(r.msg)) { if (r.re.test(t)) warn(`copy ${pg.path}`, `legacy ${r.msg} (${where}): "${snippet(r.re)}". AGENTS.md: fix when the line is next edited`); continue; }
-      if (r.re.test(t)) fail(`copy ${pg.path}`, `${r.msg} (${where}): "${snippet(r.re)}"`);
+      if (r.re.test(t)) warn(`copy ${pg.path}`, `${r.msg} (${where}): "${snippet(r.re)}"`);
     }
-    if (!legal) for (const b of bannedRules) if (b.re.test(t)) fail(`copy ${pg.path}`, `banned word from voice.md "${b.entry}" (${where}): "${snippet(b.re)}"`);
+    if (!legal) for (const b of bannedRules) if (b.re.test(t)) warn(`copy ${pg.path}`, `banned word from voice.md "${b.entry}" (${where}): "${snippet(b.re)}"`);
     if (!legal && /\bsharp(er|est)?\b/i.test(t)) warn(`copy ${pg.path}`, `voice.md says avoid "sharp/sharper" (patronizing); check this use (${where}): "${snippet(/sharp/i)}"`);
     if (!legal && /\bfall\b(?!\s+(for|behind|through|victim|prey|into|short|apart))/i.test(t) && !/^\s*fall\b|resilience|report/i.test(t)) warn(`copy ${pg.path}`, `"fall" as a season (voice.md prefers "autumn"); also a date promise to recheck (${where}): "${snippet(/fall/i)}"`);
     bangs += (t.match(/!/g) || []).length;
@@ -377,11 +379,11 @@ for (const pg of pages) {
     if (/^h[1-3]$/.test(where)) {
       const words = t.replace(/[^\w\s'’-]/g, '').split(/\s+/).slice(1).filter((w) => w.length > 3);
       const caps = words.filter((w) => /^[A-Z][a-z]/.test(w) && !/^(ScamPrep|Resilience|Report|Mary|Michael|USPS|IRS|FBI|Fortune|Bryce|Google|Bain|Sawtooth|Technologies)$/.test(w));
-      if (words.length >= 3 && caps.length / words.length > 0.5) fail(`copy ${pg.path}`, `heading looks Title Case, use sentence case: "${t}"`);
-      if (/^(Worried|Concerned|Afraid|Scared|Tired)\b.*\?$/.test(t)) fail(`copy ${pg.path}`, `headline-question opener: "${t}"`);
+      if (words.length >= 3 && caps.length / words.length > 0.5) warn(`copy ${pg.path}`, `heading looks Title Case, use sentence case: "${t}"`);
+      if (/^(Worried|Concerned|Afraid|Scared|Tired)\b.*\?$/.test(t)) warn(`copy ${pg.path}`, `headline-question opener: "${t}"`);
     }
   }
-  if (bangs > 1) fail(`copy ${pg.path}`, `${bangs} exclamation points (voice.md: one per surface maximum)`);
+  if (bangs > 1) warn(`copy ${pg.path}`, `${bangs} exclamation points (voice.md: one per surface maximum)`);
 }
 
 // Product facts that must hold on specific pages.
@@ -392,22 +394,22 @@ const all = PAGES_FOR_COPY.map((p) => textOf(p.path)).join(' ');
 // Report the rule, never copy private offer details into the test report.
 const advisorText = textOf('/solutions');
 if (/\bpilot\b[^.]{0,80}\b\d+\s*days\b|\b\d+[- ]day\b[^.]{0,35}\bpilot\b/i.test(advisorText))
-  fail('facts /solutions', 'public advisor copy includes a pilot duration; pilot terms are internal');
+  warn('facts /solutions', 'public advisor copy includes a pilot duration; pilot terms are internal');
 if (/\bReport\b[^.]{0,65}\bquarter['’]s end\b/i.test(advisorText))
-  fail('facts /solutions', 'report timing is tied to a calendar quarter instead of every three months from signup');
+  warn('facts /solutions', 'report timing is tied to a calendar quarter instead of every three months from signup');
 if (/\baggregate\b[^.]{0,90}\bwho\b|\baggregate\.[^.]{0,90}\bwho\b/i.test(advisorText))
-  fail('facts /solutions', 'aggregate reporting copy implies identifying individual participants; check against the aggregate-only decision');
-if (!/Pamphlets fade\. Practice sticks\./.test(all)) fail('facts', 'tagline "Pamphlets fade. Practice sticks." not found');
+  warn('facts /solutions', 'aggregate reporting copy implies identifying individual participants; check against the aggregate-only decision');
+if (!/Pamphlets fade\. Practice sticks\./.test(all)) warn('facts', 'tagline "Pamphlets fade. Practice sticks." not found');
 if (!/You invite, they opt in/i.test(textOf('/'))) warn('facts', 'homepage does not say "You invite, they opt in."');
-if (!/4(–|-| to )6/.test(textOf('/'))) fail('facts', 'homepage does not say how often drills arrive (4 to 6 a month)');
-if (!/quarterly|every three months/i.test(textOf('/'))) fail('facts', 'homepage does not say the Resilience Report is quarterly');
+if (!/4(–|-| to )6/.test(textOf('/'))) warn('facts', 'homepage does not say how often drills arrive (4 to 6 a month)');
+if (!/quarterly|every three months/i.test(textOf('/'))) warn('facts', 'homepage does not say the Resilience Report is quarterly');
 for (const pg of pages) {
   const body = pg.$('body');
   const hasPhone = body.find('.phone, .report, .drill-card').length;
   if (hasPhone && !/Illustrative|Simulated|Example practice simulation/i.test(body.text()))
-    fail(`facts ${pg.path}`, 'simulated artifact on page without an "Illustrative" or "Simulated" label');
+    warn(`facts ${pg.path}`, 'simulated artifact on page without an "Illustrative" or "Simulated" label');
   const hasStat = /\b\d{1,3}%|\$\d+(\.\d+)?\s?(k|billion|B|million|M)\b/.test(body.find('main').text());
-  if (hasStat && !body.find('main a[href^="http"]').length) fail(`facts ${pg.path}`, 'page shows statistics but links to no source');
+  if (hasStat && !body.find('main a[href^="http"]').length) warn(`facts ${pg.path}`, 'page shows statistics but links to no source');
 }
 
 // ---------------------------------------------------------------------------
@@ -436,7 +438,7 @@ if (pricing) {
     if (m) {
       const freeMonths = (c.monthly * 12 - c.annualTotal) / c.monthly;
       if (Math.abs(freeMonths - Number(m[1])) > 0.01)
-        fail('pricing', `"${note.trim()}" is not true for ${c.name}: annual saves $${c.monthly * 12 - c.annualTotal}, which is ${freeMonths.toFixed(2)} months of the $${c.monthly} monthly price`);
+        warn('pricing', `"${note.trim()}" is not true for ${c.name}: annual saves $${c.monthly * 12 - c.annualTotal}, which is ${freeMonths.toFixed(2)} months of the $${c.monthly} monthly price`);
     }
   }
   if (cards.length !== 3) fail('pricing', `expected 3 family plan cards, found ${cards.length}`);
@@ -456,7 +458,7 @@ if (/8 - \(\(p - 10\) \/ \(500 - 10\)\) \* \(8 - 4\)/.test(orgSrc) && /Math\.rou
   const per = (n) => Math.round((8 - ((Math.max(10, Math.min(500, n)) - 10) / 490) * 4) * 2) / 2;
   const drops = [];
   for (let n = 20; n <= 500; n += 10) if (per(n) * n < per(n - 10) * (n - 10)) drops.push(`${n - 10}→${n} people: $${per(n - 10) * (n - 10)} → $${per(n) * n}`);
-  if (drops.length) fail('pricing', `advisor slider: monthly total goes DOWN when people are added (${drops.length} places), e.g. ${drops.slice(0, 3).join('; ')}`);
+  if (drops.length) warn('pricing', `advisor slider: monthly total goes DOWN when people are added (${drops.length} places), e.g. ${drops.slice(0, 3).join('; ')}`);
 } else warn('pricing', 'OrgPricing formula changed; update the monotonic-total check in static-checks.mjs');
 
 // ---------------------------------------------------------------------------

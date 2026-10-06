@@ -8,6 +8,14 @@ in its own folder, so Cloudflare's build never installs it.
 that specific failure in writing in the known-issues list at the bottom of this file.
 WARN lines are judgment calls; read them, decide, move on.
 
+**What fails and what warns.** The suite exists to catch a buggy site, not imperfect
+copy. A FAIL means something is broken for a visitor: a page or link is missing, a
+form loses signups, a menu or toggle misbehaves, a screen reader gets wrong
+information, the page scrolls sideways, or a plan price is wrong. Copy and voice rules,
+product claims, text size, tap-target size, contrast, heading order, 200% text and
+text spacing, and printing are WARNs (decided October 6, 2026). Browser-test WARNs
+print as `WARN ...` lines and show as annotations in the HTML report.
+
 Record PASS, FAIL, BLOCKED (could not execute), and NOT RUN separately. A browser
 that could not start is not a site failure or a pass. A manual checkbox is only
 complete when someone actually performs it. Preserve the commit, date, browser

@@ -100,3 +100,13 @@ export const effectiveOpacity = (el) => {
   for (let n = el; n && n.nodeType === 1; n = n.parentElement) o *= Number(getComputedStyle(n).opacity);
   return o;
 };
+
+// Content, style and polish checks report a WARN instead of failing the run.
+// A failing test should always mean something is broken for a visitor.
+export const warnIf = (problems, label) => {
+  const list = (Array.isArray(problems) ? problems : [problems]).filter(Boolean);
+  if (!list.length) return;
+  const msg = `${label}: ${list.map(String).join(' | ')}`;
+  base.info().annotations.push({ type: 'warning', description: msg });
+  console.log(`WARN ${msg}`);
+};
