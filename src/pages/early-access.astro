@@ -67,6 +67,8 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
 
         <button class="btn btn--primary" type="submit" style="width: 100%;">Get early access</button>
 
+        <p class="form-error" id="form-error" role="alert" hidden></p>
+
         <p class="footnote" style="margin: 16px 0 0;">
                     We'll email you about early access and nothing else. If you write about a specific worry, our founder will reach out personally.
         </p>
@@ -97,30 +99,63 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
   }
 
   // Submit via fetch so visitors land on our own /thanks page. (Formspree's hosted
-  // redirect is a paid feature; this works on the free plan.) No-JS falls back to a
+  // redirect is a paid feature; this works on the free plan.) No-JS visitors get a
   // normal POST to Formspree's default confirmation page.
+  //
+  // If the send fails, the visitor stays here with everything they typed and a
+  // plain message. (The old fallback re-posted the form, which sent people to
+  // Formspree's page or to a browser "no connection" page with their details lost.)
   const form = document.querySelector('form.form-card') as HTMLFormElement | null;
+  const errorEl = document.getElementById('form-error');
+  const CONTACT = 'If it keeps happening, email <a href="mailto:hello@getscamprep.com">hello@getscamprep.com</a> and we\'ll add you.';
+  const showError = (message: string) => {
+    if (!errorEl) return;
+    errorEl.innerHTML = `${message} ${CONTACT}`;
+    errorEl.hidden = false;
+    errorEl.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  };
+  const send = async (data: FormData) => {
+    const ctl = new AbortController();
+    const timer = setTimeout(() => ctl.abort(), 15000);
+    try {
+      return await fetch(form!.action, { method: 'POST', body: data, headers: { Accept: 'application/json' }, signal: ctl.signal });
+    } finally {
+      clearTimeout(timer);
+    }
+  };
   if (form) {
+    let sending = false;
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      if (sending) return;
+      sending = true;
+      if (errorEl) errorEl.hidden = true;
       const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
       if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+      const data = new FormData(form);
+      // Drop empty attribution fields so signup emails stay clean.
+      for (const k of ['plan', 'utm_source', 'utm_medium', 'utm_campaign', 'referrer']) {
+        if (!data.get(k)) data.delete(k);
+      }
+      let res: Response | null = null;
       try {
-        const data = new FormData(form);
-        // Drop empty attribution fields so signup emails stay clean.
-        for (const k of ['plan', 'utm_source', 'utm_medium', 'utm_campaign', 'referrer']) {
-          if (!data.get(k)) data.delete(k);
-        }
-        const res = await fetch(form.action, {
-          method: 'POST',
-          body: data,
-          headers: { Accept: 'application/json' },
-        });
-        if (!res.ok) throw new Error(String(res.status));
-        window.location.href = '/thanks';
+        res = await send(data);
+        // A dropped connection or a server hiccup gets one quiet retry.
+        if (res.status >= 500) throw new Error(String(res.status));
       } catch {
-        if (btn) { btn.disabled = false; btn.textContent = 'Get early access'; }
-        form.submit(); // plain POST fallback
+        await new Promise((r) => setTimeout(r, 1500));
+        try { res = await send(data); } catch { res = null; }
+      }
+      if (res && res.ok) {
+        window.location.href = '/thanks';
+        return;
+      }
+      sending = false;
+      if (btn) { btn.disabled = false; btn.textContent = 'Get early access'; }
+      if (res && res.status >= 400 && res.status < 500) {
+        showError('That didn\'t go through. Please check your email address and try again.');
+      } else {
+        showError('We couldn\'t reach our signup service just now. Your details are still here, so please try again in a moment.');
       }
     });
   }
@@ -146,6 +181,17 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
     font-weight: 800;
     margin: 0 0 6px;
   }
+  .form-error {
+    margin: 16px 0 0;
+    padding: 14px 16px;
+    border: 1px solid var(--alert-line);
+    border-radius: var(--radius-ctrl);
+    background: var(--alert-tint);
+    color: var(--ink);
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  .form-error a { color: var(--ink); font-weight: 700; }
   .org-callout__body {
     font-size: 1rem;
     margin: 0 0 14px;

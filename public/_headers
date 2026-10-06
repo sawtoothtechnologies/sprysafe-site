@@ -1,0 +1,18 @@
+# Cloudflare Pages response headers. See TESTING.md (live checks) and
+# tests/reports/2026-10-06-baseline.md, finding B7.
+#
+# HSTS: browsers always use HTTPS for getscamprep.com, even when someone types
+#   http:// or follows an old link. No includeSubDomains or preload, so a future
+#   subdomain is never locked to HTTPS before it is ready.
+# X-Frame-Options + frame-ancestors: no other site can show these pages inside
+#   a frame (the trick behind clickjacking).
+# Permissions-Policy: the site never asks for camera, microphone or location.
+/*
+  Strict-Transport-Security: max-age=31536000
+  X-Frame-Options: DENY
+  Content-Security-Policy: frame-ancestors 'none'
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# Built CSS and JS have a content hash in the file name, so they never change.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable

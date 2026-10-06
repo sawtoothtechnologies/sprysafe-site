@@ -694,9 +694,16 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
         panel.addEventListener('mouseenter', () => setOpen(panel, true));
         panel.addEventListener('mouseleave', () => setOpen(panel, false));
       }
-      panel.addEventListener('focus', () => setOpen(panel, true));
-      panel.addEventListener('blur', () => setOpen(panel, false));
-      // Tap-to-toggle on touch; on hover devices click just pins the open state.
+      // Keyboard focus opens a panel. Focus from a tap or click does not:
+      // Android focuses a button on tap, and opening on that focus let the
+      // click below toggle the panel straight back shut.
+      panel.addEventListener('focus', () => {
+        if (panel.matches(':focus-visible')) setOpen(panel, true);
+      });
+      panel.addEventListener('blur', () => {
+        if (!(canHover && panel.matches(':hover'))) setOpen(panel, false);
+      });
+      // Tap-to-toggle on touch; on hover devices the hover already opened it.
       panel.addEventListener('click', () => {
         if (!canHover) setOpen(panel, !panel.classList.contains('is-open'));
       });
