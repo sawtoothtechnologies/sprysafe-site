@@ -377,4 +377,10 @@ const drills = trimmed ? trimmedDrills : fullDrills;
     .report__row { min-height: calc(2 * 1.35em + 18px); }
     .report__result { white-space: normal; max-width: 6.2em; text-align: right; line-height: 1.3; }
   }
+  /* The narrowest phones (320px) have no room for the status beside the title,
+     so it stacks underneath, left-aligned. */
+  @media (max-width: 340px) {
+    .report__head, .report--trimmed .report__head { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .report__status { text-align: left; justify-items: start; }
+  }
 </style>
