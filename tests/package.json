@@ -1,0 +1,20 @@
+{
+  "name": "sprysafe-site-tests",
+  "private": true,
+  "type": "module",
+  "description": "Test suite for the ScamPrep website. Kept in its own folder so Cloudflare's build never installs it.",
+  "scripts": {
+    "setup": "playwright install --with-deps chromium webkit firefox",
+    "static": "node static-checks.mjs",
+    "browser": "playwright test",
+    "browser:chromium": "playwright test --project=desktop-chromium --project=mobile-chromium",
+    "live": "node live-checks.mjs",
+    "report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@fontsource/manrope": "^5.3.0",
+    "@playwright/test": "^1.56.0",
+    "cheerio": "^1.2.0"
+  }
+}

@@ -61,7 +61,7 @@ or revive Spry or ScamDrill as product names.
 | Piece | Checked source or operational instruction |
 | --- | --- |
 | Repository | `~/Documents/sprysafe-site` is the Git root. `origin` is `https://github.com/sawtoothtechnologies/sprysafe-site.git`. |
-| Framework | Static Astro site. `package.json` defines `dev`, `build`, and `preview`; it has no test or lint script. Install dependencies with `npm ci` after a fresh checkout or lockfile change. |
+| Framework | Static Astro site. `package.json` defines `dev`, `build`, `preview`, and the `test` scripts described in `TESTING.md`. Install dependencies with `npm ci` after a fresh checkout or lockfile change. |
 | Production deployment | A push to `main`, including a merged pull request, publishes through Cloudflare Pages to getscamprep.com. Treat it as a release, not a backup operation. |
 | Build settings | Build from the repository root with `npm run build`; output is `dist/`. Match these when checking Cloudflare settings. The dashboard configuration was not independently verified in this review. |
 | Branch previews | The existing repo workflow uses Cloudflare branch deployments. Get the actual preview URL from the commit/PR checks or Cloudflare Deployments. Do not assume a branch preview is private or access-controlled. |
@@ -128,8 +128,8 @@ npm run preview
 ```
 
 These local commands do not publish. Build output and dependencies (`dist/`, `.astro/`,
-`node_modules/`) are ignored and should not be committed. There is no separate test or
-lint command configured; choose additional checks based on the actual change.
+`node_modules/`) are ignored and should not be committed. Testing gates and commands are in `TESTING.md`; the suite
+lives in `tests/` with its own dependencies.
 
 If production has a problem, inspect its deployment status in Cloudflare Pages before
 diagnosing a stale browser. The existing recovery procedure is to select the previous

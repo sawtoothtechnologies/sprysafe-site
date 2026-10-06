@@ -11,3 +11,8 @@ dist/
 # Local tooling and OS clutter
 .wrangler/
 .DS_Store
+
+# Test suite output (tests/)
+tests/test-results/
+tests/playwright-report/
+tests/.external-links.json

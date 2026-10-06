@@ -88,8 +88,10 @@ rollout. Keep those business originals in their own folder.
   Inspect affected pages at desktop and mobile sizes and check relevant interactions.
   A build log alone is not a preview. Documentation-only work can be reviewed as a diff.
 - Run a clean `npm run build` (the package script runs `astro build`) before shipping.
-  Follow `SITE-OPS.md` for the clean build steps. `package.json` currently has no
-  separate test or lint scripts; run any additional checks relevant to the change.
+  Follow `SITE-OPS.md` for the clean build steps. Then follow `TESTING.md`: run
+  `npm run test:quick` while working, `npm test` before publishing, and
+  `npm run test:live` after publishing. Do not publish with a FAIL unless Bryce has
+  accepted it in the known-issues list in `TESTING.md`.
 - Fix failures and repeat the build if source changes afterward. Report what was
   checked, the preview location, and any limits on verification.
 - **A push to `main` publishes to getscamprep.com through Cloudflare Pages.** A merge
