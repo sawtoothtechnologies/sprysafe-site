@@ -48,7 +48,8 @@ test.describe('mobile menu', () => {
 
   test('open menu stays usable after scrolling (sticky header)', async ({ page }) => {
     await page.goto('/');
-    await page.mouse.wheel(0, 1500);
+    // Scroll by script: mobile WebKit has no mouse wheel.
+    await page.evaluate(() => window.scrollTo(0, 1500));
     await page.waitForTimeout(300);
     await page.locator('.menu-toggle').click();
     await expect(page.locator('#site-nav').getByRole('link', { name: 'About' })).toBeInViewport();
@@ -323,6 +324,11 @@ test.describe('home walkthrough', () => {
     await expect(cards.nth(0)).toHaveAttribute('aria-expanded', 'true');
     await expect(page.locator('#hiw-example-0')).toBeVisible();
     await page.locator('#how').scrollIntoViewIfNeeded();
+    // Bring the step fully into view first. Otherwise the test tool scrolls the page
+    // itself before tapping (WebKit does this when a step is cut off at the bottom),
+    // which looks like a jump but is not the site moving.
+    await cards.nth(2).scrollIntoViewIfNeeded();
+    await page.waitForTimeout(300);
     const firstTop = (await cards.nth(0).boundingBox()).y;
     await cards.nth(2).click();
     await expect(cards.nth(2)).toHaveAttribute('aria-expanded', 'true');
