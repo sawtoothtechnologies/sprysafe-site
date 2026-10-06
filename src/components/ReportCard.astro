@@ -15,7 +15,7 @@ const fullDrills = [
   { what: 'Fake sheriff impersonation text', outcome: 'ignored', coached: false },
   { what: 'Prize-sweepstakes email', outcome: 'deleted', coached: false },
   { what: 'Fake family emergency call', outcome: 'hung up', coached: false },
-  { what: 'Utility “past-due” email', outcome: 'ignored', coached: false },
+  { what: 'Utility “past‑due” email', outcome: 'ignored', coached: false },
   { what: 'Fake tech support email', outcome: 'responded & coached', coached: true },
 ];
 
@@ -184,10 +184,6 @@ const drills = trimmed ? trimmedDrills : fullDrills;
     margin-bottom: 6px;
   }
   .report--trimmed .report__head { align-items: center; }
-  @media (max-width: 420px) {
-    .report__head, .report--trimmed .report__head { flex-direction: column; align-items: flex-start; gap: 10px; }
-    .report__status { text-align: left; justify-items: start; }
-  }
   .report__title {
     font-family: var(--font-display);
     font-size: 1.25rem;
@@ -373,8 +369,12 @@ const drills = trimmed ? trimmedDrills : fullDrills;
     to { transform: scale(1); }
   }
 
-  @media (max-width: 420px) {
-    .report__row { flex-wrap: wrap; gap: 6px 10px; }
-    .report__result { margin-left: auto; }
+  /* Phones: the status stays on the right (the title wraps beside it), and every
+     drill row is an even two lines tall. Long outcomes like "responded & coached"
+     wrap onto two lines so the drill name gets the room. */
+  @media (max-width: 480px) {
+    .report__title { font-size: 1.15rem; }
+    .report__row { min-height: calc(2 * 1.35em + 18px); }
+    .report__result { white-space: normal; max-width: 6.2em; text-align: right; line-height: 1.3; }
   }
 </style>
