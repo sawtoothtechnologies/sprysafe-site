@@ -125,6 +125,9 @@ No uppercase micro-labels anywhere (section labels, table headers, footer headin
   closing band headline is "Help them practice before the real thing arrives."
 - Restrained glow tokens (also defined in `global.css`):
   - `--glow-button`: `0 0 0 2px rgba(240,161,28,.10), 0 6px 20px -8px rgba(240,161,28,.38)`
+  - `--glow-button-ink`: `0 0 0 1px rgba(240,161,28,.18), 0 0 22px -2px rgba(240,161,28,.30), 0 8px 22px -10px rgba(240,161,28,.45)`.
+    The primary button on ink (the hero) uses this slightly stronger glow, adopted
+    2026-10-06, because `--glow-button` barely shows on the dark surface.
   - `--glow-pricing`: `0 0 32px 6px rgba(249,227,174,.46), 0 14px 32px -20px rgba(240,161,28,.22)`
 
 - Radius: **6** chips/tags · **9** buttons/inputs/rows · **14** cards. No pills except toggles.

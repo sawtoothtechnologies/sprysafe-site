@@ -72,6 +72,7 @@
   --radius: 14px;       /* cards */
   --radius-lg: 14px;
   --glow-button: 0 0 0 2px rgba(240, 161, 28, 0.10), 0 6px 20px -8px rgba(240, 161, 28, 0.38);
+  --glow-button-ink: 0 0 0 1px rgba(240, 161, 28, 0.18), 0 0 22px -2px rgba(240, 161, 28, 0.30), 0 8px 22px -10px rgba(240, 161, 28, 0.45); /* on ink, where the light-surface glow barely shows */
   --glow-pricing: 0 0 32px 6px rgba(249, 227, 174, 0.46), 0 14px 32px -20px rgba(240, 161, 28, 0.22);
   --shadow: none;
   --shadow-lg: 0 24px 56px rgba(18, 17, 15, 0.18);
@@ -129,7 +130,7 @@ img { max-width: 100%; height: auto; }
 /* The primary button's halo fades up once on load, then holds still.
    (v1.0 had a looping ping ring here; it was retired in v1.1.) */
 @keyframes glowSettle {
-  from { box-shadow: 0 0 0 0 rgba(240, 161, 28, 0), 0 0 0 0 rgba(240, 161, 28, 0); }
+  from { box-shadow: 0 0 0 0 rgba(240, 161, 28, 0), 0 0 0 0 rgba(240, 161, 28, 0), 0 0 0 0 rgba(240, 161, 28, 0); }
 }
 /* ---------- Motif utilities ---------- */
 /* Status blip: <span class="blip"></span> / .blip--alert / .blip--pending */
@@ -274,6 +275,9 @@ p, li, dd, dt, figcaption, blockquote { text-wrap: pretty; }
   box-shadow: var(--glow-button);
 }
 .btn--primary:hover { background: #f6b23e; color: var(--ink); }
+/* On ink (the hero) the glow is a touch stronger so the button holds its own
+   beside the warm light in the example drill. */
+.section--ink .btn--primary { box-shadow: var(--glow-button-ink); }
 @media (prefers-reduced-motion: no-preference) {
   .btn--primary { animation: glowSettle 0.9s ease-out both; }
 }
