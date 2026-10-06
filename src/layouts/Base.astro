@@ -171,9 +171,21 @@ const orgSchema = {
     <script>
       const toggle = document.querySelector('.menu-toggle');
       const navEl = document.querySelector('.site-nav');
-      toggle?.addEventListener('click', () => {
-        const open = navEl.classList.toggle('is-open');
+      const setOpen = (open) => {
+        navEl.classList.toggle('is-open', open);
         toggle.setAttribute('aria-expanded', String(open));
+      };
+      toggle?.addEventListener('click', () => setOpen(!navEl.classList.contains('is-open')));
+      // Escape closes the open menu and returns focus to the button.
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navEl?.classList.contains('is-open')) {
+          setOpen(false);
+          toggle.focus();
+        }
+      });
+      // A tap or click anywhere outside the header closes the open menu.
+      document.addEventListener('click', (e) => {
+        if (navEl?.classList.contains('is-open') && !e.target.closest('.site-header')) setOpen(false);
       });
     </script>
 
