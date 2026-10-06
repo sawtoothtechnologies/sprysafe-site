@@ -45,8 +45,8 @@ const pricingFaqs = [
   <div class="notice" id="pricing-notice">
     <div class="wrap notice__inner">
       <p>
-        <strong>Family plans open this fall.</strong> <a href="/early-access">Join the
-        early-access list</a> to be first in. Financial advisor? <a href="/solutions">Get started now</a>.
+        <a href="/early-access">Join the early-access list</a> to be first in.
+        Financial advisor? <a href="/solutions">Get started now</a>.
       </p>
       <button type="button" class="notice__close" aria-label="Dismiss notice">&times;</button>
     </div>
@@ -231,6 +231,11 @@ const pricingFaqs = [
     color: var(--amber-deep);
     text-align: center;
     padding: 0 44px; /* keeps text clear of the 44px close button */
+  }
+  /* Phones: left-aligned with room only for the close button, so the notice
+     stays within two lines. */
+  @media (max-width: 600px) {
+    .notice p { text-align: left; padding: 0 40px 0 0; font-size: 0.9375rem; }
   }
   .notice strong { color: var(--amber-deep); }
   .notice a { color: var(--amber-deep); font-weight: 700; }
