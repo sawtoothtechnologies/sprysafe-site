@@ -328,11 +328,23 @@ test.describe('home walkthrough', () => {
     // itself before tapping (WebKit does this when a step is cut off at the bottom),
     // which looks like a jump but is not the site moving.
     await cards.nth(2).scrollIntoViewIfNeeded();
-    await page.waitForTimeout(300);
+    // The site scrolls smoothly, so wait until the page has stopped moving before
+    // measuring. A measurement taken mid-scroll looks like a jump later.
+    const settled = async () => {
+      let last = -1;
+      for (let k = 0; k < 40; k++) {
+        const y = await page.evaluate(() => window.scrollY);
+        if (y === last) return;
+        last = y;
+        await page.waitForTimeout(100);
+      }
+    };
+    await settled();
     const firstTop = (await cards.nth(0).boundingBox()).y;
     await cards.nth(2).click();
     await expect(cards.nth(2)).toHaveAttribute('aria-expanded', 'true');
     await expect(page.locator('#hiw-example-2')).toBeVisible();
+    await settled();
     expect(Math.abs((await cards.nth(0).boundingBox()).y - firstTop), 'content above the tapped step jumped').toBeLessThan(2);
     await page.locator('#hiw-example-2').scrollIntoViewIfNeeded();
     await page.waitForTimeout(3000);
