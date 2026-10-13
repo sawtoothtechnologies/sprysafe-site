@@ -193,8 +193,24 @@ test.describe('early-access form', () => {
     await expect(page).toHaveURL(/\/thanks$/);
     expect(sent.length, 'double-click must not submit twice').toBe(1);
     const f = fieldsOf(sent[0]);
-    expect(f).toMatchObject({ name: 'Test Person', email: 'test+scamprep@example.com', role: 'Protect myself', plan: 'couples', utm_source: 'linkedin', utm_medium: 'social', utm_campaign: 'launch' });
+    expect(f).toMatchObject({ name: 'Test Person', email: 'test+scamprep@example.com', role: 'Protect myself', plan: 'couples', utm_source: 'linkedin', utm_medium: 'social', utm_campaign: 'launch', landing_page: '/', previous_page: '/pricing' });
     expect(f.worry).toContain('émojis');
+  });
+
+  test('a signup records the outside site and the page the visit started on', async ({ page }) => {
+    const sent = await capture(page, ok);
+    await page.goto('/how-it-works', { referer: 'https://www.google.com/search?q=private' });
+    const got = await page.evaluate(() => document.referrer);
+    test.skip(!got, 'this browser engine does not pass a test referrer to the page');
+    await page.goto('/pricing'); // browse first: the landing details must survive the visit
+    await page.locator('.site-footer a[href="/early-access"]').click();
+    await expect(page).toHaveURL(/\/early-access$/);
+    await page.fill('#email', 'a@example.com');
+    await page.locator('form.form-card button[type=submit]').click();
+    await expect(page).toHaveURL(/\/thanks$/);
+    const f = fieldsOf(sent[0]);
+    expect(f).toMatchObject({ referrer: 'https://www.google.com/search', landing_page: '/how-it-works', previous_page: '/pricing' });
+    expect(Object.values(f).join(' '), 'search terms or query strings must never be sent').not.toContain('private');
   });
 
   test('empty optional fields are left out of the email', async ({ page }) => {
@@ -204,7 +220,8 @@ test.describe('early-access form', () => {
     await page.locator('form.form-card button[type=submit]').click();
     await expect(page).toHaveURL(/\/thanks$/);
     const f = fieldsOf(sent[0]);
-    for (const k of ['plan', 'utm_source', 'utm_medium', 'utm_campaign', 'referrer']) expect(f[k], k).toBeUndefined();
+    for (const k of ['plan', 'utm_source', 'utm_medium', 'utm_campaign', 'referrer', 'previous_page']) expect(f[k], k).toBeUndefined();
+    expect(f.landing_page).toBe('/early-access');
   });
 
   for (const [label, reply] of [

@@ -363,11 +363,21 @@ const orgSchema = {
       // Remember campaign tags (?utm_source=...) from the landing page for the whole
       // visit, so the early-access form can report which channel produced the signup
       // even when the visitor browses other pages first.
+      // Also remember the first page of the visit and the outside site that sent the
+      // visitor (for example Google or ChatGPT), so a signup shows which guide or page
+      // brought them in. Only the site and path are kept, never query strings.
       try {
         const p = new URLSearchParams(location.search);
         for (const k of ['utm_source', 'utm_medium', 'utm_campaign']) {
           const v = p.get(k);
           if (v) sessionStorage.setItem(k, v);
+        }
+        if (!sessionStorage.getItem('landing_page')) {
+          sessionStorage.setItem('landing_page', location.pathname);
+          const r = document.referrer ? new URL(document.referrer) : null;
+          if (r && r.hostname !== location.hostname) {
+            sessionStorage.setItem('landing_referrer', r.origin + r.pathname);
+          }
         }
       } catch {}
     </script>
