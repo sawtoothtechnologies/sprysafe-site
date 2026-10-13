@@ -94,8 +94,6 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
 </Base>
 
 <script>
-  import { recordArrival, previousPage, TAG_KEYS } from '../lib/attribution.js';
-
   // Carry the plan chosen on /pricing into the submission (?plan=individual|couples|family).
   const query = new URLSearchParams(location.search);
   const planInput = document.getElementById('plan') as HTMLInputElement | null;
@@ -103,7 +101,8 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
   if (planInput && plan) planInput.value = plan;
 
   // Where the visit came from, so we can see which guides and channels produce signups
-  // (src/lib/attribution.js has the rules). The first arrival in this tab fills
+  // (src/lib/attribution.js, inlined by Base.astro, has the rules; if it is missing the
+  // signup still works without these fields). The first arrival in this tab fills
   // landing_page, referrer and the utm_ fields as one set; if the visitor came back
   // through another link, that arrival fills the latest_ set. previous_page is the page
   // they clicked through from. Unknown values stay blank and are left out of the email.
@@ -111,16 +110,20 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
     const el = document.getElementById(id) as HTMLInputElement | null;
     if (el && v) el.value = v;
   };
+  const attribution = (window as any).scamprepAttribution;
+  const TAG_KEYS: string[] = attribution?.TAG_KEYS || ['utm_source', 'utm_medium', 'utm_campaign'];
   const fill = (arrival: Record<string, string> | null, prefix: string) => {
     if (!arrival) return;
     setField(prefix + 'landing_page', arrival.page);
     setField(prefix + 'referrer', arrival.referrer);
     for (const k of TAG_KEYS) setField(prefix + k, arrival[k]);
   };
-  const { first, latest } = recordArrival();
-  fill(first, '');
-  fill(latest, 'latest_');
-  setField('previous_page', previousPage());
+  if (attribution) {
+    const { first, latest } = attribution.recordArrival();
+    fill(first, '');
+    fill(latest, 'latest_');
+    setField('previous_page', attribution.previousPage());
+  }
   const ARRIVAL_FIELDS = ['landing_page', 'referrer', ...TAG_KEYS];
   const OPTIONAL_FIELDS = ['plan', 'previous_page', ...ARRIVAL_FIELDS, ...ARRIVAL_FIELDS.map((k) => 'latest_' + k)];
 

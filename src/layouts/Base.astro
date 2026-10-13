@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { publicUrl } from '../lib/public-url.js';
+import attributionScript from '../lib/attribution.js?raw';
 
 const {
   title, // browser tab and Google: Title Case, keeps "| ScamPrep"
@@ -359,13 +360,10 @@ const orgSchema = {
       }
     </style>
 
-    <script>
-      // Note where this visit came from (first page, referring site, campaign tags), so
-      // the early-access form can report which page or channel produced a signup even
-      // when the visitor browses other pages first. Rules and privacy limits are in
-      // src/lib/attribution.js.
-      import { recordArrival } from '../lib/attribution.js';
-      recordArrival();
-    </script>
+    <!-- Note where this visit came from (first page, referring site, campaign tags), so
+         the early-access form can report which page or channel produced a signup even
+         when the visitor browses other pages first. Inlined as a plain script so it is
+         ready before the form's script runs; rules are in src/lib/attribution.js. -->
+    <script is:inline set:html={attributionScript}></script>
   </body>
 </html>

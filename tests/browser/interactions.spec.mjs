@@ -171,10 +171,22 @@ test.describe('early-access form', () => {
     if (!Object.keys(out).length) for (const [k, v] of new URLSearchParams(body)) out[k] = v;
     return out;
   };
+  // Submit with Enter, as many people do. These tests are about attribution, so they
+  // avoid scrolling to far-off buttons (smooth scrolling makes mobile WebKit clicks
+  // land late); the button, scrolling and tapping are covered by the tests above.
   const submitWith = async (page, email = 'a@example.com') => {
+    // The form's script runs just before DOMContentLoaded. Submitting earlier would
+    // be a plain no-JavaScript post, which is a different test (see the end of this group).
+    await page.waitForLoadState('domcontentloaded');
     await page.fill('#email', email);
-    await page.locator('form.form-card button[type=submit]').click();
+    await page.locator('#email').press('Enter');
     await expect(page).toHaveURL(/\/thanks$/);
+  };
+  // Follow one of our own links the way a click does (same referrer), without scrolling.
+  const follow = async (page, selector, url) => {
+    await page.locator(selector).first().evaluate((a) => a.click());
+    await expect(page).toHaveURL(url);
+    await page.waitForLoadState('domcontentloaded');
   };
   // Attribution fields: the first arrival in the tab, and a later arrival through another link.
   const ARRIVAL_FIELDS = ['landing_page', 'referrer', 'utm_source', 'utm_medium', 'utm_campaign'];
@@ -243,8 +255,7 @@ test.describe('early-access form', () => {
     const seen = await page.evaluate(() => document.referrer);
     test.skip(!seen, 'this browser engine does not pass a test referrer to the page');
     await page.goto('/pricing'); // browse first: the landing details must survive the visit
-    await page.locator('.site-footer a[href="/early-access"]').click();
-    await expect(page).toHaveURL(/\/early-access$/);
+    await follow(page, '.site-footer a[href="/early-access"]', /\/early-access$/);
     await submitWith(page);
     const f = fieldsOf(sent[0]);
     // Chromium hands the page the full address; Safari/WebKit trims it to the site
@@ -259,7 +270,7 @@ test.describe('early-access form', () => {
   test('query strings and search terms are never sent', async ({ page }) => {
     const sent = await capture(page, ok);
     await arriveFrom(page, '/how-it-works?utm_source=news&email=secret%40example.com', 'https://www.google.com/search?q=private+worry&hl=en');
-    await page.locator('.site-footer a[href="/early-access"]').click();
+    await follow(page, '.site-footer a[href="/early-access"]', /\/early-access$/);
     await submitWith(page);
     const f = fieldsOf(sent[0]);
     expect(f).toMatchObject({ referrer: 'https://www.google.com/search', landing_page: '/how-it-works', utm_source: 'news', previous_page: '/how-it-works' });
@@ -270,10 +281,9 @@ test.describe('early-access form', () => {
   test('returning through another site keeps each arrival together', async ({ page }) => {
     const sent = await capture(page, ok);
     await arriveFrom(page, '/how-it-works', 'https://www.google.com/');
-    await page.locator('.site-footer a[href="/pricing"]').click();
-    await expect(page).toHaveURL(/\/pricing$/);
+    await follow(page, '.site-footer a[href="/pricing"]', /\/pricing$/);
     await arriveFrom(page, '/about?utm_source=newsletter&utm_campaign=october', 'https://l.facebook.com/l.php?u=private');
-    await page.locator('.site-footer a[href="/early-access"]').click();
+    await follow(page, '.site-footer a[href="/early-access"]', /\/early-access$/);
     await submitWith(page);
     const f = fieldsOf(sent[0]);
     expect(f).toMatchObject({
@@ -288,7 +298,7 @@ test.describe('early-access form', () => {
     const sent = await capture(page, ok);
     await arriveFrom(page, '/how-it-works', 'https://www.google.com/');
     await page.goto('/pricing?utm_source=email&utm_medium=newsletter');
-    await page.locator('.price-card [data-checkout]').first().click();
+    await follow(page, '.price-card [data-checkout]', /\/early-access\?plan=individual$/);
     await submitWith(page);
     const f = fieldsOf(sent[0]);
     expect(f).toMatchObject({
@@ -302,11 +312,31 @@ test.describe('early-access form', () => {
     const sent = await capture(page, ok);
     await arriveFrom(page, '/how-it-works', 'https://www.google.com/');
     await page.reload();
-    await page.locator('.site-footer a[href="/pricing"]').click();
-    await expect(page).toHaveURL(/\/pricing$/);
+    await follow(page, '.site-footer a[href="/pricing"]', /\/pricing$/);
     await page.goBack();
     await expect(page).toHaveURL(/\/how-it-works/);
-    await page.locator('.site-footer a[href="/early-access"]').click();
+    await follow(page, '.site-footer a[href="/early-access"]', /\/early-access$/);
+    await submitWith(page);
+    const f = fieldsOf(sent[0]);
+    expect(f).toMatchObject({ landing_page: '/how-it-works', referrer: 'https://www.google.com/', previous_page: '/how-it-works' });
+    for (const k of LATEST_FIELDS) expect(f[k], k).toBeUndefined();
+  });
+
+  test('a reload or back still is not a new arrival when the browser reports it as a fresh visit', async ({ page }) => {
+    // Some engines (seen in Firefox under Playwright) report reloads and back/forward
+    // as ordinary navigations. Simulate that everywhere.
+    await page.addInitScript(() => {
+      const real = performance.getEntriesByType.bind(performance);
+      performance.getEntriesByType = (t) => (t === 'navigation' ? [{ type: 'navigate' }] : real(t));
+    });
+    const sent = await capture(page, ok);
+    await arriveFrom(page, '/how-it-works', 'https://www.google.com/');
+    await page.reload();
+    await follow(page, '.site-footer a[href="/pricing"]', /\/pricing$/);
+    await page.goBack();
+    await expect(page).toHaveURL(/\/how-it-works/);
+    await page.reload();
+    await follow(page, '.site-footer a[href="/early-access"]', /\/early-access$/);
     await submitWith(page);
     const f = fieldsOf(sent[0]);
     expect(f).toMatchObject({ landing_page: '/how-it-works', referrer: 'https://www.google.com/', previous_page: '/how-it-works' });
@@ -317,8 +347,8 @@ test.describe('early-access form', () => {
     const sent = await capture(page, ok);
     await blockStorage(page);
     await arriveFrom(page, '/how-it-works', 'https://www.google.com/');
-    await page.locator('.site-footer a[href="/pricing"]').click();
-    await page.locator('.price-card [data-checkout]').first().click();
+    await follow(page, '.site-footer a[href="/pricing"]', /\/pricing$/);
+    await follow(page, '.price-card [data-checkout]', /\/early-access\?plan=individual$/);
     await submitWith(page);
     const f = fieldsOf(sent[0]);
     expect(f).toMatchObject({ plan: 'individual', previous_page: '/pricing' });
@@ -371,7 +401,9 @@ test.describe('early-access form', () => {
   });
 
   test('without JavaScript the form still posts to Formspree', async ({ browser }) => {
-    const ctx = await browser.newContext({ javaScriptEnabled: false });
+    // Reduced motion turns off the site's smooth scrolling, which otherwise makes mobile
+    // WebKit report the button as outside the viewport while it scrolls into view.
+    const ctx = await browser.newContext({ javaScriptEnabled: false, reducedMotion: 'reduce' });
     const page = await ctx.newPage();
     let posted = false;
     await page.route('https://formspree.io/**', (r) => { posted = r.request().method() === 'POST'; return r.fulfill({ status: 200, contentType: 'text/html', body: '<h1>ok</h1>' }); });
