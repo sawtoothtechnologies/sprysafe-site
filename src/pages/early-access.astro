@@ -43,6 +43,11 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
         <input type="hidden" id="referrer" name="referrer" value="" />
         <input type="hidden" id="landing_page" name="landing_page" value="" />
         <input type="hidden" id="previous_page" name="previous_page" value="" />
+        <input type="hidden" id="latest_landing_page" name="latest_landing_page" value="" />
+        <input type="hidden" id="latest_referrer" name="latest_referrer" value="" />
+        <input type="hidden" id="latest_utm_source" name="latest_utm_source" value="" />
+        <input type="hidden" id="latest_utm_medium" name="latest_utm_medium" value="" />
+        <input type="hidden" id="latest_utm_campaign" name="latest_utm_campaign" value="" />
         <div class="field">
           <label for="name">Your name</label>
           <input type="text" id="name" name="name" autocomplete="name" />
@@ -89,39 +94,35 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
 </Base>
 
 <script>
+  import { recordArrival, previousPage, TAG_KEYS } from '../lib/attribution.js';
+
   // Carry the plan chosen on /pricing into the submission (?plan=individual|couples|family).
   const query = new URLSearchParams(location.search);
   const planInput = document.getElementById('plan') as HTMLInputElement | null;
   const plan = query.get('plan');
   if (planInput && plan) planInput.value = plan;
 
-  // Attribution: URL params win; otherwise use tags remembered from the landing page
-  // (Base.astro stores them in sessionStorage). Referrer fills in for untagged links.
-  for (const k of ['utm_source', 'utm_medium', 'utm_campaign']) {
-    const el = document.getElementById(k) as HTMLInputElement | null;
-    if (!el) continue;
-    let v = query.get(k);
-    if (!v) { try { v = sessionStorage.getItem(k); } catch {} }
-    if (v) el.value = v;
-  }
-
-  // Where the visit came from, so we can see which guides and channels produce signups.
-  // referrer: the outside site that sent the visitor (Google, ChatGPT, Facebook...),
-  //   from this page's referrer or, if they browsed first, the one remembered on landing.
-  // landing_page: the first page of the visit (Base.astro remembers it).
-  // previous_page: the page where they clicked through to this form.
-  // Only the site and path are kept, never query strings.
-  const remembered = (k: string) => { try { return sessionStorage.getItem(k) || ''; } catch { return ''; } };
-  const setField = (id: string, v: string) => {
+  // Where the visit came from, so we can see which guides and channels produce signups
+  // (src/lib/attribution.js has the rules). The first arrival in this tab fills
+  // landing_page, referrer and the utm_ fields as one set; if the visitor came back
+  // through another link, that arrival fills the latest_ set. previous_page is the page
+  // they clicked through from. Unknown values stay blank and are left out of the email.
+  const setField = (id: string, v: string | undefined) => {
     const el = document.getElementById(id) as HTMLInputElement | null;
     if (el && v) el.value = v;
   };
-  let ref: URL | null = null;
-  try { ref = document.referrer ? new URL(document.referrer) : null; } catch {}
-  const internal = !!ref && ref.hostname === location.hostname;
-  setField('referrer', ref && !internal ? ref.origin + ref.pathname : remembered('landing_referrer'));
-  setField('landing_page', remembered('landing_page') || location.pathname);
-  if (ref && internal && ref.pathname !== location.pathname) setField('previous_page', ref.pathname);
+  const fill = (arrival: Record<string, string> | null, prefix: string) => {
+    if (!arrival) return;
+    setField(prefix + 'landing_page', arrival.page);
+    setField(prefix + 'referrer', arrival.referrer);
+    for (const k of TAG_KEYS) setField(prefix + k, arrival[k]);
+  };
+  const { first, latest } = recordArrival();
+  fill(first, '');
+  fill(latest, 'latest_');
+  setField('previous_page', previousPage());
+  const ARRIVAL_FIELDS = ['landing_page', 'referrer', ...TAG_KEYS];
+  const OPTIONAL_FIELDS = ['plan', 'previous_page', ...ARRIVAL_FIELDS, ...ARRIVAL_FIELDS.map((k) => 'latest_' + k)];
 
   // Submit via fetch so visitors land on our own /thanks page. (Formspree's hosted
   // redirect is a paid feature; this works on the free plan.) No-JS visitors get a
@@ -159,7 +160,7 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
       if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
       const data = new FormData(form);
       // Drop empty attribution fields so signup emails stay clean.
-      for (const k of ['plan', 'utm_source', 'utm_medium', 'utm_campaign', 'referrer', 'landing_page', 'previous_page']) {
+      for (const k of OPTIONAL_FIELDS) {
         if (!data.get(k)) data.delete(k);
       }
       let res: Response | null = null;

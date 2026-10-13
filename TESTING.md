@@ -26,7 +26,7 @@ versions, counts including skips, logs and screenshots with each launch review.
 | When | Run | Time | Blocks publishing? |
 | --- | --- | --- | --- |
 | After any edit, while working | `npm run test:quick` | ~6 min | Fix before asking for review |
-| Before publishing to `main` | `npm test` + the 10-minute manual pass | ~25 min | Yes |
+| Before publishing to `main` | `npm test` + the 10-minute manual pass (+ a real browser signup on the preview when the form or tracking changed) | ~25 min | Yes |
 | Right after publishing | `npm run test:live` + 2-minute phone check | ~3 min | Roll back if it fails |
 | Before launch, then monthly | The full manual protocol below | ~90 min | Yes for launch |
 
@@ -74,10 +74,21 @@ Check a branch preview instead of production:
 LIVE_URL=https://<branch>.sprysafe-site.pages.dev npm run test:live
 ```
 
-Send ONE real signup through Formspree, then confirm it reaches hello@getscamprep.com:
+Send ONE real signup through Formspree, then confirm it reaches hello@getscamprep.com
+(this posts straight to Formspree, so it checks delivery but not the site's tracking code):
 
 ```sh
 npm --prefix tests run live -- --real-signup you+sitetest@gmail.com
+```
+
+Send ONE real signup through the website in a real browser, to check signup attribution
+end to end. It arrives "from Google" with a campaign tag unique to the run, browses to
+Pricing and submits. It prints a run ID; search hello@getscamprep.com for it, compare the
+email with the lines it prints, then delete the test signup in Formspree. Run it on the
+branch preview before publishing any change to the form or tracking:
+
+```sh
+LIVE_URL=https://<branch>.sprysafe-site.pages.dev npm run test:real-signup -- you+sitetest@gmail.com
 ```
 
 ## What the automated suite covers
@@ -98,7 +109,7 @@ npm --prefix tests run live -- --real-signup you+sitetest@gmail.com
 
 - Smoke (every page): HTTP 200, zero console errors, exceptions or failed requests, no broken images, no sideways scrolling, Manrope actually loads, real 404 status for unknown URLs, retired URLs redirect.
 - Accessibility (every page): zero axe violations (WCAG 2.2 AA plus best practices), no text under 15px, tap targets 44px+ on phones, skip link works, every Tab stop is visible and has a focus ring, no sideways scrolling at 14 widths from 320px to 1920px, none at 200% text size, header fits on one line from 901px. axe also runs with the menu open, pricing on Monthly with a FAQ open, and the walkthrough on step 4.
-- Interactions: mobile menu (open, close, links, Escape, tap outside, after scrolling); desktop nav; pricing toggle (all prices, rapid toggling, screen-reader exposure, tap size); plan carried into the form; signup form (empty, four bad emails, a full valid signup with UTM attribution kept across pages, double-click sends once, empty fields left out, Formspree 422, Formspree 500, network drop, 16px inputs, no-JavaScript fallback); every FAQ by click and keyboard; homepage walkthrough on wide and small screens, messages finish arriving, no layout jump, resizing between layouts; advisor panels by tap, hover and keyboard; advisor slider by keyboard with limits and price math; booking links; all content visible with JavaScript off.
+- Interactions: mobile menu (open, close, links, Escape, tap outside, after scrolling); desktop nav; pricing toggle (all prices, rapid toggling, screen-reader exposure, tap size); plan carried into the form; signup form (empty, four bad emails, a full valid signup with UTM attribution kept across pages, double-click sends once, empty fields left out, Formspree 422, Formspree 500, network drop, 16px inputs, no-JavaScript fallback); signup attribution (landing page and referring site, query strings never sent, a return through another site or campaign link kept as its own set, reloads and back not counted, blocked storage leaves unknowns blank); every FAQ by click and keyboard; homepage walkthrough on wide and small screens, messages finish arriving, no layout jump, resizing between layouts; advisor panels by tap, hover and keyboard; advisor slider by keyboard with limits and price math; booking links; all content visible with JavaScript off.
 - Motion (every page): nothing loops, motion settles, no text stuck invisible after scrolling, reduced motion shows the finished page at once, hero finishes within about 3 seconds, layout shift under 0.1, printing shows the content.
 - The form is always mocked in browser tests. No test run ever sends a real signup.
 - Resilience: a recovered 503, a 429 followed by manual retry, both 15-second
@@ -142,7 +153,7 @@ Automation cannot judge how the page feels. On the preview for the change:
 1. iPhone Safari: load the changed pages. Scroll top to bottom. Anything cramped, overlapping, cut off, or blank for a moment too long?
 2. Mac Safari and Chrome: same pages at full width and with the window narrowed slowly from wide to narrow. Watch for the layout snapping badly at any point.
 3. Tap through every button and link on the changed pages.
-4. If the form or pricing changed: run through a signup on the preview (it is mocked only in tests; the preview form is real, so use your own email and delete it in Formspree afterward).
+4. If the form or pricing changed: run through a signup on the preview (it is mocked only in tests; the preview form is real, so use your own email and delete it in Formspree afterward). If the form or its tracking changed, also run `npm run test:real-signup` against the preview (see Commands) and check the email it produces.
 5. Read every changed sentence out loud. Check it against `voice.md`.
 6. Turn on Reduce Motion (iPhone: Settings, Accessibility, Motion) and reload the homepage. It should show the finished page with no movement.
 

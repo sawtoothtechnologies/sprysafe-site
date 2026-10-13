@@ -40,8 +40,22 @@ test.describe('mobile menu', () => {
   test('tapping outside the open menu closes it', async ({ page }) => {
     await page.goto('/pricing');
     await page.locator('.menu-toggle').click();
-    const vp = page.viewportSize();
-    await page.mouse.click(vp.width / 2, vp.height - 20); // empty page area below the open menu
+    // Tap a spot that is really empty: below the header and menu, and not on a link,
+    // button or form control. (A fixed spot near the bottom can land on a pricing
+    // button, depending on the screen and fonts, and navigate away instead.)
+    const spot = await page.evaluate(() => {
+      const top = document.querySelector('.site-header').getBoundingClientRect().bottom;
+      const busy = 'a, button, input, select, textarea, label, summary, [role="button"], [tabindex], .site-header';
+      for (let y = innerHeight - 12; y > top + 8; y -= 16) {
+        for (let x = 12; x < innerWidth - 12; x += 24) {
+          const el = document.elementFromPoint(x, y);
+          if (el && !el.closest(busy)) return { x, y };
+        }
+      }
+      return null;
+    });
+    expect(spot, 'no empty spot found to tap below the open menu').not.toBeNull();
+    await page.mouse.click(spot.x, spot.y);
     await expect(page).toHaveURL(/\/pricing$/);
     await expect(page.locator('#site-nav'), 'menu stays open over the page after tapping elsewhere').toBeHidden();
   });
@@ -157,6 +171,31 @@ test.describe('early-access form', () => {
     if (!Object.keys(out).length) for (const [k, v] of new URLSearchParams(body)) out[k] = v;
     return out;
   };
+  const submitWith = async (page, email = 'a@example.com') => {
+    await page.fill('#email', email);
+    await page.locator('form.form-card button[type=submit]').click();
+    await expect(page).toHaveURL(/\/thanks$/);
+  };
+  // Attribution fields: the first arrival in the tab, and a later arrival through another link.
+  const ARRIVAL_FIELDS = ['landing_page', 'referrer', 'utm_source', 'utm_medium', 'utm_campaign'];
+  const LATEST_FIELDS = ARRIVAL_FIELDS.map((k) => 'latest_' + k);
+  // Arrive on a page as if from another website. Browsers trim real referrers
+  // differently (Chromium passes the full address, Safari/WebKit only the site), so
+  // these tests set exactly what the page sees. Only the page view whose address
+  // carries this call's ?arrival= marker is affected, including its reloads.
+  const arriveFrom = async (page, url, referrer) => {
+    const marker = 'm' + Math.random().toString(36).slice(2, 10);
+    await page.addInitScript(([m, r]) => {
+      if (new URLSearchParams(location.search).get('arrival') !== m) return;
+      Object.defineProperty(Document.prototype, 'referrer', { configurable: true, get: () => r });
+    }, [marker, referrer]);
+    await page.goto(url + (url.includes('?') ? '&' : '?') + 'arrival=' + marker);
+  };
+  const blockStorage = (page) => page.addInitScript(() => {
+    for (const name of ['localStorage', 'sessionStorage']) Object.defineProperty(window, name, {
+      get() { throw new DOMException('Storage disabled', 'SecurityError'); },
+    });
+  });
 
   test('empty submit is blocked and nothing is sent', async ({ page }) => {
     const sent = await capture(page, ok);
@@ -195,22 +234,105 @@ test.describe('early-access form', () => {
     const f = fieldsOf(sent[0]);
     expect(f).toMatchObject({ name: 'Test Person', email: 'test+scamprep@example.com', role: 'Protect myself', plan: 'couples', utm_source: 'linkedin', utm_medium: 'social', utm_campaign: 'launch', landing_page: '/', previous_page: '/pricing' });
     expect(f.worry).toContain('émojis');
+    for (const k of LATEST_FIELDS) expect(f[k], k).toBeUndefined();
   });
 
   test('a signup records the outside site and the page the visit started on', async ({ page }) => {
     const sent = await capture(page, ok);
     await page.goto('/how-it-works', { referer: 'https://www.google.com/search?q=private' });
-    const got = await page.evaluate(() => document.referrer);
-    test.skip(!got, 'this browser engine does not pass a test referrer to the page');
+    const seen = await page.evaluate(() => document.referrer);
+    test.skip(!seen, 'this browser engine does not pass a test referrer to the page');
     await page.goto('/pricing'); // browse first: the landing details must survive the visit
     await page.locator('.site-footer a[href="/early-access"]').click();
     await expect(page).toHaveURL(/\/early-access$/);
-    await page.fill('#email', 'a@example.com');
-    await page.locator('form.form-card button[type=submit]').click();
-    await expect(page).toHaveURL(/\/thanks$/);
+    await submitWith(page);
     const f = fieldsOf(sent[0]);
-    expect(f).toMatchObject({ referrer: 'https://www.google.com/search', landing_page: '/how-it-works', previous_page: '/pricing' });
-    expect(Object.values(f).join(' '), 'search terms or query strings must never be sent').not.toContain('private');
+    // Chromium hands the page the full address; Safari/WebKit trims it to the site
+    // first. Either way only the site and path of what the page saw may be sent.
+    const s = new URL(seen);
+    expect(f.referrer).toBe(s.origin + s.pathname);
+    expect(f.referrer).toMatch(/^https:\/\/www\.google\.com\/(search)?$/);
+    expect(f).toMatchObject({ landing_page: '/how-it-works', previous_page: '/pricing' });
+    for (const k of LATEST_FIELDS) expect(f[k], k).toBeUndefined();
+  });
+
+  test('query strings and search terms are never sent', async ({ page }) => {
+    const sent = await capture(page, ok);
+    await arriveFrom(page, '/how-it-works?utm_source=news&email=secret%40example.com', 'https://www.google.com/search?q=private+worry&hl=en');
+    await page.locator('.site-footer a[href="/early-access"]').click();
+    await submitWith(page);
+    const f = fieldsOf(sent[0]);
+    expect(f).toMatchObject({ referrer: 'https://www.google.com/search', landing_page: '/how-it-works', utm_source: 'news', previous_page: '/how-it-works' });
+    const values = Object.entries(f).filter(([k]) => k !== 'email').map(([, v]) => v).join(' ');
+    for (const leak of ['private', 'secret', 'hl=', '?', 'arrival=']) expect(values, `sent "${leak}"`).not.toContain(leak);
+  });
+
+  test('returning through another site keeps each arrival together', async ({ page }) => {
+    const sent = await capture(page, ok);
+    await arriveFrom(page, '/how-it-works', 'https://www.google.com/');
+    await page.locator('.site-footer a[href="/pricing"]').click();
+    await expect(page).toHaveURL(/\/pricing$/);
+    await arriveFrom(page, '/about?utm_source=newsletter&utm_campaign=october', 'https://l.facebook.com/l.php?u=private');
+    await page.locator('.site-footer a[href="/early-access"]').click();
+    await submitWith(page);
+    const f = fieldsOf(sent[0]);
+    expect(f).toMatchObject({
+      landing_page: '/how-it-works', referrer: 'https://www.google.com/',
+      latest_landing_page: '/about', latest_referrer: 'https://l.facebook.com/l.php',
+      latest_utm_source: 'newsletter', latest_utm_campaign: 'october', previous_page: '/about',
+    });
+    for (const k of ['utm_source', 'utm_medium', 'utm_campaign', 'latest_utm_medium']) expect(f[k], `${k} must not be borrowed from the other arrival`).toBeUndefined();
+  });
+
+  test('a campaign link alone, with no referring site, still counts as a return', async ({ page }) => {
+    const sent = await capture(page, ok);
+    await arriveFrom(page, '/how-it-works', 'https://www.google.com/');
+    await page.goto('/pricing?utm_source=email&utm_medium=newsletter');
+    await page.locator('.price-card [data-checkout]').first().click();
+    await submitWith(page);
+    const f = fieldsOf(sent[0]);
+    expect(f).toMatchObject({
+      landing_page: '/how-it-works', referrer: 'https://www.google.com/',
+      latest_landing_page: '/pricing', latest_utm_source: 'email', latest_utm_medium: 'newsletter', previous_page: '/pricing',
+    });
+    for (const k of ['utm_source', 'utm_medium', 'latest_referrer']) expect(f[k], k).toBeUndefined();
+  });
+
+  test('reloading or going back is not a new arrival', async ({ page }) => {
+    const sent = await capture(page, ok);
+    await arriveFrom(page, '/how-it-works', 'https://www.google.com/');
+    await page.reload();
+    await page.locator('.site-footer a[href="/pricing"]').click();
+    await expect(page).toHaveURL(/\/pricing$/);
+    await page.goBack();
+    await expect(page).toHaveURL(/\/how-it-works/);
+    await page.locator('.site-footer a[href="/early-access"]').click();
+    await submitWith(page);
+    const f = fieldsOf(sent[0]);
+    expect(f).toMatchObject({ landing_page: '/how-it-works', referrer: 'https://www.google.com/', previous_page: '/how-it-works' });
+    for (const k of LATEST_FIELDS) expect(f[k], k).toBeUndefined();
+  });
+
+  test('with storage blocked, an unknown starting page is left blank, not guessed', async ({ page }) => {
+    const sent = await capture(page, ok);
+    await blockStorage(page);
+    await arriveFrom(page, '/how-it-works', 'https://www.google.com/');
+    await page.locator('.site-footer a[href="/pricing"]').click();
+    await page.locator('.price-card [data-checkout]').first().click();
+    await submitWith(page);
+    const f = fieldsOf(sent[0]);
+    expect(f).toMatchObject({ plan: 'individual', previous_page: '/pricing' });
+    for (const k of [...ARRIVAL_FIELDS, ...LATEST_FIELDS]) expect(f[k], k).toBeUndefined();
+  });
+
+  test('with storage blocked, a visitor who arrives on the form is still credited', async ({ page }) => {
+    const sent = await capture(page, ok);
+    await blockStorage(page);
+    await arriveFrom(page, '/early-access?utm_source=partner', 'https://www.google.com/');
+    await submitWith(page);
+    const f = fieldsOf(sent[0]);
+    expect(f).toMatchObject({ landing_page: '/early-access', referrer: 'https://www.google.com/', utm_source: 'partner' });
+    for (const k of ['previous_page', ...LATEST_FIELDS]) expect(f[k], k).toBeUndefined();
   });
 
   test('empty optional fields are left out of the email', async ({ page }) => {
@@ -220,8 +342,8 @@ test.describe('early-access form', () => {
     await page.locator('form.form-card button[type=submit]').click();
     await expect(page).toHaveURL(/\/thanks$/);
     const f = fieldsOf(sent[0]);
-    for (const k of ['plan', 'utm_source', 'utm_medium', 'utm_campaign', 'referrer', 'previous_page']) expect(f[k], k).toBeUndefined();
-    expect(f.landing_page).toBe('/early-access');
+    for (const k of ['plan', 'utm_source', 'utm_medium', 'utm_campaign', 'referrer', 'previous_page', ...LATEST_FIELDS]) expect(f[k], k).toBeUndefined();
+    expect(f.landing_page, 'the first page in the tab is a known landing page').toBe('/early-access');
   });
 
   for (const [label, reply] of [
