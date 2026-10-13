@@ -203,11 +203,13 @@ test.describe('early-access form', () => {
     }, [marker, referrer]);
     await page.goto(url + (url.includes('?') ? '&' : '?') + 'arrival=' + marker);
   };
-  // Some engines (seen in Firefox under Playwright) report reloads and back/forward as
-  // ordinary navigations. This makes every engine behave that way.
+  // Firefox under Playwright gives no sign that a page view is a reload or back/forward:
+  // it reports an ordinary navigation and the history entry comes back unmarked. This
+  // makes every engine behave that way, so the code's last fallback is tested everywhere.
   const misreportNavigation = (page) => page.addInitScript(() => {
     const real = performance.getEntriesByType.bind(performance);
     performance.getEntriesByType = (t) => (t === 'navigation' ? [{ type: 'navigate' }] : real(t));
+    history.replaceState = () => {};
   });
   const blockStorage = (page) => page.addInitScript(() => {
     for (const name of ['localStorage', 'sessionStorage']) Object.defineProperty(window, name, {
