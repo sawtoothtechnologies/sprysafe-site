@@ -203,6 +203,12 @@ test.describe('early-access form', () => {
     }, [marker, referrer]);
     await page.goto(url + (url.includes('?') ? '&' : '?') + 'arrival=' + marker);
   };
+  // Some engines (seen in Firefox under Playwright) report reloads and back/forward as
+  // ordinary navigations. This makes every engine behave that way.
+  const misreportNavigation = (page) => page.addInitScript(() => {
+    const real = performance.getEntriesByType.bind(performance);
+    performance.getEntriesByType = (t) => (t === 'navigation' ? [{ type: 'navigate' }] : real(t));
+  });
   const blockStorage = (page) => page.addInitScript(() => {
     for (const name of ['localStorage', 'sessionStorage']) Object.defineProperty(window, name, {
       get() { throw new DOMException('Storage disabled', 'SecurityError'); },
@@ -323,12 +329,7 @@ test.describe('early-access form', () => {
   });
 
   test('a reload or back still is not a new arrival when the browser reports it as a fresh visit', async ({ page }) => {
-    // Some engines (seen in Firefox under Playwright) report reloads and back/forward
-    // as ordinary navigations. Simulate that everywhere.
-    await page.addInitScript(() => {
-      const real = performance.getEntriesByType.bind(performance);
-      performance.getEntriesByType = (t) => (t === 'navigation' ? [{ type: 'navigate' }] : real(t));
-    });
+    await misreportNavigation(page);
     const sent = await capture(page, ok);
     await arriveFrom(page, '/how-it-works', 'https://www.google.com/');
     await page.reload();
@@ -342,6 +343,28 @@ test.describe('early-access form', () => {
     expect(f).toMatchObject({ landing_page: '/how-it-works', referrer: 'https://www.google.com/', previous_page: '/how-it-works' });
     for (const k of LATEST_FIELDS) expect(f[k], k).toBeUndefined();
   });
+
+  for (const misreported of [false, true]) {
+    test(`a genuine return to the first source becomes the latest source${misreported ? ', even when reloads look like fresh visits' : ''}`, async ({ page }) => {
+      // Google, then LinkedIn, then Google again, all in one tab (found by Codex).
+      if (misreported) await misreportNavigation(page);
+      const sent = await capture(page, ok);
+      await arriveFrom(page, '/how-it-works', 'https://www.google.com/');
+      await follow(page, '.site-footer a[href="/pricing"]', /\/pricing$/);
+      await arriveFrom(page, '/about', 'https://www.linkedin.com/feed/');
+      await follow(page, '.site-footer a[href="/pricing"]', /\/pricing$/);
+      await arriveFrom(page, '/how-it-works', 'https://www.google.com/');
+      await page.reload(); // a reload after the return changes nothing
+      await follow(page, '.site-footer a[href="/early-access"]', /\/early-access$/);
+      await submitWith(page);
+      const f = fieldsOf(sent[0]);
+      expect(f).toMatchObject({
+        landing_page: '/how-it-works', referrer: 'https://www.google.com/',
+        latest_landing_page: '/how-it-works', latest_referrer: 'https://www.google.com/',
+        previous_page: '/how-it-works',
+      });
+    });
+  }
 
   test('with storage blocked, an unknown starting page is left blank, not guessed', async ({ page }) => {
     const sent = await capture(page, ok);

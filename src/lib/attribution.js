@@ -50,8 +50,19 @@
       return 'navigate';
     }
   };
-  const sameArrival = (a, b) =>
-    !!a && !!b && a.page === b.page && a.referrer === b.referrer && TAG_KEYS.every((k) => (a[k] || '') === (b[k] || ''));
+  // Each page view marks its own entry in the browser's history. A reload or a
+  // back/forward visit returns to an entry that is already marked; a genuine new
+  // arrival always gets a fresh, unmarked entry, even when it repeats an earlier
+  // source and page. This works even where the browser reports a reload or back as
+  // an ordinary navigation (Firefox can), so the navigation type is only a backup.
+  const alreadySeen = () => {
+    try {
+      const state = history.state && typeof history.state === 'object' ? history.state : null;
+      if (state && state.scamprepSeen) return true;
+      history.replaceState({ ...(state || {}), scamprepSeen: true }, '');
+    } catch {}
+    return false;
+  };
 
   const recordThisPageView = () => {
     const ref = referrerUrl();
@@ -66,6 +77,7 @@
       if (v) view[k] = v.slice(0, MAX);
     }
     const fromOutside = !!view.referrer || TAG_KEYS.some((k) => view[k]);
+    const repeat = alreadySeen() || ['reload', 'back_forward'].includes(navigationType());
 
     const first = read(FIRST);
     if (!first) {
@@ -76,13 +88,9 @@
       // Storage is blocked: only this page's own evidence of an outside arrival counts.
       return { first: fromOutside ? view : null, latest: null };
     }
-    const latest = read(LATEST);
     // A reload or back/forward keeps the original referrer, so it is not a new arrival.
-    // Browsers do not all report the navigation type reliably, so a page view that
-    // exactly repeats an arrival already recorded is treated the same way.
-    const repeat = ['reload', 'back_forward'].includes(navigationType()) || sameArrival(view, first) || sameArrival(view, latest);
     if (fromOutside && !repeat && write(LATEST, view)) return { first, latest: view };
-    return { first, latest };
+    return { first, latest: read(LATEST) };
   };
 
   let result = null;
