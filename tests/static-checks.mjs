@@ -511,7 +511,7 @@ for (const f of allFiles.filter((f) => /\.(png|jpe?g|webp)$/.test(f))) {
     if (!ld.find((x) => x['@type'] === 'BreadcrumbList')) warn(A, 'no BreadcrumbList structured data');
     if (!$('.byline a[href="/about"]').length) fail(A, 'byline does not link to /about');
     if ($('.dates time[datetime]').length < 2) fail(A, 'missing the published or last reviewed date');
-    if (!$('.guide__sources li a[href^="https://"]').length) fail(A, 'no linked sources');
+    if (!$('.guide__sources a[href^="https://"]').length) fail(A, 'no linked sources');
     if (!$('main a[href^="/early-access"]').length) fail(A, 'no early-access ask');
     const words = $('.guide__body').text().trim().split(/\s+/).length;
     if (words < 300 && !/release-check-sample/.test(p)) warn(A, `body is only ${words} words; check it fully answers the question`);

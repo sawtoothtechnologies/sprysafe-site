@@ -173,7 +173,9 @@ const breadcrumbSchema = {
   /* Guide text: a little roomier than marketing prose, since people read these
      slowly and often on a phone. */
   .guide__body { font-size: 1.0625rem; line-height: 1.7; }
-  .guide__body :global(h2) { margin-top: 2em; }
+  /* Room for the sticky header, so a jump link (and a browser's #anchor) lands with the
+     heading in view instead of under the header. */
+  .guide__body :global(h2) { margin-top: 2em; scroll-margin-top: 96px; }
   .guide__body :global(ul), .guide__body :global(ol) { padding-left: 1.3em; }
   .guide__body :global(li) { margin-bottom: 0.5em; }
   .guide__body :global(a) { color: var(--amber-text); text-underline-offset: 3px; }
