@@ -9,6 +9,7 @@ import { test as base, expect } from '@playwright/test';
 import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
+import { fileURLToPath } from 'node:url';
 
 const require = createRequire(import.meta.url);
 const OFFLINE = process.env.OFFLINE === '1';
@@ -16,9 +17,17 @@ const OFFLINE = process.env.OFFLINE === '1';
 let fontDir = null;
 try { fontDir = path.join(path.dirname(require.resolve('@fontsource/manrope/package.json')), 'files'); } catch {}
 
+// Guide pages (/guides/<slug>) are read from the build, so new guides are tested
+// without editing this list. Run the build before the browser tests.
+const guidesDir = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'dist', 'guides');
+const GUIDE_PAGES = fs.existsSync(guidesDir)
+  ? fs.readdirSync(guidesDir).filter((f) => f.endsWith('.html')).map((f) => '/guides/' + f.replace(/\.html$/, '')).sort()
+  : [];
+
 export const PAGES = [
   '/', '/how-it-works', '/why-it-works', '/pricing', '/solutions', '/about',
   '/promise', '/faq', '/early-access', '/thanks', '/privacy', '/terms',
+  '/guides', '/editorial-standards', ...GUIDE_PAGES,
 ];
 
 export const test = base.extend({

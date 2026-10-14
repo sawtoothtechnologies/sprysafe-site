@@ -73,7 +73,7 @@ test.describe('mobile menu', () => {
 test('desktop nav links all reach their pages', async ({ page, isMobile }) => {
   test.skip(isMobile);
   await page.goto('/');
-  for (const [name, url] of [['How it works', '/how-it-works'], ['For financial advisors', '/solutions'], ['Pricing', '/pricing'], ['About', '/about'], ['Get early access', '/early-access']]) {
+  for (const [name, url] of [['How it works', '/how-it-works'], ['For financial advisors', '/solutions'], ['Pricing', '/pricing'], ['Guides', '/guides'], ['About', '/about'], ['Get early access', '/early-access']]) {
     await page.locator('#site-nav').getByRole('link', { name, exact: true }).click();
     await expect(page).toHaveURL(new RegExp(url + '$'));
     await expect(page.locator('h1')).toBeVisible();
@@ -246,13 +246,14 @@ test.describe('early-access form', () => {
     await page.fill('#name', 'Test Person');
     await page.fill('#email', 'test+scamprep@example.com');
     await page.selectOption('#role', 'Protect myself');
+    await page.fill('#heard_about', 'ChatGPT');
     await page.fill('#worry', 'Phone calls pretending to be my bank. "Quotes", ampersands & émojis are fine.');
     const submit = page.locator('form.form-card button[type=submit]');
     await submit.dblclick(); // impatient double-click
     await expect(page).toHaveURL(/\/thanks$/);
     expect(sent.length, 'double-click must not submit twice').toBe(1);
     const f = fieldsOf(sent[0]);
-    expect(f).toMatchObject({ name: 'Test Person', email: 'test+scamprep@example.com', role: 'Protect myself', plan: 'couples', utm_source: 'linkedin', utm_medium: 'social', utm_campaign: 'launch', landing_page: '/', previous_page: '/pricing' });
+    expect(f).toMatchObject({ name: 'Test Person', email: 'test+scamprep@example.com', role: 'Protect myself', plan: 'couples', utm_source: 'linkedin', utm_medium: 'social', utm_campaign: 'launch', landing_page: '/', previous_page: '/pricing', heard_about: 'ChatGPT' });
     expect(f.worry).toContain('émojis');
     for (const k of LATEST_FIELDS) expect(f[k], k).toBeUndefined();
   });
@@ -272,6 +273,7 @@ test.describe('early-access form', () => {
     expect(f.referrer).toBe(s.origin + s.pathname);
     expect(f.referrer).toMatch(/^https:\/\/www\.google\.com\/(search)?$/);
     expect(f).toMatchObject({ landing_page: '/how-it-works', previous_page: '/pricing' });
+    expect(f.heard_about, 'an unanswered "How did you hear about us?" is left out').toBeUndefined();
     for (const k of LATEST_FIELDS) expect(f[k], k).toBeUndefined();
   });
 

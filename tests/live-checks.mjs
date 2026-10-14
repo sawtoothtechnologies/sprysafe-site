@@ -16,7 +16,13 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const BASE = (process.env.LIVE_URL || 'https://getscamprep.com').replace(/\/$/, '');
 const PROD = BASE === 'https://getscamprep.com';
 const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15';
-const PAGES = ['/', '/how-it-works', '/why-it-works', '/pricing', '/solutions', '/about', '/promise', '/faq', '/early-access', '/thanks', '/privacy', '/terms'];
+// Guide pages come from the local build (dist/guides), so every published guide is checked.
+const guidesDir = path.join(here, '..', 'dist', 'guides');
+const GUIDE_PAGES = fs.existsSync(guidesDir)
+  ? fs.readdirSync(guidesDir).filter((f) => f.endsWith('.html')).map((f) => '/guides/' + f.replace(/\.html$/, '')).sort()
+  : [];
+const PAGES = ['/', '/how-it-works', '/why-it-works', '/pricing', '/solutions', '/about', '/promise', '/faq', '/early-access', '/thanks', '/privacy', '/terms',
+  '/guides', '/editorial-standards', ...GUIDE_PAGES];
 
 const fails = [], warns = [], passes = [];
 const fail = (m) => fails.push(m), warn = (m) => warns.push(m), pass = (m) => passes.push(m);
@@ -76,6 +82,8 @@ for (const asset of localAssets) {
 // 2. One address per page (no duplicate URLs for Google), and a real 404.
 await expectRedirect(BASE + '/about.html', BASE + '/about', 'url form');
 await expectRedirect(BASE + '/about/', BASE + '/about', 'url form');
+await expectRedirect(BASE + '/guides/', BASE + '/guides', 'url form');
+if (GUIDE_PAGES[0]) await expectRedirect(BASE + GUIDE_PAGES[0] + '.html', BASE + GUIDE_PAGES[0], 'url form');
 await expectRedirect(BASE + '/index.html', BASE + '/', 'url form');
 {
   const r = await get(BASE + '/no-such-page-' + Date.now());

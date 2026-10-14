@@ -1,0 +1,104 @@
+---
+// The guides index: navigation only, grouped by the three hubs
+// (~/ScamPrep/seo/guide-structure.md). A section appears once it has a guide.
+import Base from '../../layouts/Base.astro';
+import { HUBS, ARRIVES } from '../../data/guides.js';
+import { getGuides } from '../../lib/guides.js';
+
+const guides = await getGuides();
+const sections = HUBS.map((hub) => {
+  const inHub = guides.filter((g) => g.data.hub === hub.id);
+  const lead = inHub.filter((g) => g.data.isHub);
+  const rest = inHub.filter((g) => !g.data.isHub);
+  // The scams section groups its guides by how the scam arrives.
+  const groups = hub.id === 'scams'
+    ? ARRIVES.map((a) => ({ ...a, items: rest.filter((g) => g.data.arrives === a.id) })).filter((a) => a.items.length)
+    : [{ id: null, name: null, items: rest }];
+  const ungrouped = hub.id === 'scams' ? rest.filter((g) => !g.data.arrives) : [];
+  if (ungrouped.length) groups.push({ id: 'other', name: 'Other scams', items: ungrouped });
+  return { ...hub, lead, groups, count: inHub.length };
+}).filter((s) => s.count > 0);
+---
+
+<Base
+  title="Scam guides for families | ScamPrep"
+  shareTitle="Scam guides for families"
+  description="Plain-language guides to the scams that target older adults: what they sound like, what to say, and what to do if one already got through."
+>
+  <section class="section">
+    <div class="wrap">
+      <div class="prose">
+        <p class="kicker">Guides</p>
+        <h1>Scam guides for families.</h1>
+        <p class="lede">
+          What the scams aimed at older adults actually look like, the words to end the
+          contact, and what to do next. Written for you and the people you love, with every
+          fact checked against its source.
+        </p>
+      </div>
+
+      {sections.map((s) => (
+        <section class="hub" id={s.id} aria-labelledby={`${s.id}-title`}>
+          <h2 id={`${s.id}-title`}>{s.name}</h2>
+          <p class="hub__blurb">{s.blurb}</p>
+          {s.lead.map((g) => (
+            <a class="guide-card guide-card--lead" href={`/guides/${g.id}`}>
+              <span class="guide-card__title">{g.data.title}</span>
+              <span class="guide-card__desc">{g.data.description}</span>
+            </a>
+          ))}
+          {s.groups.map((grp) => (
+            <div class="hub__group">
+              {grp.name && <h3>{grp.name}</h3>}
+              <ul class="guide-list">
+                {grp.items.map((g) => (
+                  <li>
+                    <a class="guide-card" href={`/guides/${g.id}`}>
+                      <span class="guide-card__title">{g.data.title}</span>
+                      <span class="guide-card__desc">{g.data.description}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </section>
+      ))}
+
+      <p class="standards-note">
+        Written by Bryce Wachtell, founder of ScamPrep. Every safety step and phone number is
+        checked against its source before a guide goes live.
+        <a href="/editorial-standards">How we research and check our guides</a>.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hub { margin-top: 64px; max-width: 52rem; scroll-margin-top: 96px; }
+  .hub h2 { margin-bottom: 8px; }
+  .hub__blurb { color: var(--gray-700); margin-bottom: 20px; }
+  .hub__group h3 { font-size: 1.1rem; margin: 28px 0 10px; }
+  .guide-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+  .guide-card {
+    display: block;
+    padding: 18px 22px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .guide-card:hover { border-color: var(--amber); background: var(--glow); }
+  .guide-card--lead { background: var(--glow); border-color: var(--amber); margin-bottom: 12px; }
+  .guide-card__title { display: block; font-weight: 800; font-size: 1.1rem; line-height: 1.35; }
+  .guide-card__desc { display: block; margin-top: 6px; color: var(--gray-700); font-size: 1rem; line-height: 1.5; }
+  .standards-note {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    max-width: 52rem;
+    color: var(--gray-700);
+  }
+  .standards-note a { color: var(--amber-text); }
+</style>

@@ -11,6 +11,7 @@ const {
   imageAlt = 'ScamPrep. Pamphlets fade. Practice sticks.',
   noindex = false, // keep the page out of search results (it still returns 200)
   noCanonical = false, // omit canonical and og:url, for pages with no address of their own (404)
+  ogType = 'website', // 'article' for guides
 } = Astro.props;
 const year = new Date().getFullYear();
 const site = Astro.site ?? new URL('https://getscamprep.com');
@@ -58,7 +59,7 @@ const orgSchema = {
     />
     <meta property="og:title" content={shareTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     {!noCanonical && <meta property="og:url" content={canonical} />}
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
@@ -71,6 +72,7 @@ const orgSchema = {
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content={imageAlt} />
     <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+    <slot name="head" />
     <!-- Analytics: Cloudflare Web Analytics is injected at the edge for getscamprep.com
          (Web Analytics > getscamprep.com > Automatic setup). No script needed here. -->
   </head>
@@ -96,6 +98,7 @@ const orgSchema = {
           <a href="/how-it-works">How it works</a>
           <a href="/solutions">For financial advisors</a>
           <a href="/pricing">Pricing</a>
+          <a href="/guides">Guides</a>
           <a href="/about">About</a>
           <a href="/early-access" class="btn btn--ink btn--nav">Get early access</a>
         </nav>
@@ -139,22 +142,24 @@ const orgSchema = {
               </a>
             </div>
           </div>
-          <nav aria-label="Footer — product">
+          <nav aria-label="Footer: product">
             <p class="footer-head">Product</p>
             <a href="/how-it-works">How it works</a>
             <a href="/why-it-works">Why it works</a>
             <a href="/pricing">Pricing</a>
             <a href="/early-access">Get early access</a>
           </nav>
-          <nav aria-label="Footer — solutions">
+          <nav aria-label="Footer: solutions">
             <p class="footer-head">Solutions</p>
             <a href="/solutions">For financial advisors</a>
             <a href="/solutions#pricing">Advisor pricing</a>
             <a href="https://cal.com/scamprep/partner-call">Book a call</a>
           </nav>
-          <nav aria-label="Footer — company">
+          <nav aria-label="Footer: company">
             <p class="footer-head">Company</p>
             <a href="/about">About</a>
+            <a href="/guides">Guides</a>
+            <a href="/editorial-standards">Editorial standards</a>
             <a href="/promise">Our promise</a>
             <a href="/faq">FAQ</a>
             <a href="/privacy">Privacy</a>
@@ -232,6 +237,11 @@ const orgSchema = {
       }
       .site-nav > a:not(.btn):hover, .dropdown__trigger:hover { color: var(--amber-text); }
       .btn--nav { padding: 11px 22px; font-size: 0.95rem; }
+      /* Just above the phone menu, tighten the gaps so all five links and the
+         button stay on one line. */
+      @media (min-width: 901px) and (max-width: 1000px) {
+        .site-nav { gap: 18px; }
+      }
 
       .dropdown { position: relative; }
       .dropdown__menu {

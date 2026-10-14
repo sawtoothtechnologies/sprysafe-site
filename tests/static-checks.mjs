@@ -50,8 +50,11 @@ const NOINDEX_EXPECTED = new Set(['/thanks', '/404']);
 // ---------------------------------------------------------------------------
 // 1. Build output hygiene
 // ---------------------------------------------------------------------------
+// Guide pages (/guides/<slug>) come from src/content/guides/, so they are read from the build.
+const GUIDE_PAGES = [...byPath.keys()].filter((p) => p.startsWith('/guides/')).sort();
 const EXPECTED_PAGES = ['/', '/about', '/early-access', '/faq', '/how-it-works', '/pricing',
-  '/privacy', '/promise', '/solutions', '/terms', '/thanks', '/why-it-works', '/404'];
+  '/privacy', '/promise', '/solutions', '/terms', '/thanks', '/why-it-works', '/404',
+  '/guides', '/editorial-standards', ...GUIDE_PAGES];
 for (const p of EXPECTED_PAGES) if (!byPath.has(p)) fail('build', `expected page ${p} is missing from dist/`);
 for (const p of byPath.keys()) if (!EXPECTED_PAGES.includes(p))
   warn('build', `new page ${p} is not in EXPECTED_PAGES in tests/static-checks.mjs; add it so it gets checked everywhere`);
@@ -315,16 +318,18 @@ const factRules = [
   { re: /free trial|\btrial\b|14-day/i, msg: 'there is no free trial (removed Oct 5, 2026)' },
   { re: /Practice over pamphlets/i, msg: 'retired tagline (now "Pamphlets fade. Practice sticks.")' },
   { re: /^\s*fall\b|\bfall\s+(resilience|report|quarter|season)|(resilience|report)[^.]{0,20}\bfall\b/i, msg: 'voice.md: name reports for the season and say "autumn", never "fall"' },
-  { re: /act now|limited time|don't wait|hurry/i, msg: 'fake urgency' },
+  { re: /act now|limited time|don't wait|hurry/i, msg: 'fake urgency', skipGuides: true }, // guides quote scammers' pressure lines
   { re: /trusted by|the leading|thousands of (families|customers|users)/i, msg: 'unsupported social proof (pre-launch)' },
   { re: /^(?!.*\b(no|never|not|can['’]?t|cannot|nobody|no one)\b).*(guarantee[sd]? (protection|you won't|safety)|never be scammed|scam-?proof)/i, msg: 'implied guarantee of fraud prevention' },
   { re: /power of attorney/i, msg: 'check: consent can never come through power of attorney' },
   { re: /up to 15|free,? 90[- ]day|90[- ]day free/i, msg: 'internal advisor pilot terms must never be published' },
-  { re: /spoof(ed|ing)? (number|caller)|caller ?ID spoof/i, msg: 'locked position: drills never falsify caller ID; do not show a ScamPrep drill as spoofed' },
+  { re: /spoof(ed|ing)? (number|caller)|caller ?ID spoof/i, msg: 'locked position: drills never falsify caller ID; do not show a ScamPrep drill as spoofed', skipGuides: true },
   { re: /not just \w+[^.]{0,40}but/i, msg: 'banned rhythm: "not just X, but Y"' },
   { re: /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u2705\u2714]/u, msg: 'emoji or checkmark character' },
 ];
-const ACRONYMS = new Set(['USPS', 'IRS', 'FBI', 'FTC', 'IC3', 'AARP', 'NORC', 'PNAS', 'YES', 'CRM', 'SEC', 'RIA', 'LLC', 'URL', 'FAQ', 'AI', 'SMS', 'PDF', 'USA', 'US', 'OTP', 'PIN', 'ID', 'NYC', 'SSA', 'TCPA', 'AUM', 'AAA', 'CEO', 'COO', 'IRA', 'IT']);
+const ACRONYMS = new Set(['USPS', 'IRS', 'FBI', 'FTC', 'IC3', 'AARP', 'NORC', 'PNAS', 'YES', 'CRM', 'SEC', 'RIA', 'LLC', 'URL', 'FAQ', 'AI', 'SMS', 'PDF', 'USA', 'US', 'OTP', 'PIN', 'ID', 'NYC', 'SSA', 'TCPA', 'AUM', 'AAA', 'CEO', 'COO', 'IRA', 'IT',
+  // Agencies and phone mnemonics in guides (1-800-MEDICARE, 1-800-HHS-TIPS, 1-877-7SAFERX, I-MEDIC).
+  'FCC', 'HHS', 'OIG', 'CMS', 'SMP', 'CFPB', 'FINRA', 'DOJ', 'MEDICARE', 'TIPS', 'MEDIC', 'SAFERX']);
 
 const visibleText = ($) => {
   const c = $.root().clone();
@@ -369,6 +374,8 @@ for (const pg of pages) {
     for (const r of factRules) {
       if (legal && /trial|fall|power of attorney|guarantee/.test(r.msg)) continue;
       if (legal && /em dash/.test(r.msg)) { if (r.re.test(t)) warn(`copy ${pg.path}`, `legacy ${r.msg} (${where}): "${snippet(r.re)}". AGENTS.md: fix when the line is next edited`); continue; }
+      // Guides describe what real scammers do (they do spoof caller ID), so drill-only rules skip them.
+      if (r.skipGuides && pg.path.startsWith('/guides/')) continue;
       if (r.re.test(t)) warn(`copy ${pg.path}`, `${r.msg} (${where}): "${snippet(r.re)}"`);
     }
     if (!legal) for (const b of bannedRules) if (b.re.test(t)) warn(`copy ${pg.path}`, `banned word from voice.md "${b.entry}" (${where}): "${snippet(b.re)}"`);
@@ -476,6 +483,43 @@ for (const pg of pages) {
 for (const f of allFiles.filter((f) => /\.(png|jpe?g|webp)$/.test(f))) {
   const kb = fs.statSync(path.join(dist, f)).size / 1024;
   if (kb > 250 && !/og/.test(f)) warn('weight', `${f} is ${kb | 0} KB`);
+}
+
+// ---------------------------------------------------------------------------
+// 8. Guides release checks (~/ScamPrep/seo/article-standard.md, step 7)
+// ---------------------------------------------------------------------------
+{
+  const index = byPath.get('/guides');
+  if (index && !GUIDE_PAGES.length) fail('guides', '/guides has no guides; publish the section together with its first guide');
+  if (index && !index.$('a[href="/editorial-standards"]').length) fail('guides', '/guides does not link to /editorial-standards');
+  if (!pages.some((pg) => pg.$('footer a[href="/editorial-standards"]').length)) fail('guides', 'footer does not link to /editorial-standards');
+  for (const p of GUIDE_PAGES) {
+    const { $ } = byPath.get(p);
+    const A = `guide ${p}`;
+    if (index && !index.$(`a[href="${p}"]`).length) fail(A, 'not linked from the /guides index');
+    if (/noindex/.test($('meta[name=robots]').attr('content') || '')) fail(A, 'is noindex');
+    if ($('meta[property="og:type"]').attr('content') !== 'article') fail(A, 'og:type should be "article"');
+    const ld = $('script[type="application/ld+json"]').toArray().map((el) => { try { return JSON.parse($(el).text()); } catch { return {}; } });
+    const art = ld.find((x) => x['@type'] === 'Article');
+    if (!art) fail(A, 'no Article structured data');
+    else {
+      for (const k of ['headline', 'description', 'datePublished', 'dateModified', 'mainEntityOfPage', 'image']) if (!art[k]) fail(A, `Article structured data is missing ${k}`);
+      if (art.author?.name !== 'Bryce Wachtell' || !art.author?.url) fail(A, 'Article author should be Bryce Wachtell with a link to /about');
+      if (art.headline !== $('h1').text().trim()) warn(A, `Article headline "${art.headline}" does not match the h1`);
+      if (art.dateModified < art.datePublished) fail(A, 'last reviewed date is before the published date');
+    }
+    if (!ld.find((x) => x['@type'] === 'BreadcrumbList')) warn(A, 'no BreadcrumbList structured data');
+    if (!$('.byline a[href="/about"]').length) fail(A, 'byline does not link to /about');
+    if ($('.dates time[datetime]').length < 2) fail(A, 'missing the published or last reviewed date');
+    if (!$('.guide__sources li a[href^="https://"]').length) fail(A, 'no linked sources');
+    if (!$('main a[href^="/early-access"]').length) fail(A, 'no early-access ask');
+    const words = $('.guide__body').text().trim().split(/\s+/).length;
+    if (words < 300 && !/release-check-sample/.test(p)) warn(A, `body is only ${words} words; check it fully answers the question`);
+    $('.guide__body .simulated').each((_, el) => {
+      if (!/Simulated/.test($(el).text())) fail(A, 'a .simulated example has no "Simulated" label');
+    });
+    if (/release-check-sample/.test(p)) warn(A, 'the release-check sample is in this build; build without SHOW_DRAFTS=1 before publishing');
+  }
 }
 
 // ---------------------------------------------------------------------------
