@@ -89,10 +89,10 @@ const breadcrumbSchema = {
       </div>
 
       <aside class="guide__ask" aria-labelledby="guide-ask-title">
-        <h2 id="guide-ask-title">Help them practice before the real thing</h2>
+        <h2 id="guide-ask-title">Practice spotting scams before the real thing</h2>
         <p>
           We're building ScamPrep: realistic scam practice for older adults, with friendly
-          coaching after a slip. You invite, they opt in. Want to hear when family plans open?
+          coaching after a slip. For yourself, or for someone you love.
         </p>
         <p><a class="btn btn--primary" href="/early-access">Get early access</a></p>
       </aside>
@@ -108,15 +108,16 @@ const breadcrumbSchema = {
         </section>
       )}
 
-      <section class="guide__sources prose" aria-labelledby="sources-title">
-        <h2 id="sources-title">Sources</h2>
-        <ol>
-          {d.sources.map((s) => (
-            <li>
+      <section class="guide__sources prose" aria-label="Sources">
+        <p class="guide__sources-list">
+          <strong>Sources:</strong>{' '}
+          {d.sources.map((s, i) => (
+            <>
               {s.publisher}, <a href={s.url}>{s.title}</a>{s.date && <>, {s.date}</>}
-            </li>
+              {i < d.sources.length - 1 ? '; ' : '.'}
+            </>
           ))}
-        </ol>
+        </p>
         {d.corrections.length > 0 && (
           <>
             <h3>Corrections</h3>
@@ -129,7 +130,7 @@ const breadcrumbSchema = {
         )}
         <p class="guide__standards">
           This guide is education, not legal or financial advice.
-          <a href="/editorial-standards">How we research and check our guides</a>.
+          <a href="/editorial-standards">How we write our guides</a>.
           Spot a mistake? Email <a href="mailto:hello@getscamprep.com">hello@getscamprep.com</a> and we'll fix it.
         </p>
       </section>
@@ -219,7 +220,7 @@ const breadcrumbSchema = {
   .guide__ask p:last-child { margin-bottom: 0; }
 
   .guide__related { margin-top: 48px; }
-  .guide__related h2, .guide__sources h2 { font-size: 1.4rem; }
+  .guide__related h2 { font-size: 1.4rem; }
   .guide__related ul { list-style: none; padding: 0; margin: 0; }
   .guide__related li { border-top: 1px solid var(--line); }
   .guide__related li:last-child { border-bottom: 1px solid var(--line); }
@@ -232,9 +233,9 @@ const breadcrumbSchema = {
   }
   .guide__related a:hover { color: var(--amber-text); }
 
-  .guide__sources { margin-top: 48px; font-size: 0.98rem; color: var(--gray-700); }
-  .guide__sources ol { padding-left: 1.3em; }
-  .guide__sources li { margin-bottom: 0.6em; overflow-wrap: anywhere; }
+  .guide__sources { margin-top: 48px; font-size: 0.86rem; line-height: 1.55; color: var(--gray-500); }
+  .guide__sources-list { overflow-wrap: anywhere; }
+  .guide__sources h3 { font-size: 1rem; margin-top: 1.5em; }
   .guide__sources a { color: var(--amber-text); }
   .guide__standards { margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--line); }
   .guide__standards a { color: var(--amber-text); }
