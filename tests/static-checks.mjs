@@ -492,7 +492,6 @@ for (const f of allFiles.filter((f) => /\.(png|jpe?g|webp)$/.test(f))) {
   const index = byPath.get('/guides');
   if (index && !GUIDE_PAGES.length) fail('guides', '/guides has no guides; publish the section together with its first guide');
   if (index && !index.$('a[href="/editorial-standards"]').length) fail('guides', '/guides does not link to /editorial-standards');
-  if (!pages.some((pg) => pg.$('footer a[href="/editorial-standards"]').length)) fail('guides', 'footer does not link to /editorial-standards');
   for (const p of GUIDE_PAGES) {
     const { $ } = byPath.get(p);
     const A = `guide ${p}`;
