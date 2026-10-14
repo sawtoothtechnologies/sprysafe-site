@@ -1,7 +1,7 @@
 ---
-title: "Medicare scam calls: what they sound like and what to say"
-seoTitle: "Medicare scam calls: what to say and do"
-description: Does Medicare call you? Rarely. What Medicare scam calls sound like, the exact words to end one, and what to do if you already gave your number.
+title: "Medicare scam calls: how to tell, what to say, and what to do next"
+seoTitle: "Medicare scam calls: how to tell and what to say"
+description: Does Medicare call you? Very rarely, and never to sell you anything. What the scam calls sound like, the one line that ends them, and what to do if you gave your number.
 published: 2026-10-15
 reviewed: 2026-10-15
 hub: scams
@@ -12,11 +12,18 @@ sources:
     title: Reporting Medicare fraud and abuse
     url: https://www.medicare.gov/basics/reporting-medicare-fraud-and-abuse
   - publisher: Medicare.gov
+    title: Marketing rules for health plans
+    url: https://www.medicare.gov/health-drug-plans/health-plans/your-coverage-options/plan-marketing-rules
+  - publisher: Medicare.gov
     title: Joining a plan
     url: https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/joining-a-plan
+  - publisher: Medicare.gov
+    title: Your Medicare card
+    url: https://www.medicare.gov/basics/get-started-with-medicare/using-medicare/your-medicare-card
   - publisher: Federal Communications Commission
     title: Older Americans and Medicare call scams
     url: https://www.fcc.gov/older-americans-and-medicare-scams
+    date: updated June 2026
   - publisher: Senior Medicare Patrol
     title: Medicare card scams
     url: https://smpresource.org/medicare-fraud/fraud-schemes/medicare-card-scams/
@@ -24,72 +31,90 @@ sources:
     title: Your Medicare number is valuable. Protect it
     url: https://consumer.ftc.gov/consumer-alerts/2024/06/your-medicare-number-valuable-protect-it
     date: June 2024
-  - publisher: Centers for Medicare & Medicaid Services
-    title: Protecting yourself and Medicare (publication 10111)
-    url: https://es.medicare.gov/sites/default/files/2022-03/10111-Protecting-Yourself-and-Medicare.pdf
-    date: revised March 2022
   - publisher: Federal Trade Commission
     title: What to do if you were scammed
     url: https://consumer.ftc.gov/articles/what-do-if-you-were-scammed
     date: June 2026
+  - publisher: Federal Trade Commission
+    title: How to block unwanted calls
+    url: https://consumer.ftc.gov/articles/how-block-unwanted-calls
+    date: July 2023
   - publisher: HHS Office of Inspector General
     title: Report fraud
     url: https://oig.hhs.gov/fraud/report-fraud/
   - publisher: Federal Communications Commission
     title: Stop unwanted robocalls and texts
     url: https://www.fcc.gov/consumers/guides/stop-unwanted-robocalls-and-texts
+    date: updated February 2026
   - publisher: Apple Support
     title: Manage unknown callers on iPhone
     url: https://support.apple.com/111106
+  - publisher: Senior Medicare Patrol
+    title: SMP national resource center (home page, with the toll-free number)
+    url: https://smpresource.org/
   - publisher: Reddit, r/Scams
     title: Non-stop Medicare phishing scam calls
     url: https://www.reddit.com/r/Scams/comments/1azxl1i/nonstop_medicare_phishing_scam_calls/
 related: [what-to-do-if-your-parent-is-being-scammed, how-to-protect-your-parent-from-scams, does-the-irs-call-you]
 ---
 
-If someone calls saying they're from Medicare and you didn't contact Medicare first, treat it as a scam. Say one polite line, hang up, and call 1-800-MEDICARE (1-800-633-4227) yourself if you want to check. Medicare only calls and asks for personal information in a few limited situations, like returning your call after you joined a plan, reported fraud or left Medicare a message, and it [never calls to sell you anything](https://www.medicare.gov/basics/reporting-medicare-fraud-and-abuse).
+If someone calls saying they're from Medicare and you didn't call Medicare first, treat it as a scam. Hang up, and if you want to double-check, call 1-800-MEDICARE (1-800-633-4227) yourself.
 
-These calls pick up every autumn. Medicare's open enrollment runs [October 15 to December 7](https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/joining-a-plan), and scammers time their calls to it.
+Medicare almost never calls first. Medicare.gov says Medicare (or someone representing it) [will only call and ask for personal information in very limited situations](https://www.medicare.gov/basics/reporting-medicare-fraud-and-abuse), like an agent returning your call after you've joined a plan, reported fraud or left a message, and that it will never call you to sell you anything. If you picked up and read out your number already, skip to [what to do now](#if-you-already-gave-your-medicare-number). You're not alone in this mistake, and there are clear steps you should promptly take.
+
+## Does Medicare call you?
+
+Almost never, and not out of the blue. The examples Medicare.gov gives all start with you:
+
+- you joined a plan and the agent is calling back
+- you reported fraud and someone is following up
+- you left Medicare a message
+
+The FCC reports that you will [usually get a written statement in the mail](https://www.fcc.gov/older-americans-and-medicare-scams) before you get a phone call from a government agency.
+
+Where some people get stuck is that legitimate insurance companies do sell Medicare Advantage and drug plans during [open enrollment](https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/joining-a-plan), which runs October 15 to December 7, so the thought "maybe this is a real broker" is reasonable. But Medicare's own marketing rules state: people representing Medicare plans [aren't allowed to call you](https://www.medicare.gov/health-drug-plans/health-plans/your-coverage-options/plan-marketing-rules) unless you're already a member or you've given them permission to contact you. They don't need your personal information to give you a quote, and they can never pressure you with lines like "you have to join this plan or you won't have coverage next year."
+
+So my rule is simple: if I didn't ask for the call, I hang up. The chance that an unexpected "Medicare" call is legitimate is tiny, and the cost of guessing wrong is your Medicare number or your Social Security number.
+
+If you'd rather talk plans through with a real person, place the call yourself to 1-800-MEDICARE or to a plan's number from its official website or your own plan card.
+
+## What a Medicare scam call sounds like
+
+The FCC shared two [recordings of how these calls open](https://www.fcc.gov/older-americans-and-medicare-scams). One: "Hi, this is Casey. I'm a Medicare advisor calling on a recorded line. How are you today?" The other: "This is Shelly in the Medicare enrollment center, on a recorded line, and I see here in the past you inquired about your Medicare supplement coverage. Can you hear me OK?"
+
+Both are warm and unhurried, with a little official polish. The ask for your Medicare or Social Security number comes after the pleasantries, once hanging up would feel rude.
+
+Many begin as recordings, but will pass you off to a real human as soon as you begin to engage. If you engage at all, they will often bombard you with [follow-up calls](https://www.reddit.com/r/Scams/comments/1azxl1i/nonstop_medicare_phishing_scam_calls/), but remember that persistence doesn't mean legitimacy.
+
+The hook changes from call to call, but the pressure doesn't.
+
+- **A "new" card.** Plastic, with a chip, black and white, or "it's a new year so you need a new one." Senior Medicare Patrol says Medicare last changed the card in 2018 and has [no plan to change it again](https://smpresource.org/medicare-fraud/fraud-schemes/medicare-card-scams/). Real cards are paper and free, and [Medicare won't call you to verify yours](https://consumer.ftc.gov/consumer-alerts/2024/06/your-medicare-number-valuable-protect-it).
+- **Something free.** A "Medicare-approved" back or knee brace, in exchange for your number. As the FTC states, [if your doctor wants you to have equipment](https://consumer.ftc.gov/consumer-alerts/2024/06/your-medicare-number-valuable-protect-it), they'll talk with you about it at an appointment.
+- **A threat.** Your coverage will be canceled unless you confirm your details today. The FCC's instruction for anyone who [threatens to cancel your health benefits](https://www.fcc.gov/older-americans-and-medicare-scams): hang up, immediately.
+- **A plan you "need."** You're pre-approved, or you'll have no coverage next year. Medicare's rules [ban plan agents from that kind of pressure](https://www.medicare.gov/health-drug-plans/health-plans/your-coverage-options/plan-marketing-rules).
+
+What they share is urgency. Something good is about to vanish, or something bad is about to happen, unless you read out a number right now. Medicare is not in the business of making you feel rushed. Real deadlines exist, but they come in the mail with plenty of notice. A countdown on a call is a strong sign it's a scam.
+
+Two more things to keep in mind:
+
+- The number on your screen proves nothing, because [caller ID can be faked](https://www.fcc.gov/older-americans-and-medicare-scams) to show "Medicare," a government office, a local number, or a broker you'd expect to hear from.
+- The person on the other side is good at this. This is their job. They sound kind because kindness works, but don't let your natural instinct to return that kindness get you trapped.
+
+## If you did get a new Medicare card this year
+
+In March and April 2026, [some people received new Medicare cards with new numbers](https://smpresource.org/medicare-fraud/fraud-schemes/medicare-card-scams/), by mail, with a letter explaining why. That's how a real card change arrives: in an envelope, not in a call asking you to read the old number aloud. If you're not sure a piece of Medicare mail is real, call 1-800-MEDICARE and ask.
 
 ## Why these calls work on careful people
 
-I've seen countless reports of these calls, and the people who get fooled aren't careless. The scam works because of how Medicare itself works.
+I've seen countless reports of these calls, and the people who get caught aren't careless. The scam borrows its power from how Medicare itself works.
 
-You only deal with enrollment once a year, so most people don't have a clear memory of how Medicare actually gets in touch. The choice matters, so nobody wants to miss a deadline. And it's confusing, which makes a warm, patient voice offering to sort it out for you genuinely appealing.
+You deal with enrollment once a year, so there's no routine to measure the call against. The choice matters, and nobody wants to miss a window. The whole thing is confusing. So when a patient, friendly voice offers to sort it out for you, it's appealing.
 
-Then there's the name. Medicare sounds like the government, and most of us were raised not to be rude to the government. You wouldn't hang up on an IRS agent or a police officer mid-sentence, so it feels wrong to do it to "Medicare." The scammers count on that politeness.
+Then there's Medicare's reputation as a government program. It feels wrong to hang up on an IRS agent or a police officer mid-sentence, so it feels wrong to do it to "Medicare." Put all of that together and the natural reaction to one of these calls is to stand in line and cooperate. The callers count on exactly that.
 
-## What the call sounds like
+## What to say, then hang up
 
-The FCC describes callers who start with friendly small talk, then ask for your Medicare number or Social Security number. Its examples of real openers include "Hi, this is Casey. I'm a Medicare advisor calling on a recorded line" and "This is Shelly in the Medicare enrollment center, on a recorded line." [Caller ID can be faked](https://www.fcc.gov/older-americans-and-medicare-scams) to show "Medicare," a government office, or a local number.
-
-Many start as robocalls. One person on Reddit described getting three or four a day, each opening with the same recording: ["Hi this is Karen, you have Medicare parts A&B..."](https://www.reddit.com/r/Scams/comments/1azxl1i/nonstop_medicare_phishing_scam_calls/)
-
-Here's how a typical call goes once a person comes on the line.
-
-<div class="simulated">
-<p class="simulated__label">Simulated</p>
-
-**Caller:** Hi, this is Karen with the Medicare benefits center, calling on a recorded line. How are you today?
-
-**You:** Fine, thanks.
-
-**Caller:** Wonderful. I'm calling because you're eligible for the new Medicare card this year. I just need to verify your Medicare number so there's no gap in your coverage.
-
-</div>
-
-The hook changes. The shape doesn't. These are the ones that come up most, according to the FCC, the FTC and Senior Medicare Patrol:
-
-- **A "new" card.** Plastic, with a chip, or "updated for the new year." Real Medicare cards are [paper, free, and Medicare won't call to verify yours](https://consumer.ftc.gov/consumer-alerts/2024/06/your-medicare-number-valuable-protect-it).
-- **Something free.** A back or knee brace, medical supplies, or a genetic test, in exchange for your Medicare number. If your doctor wants you to have equipment, they'll bring it up at an appointment.
-- **A threat.** Your coverage will be canceled or suspended unless you confirm your details today.
-- **A better plan.** You're "pre-approved," or a plan is about to close. The FCC's advice is simple: never join a Medicare health or drug plan over the phone unless you called Medicare.
-
-The common thread is urgency. Real Medicare doesn't rush you. If something on the call is about to disappear unless you act now, that's your sign.
-
-## What to say, and then hang up
-
-You don't need to argue, and you don't need to figure out whether this particular caller is real. Say this, and hang up the moment you finish:
+You don't have to argue, and you don't have to work out whether this particular caller is real. One line, then hang up the moment you finish it:
 
 <div class="say">
 
@@ -97,53 +122,45 @@ You don't need to argue, and you don't need to figure out whether this particula
 
 </div>
 
-Don't wait for a reply. That part matters most. These callers are trained to keep you on the line and to have an answer ready for every doubt, including "Medicare doesn't call people." Courteous, brief, decisive, done.
+Don't wait for a reply. That's the part that matters most. These callers are trained to keep you on the line and to explain away the fact that they're calling. Keep it polite and quick, then go. If you'd rather hang up without a word, that's fine too. The FCC's advice is simply to [hang up immediately](https://www.fcc.gov/older-americans-and-medicare-scams).
 
-If you want to check, call 1-800-MEDICARE (1-800-633-4227) or the number on your plan's card, using a number you look up yourself, never one the caller gives you.
+If anything about the call nags at you afterward, check it on your own terms. Call 1-800-MEDICARE (1-800-633-4227) or the number on your plan card or a statement. Never use a number the caller gave you, and [don't call back](https://consumer.ftc.gov/articles/how-block-unwanted-calls) the number that called.
 
-## "But I hear real brokers call during open enrollment"
+## If you already gave your Medicare number
 
-It's true that Medicare can call in limited cases, and that licensed agents and brokers sell plans in the autumn. My rule is still to hang up on any Medicare call you didn't ask for. The chance that an unexpected call is legitimate is small, and the cost of guessing wrong is your Medicare number, your Social Security number or your bank account. Medicare plans [aren't allowed to ask for your Social Security, bank account or credit card number over the phone](https://es.medicare.gov/sites/default/files/2022-03/10111-Protecting-Yourself-and-Medicare.pdf) anyway.
+First, don't spend energy on worry or shame; it won't improve the situation. The people who run these calls refine their scripts all day, every day, and you're one of a great many people this has happened to. There's nothing to be ashamed of. Then take these steps:
 
-If you'd rather talk through plans with a real person, that's a great idea. Just start the call yourself, using 1-800-MEDICARE or a plan's number from its official website.
+1. **If you paid anything, or gave a card or bank account number,** start with whoever holds the money, right away. For a credit or debit card, [call the number on the back of the card](https://consumer.ftc.gov/articles/what-do-if-you-were-scammed) and ask to reverse the charge. For a bank transfer, call your bank. For a gift card or a payment app, contact that company.
+2. **Call 1-800-MEDICARE** (1-800-633-4227). Medicare.gov says to call [if you think someone else is using your Medicare number](https://www.medicare.gov/basics/get-started-with-medicare/using-medicare/your-medicare-card). Tell them what happened and what you shared.
+3. **If you gave your Social Security number,** go to [IdentityTheft.gov](https://www.identitytheft.gov/) if it's already been misused, or [IdentityTheft.gov/databreach](https://www.identitytheft.gov/databreach) if you're not sure yet. The FTC walks you through either case.
+4. **Keep an eye on your statements.** Medicare.gov asks everyone to [compare the dates and services on their statements](https://www.medicare.gov/basics/reporting-medicare-fraud-and-abuse) against their own calendar, and to create a Medicare.gov account to see Original Medicare claims as soon as they're processed. If you have a Medicare Advantage or drug plan, read that plan's statements too. Anything you didn't get, such as a visit or a piece of equipment, is worth a call to your doctor's office or plan.
+5. **If you think you were switched into a plan you didn't choose,** call 1-800-MEDICARE and explain. Medicare.gov says its representatives [can help with options for making changes](https://www.medicare.gov/health-drug-plans/health-plans/your-coverage-options/plan-marketing-rules) throughout the year when a plan choice was based on misleading information.
 
-## "I did get a new Medicare card this year"
+Expect more calls for a while. Once you've engaged with one of these callers, even briefly, you've shown them there's a real person at this number, and more calls tend to follow. Use the same line, and the same swift hang-up.
 
-You might have. Senior Medicare Patrol notes that [some people received new cards with new numbers](https://smpresource.org/medicare-fraud/fraud-schemes/medicare-card-scams/) in March and April 2026, by mail, with a letter explaining the change. That's how real changes arrive: in the mail. No real card change requires you to read your number to someone who called you.
+## How to stop Medicare scam calls
 
-## If you already gave your number
+Honest answer: you probably can't make them stop entirely, but you can make them quieter. Two things drive the volume. It's open enrollment season, and if you've ever stayed on the line with one of these callers, that number is worth more to them now.
 
-First, don't panic. These are professionals who rehearse their scripts all day, every day. You're one of many people this has happened to, and there's nothing to be ashamed of. Then take these steps, in this order:
+- **Send unknown numbers to voicemail.** On an iPhone, go to Settings, then Apps, then Phone, then [Screen Unknown Callers](https://support.apple.com/111106), and choose Silence. Calls from numbers not in your contacts are silenced and sent to voicemail, where a real caller can leave a message. Check whether your phone has a similar setting if it isn't an iPhone. Before you turn it on, save your doctors, pharmacy and family as contacts, so their calls still ring.
+- **Ask your phone company what it can block.** The FCC suggests [talking to your carrier about call blocking tools](https://www.fcc.gov/consumers/guides/stop-unwanted-robocalls-and-texts) and checking what your phone can do on its own.
+- **Register with the Do Not Call list.** It's free at [donotcall.gov](https://www.donotcall.gov/) or 1-888-382-1222, calling from the number you want to register. The FCC describes it as a list that legitimate telemarketers agree not to call. It won't stop a scammer, and it won't tell you whether a given caller is real, but it does thin out the legitimate sales calls so the rest stand out.
+- **Don't press anything, and don't call back.** The FTC says [don't press a number](https://consumer.ftc.gov/articles/how-block-unwanted-calls), which can lead to more robocalls, and don't call back. You'll see advice online to answer and waste the caller's time until they give up. I'd skip it. Every call you take tells them the number is live.
 
-1. **Call 1-800-MEDICARE** (1-800-633-4227) and tell them you think [someone else may be using your Medicare number](https://es.medicare.gov/sites/default/files/2022-03/10111-Protecting-Yourself-and-Medicare.pdf).
-2. **Watch your Medicare statements.** Log in to your account at Medicare.gov to see your claims, or read your Medicare Summary Notice when it arrives. If you have a Medicare Advantage or drug plan, check the statements from your plan too. Look for visits, equipment or tests you never got, and call your doctor or plan about anything that's wrong.
-3. **If you gave your Social Security number,** go to [IdentityTheft.gov](https://consumer.ftc.gov/articles/what-do-if-you-were-scammed) to report it and get a recovery plan.
-4. **If you gave a bank account or card number, or paid anything,** call your bank or card company right away, using the number on the back of your card, and ask them to stop or reverse the payment.
-5. **If you think you were signed up for a plan you didn't choose,** call 1-800-MEDICARE and tell them. That's suspected fraud, and it's the number Medicare asks you to use to report it.
+## If your mom, dad, or another loved one got the call
 
-Expect more calls for a while. Once you've engaged with one of these callers, even briefly, you may get more calls about the same thing. Keep using the same line, and keep hanging up.
+Maybe she mentioned a strange call over dinner. Maybe he already read his number to someone and feels sick about it. However it went, leave out the "how could you." Everyone is susceptible to these calls. Very smart people are taken in by them all the time, because the people running them do this professionally.
 
-## How to get fewer of these calls
+What helps is an open conversation. Shame makes people hide the next call, and the next call is the one you want to hear about. Ask what the caller said. Offer to sit with them through the steps above if they want help, and let them make the calls. Then agree on the line you'll both use next time, as a thing the two of you are doing together, not a rule you're handing down. You can share something like: "These scam calls are getting good. Can we pick what we'll both say next time one comes in for either of us?"
 
-You probably can't make them stop completely, but you can make them much quieter.
+The catch with that line, and with every tip on this page, is that reading it once isn't the same as having it ready. The scammer has rehearsed their script. Your parent has to respond with no warning and a friendly voice in their ear. Saying it out loud a few times before the phone rings, while nothing is at stake, makes it familiar, and familiar is what you want in the moment. That's the idea behind ScamPrep: practice calls and messages that feel like the real thing, with friendly coaching after a slip. You invite, they opt in. [How it works](/how-it-works).
 
-- **Send unknown numbers to voicemail.** On an iPhone, go to Settings, then Apps, then Phone, and under [Screen Unknown Callers](https://support.apple.com/111106) choose Silence. Callers who aren't in your contacts go straight to voicemail. Many Android phones have a similar setting in the Phone app. Add your doctors, pharmacy and family to your contacts first, so their calls still ring.
-- **Ask your phone company about call blocking.** The FCC recommends [checking what blocking tools your carrier offers](https://www.fcc.gov/consumers/guides/stop-unwanted-robocalls-and-texts), and there are apps that do the same.
-- **Join the Do Not Call Registry** at donotcall.gov or 1-888-382-1222. It stops legitimate telemarketers, not scammers, so if a "Medicare" caller ignores it, that tells you something.
-- **Don't engage.** You'll find advice online to answer and waste the caller's time until they give up. I'd skip it. The FCC's advice is to hang up, and every conversation tells the caller there's a real person at this number.
+## How to report a Medicare scam call
 
-## If someone you love forwarded you this
-
-Maybe your mom mentioned a call, or your dad already read his number to someone. However it went, skip the "how could you." Everyone is susceptible to these calls. Smart, careful people fall for them every day, because the people running them do this for a living.
-
-What helps is an open conversation. Shame makes people hide the next call. Ask what the caller said, help with the steps above if they want it, and agree together on the line to use next time. Then make it easy to tell you about the next call, the one they hung up on.
-
-## Where to report a Medicare scam call
-
-You can report a Medicare scam call to any of these:
+Reporting takes a few minutes, and it's worth doing even if nothing was lost. You can report the call to any of these:
 
 - **Medicare:** 1-800-MEDICARE (1-800-633-4227)
-- **HHS Office of Inspector General:** [oig.hhs.gov/fraud/report-fraud](https://oig.hhs.gov/fraud/report-fraud/) or 1-800-HHS-TIPS (1-800-447-8477)
-- **Your state's Senior Medicare Patrol:** free, confidential help with Medicare fraud questions, at 1-877-808-2468
-- **Medicare Advantage or drug plan problems:** I-MEDIC, at 1-877-7SAFERX (1-877-772-3379)
+- **HHS Office of Inspector General:** online at [oig.hhs.gov/fraud/report-fraud](https://oig.hhs.gov/fraud/report-fraud/), or by phone at 1-800-HHS-TIPS (1-800-447-8477)
+- **Senior Medicare Patrol:** [877-808-2468](https://smpresource.org/), which helps people with Medicare and their families with suspected fraud and billing errors
+- **Medicare Advantage or drug plan fraud:** the Investigations Medicare Drug Integrity Contractor (I-MEDIC) at [1-877-7SAFERX (1-877-772-3379)](https://www.medicare.gov/basics/reporting-medicare-fraud-and-abuse)
 - **The scam call itself:** the FTC, at [ReportFraud.ftc.gov](https://reportfraud.ftc.gov/)
