@@ -7,8 +7,12 @@ import Base from './Base.astro';
 import { HUBS } from '../data/guides.js';
 import { formatDate, isoDate } from '../lib/guides.js';
 
-const { guide, related = [] } = Astro.props;
+const { guide, related = [], headings = [] } = Astro.props;
 const d = guide.data;
+// "On this page": the h2 headings as jump links, shown only on longer guides (four or
+// more sections), so a reader in a hurry can go straight to the part they need.
+const toc = headings.filter((h) => h.depth === 2);
+const showToc = toc.length >= 4;
 const hub = HUBS.find((h) => h.id === d.hub);
 const site = Astro.site ?? new URL('https://getscamprep.com');
 const url = new URL(`/guides/${guide.id}`, site).href;
@@ -83,6 +87,17 @@ const breadcrumbSchema = {
           <span>Last reviewed <time datetime={isoDate(d.reviewed)}>{formatDate(d.reviewed)}</time></span>
         </p>
       </header>
+
+      {showToc && (
+        <nav class="guide__toc" aria-labelledby="toc-title">
+          <p id="toc-title" class="guide__toc-title">On this page</p>
+          <ol>
+            {toc.map((h) => (
+              <li><a href={`#${h.slug}`}>{h.text}</a></li>
+            ))}
+          </ol>
+        </nav>
+      )}
 
       <div class="guide__body prose">
         <slot />
@@ -169,6 +184,32 @@ const breadcrumbSchema = {
     font-size: 0.95rem;
     color: var(--gray-500);
   }
+
+  .guide__toc {
+    margin: 0 0 36px;
+    padding: 18px 22px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    font-size: 0.98rem;
+  }
+  .guide__toc-title {
+    margin: 0 0 8px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--gray-500);
+  }
+  .guide__toc ol { margin: 0; padding-left: 1.3em; }
+  .guide__toc li { margin: 0; }
+  .guide__toc a {
+    display: inline-block;
+    padding: 6px 0;
+    color: var(--amber-text);
+    text-decoration: none;
+    text-underline-offset: 3px;
+  }
+  .guide__toc a:hover { text-decoration: underline; }
 
   /* Guide text: a little roomier than marketing prose, since people read these
      slowly and often on a phone. */
