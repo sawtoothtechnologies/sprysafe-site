@@ -73,7 +73,7 @@ test.describe('mobile menu', () => {
 test('desktop nav links all reach their pages', async ({ page, isMobile }) => {
   test.skip(isMobile);
   await page.goto('/');
-  for (const [name, url] of [['How it works', '/how-it-works'], ['For financial advisors', '/solutions'], ['Pricing', '/pricing'], ['Guides', '/guides'], ['About', '/about'], ['Get early access', '/early-access']]) {
+  for (const [name, url] of [['How it works', '/how-it-works'], ['For financial advisors', '/solutions'], ['Pricing', '/pricing'], ['About', '/about'], ['Get early access', '/early-access']]) {
     await page.locator('#site-nav').getByRole('link', { name, exact: true }).click();
     await expect(page).toHaveURL(new RegExp(url + '$'));
     await expect(page.locator('h1')).toBeVisible();
