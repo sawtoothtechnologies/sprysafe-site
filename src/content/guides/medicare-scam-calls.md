@@ -3,7 +3,7 @@ title: "Medicare scam calls: how to tell, what to say, and what to do next"
 seoTitle: "Medicare scam calls: how to tell and what to say"
 description: Does Medicare call you? Very rarely, and never to sell you anything. What the scam calls sound like, the one line that ends them, and what to do if you gave your number.
 published: 2026-10-15
-reviewed: 2026-10-15
+reviewed: 2026-10-16
 hub: scams
 arrives: calls
 draft: false
@@ -20,6 +20,9 @@ sources:
   - publisher: Medicare.gov
     title: Your Medicare card
     url: https://www.medicare.gov/basics/get-started-with-medicare/using-medicare/your-medicare-card
+  - publisher: Medicare.gov
+    title: Medicare & You handbook
+    url: https://www.medicare.gov/medicare-and-you
   - publisher: Federal Communications Commission
     title: Older Americans and Medicare call scams
     url: https://www.fcc.gov/older-americans-and-medicare-scams
@@ -72,9 +75,13 @@ Almost never, and not out of the blue. The examples Medicare.gov gives all start
 
 The FCC reports that you will [usually get a written statement in the mail](https://www.fcc.gov/older-americans-and-medicare-scams) before you get a phone call from a government agency.
 
+Medicare's real open enrollment contact is paper. It [mails the "Medicare & You" handbook to every Medicare household in late September](https://www.medicare.gov/medicare-and-you), or emails a link if you chose the electronic version in your Medicare.gov account. Nobody follows up by phone to walk you through it, and nothing in it asks you to read your number back to anyone.
+
 Where some people get stuck is that legitimate insurance companies do sell Medicare Advantage and drug plans during [open enrollment](https://www.medicare.gov/basics/get-started-with-medicare/get-more-coverage/joining-a-plan), which runs October 15 to December 7, so the thought "maybe this is a real broker" is reasonable. But Medicare's own marketing rules state: people representing Medicare plans [aren't allowed to call you](https://www.medicare.gov/health-drug-plans/health-plans/your-coverage-options/plan-marketing-rules) unless you're already a member or you've given them permission to contact you. They don't need your personal information to give you a quote, and they can never pressure you with lines like "you have to join this plan or you won't have coverage next year."
 
 So my rule is simple: if I didn't ask for the call, I hang up. The chance that an unexpected "Medicare" call is legitimate is tiny, and the cost of guessing wrong is your Medicare number or your Social Security number.
+
+The same rule applies to the number itself. Medicare.gov's own guidance is to [give it only to health care providers, your insurers or health plans, or people you trust who work with Medicare](https://www.medicare.gov/basics/get-started-with-medicare/using-medicare/your-medicare-card), like a counselor at your state's SHIP program, and never to anyone who reached out to you first. A voice you didn't call doesn't make the list.
 
 If you'd rather talk plans through with a real person, place the call yourself to 1-800-MEDICARE or to a plan's number from its official website or your own plan card.
 
