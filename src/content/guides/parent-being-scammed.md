@@ -61,7 +61,7 @@ sources:
   - publisher: National Adult Protective Services Association
     title: Find help in your area
     url: https://www.napsa-now.org/help-in-your-area
-related: [medicare-scam-calls, what-to-do-if-you-have-been-scammed, parent-romance-scam, how-to-protect-your-parent-from-scams]
+related: [medicare-scam-calls, what-to-do-if-you-have-been-scammed, parent-romance-scam, protect-your-parent-from-scams]
 ---
 
 If the scammer is still in touch, end that first: hang up, don't call back. Next, call your parent's bank or card company and ask them to stop or reverse the payment. After that, change whatever the scammer was given (a password, security questions, access to a device), report it, and talk to your parent without a trace of blame. That last part decides whether you hear about the next scam that comes, and there will be a next one.

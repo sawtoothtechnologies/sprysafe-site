@@ -42,7 +42,7 @@ sources:
     title: "How to recognize a deepfake: attack of the clones"
     url: https://www.kaspersky.com/blog/how-to-recognize-a-deepfake/55247/
     date: February 2026
-related: [parent-being-scammed, medicare-scam-calls, how-to-protect-your-parent-from-scams]
+related: [parent-being-scammed, medicare-scam-calls, protect-your-parent-from-scams]
 ---
 
 If someone you love calls asking for money in a hurry, don't treat their voice or face as proof. Ask for your family code word, then hang up and call them back on the number you already have. AI can now copy a voice from a short clip and put a familiar face on a live video call, so the checks that work best are the ones a scammer can't fake: a word only your family knows and a number only your loved one answers.
