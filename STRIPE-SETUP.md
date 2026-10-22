@@ -1,76 +1,114 @@
-# Stripe setup for ScamPrep (sprysafe.com) — Payment Links
+# Stripe setup for ScamPrep
 
-> The site side is already wired: paste six payment-link URLs into
-> `src/data/checkout.js`, push, done. This doc is the Stripe-dashboard side.
-> Until links are pasted, "Start free trial" buttons safely fall back to /early-access.
+> Rewritten October 22, 2026. The previous version described a 14-day free trial, a `/thanks`
+> redirect, and a refund policy that no longer apply. Decisions live in
+> `~/ScamPrep/product/decisions.md` and `~/ScamPrep/product/mvp-spec.md`; if they disagree
+> with this file, they win.
 
 ## How it fits together
 
-- Each plan/billing combo gets a **Stripe Payment Link** (a hosted checkout URL).
+- Six Payment Links, one per plan and billing period.
 - The pricing page's annual/monthly toggle swaps which link each button points to.
-- After checkout, Stripe redirects the customer to **getscamprep.com/thanks** (already built),
-  which tells them you'll email within one business day to start enrollment.
-- Fulfillment is manual (white-glove) for now: Stripe emails you on each new subscription.
-  Upgrade path to automated provisioning (Checkout API + webhooks) stays open.
+- After payment, Stripe redirects to **`getscamprep.com/welcome`**, a branded page that
+  collects the enrollee details and captures to Formspree.
+- Bryce then sends each parent's invite **by hand** from hello@. No Apps Script.
 
-## One-time dashboard setup (~45 min)
+## Identity: ScamPrep, not Sawtooth
 
-### 1. Activate the account
-Stripe Dashboard → complete business activation with Sawtooth Technologies LLC details and
-the business bank account. Until activated you can still do everything in **test mode**.
+The legal entity is Sawtooth Technologies LLC and stays that way. Everything buyer-facing
+says ScamPrep. The Terms establish the d/b/a.
 
-### 2. Create the products & prices (test mode first)
-Product catalog → Add product. Create **three products**, each with **two recurring prices**:
+| Setting | Value |
+| --- | --- |
+| Statement descriptor (Business details) | `SCAMPREP` |
+| Public business name (Public details) | `ScamPrep` |
+| Support email / website | hello@getscamprep.com / getscamprep.com |
+| Legal business name | Sawtooth Technologies LLC (unchanged) |
 
-| Product | Annual price | Monthly price |
-|---|---|---|
-| ScamPrep — Individual | **$108 / year** | **$12 / month** |
-| ScamPrep — Couples & pairs | **$180 / year** | **$20 / month** |
-| ScamPrep — Family | **$228 / year** | **$25 / month** |
+## Branding (Settings > Branding, in live mode)
 
-Annual prices match the site's "$9 / $15 / $19 per month, billed annually" framing.
+| Field | Value |
+| --- | --- |
+| Icon | `~/ScamPrep/brand/social-kit-2026-10/logos/stripe-icon-512.png` |
+| Logo | `~/ScamPrep/brand/social-kit-2026-10/logos/stripe-logo-square-512.png` |
+| Brand color | `#F0A11C` |
+| Accent color | `#121110` |
+| Checkout background / button | `#F8F7F4` / `#F0A11C` |
+| Font / shape | Inter (Manrope is not offered) / Rounded |
 
-### 3. Create six Payment Links
-For each of the six prices: Payment Links → New →
+Ink text on amber, never white text on amber.
+
+## Sandbox, not test mode
+
+Use a **general sandbox**. Stripe recommends it for new integrations, and the test mode
+sandbox shares settings with live mode, so changes there can silently alter live settings.
+Set branding in live mode first: sandboxes copy settings from live at creation, then isolate.
+Sandboxes do not send customer emails, so the receipt must be verified in live mode.
+
+## Products and prices
+
+| Product | Annual | Monthly |
+| --- | --- | --- |
+| ScamPrep Individual | $108 / year | $12 / month |
+| ScamPrep Pairs | $180 / year | $20 / month |
+| ScamPrep Family | $228 / year | $25 / month |
+
+Name them exactly as above. "Pairs" matches the pricing page, and the product name appears
+on the customer's receipt.
+
+## The six Payment Links
+
+For each price: Payment Links > New >
+
 - **Subscription** with that price
-- **Free trial: 14 days** (matches the site promise; card collected up front)
-- After payment → **Don't show confirmation page → redirect to** `https://getscamprep.com/thanks`
-- Leave promotion codes **off** (site policy: integrity pricing, no coupon-hunting)
-- Optional: enable **phone number collection** if you want it for onboarding
+- **No free trial.** Trials were removed October 5, 2026.
+- **Require customers to accept your terms of service** (the affirmative per-link checkbox,
+  not the passive account-level notice). The Terms carry arbitration with a 30-day opt-out,
+  the 60-day refund promise, and the consent model, so a ticked box is real evidence.
+- **Promotion codes: off.** Friendly test families pay for real and are refunded afterwards,
+  so the test exercises the card, the receipt and the portal.
+- **After the payment** > Don't show confirmation page > redirect to:
 
-### 4. Paste the URLs into the site
-Open `src/data/checkout.js` in the site repo, paste each `https://buy.stripe.com/...` URL
-into its labeled slot, then commit + push. Cloudflare redeploys in ~2 min.
+| Link | Redirect |
+| --- | --- |
+| Individual annual / monthly | `https://getscamprep.com/welcome?plan=individual&session_id={CHECKOUT_SESSION_ID}` |
+| Pairs annual / monthly | `https://getscamprep.com/welcome?plan=pairs&session_id={CHECKOUT_SESSION_ID}` |
+| Family annual / monthly | `https://getscamprep.com/welcome?plan=family&session_id={CHECKOUT_SESSION_ID}` |
 
-### 5. Billing settings (Settings → Billing)
-- **Customer portal: ON**, with "cancel subscription" allowed — backs the site's
-  "cancel anytime" promise. Customers reach it from Stripe's receipt emails.
-- **Trial reminder email: ON** ("send a reminder before a free trial ends") — card-network
-  rules require notice before a trial converts; Stripe handles it for you.
-- **Email receipts: ON** (Settings → Emails → successful payments + refunds).
+Monthly and annual share a plan value, since billing period does not change what the form asks.
 
-### 6. Test, then go live
-1. In **test mode**, paste the test-mode link URLs into `checkout.js`, push, and run a
-   checkout with card `4242 4242 4242 4242` (any future expiry/CVC). Confirm the trial
-   shows, the redirect lands on /thanks, and the subscription appears in the dashboard.
-2. Flip the dashboard to **live mode**, recreate the six links (links don't cross modes),
-   paste the live URLs, push again.
+## Other settings
+
+- **Checkout settings:** Legal policies on. The URLs live in **Public details**, not here, and
+  both terms and privacy must be set or the toggle will not save. Leave "Display agreement to
+  legal terms" unchecked; the per-link checkbox above is the stronger version.
+- **Customer portal: ON** with cancel allowed. Backs the "cancel anytime" promise, and the
+  Terms already point customers to it.
+- **Email receipts: ON** for successful payments and refunds.
+- **Notifications: ON** for successful payments, so a new sale is visible within minutes and
+  the parent's invite clock starts.
+
+## Paste the URLs into the site
+
+Open `src/data/checkout.js`, paste each `https://buy.stripe.com/...` URL into its labeled slot,
+then commit and push. Until they are pasted, the buttons fall back to `/early-access`, so a
+half-configured state never produces a broken button. Pasting live links makes checkout public,
+so that happens on **November 9**, together with changing the main CTA to "See plans".
 
 ## Operating notes
 
-- **New subscriber** → Stripe notifies you (turn on: Profile → Notifications). Onboard them
-  personally within one business day, as /thanks promises.
-- **60-day guarantee** → manual: Dashboard → Payments → payment → **Refund**. Refund in full,
-  no questions, per the site.
-- **Annual refunds for cancellation** → the site promises "annual plans refund unused months";
-  that's also a manual (prorated) refund from the dashboard.
-- **Sales tax**: SaaS/services taxability varies by state. Fine to defer at validation volume,
-  but revisit (Stripe Tax is a toggle + ~0.5% fee) once revenue is real. Ask the attorney.
+- **60-day guarantee:** manual refund from the dashboard. Cancel within 60 days of paying and
+  everything paid is refunded, annual included. After 60 days, annual runs to the end of the
+  billing year with no refund.
+- **Parent never consents:** full refund on day 21, after reminders to both parent and buyer on
+  days 7, 12 and 14.
+- **Partial yes on Pairs or Family:** switch to the plan that fits and refund the difference.
+- **Sales tax:** deferred at validation volume. Revisit once revenue is real.
 
-## ⚠️ Before charging real cards
+## Before charging real cards
 
-- [ ] `/privacy` and `/terms` are still marked DRAFT — the pre-marketing checklist calls for
-      attorney review **before charging customers**. That moment is now.
-- [ ] Confirm the SPRY/SPRYSAFE trademark quick-screen is done (checklist item).
-- [ ] Fix the early-access Formspree placeholder — with checkout live, the waitlist is still
-      the nav CTA and it currently captures nothing.
+- [ ] Terms and privacy edits live (ToS sections 3 and 5, privacy policy, Promise page line,
+      FAQ "kinds" line, homepage "always debriefed" line). Full list in `mvp-spec.md` section 15.
+- [ ] Confirm the New York Certificate of Assumed Name for ScamPrep is filed, since the DBA is
+      now asserted on card statements and in the Terms.
+- [ ] Verify the receipt email actually arrives in live mode.
