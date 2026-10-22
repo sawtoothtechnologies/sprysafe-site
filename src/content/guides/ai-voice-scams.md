@@ -57,7 +57,12 @@ If someone you love calls asking for money in a hurry, don't treat their voice o
 
 ## What an AI voice scam sounds like
 
-**Simulated.** The phone rings at 10 p.m. It's your grandson's voice, shaky and fast. "Grandma, it's me. I was in an accident and they're saying I need to pay today or I can't leave. Please don't tell Mom. Can you help?" A second voice comes on, calm and official, and explains how to send the money.
+<div class="simulated">
+<p class="simulated__label">Simulated</p>
+
+The phone rings at 10 p.m. It's your grandson's voice, shaky and fast. "Grandma, it's me. I was in an accident and they're saying I need to pay today or I can't leave. Please don't tell Mom. Can you help?" A second voice comes on, calm and official, and explains how to send the money.
+
+</div>
 
 That script is old. The FTC was warning about the family emergency version long before AI. What's changed is the voice. A scammer needs only [a short audio clip of your family member's voice](https://consumer.ftc.gov/consumer-alerts/2023/03/scammers-use-ai-enhance-their-family-emergency-schemes), which can come from a video they posted online.
 

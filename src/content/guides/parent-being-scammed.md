@@ -3,7 +3,7 @@ title: "What to do if your parent is being scammed"
 seoTitle: "What to do if your parent is being scammed"
 description: Hang up, call the bank, then report it. The first hour in order, and how to talk to a parent who won't believe it's a scam.
 published: 2026-10-15
-reviewed: 2026-10-15
+reviewed: 2026-10-22
 hub: after
 draft: false
 sources:
@@ -26,9 +26,9 @@ sources:
     title: Elder fraud
     url: https://www.fbi.gov/how-we-can-help-you/common-frauds-and-scams/elder-fraud
   - publisher: FBI Internet Crime Complaint Center
-    title: 2024 internet crime report
-    url: https://www.ic3.gov/AnnualReport/Reports/2024_IC3Report.pdf
-    date: 2025
+    title: 2025 internet crime report
+    url: https://www.ic3.gov/AnnualReport/Reports/2025_IC3Report.pdf
+    date: April 2026
   - publisher: U.S. Department of Justice, Office for Victims of Crime
     title: National Elder Fraud Hotline
     url: https://ovc.ojp.gov/program/stop-elder-fraud/providing-help-restoring-hope
@@ -118,7 +118,7 @@ Say that these are professionals who do this all day, that very smart people get
 
 </div>
 
-In 2024 the FBI's Internet Crime Complaint Center took [147,127 complaints from people 60 and over](https://www.ic3.gov/AnnualReport/Reports/2024_IC3Report.pdf), with losses of $4.8 billion, the most of any age group. Nobody simply "falls" for a scam. People get targeted by teams, with a script that has been refined through countless interactions.
+In 2025 the FBI's Internet Crime Complaint Center took [201,266 complaints from people 60 and over](https://www.ic3.gov/AnnualReport/Reports/2025_IC3Report.pdf), with losses of $7.75 billion, the most of any age group. Nobody simply "falls" for a scam. People get targeted by teams, with a script that has been refined through countless interactions.
 
 One important addition to your first conversation with your parent: people who have been scammed [get targeted again by refund and recovery scams](https://consumer.ftc.gov/articles/refund-and-recovery-scams), and the Justice Department's elder fraud hotline [warns that people are impersonating the hotline itself](https://ovc.ojp.gov/program/stop-elder-fraud/providing-help-restoring-hope). A real refund never starts with a fee or a request for your account details. Agree now on what your parent will do.
 
@@ -161,7 +161,7 @@ Then give it time. People don't like admitting they're wrong, and a parent heari
 
 </div>
 
-When your own voice isn't landing, bring in another one: a financial advisor, a doctor, a friend their age, a pastor, someone whose opinion lands differently than a child's. If it's their advisor, I'd talk to the advisor privately first, so they know what's going on before they're asked about it in front of your parent. A real story helps too; Scamwatch's advice is to [share real-life examples](https://www.scamwatch.gov.au/stop-check-protect/help-someone-whos-being-scammed) so people can discover the scam for themselves. If the "friend" is romantic, our guide to a parent in an online romance scam goes deeper.
+When your own voice isn't landing, bring in another one: a financial advisor, a doctor, a friend their age, a pastor, someone whose opinion lands differently than a child's. If it's their advisor, I'd talk to the advisor privately first, so they know what's going on before they're asked about it in front of your parent. A real story helps too; Scamwatch's advice is to [share real-life examples](https://www.scamwatch.gov.au/stop-check-protect/help-someone-whos-being-scammed) so people can discover the scam for themselves.
 
 Where does persuasion end? You draw that line yourself, based on your parent and your relationship. But if large sums are moving, if they're sharing passwords or identity documents, planning to travel to meet someone, taking out loans or touching retirement money, you're past persuasion, and the next section is where to go. If there are threats, that's a call to the police today. Short of all that, keep talking. The relationship outlasts the scam, and it's your best tool.
 

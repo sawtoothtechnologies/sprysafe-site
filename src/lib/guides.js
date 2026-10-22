@@ -15,4 +15,8 @@ export const getGuides = async () => {
 export const formatDate = (d) =>
   d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
 
+// Frontmatter text (descriptions, source titles) is typed with straight apostrophes;
+// show them curly, like the Markdown body text.
+export const curly = (s) => s.replace(/'/g, '\u2019');
+
 export const isoDate = (d) => d.toISOString().slice(0, 10);

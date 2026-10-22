@@ -1,7 +1,7 @@
 ---
 title: "Medicare scam calls: how to tell, what to say, and what to do next"
 seoTitle: "Medicare scam calls: how to tell and what to say"
-description: Does Medicare call you? Very rarely, and never to sell you anything. What the scam calls sound like, the one line that ends them, and what to do if you gave your number.
+description: Does Medicare call you? Rarely, and never to sell you anything. What scam calls sound like, the line that ends them, and what to do if you gave your number.
 published: 2026-10-15
 reviewed: 2026-10-16
 hub: scams

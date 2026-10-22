@@ -1,7 +1,7 @@
 ---
 title: "How to protect your parent from scams, without taking over"
 seoTitle: "How to protect your parent from scams"
-description: Protect a parent from scams as partners. One rule for any request for money, six account and phone changes in order, and practice together. What to do, and what to skip.
+description: "How to protect your parent from scams without taking over: one rule for money requests, six account and phone changes to make together, and a habit of practice."
 published: 2026-10-22
 reviewed: 2026-10-22
 hub: before

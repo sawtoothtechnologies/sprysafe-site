@@ -3,7 +3,7 @@
 // (~/ScamPrep/seo/guide-structure.md). A section appears once it has a guide.
 import Base from '../../layouts/Base.astro';
 import { HUBS, ARRIVES } from '../../data/guides.js';
-import { getGuides } from '../../lib/guides.js';
+import { curly, getGuides } from '../../lib/guides.js';
 
 const guides = await getGuides();
 const sections = HUBS.map((hub) => {
@@ -12,11 +12,12 @@ const sections = HUBS.map((hub) => {
   const rest = inHub.filter((g) => !g.data.isHub);
   // The scams section groups its guides by how the scam arrives.
   const groups = hub.id === 'scams'
-    ? ARRIVES.map((a) => ({ ...a, items: rest.filter((g) => g.data.arrives === a.id) })).filter((a) => a.items.length)
+    ? ARRIVES.map((a) => ({ ...a, items: rest.filter((g) => g.data.arrives === a.id) }))
     : [{ id: null, name: null, items: rest }];
   const ungrouped = hub.id === 'scams' ? rest.filter((g) => !g.data.arrives) : [];
   if (ungrouped.length) groups.push({ id: 'other', name: 'Other scams', items: ungrouped });
-  return { ...hub, lead, groups, count: inHub.length };
+  // Skip empty groups, so a hub with only its lead guide doesn't render an empty list.
+  return { ...hub, lead, groups: groups.filter((grp) => grp.items.length), count: inHub.length };
 }).filter((s) => s.count > 0);
 ---
 
@@ -43,8 +44,9 @@ const sections = HUBS.map((hub) => {
           <p class="hub__blurb">{s.blurb}</p>
           {s.lead.map((g) => (
             <a class="guide-card guide-card--lead" href={`/guides/${g.id}`}>
+              <span class="guide-card__label">Start here</span>
               <span class="guide-card__title">{g.data.title}</span>
-              <span class="guide-card__desc">{g.data.description}</span>
+              <span class="guide-card__desc">{curly(g.data.description)}</span>
             </a>
           ))}
           {s.groups.map((grp) => (
@@ -55,7 +57,7 @@ const sections = HUBS.map((hub) => {
                   <li>
                     <a class="guide-card" href={`/guides/${g.id}`}>
                       <span class="guide-card__title">{g.data.title}</span>
-                      <span class="guide-card__desc">{g.data.description}</span>
+                      <span class="guide-card__desc">{curly(g.data.description)}</span>
                     </a>
                   </li>
                 ))}
@@ -89,8 +91,18 @@ const sections = HUBS.map((hub) => {
     text-decoration: none;
     color: var(--ink);
   }
+  /* Lit (glow fill, amber line) only under the pointer. The lead guide used to sit lit
+     all the time, which read as a stuck hover; it's marked with a label instead. */
   .guide-card:hover { border-color: var(--amber); background: var(--glow); }
-  .guide-card--lead { background: var(--glow); border-color: var(--amber); margin-bottom: 12px; }
+  .guide-card--lead { padding: 22px 24px; margin-bottom: 12px; }
+  .guide-card--lead .guide-card__title { font-size: 1.25rem; }
+  .guide-card__label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--amber-text);
+  }
   .guide-card__title { display: block; font-weight: 800; font-size: 1.1rem; line-height: 1.35; }
   .guide-card__desc { display: block; margin-top: 6px; color: var(--gray-700); font-size: 1rem; line-height: 1.5; }
   .standards-note {
