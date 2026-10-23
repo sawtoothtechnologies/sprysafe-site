@@ -42,7 +42,7 @@ sources:
     title: "How to recognize a deepfake: attack of the clones"
     url: https://www.kaspersky.com/blog/how-to-recognize-a-deepfake/55247/
     date: February 2026
-related: [parent-being-scammed, medicare-scam-calls, protect-your-parent-from-scams]
+related: [parent-being-scammed, medicare-scam-calls, protect-your-parent-from-scams, what-to-do-if-you-have-been-scammed]
 ---
 
 If someone you love calls asking for money in a hurry, don't treat their voice or face as proof. Ask for your family code word, then hang up and call them back on the number you already have. AI can now copy a voice from a short clip and put a familiar face on a live video call, so the checks that work best are the ones a scammer can't fake: a word only your family knows and a number only your loved one answers.
@@ -146,7 +146,7 @@ Leave the blame out of it. These calls are built to override careful judgment, a
 2. **Call whoever moved the money,** right away. For a card, use [the number on the back of the card](https://consumer.ftc.gov/articles/what-do-if-you-were-scammed). For a bank transfer, call the bank. For a gift card, a payment app, or a crypto purchase, contact that company and ask whether the payment can be stopped or reversed.
 3. **Report it.** File with the FBI at [ic3.gov](https://www.ic3.gov/), and include phone numbers, payment details, messages, and any audio, photos, or screenshots you saved. You can also report to the FTC at [ReportFraud.ftc.gov](https://reportfraud.ftc.gov/). If the person who paid is 60 or older, the Justice Department's [National Elder Fraud Hotline](https://ovc.ojp.gov/program/stop-elder-fraud/providing-help-restoring-hope) at 833-372-8311 assigns a case manager to help. Call local police too if anyone was threatened.
 
-Expect follow-up contact. People who have paid once can be targeted again, sometimes by someone offering to "recover" the money for a fee.
+Expect follow-up contact. People who have paid once can be targeted again, sometimes by someone offering to "recover" the money for a fee. Our guide to [what to do if you've been scammed](/guides/what-to-do-if-you-have-been-scammed) covers the first hour in order, and the second scam to expect.
 
 ## Making it a family habit
 

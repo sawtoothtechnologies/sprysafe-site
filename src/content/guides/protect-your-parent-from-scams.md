@@ -57,7 +57,7 @@ sources:
     title: How to keep a loved one with cognitive decline safe from scams
     url: https://www.aarp.org/money/scams-fraud/protect-older-parents-from-scams/
     date: updated July 2026
-related: [parent-being-scammed, ai-voice-scams, medicare-scam-calls]
+related: [parent-being-scammed, ai-voice-scams, medicare-scam-calls, what-to-do-if-you-have-been-scammed]
 ---
 
 To protect a parent from scams, do three things together. Agree on one rule: nobody sends money or buys anything because of a call, a text or an ad without first ending that contact and checking with the other person. Spend a sitting or two on the six account and phone changes below, in order. Then practice, so that pausing is a habit before the real call comes.
@@ -179,4 +179,4 @@ Power of attorney is a legal step planned in calm times with a lawyer, not a sca
 
 ## Keep going
 
-If a scam is already under way, go to [what to do if your parent is being scammed](/guides/parent-being-scammed). For the scams a parent is likely to meet first, start with the one that arrives with open enrollment every autumn: [Medicare scam calls](/guides/medicare-scam-calls).
+If a scam is already under way, go to [what to do if your parent is being scammed](/guides/parent-being-scammed), or, if it happened to you, [what to do if you've been scammed](/guides/what-to-do-if-you-have-been-scammed). For the scams a parent is likely to meet first, start with the one that arrives with open enrollment every autumn: [Medicare scam calls](/guides/medicare-scam-calls).

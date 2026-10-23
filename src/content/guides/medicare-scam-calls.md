@@ -58,7 +58,7 @@ sources:
   - publisher: Reddit, r/Scams
     title: Non-stop Medicare phishing scam calls
     url: https://www.reddit.com/r/Scams/comments/1azxl1i/nonstop_medicare_phishing_scam_calls/
-related: [parent-being-scammed, protect-your-parent-from-scams, does-the-irs-call-you]
+related: [parent-being-scammed, protect-your-parent-from-scams, what-to-do-if-you-have-been-scammed, does-the-irs-call-you]
 ---
 
 If someone calls saying they're from Medicare and you didn't call Medicare first, treat it as a scam. Hang up, and if you want to double-check, call 1-800-MEDICARE (1-800-633-4227) yourself.
@@ -143,7 +143,7 @@ First, don't spend energy on worry or shame; it won't improve the situation. The
 4. **Keep an eye on your statements.** Medicare.gov asks everyone to [compare the dates and services on their statements](https://www.medicare.gov/basics/reporting-medicare-fraud-and-abuse) against their own calendar, and to create a Medicare.gov account to see Original Medicare claims as soon as they're processed. If you have a Medicare Advantage or drug plan, read that plan's statements too. Anything you didn't get, such as a visit or a piece of equipment, is worth a call to your doctor's office or plan.
 5. **If you think you were switched into a plan you didn't choose,** call 1-800-MEDICARE and explain. Medicare.gov says its representatives [can help with options for making changes](https://www.medicare.gov/health-drug-plans/health-plans/your-coverage-options/plan-marketing-rules) throughout the year when a plan choice was based on misleading information.
 
-Expect more calls for a while. Once you've engaged with one of these callers, even briefly, you've shown them there's a real person at this number, and more calls tend to follow. Use the same line, and the same swift hang-up.
+Expect more calls for a while. Once you've engaged with one of these callers, even briefly, you've shown them there's a real person at this number, and more calls tend to follow. Use the same line, and the same swift hang-up. For the full first hour after any scam, including how to ask for money back by how you paid, see [what to do if you've been scammed](/guides/what-to-do-if-you-have-been-scammed).
 
 ## How to stop Medicare scam calls
 
