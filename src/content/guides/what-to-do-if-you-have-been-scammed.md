@@ -79,7 +79,7 @@ related: [parent-being-scammed, protect-your-parent-from-scams, ai-voice-scams, 
 ---
 Hang up, or stop replying. Then call your bank, card company, or payment app on a number you look up yourself, and ask them to stop or reverse the payment. After that, lock down whatever you gave the scammer, starting with your email password. Then, report it to all relevant entities. And expect a second call: anyone who contacts you out of the blue offering to get your money back for a fee is running a second scam.
 
-If you're typing "I got scammed, what do I do" into your phone right now, here is the order:
+So, if you're looking for a checklist, in order that's:
 
 1. End the contact. Hang up, stop replying, block them. If you're in danger, call 911 first.
 2. Call about the money, on a number you look up yourself, by how you paid.
