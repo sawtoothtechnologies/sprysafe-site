@@ -6,10 +6,12 @@ import Base from '../layouts/Base.astro';
 // Monthly and annual share a URL. "couples" (the old site key) is read as pairs.
 // The page only knows the plan, not the amount, so it never shows a price.
 // The session ID ties the submission to the Stripe payment. A visit without one
-// (for example from a link in an email) asks for the buyer's email instead.
+// (for example from a link in an email) asks for the buyer's email instead, and
+// leaves out the "payment received" check, since nothing confirms a payment.
 //
-// FORM BACKEND: Formspree. Same form as early access for now (ID moeajjvb), told
-// apart by the _subject line. Keep reCAPTCHA OFF in Formspree settings.
+// FORM BACKEND: Formspree. TODO BEFORE GO-LIVE: this still points at the early-access
+// form (ID moeajjvb). Swap in the separate "ScamPrep enrollment" form's endpoint
+// (launch-blocking list in ~/ScamPrep/product/mvp-spec.md). Keep reCAPTCHA OFF.
 // Kept out of search: noindex here, and filtered from the sitemap in astro.config.mjs.
 // Decisions behind this page: ~/ScamPrep/product/decisions.md, "/welcome page shape".
 const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
@@ -17,20 +19,25 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
 
 <Base
   title="Welcome | ScamPrep"
-  description="Finish setting up ScamPrep. Tell us who's taking part, and we'll email each person a short invite to say yes."
+  description="Finish setting up ScamPrep. Tell us who's enrolling, and we'll email each person a short invite to say yes."
   noindex
 >
   <section class="section welcome">
     <div class="wrap welcome__wrap">
+      <div class="paid" id="paid" hidden>
+        <svg class="paid__icon" viewBox="0 0 48 48" width="48" height="48" aria-hidden="true">
+          <circle class="paid__circle" cx="24" cy="24" r="24" />
+          <path class="paid__check" d="M15 24.5l6 6 12-13" />
+        </svg>
+      </div>
       <p class="kicker" id="kicker">Welcome to ScamPrep</p>
-      <h1 id="heading" tabindex="-1">Thanks, you're signed up.</h1>
+      <h1 id="heading" tabindex="-1">One last step: add your recipients.</h1>
       <p class="lede" id="intro">
-        Tell us who's taking part, and we'll email each person an invite. Nothing
+        Tell us who's enrolling, and we'll email each person an invite. Nothing
         starts until they say yes.
       </p>
 
       <div id="setup">
-
         <form class="form-card welcome__form" id="welcome-form" method="POST" action={FORM_ACTION} novalidate>
           <input type="hidden" name="_subject" id="subject" value="New ScamPrep enrollment" />
           <input type="hidden" name="form" value="welcome" />
@@ -40,55 +47,59 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
           <div class="field" id="buyer-email-field" hidden>
             <label for="buyer_email">Your email <span class="hint">(the one you paid with)</span></label>
             <input type="email" id="buyer_email" name="buyer_email" autocomplete="email" required />
-            <p class="field-note">This lets us match these details to your plan.</p>
+            <p class="field-note field-note--quiet">This lets us match these details to your plan.</p>
           </div>
 
-          <h2 class="welcome__h2">Who's taking part</h2>
+          <h2 class="welcome__h2">Recipients</h2>
           <div id="people"></div>
 
           <div class="add-row" id="add-row">
-            <button type="button" class="btn btn--ghost" id="add-person">Add another person</button>
+            <button type="button" class="btn btn--ghost" id="add-person">Add another recipient</button>
           </div>
-          <p class="field-note" id="later-note" hidden>
-            Don't have everyone's details yet? Send what you have, and email
+          <p class="field-note field-note--quiet" id="later-note" hidden>
+            Don't have everyone's details yet? Share what you have, and email
             <a href="mailto:hello@getscamprep.com">hello@getscamprep.com</a> to add someone later.
           </p>
 
           <label class="checkbox heads-up" id="heads-up" for="wait_a_day">
             <input type="checkbox" name="wait_a_day" value="Yes" id="wait_a_day" />
-            <span>Wait a day so I can give them a heads-up</span>
+            <span>Wait a day before inviting recipients so I can give a heads&#8209;up.</span>
           </label>
 
-          <h2 class="welcome__h2">Help us tailor the practice <span class="hint">(optional)</span></h2>
-          <div class="field">
-            <label for="worries">Which kinds of scams worry you most?</label>
-            <textarea id="worries" name="worries" rows="3"></textarea>
-            <p class="field-note">For example, fake delivery texts or calls that claim to be from the bank.</p>
-          </div>
-          <div class="field">
-            <label for="recent">Has anything happened recently that we should know about?</label>
-            <textarea id="recent" name="recent" rows="3"></textarea>
-            <p class="field-note">Please leave out bank names, account details, and health information.</p>
-          </div>
+          <details class="tailor" id="tailor">
+            <summary class="tailor__summary">
+              <span class="tailor__title">Help us tailor the practice</span>
+              <span class="tailor__opt">Optional</span>
+              <svg class="chev" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+            </summary>
+            <div class="tailor__body">
+              <div class="field">
+                <label for="worries">Which kinds of scams worry you most?</label>
+                <textarea id="worries" name="worries" rows="3" placeholder="For example, fake delivery texts or calls that claim to be from the bank"></textarea>
+              </div>
+              <div class="field">
+                <label for="recent">Has anything happened recently that we should know about?</label>
+                <textarea id="recent" name="recent" rows="3" placeholder="Please leave out bank names, account details, and health information"></textarea>
+              </div>
+            </div>
+          </details>
 
           <button class="btn btn--primary welcome__submit" type="submit" id="submit">Finish setup</button>
           <p class="form-error" id="form-error" role="alert" hidden></p>
-          <p class="field-note welcome__privacy">
-            We use these details only to run ScamPrep for the people you list.
-            Read our <a href="/privacy">privacy policy</a>.
+          <p class="field-note field-note--quiet welcome__privacy">
+            We use these details strictly to run ScamPrep for the people you list.
+            Read our <a href="/privacy">privacy policy</a> and <a href="/promise">promise</a>.
           </p>
         </form>
       </div>
 
       <div id="done" hidden>
-
         <div class="card talking-points" id="talking-points">
-          <h2 class="welcome__h2">Give them a heads-up</h2>
-          <p>
-            An invite feels expected when it comes after a word from you. Here's a message
-            you can send as is or change:
-          </p>
-          <blockquote id="message">I signed you up for something called ScamPrep. About four times a month you'll get a practice message that looks like a scam, so spotting the real ones gets easier. Everything is made up and safe, and nothing ever asks for real money. You'll get an email from Bryce at ScamPrep (hello@getscamprep.com), and nothing starts unless you say yes.</blockquote>
+          <h2 class="welcome__h2">Optional: give them a heads-up</h2>
+          <p>ScamPrep lands best when you introduce it first. Here's a starting point:</p>
+          <label class="sr-only" for="message">Message to send</label>
+          <textarea id="message" rows="6"></textarea>
+          <p class="field-note field-note--quiet">You can edit the message before you copy or send it.</p>
           <div class="btn-row">
             <button type="button" class="btn btn--primary" id="copy-message">Copy message</button>
             <a class="btn btn--ghost" id="text-message" href="sms:">Send as a text</a>
@@ -96,43 +107,70 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
           <p class="field-note" id="copy-status" role="status"></p>
         </div>
 
+        <div class="card next-steps">
+          <h2 class="welcome__h2">What happens next</h2>
+          <ol class="next-list">
+            <li id="next-invite"><strong>Each person gets an invite</strong> from hello@getscamprep.com. Nothing starts until they say yes, and we'll email you when they do.</li>
+            <li id="next-noyes"><strong>If someone hasn't said yes within a week,</strong> we'll let you know. If they never do, you get a full refund.</li>
+            <li id="next-practice"><strong>Practice begins</strong> with a short scam briefing a few days after they say yes, then about four practice messages a month, on no set schedule.</li>
+            <li id="next-report"><strong>Every three months,</strong> each person gets a Resilience Report showing what they've caught, and you get a copy if they choose to share it.</li>
+          </ol>
+          <p class="field-note field-note--quiet next-billing">
+            Your receipt email has your billing details and a link to manage your plan. Charges
+            show on your statement as SCAMPREP. Cancel within 60 days for a full refund.
+          </p>
+        </div>
+
         <p class="welcome__contact">
-          Questions, or a detail to fix? Write to
-          <a href="mailto:hello@getscamprep.com">hello@getscamprep.com</a>.
+          Questions or feedback? <a href="mailto:hello@getscamprep.com">hello@getscamprep.com</a>
         </p>
       </div>
     </div>
   </section>
 
   <template id="person-template">
-    <fieldset class="person">
-      <legend class="person__legend">Person 1</legend>
-      <button type="button" class="person__remove">Remove</button>
-      <div class="field">
-        <label data-for="name">Name</label>
-        <input type="text" data-name="name" autocomplete="off" required />
-      </div>
-      <div class="field">
-        <label data-for="email">Email</label>
-        <input type="email" data-name="email" autocomplete="off" required />
-        <p class="field-note">We'll send the invite here, so use an address that gets checked.</p>
-      </div>
-      <div class="field">
-        <label data-for="cell">Cell phone <span class="hint">(optional)</span></label>
-        <input type="tel" data-name="cell" autocomplete="off" />
-        <p class="field-note">Needed for practice texts and calls. Without it, practice is email only.</p>
-      </div>
-      <div class="field">
-        <label data-for="relationship">Relationship to you</label>
-        <select data-name="relationship" required>
-          <option value="">Choose one</option>
-          <option>Parent</option>
-          <option>Grandparent</option>
-          <option>Spouse or partner</option>
-          <option>Other family</option>
-          <option>Friend</option>
-          <option value="Myself">Myself</option>
-        </select>
+    <fieldset class="person is-open">
+      <legend class="person__legend">
+        <button type="button" class="person__toggle" aria-expanded="true">
+          <span class="person__title">Recipient 1</span>
+          <span class="person__summary"></span>
+          <svg class="chev" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+        </button>
+      </legend>
+      <div class="person__body">
+        <div class="name-row">
+          <div class="field">
+            <label data-for="first">First name</label>
+            <input type="text" data-name="first" autocomplete="off" required />
+          </div>
+          <div class="field">
+            <label data-for="last">Last name</label>
+            <input type="text" data-name="last" autocomplete="off" required />
+          </div>
+        </div>
+        <div class="field">
+          <label data-for="email">Email</label>
+          <input type="email" data-name="email" autocomplete="off" required />
+          <p class="field-note field-note--quiet">We'll send the invite here, so use an address that gets checked.</p>
+        </div>
+        <div class="field">
+          <label data-for="cell">Cell phone <span class="hint">(recommended)</span></label>
+          <input type="tel" data-name="cell" autocomplete="off" />
+          <p class="field-note">Half of each month's practice comes by text and phone call. Without a cell number, practice is email only.</p>
+        </div>
+        <div class="field">
+          <label data-for="relationship">Relationship to you</label>
+          <select data-name="relationship" required>
+            <option value="">Choose one</option>
+            <option value="Myself">Myself</option>
+            <option>Parent</option>
+            <option>Grandparent</option>
+            <option>Spouse or partner</option>
+            <option>Other family</option>
+            <option>Friend</option>
+          </select>
+        </div>
+        <button type="button" class="person__remove">Remove this recipient</button>
       </div>
     </fieldset>
   </template>
@@ -168,11 +206,15 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
 
   if (plan) {
     $('intro').textContent = plan.max > 1
-      ? `Your ${plan.name} plan covers ${plan.covers}. Tell us who's taking part, and we'll email each person an invite. Nothing starts until they say yes.`
-      : `Your ${plan.name} plan covers ${plan.covers}. Tell us who's taking part, and we'll email them an invite. Nothing starts until they say yes.`;
+      ? `Your ${plan.name} plan covers ${plan.covers}. Tell us who's enrolling, and we'll email each person an invite. Nothing starts until they say yes.`
+      : `Your ${plan.name} plan covers ${plan.covers}. Tell us who's enrolling, and we'll email them an invite. Nothing starts until they say yes.`;
   }
+  // Stripe only sends buyers here after a successful payment, so a session ID
+  // means the payment went through. Without one, there's nothing to confirm.
   if (sessionId) {
     $<HTMLInputElement>('buyer_email').required = false;
+    $('paid').hidden = false;
+    $('kicker').textContent = 'Payment received';
   } else {
     $('buyer-email-field').hidden = false;
   }
@@ -181,14 +223,34 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
   const cards = () => Array.from(people.querySelectorAll<HTMLFieldSetElement>('fieldset.person'));
   const relationships = () => cards().map((c) => (c.querySelector('select') as HTMLSelectElement).value);
   const allMyself = () => relationships().every((r) => r === 'Myself');
+  const valueOf = (card: HTMLElement, name: string) =>
+    ((card.querySelector(`[data-name="${name}"]`) as HTMLInputElement | HTMLSelectElement).value || '').trim();
+
+  // Collapsed cards show a one-line summary, like a checkout's finished steps.
+  const summarize = (card: HTMLElement) => {
+    const name = [valueOf(card, 'first'), valueOf(card, 'last')].filter(Boolean).join(' ');
+    const rel = valueOf(card, 'relationship');
+    const parts = [name, rel].filter(Boolean);
+    (card.querySelector('.person__summary') as HTMLElement).textContent = parts.length ? parts.join(' · ') : 'Not filled in yet';
+  };
+  const setOpen = (card: HTMLElement, open: boolean) => {
+    card.classList.toggle('is-open', open);
+    (card.querySelector('.person__toggle') as HTMLElement).setAttribute('aria-expanded', String(open));
+    summarize(card);
+  };
+  const openOnly = (card: HTMLElement) => cards().forEach((c) => setOpen(c, c === card));
 
   // Name and number every card in order, so the email reads person_1_name, person_2_name...
   const renumber = () => {
     const list = cards();
     list.forEach((card, i) => {
       const n = i + 1;
-      (card.querySelector('.person__legend') as HTMLElement).textContent = list.length > 1 ? `Person ${n}` : 'Person taking part';
+      (card.querySelector('.person__title') as HTMLElement).textContent = list.length > 1 ? `Recipient ${n}` : 'Recipient';
       (card.querySelector('.person__remove') as HTMLElement).hidden = list.length === 1;
+      card.classList.toggle('is-single', list.length === 1);
+      const body = card.querySelector('.person__body') as HTMLElement;
+      body.id = `person_${n}_body`;
+      (card.querySelector('.person__toggle') as HTMLElement).setAttribute('aria-controls', body.id);
       card.querySelectorAll<HTMLInputElement | HTMLSelectElement>('[data-name]').forEach((el) => {
         const id = `person_${n}_${el.dataset.name}`;
         el.id = id;
@@ -198,11 +260,12 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
         l.htmlFor = `person_${n}_${l.dataset.for}`;
       });
     });
+    if (list.length === 1) setOpen(list[0], true);
     addRow.hidden = list.length >= max;
     update();
   };
 
-  // The heads-up box only makes sense when someone other than the buyer is taking part.
+  // The heads-up box only makes sense when someone other than the buyer is enrolling.
   const update = () => {
     const self = allMyself() && relationships().every((r) => r !== '');
     headsUp.hidden = self;
@@ -213,18 +276,29 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
     if (cards().length >= max) return;
     const card = (template.content.firstElementChild as HTMLElement).cloneNode(true) as HTMLFieldSetElement;
     card.querySelector('.person__remove')!.addEventListener('click', () => {
+      const list = cards();
+      const i = list.indexOf(card);
       card.remove();
       renumber();
+      const rest = cards();
+      if (rest.length) openOnly(rest[Math.max(0, i - 1)]);
+    });
+    card.querySelector('.person__toggle')!.addEventListener('click', () => {
+      if (cards().length === 1) return;
+      if (card.classList.contains('is-open')) setOpen(card, false);
+      else openOnly(card);
     });
     card.querySelector('select')!.addEventListener('change', update);
     people.appendChild(card);
     renumber();
+    openOnly(card);
     if (focus) (card.querySelector('input') as HTMLInputElement).focus();
   };
   addPerson(false);
   addBtn.addEventListener('click', () => addPerson(true));
 
   // Plain-language checks, shown in one place, instead of the browser's own bubbles.
+  // A problem inside a collapsed recipient opens that recipient.
   const validate = (): string | null => {
     form.querySelectorAll('.field-error').forEach((el) => el.classList.remove('field-error'));
     const required = Array.from(form.querySelectorAll<HTMLInputElement | HTMLSelectElement>('[required]'))
@@ -238,13 +312,17 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
         el.classList.add('field-error');
         if (!first) {
           first = el;
-          message = badEmail ? 'One of the email addresses doesn\'t look right. Please check it.' : 'A few required details are missing. They\'re outlined below.';
+          message = badEmail ? 'One of the email addresses doesn\'t look right. Please check it.' : 'A few required details are missing. They\'re outlined above.';
         }
       }
     }
     const myselfCount = relationships().filter((r) => r === 'Myself').length;
-    if (!first && myselfCount > 1) message = 'Only one person can be "Myself." Please check the relationships.';
-    if (first) first.focus();
+    if (!first && myselfCount > 1) message = 'Only one recipient can be "Myself." Please check the relationships.';
+    if (first) {
+      const card = first.closest('fieldset.person') as HTMLElement | null;
+      if (card) openOnly(card);
+      first.focus();
+    }
     return message || null;
   };
 
@@ -268,10 +346,7 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
     names.length <= 1 ? names.join('') : names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1];
 
   const showDone = () => {
-    const list = cards().map((c) => ({
-      name: (c.querySelector('[data-name="name"]') as HTMLInputElement).value.trim(),
-      self: (c.querySelector('select') as HTMLSelectElement).value === 'Myself',
-    }));
+    const list = cards().map((c) => ({ name: valueOf(c, 'first'), self: valueOf(c, 'relationship') === 'Myself' }));
     const others = list.filter((p) => !p.self).map((p) => p.name);
     const hasSelf = list.some((p) => p.self);
     const who = joinNames([...(hasSelf ? ['you'] : []), ...others]);
@@ -279,38 +354,55 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
     const from = 'from hello@getscamprep.com';
     let text: string;
     if (!others.length) {
-      text = `We'll email you an invite shortly, ${from}. Nothing starts until you say yes.`;
+      text = `We'll email you an invite shortly, ${from}.`;
     } else if (waitBox.checked && hasSelf) {
-      text = `We'll email you an invite shortly, then wait a day before emailing ${joinNames(others)}. All invites come ${from}, and nothing starts until each person says yes.`;
+      text = `We'll email you an invite shortly, then wait a day before emailing ${joinNames(others)}. All invites come ${from}.`;
     } else if (waitBox.checked) {
-      text = `We'll wait a day, then email ${who} ${invites} ${from}. Nothing starts until ${list.length > 1 ? 'each person says' : 'they say'} yes.`;
+      text = `We'll wait a day, then email ${who} ${invites} ${from}.`;
     } else {
-      text = `We'll email ${who} ${invites} shortly, ${from}. Nothing starts until ${list.length > 1 ? 'each person says' : 'they say'} yes.`;
+      text = `We'll email ${who} ${invites} shortly, ${from}.`;
+    }
+    // Heads-up message, addressed to everyone else on the form by first name.
+    if (others.length) {
+      $<HTMLTextAreaElement>('message').value = headsUpMessage(joinNames(others));
+      syncText();
+    }
+    // Someone enrolling only themselves gets next steps written to them.
+    if (!others.length) {
+      $('next-invite').innerHTML = '<strong>Your invite comes</strong> from hello@getscamprep.com. Nothing starts until you say yes.';
+      $('next-noyes').hidden = true;
+      $('next-practice').innerHTML = '<strong>Practice begins</strong> with a short scam briefing a few days after you say yes, then about four practice messages a month, on no set schedule.';
+      $('next-report').innerHTML = '<strong>Every three months,</strong> you get a Resilience Report showing what you\'ve caught.';
     }
     $('kicker').textContent = "You're all set";
     $('heading').textContent = "Thanks, that's everything we need.";
     $('intro').textContent = text;
     $('talking-points').hidden = !others.length;
+    $('paid').hidden = true;
     $('setup').hidden = true;
     $('done').hidden = false;
     window.scrollTo({ top: 0 });
     $('heading').focus({ preventScroll: true });
   };
 
-  // Heads-up message: copy, or open the phone's messages app with it filled in.
-  const message = ($('message').textContent || '').trim();
-  $<HTMLAnchorElement>('text-message').href = 'sms:?&body=' + encodeURIComponent(message);
+  // Heads-up message: editable, then copy it or open the phone's messages app with it filled in.
+  const headsUpMessage = (names: string) =>
+    `Hi ${names}, I just signed you up for ScamPrep. Scams are targeting everyone, and they're getting really convincing. ` +
+    `ScamPrep sends practice messages and short scam alerts so we can all stay ahead of them. ` +
+    `I've started your enrollment, and you'll get an email from hello@getscamprep.com to finish it. Nothing starts unless you say yes. ` +
+    `Here's what to expect: getscamprep.com/what-to-expect`;
+  const messageBox = $<HTMLTextAreaElement>('message');
+  const syncText = () => {
+    $<HTMLAnchorElement>('text-message').href = 'sms:?&body=' + encodeURIComponent(messageBox.value.trim());
+  };
+  messageBox.addEventListener('input', syncText);
   $('copy-message').addEventListener('click', async () => {
     const status = $('copy-status');
     try {
-      await navigator.clipboard.writeText(message);
+      await navigator.clipboard.writeText(messageBox.value.trim());
       status.textContent = 'Copied. Paste it into a text or email.';
     } catch {
-      const range = document.createRange();
-      range.selectNodeContents($('message'));
-      const sel = window.getSelection();
-      sel?.removeAllRanges();
-      sel?.addRange(range);
+      messageBox.select();
       status.textContent = 'Selected. Copy it with your keyboard or a long press.';
     }
   });
@@ -357,22 +449,64 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
   .welcome__wrap { max-width: 720px; }
   .welcome__form { margin-top: 32px; max-width: none; }
   .welcome__h2 { font-size: 1.35rem; margin: 8px 0 18px; }
-  .welcome__h2 .hint { font-weight: 400; color: var(--gray-500); font-size: 1rem; }
   .field-note { font-size: 1rem; color: var(--gray-700); margin: 8px 0 0; line-height: 1.5; }
+  /* Helper text that should recede: lighter, tighter. Stays at the 16px floor. */
+  .field-note--quiet { color: var(--gray-500); margin-top: 6px; line-height: 1.4; }
+
+  /* Payment check: an outline icon in a soft amber circle (brand icon style).
+     Draws once and holds; reduced motion shows it finished. */
+  .paid { margin: 0 0 14px; }
+  .paid[hidden] { display: none; }
+  .paid__icon { display: block; }
+  .paid__circle { fill: var(--amber-tint); transform-box: fill-box; transform-origin: center; animation: paidPop 0.35s ease-out both; }
+  .paid__check {
+    fill: none;
+    stroke: var(--amber-deep);
+    stroke-width: 3.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 28;
+    stroke-dashoffset: 28;
+    animation: paidDraw 0.4s 0.25s ease-out forwards;
+  }
+  @keyframes paidPop { from { transform: scale(0.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  @keyframes paidDraw { to { stroke-dashoffset: 0; } }
+
+  /* Recipient cards: one open at a time, like checkout steps. The open card is lit
+     (glow fill and a thin amber line); closed cards show a one-line summary. */
   .person {
-    position: relative;
     border: 1px solid var(--line);
     border-radius: var(--radius);
-    padding: 22px 22px 4px;
-    margin: 0 0 18px;
+    background: var(--paper-bg);
+    padding: 0;
+    margin: 0 0 14px;
     min-width: 0;
   }
-  .person__legend { float: left; width: 100%; color: var(--ink); font-weight: 800; font-size: 1.05rem; padding: 0; margin: 0 0 14px; line-height: 44px; }
-  .person > .field:first-of-type { clear: both; }
+  .person.is-open { background: var(--glow); border-color: var(--amber); }
+  .person__legend { float: left; width: 100%; padding: 0; margin: 0; }
+  .person__toggle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    min-height: 56px;
+    padding: 12px 20px;
+    background: none;
+    border: 0;
+    border-radius: var(--radius);
+    font: inherit;
+    color: var(--ink);
+    text-align: left;
+    cursor: pointer;
+  }
+  .person__title { font-weight: 800; font-size: 1.05rem; flex: none; }
+  .person__summary { flex: 1; min-width: 0; color: var(--gray-700); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .person.is-open .person__summary { visibility: hidden; }
+  .is-single .person__toggle { cursor: default; }
+  .is-single .chev { display: none; }
+  .person__body { display: none; clear: both; padding: 2px 20px 8px; }
+  .person.is-open .person__body { display: block; }
   .person__remove {
-    position: absolute;
-    top: 22px;
-    right: 18px;
     background: none;
     border: none;
     color: var(--ink);
@@ -380,27 +514,52 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
     font-size: 1rem;
     text-decoration: underline;
     min-height: 44px;
-    padding: 0 4px;
+    padding: 0;
+    margin: 0 0 6px;
     cursor: pointer;
   }
   .person__remove[hidden] { display: none; }
+
+  .chev { flex: none; margin-left: auto; fill: none; stroke: var(--ink); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.2s ease; }
+  .person.is-open .chev, .tailor[open] .chev { transform: rotate(180deg); }
+
   .add-row { margin: 4px 0 0; }
   .add-row[hidden] { display: none; }
   #later-note { margin: 12px 0 0; }
+
   .heads-up {
-    margin: 28px 0 36px;
+    margin: 28px 0 24px;
     padding: 16px 18px;
     border: 1px solid var(--line-strong);
     border-radius: var(--radius-ctrl);
-    background: var(--glow);
+    background: var(--white);
     cursor: pointer;
     min-height: 44px;
-    align-items: center;
+    align-items: flex-start;
   }
   .heads-up[hidden] { display: none; }
-  .heads-up input { width: 22px; height: 22px; flex: none; accent-color: var(--ink); margin: 0; }
-  #heads-up[hidden] + .welcome__h2 { margin-top: 36px; }
-  .welcome__submit { width: 100%; margin-top: 8px; }
+  .heads-up input { width: 22px; height: 22px; flex: none; accent-color: var(--ink); margin: 1px 0 0; }
+  #heads-up[hidden] + .tailor { margin-top: 28px; }
+
+  /* Optional tailoring questions, closed by default. */
+  .tailor { border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-bg); margin: 0 0 28px; }
+  .tailor__summary {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 56px;
+    padding: 12px 20px;
+    list-style: none;
+    cursor: pointer;
+    border-radius: var(--radius);
+  }
+  .tailor__summary::-webkit-details-marker { display: none; }
+  .tailor__title { font-weight: 800; font-size: 1.05rem; }
+  .tailor__opt { color: var(--gray-500); }
+  .tailor__body { padding: 4px 20px 6px; }
+  .tailor textarea::placeholder { color: var(--gray-500); opacity: 1; }
+
+  .welcome__submit { width: 100%; margin-top: 4px; }
   .welcome__privacy { margin-top: 16px; }
   .form-error {
     margin: 16px 0 0;
@@ -416,19 +575,37 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
   #heading:focus { outline: none; }
   .talking-points { margin-top: 32px; }
   .talking-points[hidden] { display: none; }
-  .talking-points blockquote {
-    margin: 0 0 20px;
-    padding: 18px 20px;
+  .talking-points textarea {
+    display: block;
+    width: 100%;
+    padding: 16px 18px;
     background: var(--paper-bg);
-    border: 1px solid var(--line);
+    border: 1px solid var(--line-strong);
     border-radius: var(--radius-ctrl);
+    font: inherit;
     font-size: 1.05rem;
     line-height: 1.6;
+    color: var(--ink);
+    resize: vertical;
   }
+  .talking-points .field-note--quiet { margin: 6px 0 18px; }
+  .next-steps { margin-top: 24px; }
+  .next-list { padding-left: 1.3em; margin: 0 0 16px; }
+  .next-list li { margin-bottom: 0.8em; line-height: 1.55; }
+  .next-list li[hidden] { display: none; }
+  .next-billing { margin: 0; }
+  .name-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
   .welcome__contact { margin-top: 28px; color: var(--gray-700); }
+  @media (prefers-reduced-motion: reduce) {
+    .paid__circle, .paid__check { animation: none; }
+    .paid__check { stroke-dashoffset: 0; }
+    .chev { transition: none; }
+  }
   @media (max-width: 600px) {
     .welcome__form { padding: 26px 18px; }
-    .person { padding: 18px 16px 2px; }
+    .name-row { grid-template-columns: 1fr; }
+    .person__toggle, .tailor__summary { padding: 12px 16px; }
+    .person__body, .tailor__body { padding-left: 16px; padding-right: 16px; }
     .talking-points .btn { width: 100%; }
   }
 </style>
