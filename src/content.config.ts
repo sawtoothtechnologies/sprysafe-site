@@ -33,6 +33,10 @@ const guides = defineCollection({
       url: z.string().url(),
       date: z.coerce.string().optional(), // as the source states it, e.g. 2026 or "June 2026"
     })).min(1),
+    // The guide's own share image (1200 by 630, in public/share/) and its alt text.
+    // Rule: ~/ScamPrep/seo/article-standard.md, "Its own preview image".
+    image: z.string().optional(),
+    imageAlt: z.string().optional(),
     // Slugs of two to four related guides. Unpublished ones are skipped.
     related: z.array(z.string()).default([]),
     // Corrections that changed the advice, newest first. Shown at the end.

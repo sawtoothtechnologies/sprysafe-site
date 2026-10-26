@@ -75,7 +75,7 @@ sources:
     title: Scam stories
     url: https://www.scamwatch.gov.au/research-and-resources/scams-awareness-week/scam-stories
     date: January 2026
-related: [parent-being-scammed, protect-your-parent-from-scams, ai-voice-scams, medicare-scam-calls]
+related: [parent-being-scammed, protect-your-parent-from-scams, geek-squad-scam-email, medicare-scam-calls]
 ---
 Hang up, or stop replying. Then call your bank, card company, or payment app on a number you look up yourself, and ask them to stop or reverse the payment. After that, lock down whatever you gave the scammer, starting with your email password. Then, report it to all relevant entities. And expect a second call: anyone who contacts you out of the blue offering to get your money back for a fee is running a second scam.
 
@@ -137,7 +137,7 @@ Read the line that matches what you shared.
 - **A password, or access to your email.** Change your email password first, from a device the scammer never had access to. Whoever controls your email can reset many of your other accounts. Then change your bank, payment app and social media passwords, and anywhere you reused the old one. Turn on two-step verification, or a passkey where it's offered. (Side note: now might be a nice time to consider a password manager.)
 - **Your bank or card details.** Tell your bank when you call about the money, and ask about a new card or account number.
 - **Your Social Security number.** Go to [IdentityTheft.gov](https://www.identitytheft.gov/) if it's already being used. Either way, freeze your credit at [Equifax](https://www.equifax.com/personal/credit-report-services/credit-freeze/), [Experian](https://www.experian.com/help/credit-freeze/) and [TransUnion](https://www.transunion.com/credit-freeze). A [credit freeze](https://consumer.ftc.gov/articles/credit-freezes-and-fraud-alerts) is free, stops lenders from pulling your report to open new credit in your name, and can be lifted for a while when you need a loan or a new card in the future.
-- **Access to your computer or phone.** The FTC says to [update your security software, run a scan and delete anything it flags](https://consumer.ftc.gov/articles/what-do-if-you-were-scammed), then change your passwords. If you'd rather have help with that, ask the manufacturer or someone you trust.
+- **Access to your computer or phone.** The FTC says to [update your security software, run a scan and delete anything it flags](https://consumer.ftc.gov/articles/what-do-if-you-were-scammed), then change your passwords. If you'd rather have help with that, ask the manufacturer or someone you trust. If it started with a fake renewal email and a "refund," the [Geek Squad scam email](/guides/geek-squad-scam-email) guide walks through that version step by step.
 - **An account they took over** (email, Facebook, WhatsApp). Recover it through the platform's own help pages, then [sign out of all devices and check the recovery email, phone number and forwarding rules](https://consumer.ftc.gov/articles/how-recover-your-hacked-email-or-social-media-account), which scammers change so they can get back in. Tell your contacts that messages "from you" may be fake; scammers use a taken-over account to work through your friends.
 - **Your Medicare number.** Call [1-800-MEDICARE](https://www.medicare.gov/basics/reporting-medicare-fraud-and-abuse) (1-800-633-4227), and check your Medicare statements for services you didn't get. Our [Medicare scam calls](/guides/medicare-scam-calls) guide has more.
 

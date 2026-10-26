@@ -41,3 +41,21 @@ the domain. So:
 
 Manrope (SIL Open Font License) is in `fonts/` so the template renders the same
 everywhere, offline included.
+
+## One image per guide
+
+Each guide gets its own share image (rule: `~/ScamPrep/seo/article-standard.md`, "Its own
+preview image"). Made from `guide-share-image.html`: same ink, warm light and Open Ring,
+the guide's title large on the left, one simple line icon on the right (`envelope`,
+`phone` or `bubble`), getscamprep.com along the bottom. Saved as
+`public/share/<guide-slug>.png` and named in the guide's front matter as `image` and
+`imageAlt`; `Guide.astro` passes them to the page and the structured data.
+
+Render (from the repo root, needs Python Playwright):
+
+```sh
+python3 brand/share-image/render-guide.py "Geek Squad scam emails: how to spot a fake renewal" envelope public/share/geek-squad-scam-email.png
+```
+
+Then shrink it under 300 KB (the quantized PNG looks identical): open it in Preview and export,
+or ask Claude. Check it with LinkedIn's Post Inspector after deploying.

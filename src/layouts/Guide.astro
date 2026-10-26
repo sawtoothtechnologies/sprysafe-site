@@ -16,6 +16,9 @@ const showToc = toc.length >= 4;
 const hub = HUBS.find((h) => h.id === d.hub);
 const site = Astro.site ?? new URL('https://getscamprep.com');
 const url = new URL(`/guides/${guide.id}`, site).href;
+// The guide's own share image, falling back to the site default for older guides.
+const image = d.image ?? '/og-v3.png';
+const imageAlt = d.imageAlt ?? 'ScamPrep. Pamphlets fade. Practice sticks.';
 
 const author = {
   '@type': 'Person',
@@ -40,7 +43,7 @@ const articleSchema = {
     logo: { '@type': 'ImageObject', url: new URL('/apple-touch-icon.png', site).href },
   },
   mainEntityOfPage: { '@type': 'WebPage', '@id': url },
-  image: new URL('/og-v3.png', site).href,
+  image: new URL(image, site).href,
   isPartOf: { '@type': 'CollectionPage', name: 'ScamPrep guides', url: new URL('/guides', site).href },
   citation: d.sources.map((s) => s.url),
 };
@@ -59,6 +62,8 @@ const breadcrumbSchema = {
   title={`${d.seoTitle ?? d.title} | ScamPrep`}
   shareTitle={d.seoTitle ?? d.title}
   description={d.description}
+  image={image}
+  imageAlt={imageAlt}
   ogType="article"
 >
   <Fragment slot="head">

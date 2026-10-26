@@ -58,7 +58,7 @@ sources:
   - publisher: Reddit, r/Scams
     title: Non-stop Medicare phishing scam calls
     url: https://www.reddit.com/r/Scams/comments/1azxl1i/nonstop_medicare_phishing_scam_calls/
-related: [parent-being-scammed, protect-your-parent-from-scams, what-to-do-if-you-have-been-scammed, does-the-irs-call-you]
+related: [parent-being-scammed, protect-your-parent-from-scams, what-to-do-if-you-have-been-scammed, geek-squad-scam-email]
 ---
 
 If someone calls saying they're from Medicare and you didn't call Medicare first, treat it as a scam. Hang up, and if you want to double-check, call 1-800-MEDICARE (1-800-633-4227) yourself.
