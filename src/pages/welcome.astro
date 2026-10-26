@@ -1,0 +1,434 @@
+---
+import Base from '../layouts/Base.astro';
+
+// Post-checkout page. Each Stripe Payment Link redirects here after a successful
+// payment: /welcome?plan=individual|pairs|family&session_id={CHECKOUT_SESSION_ID}.
+// Monthly and annual share a URL. "couples" (the old site key) is read as pairs.
+// The page only knows the plan, not the amount, so it never shows a price.
+// The session ID ties the submission to the Stripe payment. A visit without one
+// (for example from a link in an email) asks for the buyer's email instead.
+//
+// FORM BACKEND: Formspree. Same form as early access for now (ID moeajjvb), told
+// apart by the _subject line. Keep reCAPTCHA OFF in Formspree settings.
+// Kept out of search: noindex here, and filtered from the sitemap in astro.config.mjs.
+// Decisions behind this page: ~/ScamPrep/product/decisions.md, "/welcome page shape".
+const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
+---
+
+<Base
+  title="Welcome | ScamPrep"
+  description="Finish setting up ScamPrep. Tell us who's taking part, and we'll email each person a short invite to say yes."
+  noindex
+>
+  <section class="section welcome">
+    <div class="wrap welcome__wrap">
+      <p class="kicker" id="kicker">Welcome to ScamPrep</p>
+      <h1 id="heading" tabindex="-1">Thanks, you're signed up.</h1>
+      <p class="lede" id="intro">
+        Tell us who's taking part, and we'll email each person an invite. Nothing
+        starts until they say yes.
+      </p>
+
+      <div id="setup">
+
+        <form class="form-card welcome__form" id="welcome-form" method="POST" action={FORM_ACTION} novalidate>
+          <input type="hidden" name="_subject" id="subject" value="New ScamPrep enrollment" />
+          <input type="hidden" name="form" value="welcome" />
+          <input type="hidden" name="plan" id="plan" value="" />
+          <input type="hidden" name="session_id" id="session_id" value="" />
+
+          <div class="field" id="buyer-email-field" hidden>
+            <label for="buyer_email">Your email <span class="hint">(the one you paid with)</span></label>
+            <input type="email" id="buyer_email" name="buyer_email" autocomplete="email" required />
+            <p class="field-note">This lets us match these details to your plan.</p>
+          </div>
+
+          <h2 class="welcome__h2">Who's taking part</h2>
+          <div id="people"></div>
+
+          <div class="add-row" id="add-row">
+            <button type="button" class="btn btn--ghost" id="add-person">Add another person</button>
+          </div>
+          <p class="field-note" id="later-note" hidden>
+            Don't have everyone's details yet? Send what you have, and email
+            <a href="mailto:hello@getscamprep.com">hello@getscamprep.com</a> to add someone later.
+          </p>
+
+          <label class="checkbox heads-up" id="heads-up" for="wait_a_day">
+            <input type="checkbox" name="wait_a_day" value="Yes" id="wait_a_day" />
+            <span>Wait a day so I can give them a heads-up</span>
+          </label>
+
+          <h2 class="welcome__h2">Help us tailor the practice <span class="hint">(optional)</span></h2>
+          <div class="field">
+            <label for="worries">Which kinds of scams worry you most?</label>
+            <textarea id="worries" name="worries" rows="3"></textarea>
+            <p class="field-note">For example, fake delivery texts or calls that claim to be from the bank.</p>
+          </div>
+          <div class="field">
+            <label for="recent">Has anything happened recently that we should know about?</label>
+            <textarea id="recent" name="recent" rows="3"></textarea>
+            <p class="field-note">Please leave out bank names, account details, and health information.</p>
+          </div>
+
+          <button class="btn btn--primary welcome__submit" type="submit" id="submit">Finish setup</button>
+          <p class="form-error" id="form-error" role="alert" hidden></p>
+          <p class="field-note welcome__privacy">
+            We use these details only to run ScamPrep for the people you list.
+            Read our <a href="/privacy">privacy policy</a>.
+          </p>
+        </form>
+      </div>
+
+      <div id="done" hidden>
+
+        <div class="card talking-points" id="talking-points">
+          <h2 class="welcome__h2">Give them a heads-up</h2>
+          <p>
+            An invite feels expected when it comes after a word from you. Here's a message
+            you can send as is or change:
+          </p>
+          <blockquote id="message">I signed you up for something called ScamPrep. About four times a month you'll get a practice message that looks like a scam, so spotting the real ones gets easier. Everything is made up and safe, and nothing ever asks for real money. You'll get an email from Bryce at ScamPrep (hello@getscamprep.com), and nothing starts unless you say yes.</blockquote>
+          <div class="btn-row">
+            <button type="button" class="btn btn--primary" id="copy-message">Copy message</button>
+            <a class="btn btn--ghost" id="text-message" href="sms:">Send as a text</a>
+          </div>
+          <p class="field-note" id="copy-status" role="status"></p>
+        </div>
+
+        <p class="welcome__contact">
+          Questions, or a detail to fix? Write to
+          <a href="mailto:hello@getscamprep.com">hello@getscamprep.com</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <template id="person-template">
+    <fieldset class="person">
+      <legend class="person__legend">Person 1</legend>
+      <button type="button" class="person__remove">Remove</button>
+      <div class="field">
+        <label data-for="name">Name</label>
+        <input type="text" data-name="name" autocomplete="off" required />
+      </div>
+      <div class="field">
+        <label data-for="email">Email</label>
+        <input type="email" data-name="email" autocomplete="off" required />
+        <p class="field-note">We'll send the invite here, so use an address that gets checked.</p>
+      </div>
+      <div class="field">
+        <label data-for="cell">Cell phone <span class="hint">(optional)</span></label>
+        <input type="tel" data-name="cell" autocomplete="off" />
+        <p class="field-note">Needed for practice texts and calls. Without it, practice is email only.</p>
+      </div>
+      <div class="field">
+        <label data-for="relationship">Relationship to you</label>
+        <select data-name="relationship" required>
+          <option value="">Choose one</option>
+          <option>Parent</option>
+          <option>Grandparent</option>
+          <option>Spouse or partner</option>
+          <option>Other family</option>
+          <option>Friend</option>
+          <option value="Myself">Myself</option>
+        </select>
+      </div>
+    </fieldset>
+  </template>
+</Base>
+
+<script>
+  const PLANS: Record<string, { name: string; max: number; covers: string }> = {
+    individual: { name: 'Individual', max: 1, covers: 'one person' },
+    pairs: { name: 'Pairs', max: 2, covers: 'up to two people' },
+    family: { name: 'Family', max: 4, covers: 'up to four people' },
+  };
+  const query = new URLSearchParams(location.search);
+  let planKey = (query.get('plan') || '').toLowerCase();
+  if (planKey === 'couples') planKey = 'pairs';
+  const plan = PLANS[planKey];
+  const max = plan ? plan.max : 4;
+  const sessionId = query.get('session_id') || '';
+
+  const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+  const form = $<HTMLFormElement>('welcome-form');
+  const people = $('people');
+  const template = $<HTMLTemplateElement>('person-template');
+  const addBtn = $<HTMLButtonElement>('add-person');
+  const addRow = $('add-row');
+  const laterNote = $('later-note');
+  const headsUp = $('heads-up');
+  const waitBox = $<HTMLInputElement>('wait_a_day');
+  const errorEl = $('form-error');
+
+  $<HTMLInputElement>('plan').value = plan ? planKey : (query.get('plan') || '');
+  $<HTMLInputElement>('session_id').value = sessionId;
+  $<HTMLInputElement>('subject').value = plan ? `New ScamPrep enrollment (${plan.name})` : 'New ScamPrep enrollment';
+
+  if (plan) {
+    $('intro').textContent = plan.max > 1
+      ? `Your ${plan.name} plan covers ${plan.covers}. Tell us who's taking part, and we'll email each person an invite. Nothing starts until they say yes.`
+      : `Your ${plan.name} plan covers ${plan.covers}. Tell us who's taking part, and we'll email them an invite. Nothing starts until they say yes.`;
+  }
+  if (sessionId) {
+    $<HTMLInputElement>('buyer_email').required = false;
+  } else {
+    $('buyer-email-field').hidden = false;
+  }
+  if (max > 1) laterNote.hidden = false;
+
+  const cards = () => Array.from(people.querySelectorAll<HTMLFieldSetElement>('fieldset.person'));
+  const relationships = () => cards().map((c) => (c.querySelector('select') as HTMLSelectElement).value);
+  const allMyself = () => relationships().every((r) => r === 'Myself');
+
+  // Name and number every card in order, so the email reads person_1_name, person_2_name...
+  const renumber = () => {
+    const list = cards();
+    list.forEach((card, i) => {
+      const n = i + 1;
+      (card.querySelector('.person__legend') as HTMLElement).textContent = list.length > 1 ? `Person ${n}` : 'Person taking part';
+      (card.querySelector('.person__remove') as HTMLElement).hidden = list.length === 1;
+      card.querySelectorAll<HTMLInputElement | HTMLSelectElement>('[data-name]').forEach((el) => {
+        const id = `person_${n}_${el.dataset.name}`;
+        el.id = id;
+        el.name = id;
+      });
+      card.querySelectorAll<HTMLLabelElement>('label[data-for]').forEach((l) => {
+        l.htmlFor = `person_${n}_${l.dataset.for}`;
+      });
+    });
+    addRow.hidden = list.length >= max;
+    update();
+  };
+
+  // The heads-up box only makes sense when someone other than the buyer is taking part.
+  const update = () => {
+    const self = allMyself() && relationships().every((r) => r !== '');
+    headsUp.hidden = self;
+    if (self) waitBox.checked = false;
+  };
+
+  const addPerson = (focus: boolean) => {
+    if (cards().length >= max) return;
+    const card = (template.content.firstElementChild as HTMLElement).cloneNode(true) as HTMLFieldSetElement;
+    card.querySelector('.person__remove')!.addEventListener('click', () => {
+      card.remove();
+      renumber();
+    });
+    card.querySelector('select')!.addEventListener('change', update);
+    people.appendChild(card);
+    renumber();
+    if (focus) (card.querySelector('input') as HTMLInputElement).focus();
+  };
+  addPerson(false);
+  addBtn.addEventListener('click', () => addPerson(true));
+
+  // Plain-language checks, shown in one place, instead of the browser's own bubbles.
+  const validate = (): string | null => {
+    form.querySelectorAll('.field-error').forEach((el) => el.classList.remove('field-error'));
+    const required = Array.from(form.querySelectorAll<HTMLInputElement | HTMLSelectElement>('[required]'))
+      .filter((el) => !(el.closest('[hidden]')));
+    let first: HTMLElement | null = null;
+    let message = '';
+    for (const el of required) {
+      const v = el.value.trim();
+      const badEmail = el.type === 'email' && v && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+      if (!v || badEmail) {
+        el.classList.add('field-error');
+        if (!first) {
+          first = el;
+          message = badEmail ? 'One of the email addresses doesn\'t look right. Please check it.' : 'A few required details are missing. They\'re outlined below.';
+        }
+      }
+    }
+    const myselfCount = relationships().filter((r) => r === 'Myself').length;
+    if (!first && myselfCount > 1) message = 'Only one person can be "Myself." Please check the relationships.';
+    if (first) first.focus();
+    return message || null;
+  };
+
+  const showError = (message: string, contact = true) => {
+    errorEl.innerHTML = message + (contact ? ' If it keeps happening, email <a href="mailto:hello@getscamprep.com">hello@getscamprep.com</a> and we\'ll set things up for you.' : '');
+    errorEl.hidden = false;
+    errorEl.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  };
+
+  const send = async (data: FormData) => {
+    const ctl = new AbortController();
+    const timer = setTimeout(() => ctl.abort(), 15000);
+    try {
+      return await fetch(form.action, { method: 'POST', body: data, headers: { Accept: 'application/json' }, signal: ctl.signal });
+    } finally {
+      clearTimeout(timer);
+    }
+  };
+
+  const joinNames = (names: string[]) =>
+    names.length <= 1 ? names.join('') : names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1];
+
+  const showDone = () => {
+    const list = cards().map((c) => ({
+      name: (c.querySelector('[data-name="name"]') as HTMLInputElement).value.trim(),
+      self: (c.querySelector('select') as HTMLSelectElement).value === 'Myself',
+    }));
+    const others = list.filter((p) => !p.self).map((p) => p.name);
+    const hasSelf = list.some((p) => p.self);
+    const who = joinNames([...(hasSelf ? ['you'] : []), ...others]);
+    const invites = list.length > 1 ? 'invites' : 'an invite';
+    const from = 'from hello@getscamprep.com';
+    let text: string;
+    if (!others.length) {
+      text = `We'll email you an invite shortly, ${from}. Nothing starts until you say yes.`;
+    } else if (waitBox.checked && hasSelf) {
+      text = `We'll email you an invite shortly, then wait a day before emailing ${joinNames(others)}. All invites come ${from}, and nothing starts until each person says yes.`;
+    } else if (waitBox.checked) {
+      text = `We'll wait a day, then email ${who} ${invites} ${from}. Nothing starts until ${list.length > 1 ? 'each person says' : 'they say'} yes.`;
+    } else {
+      text = `We'll email ${who} ${invites} shortly, ${from}. Nothing starts until ${list.length > 1 ? 'each person says' : 'they say'} yes.`;
+    }
+    $('kicker').textContent = "You're all set";
+    $('heading').textContent = "Thanks, that's everything we need.";
+    $('intro').textContent = text;
+    $('talking-points').hidden = !others.length;
+    $('setup').hidden = true;
+    $('done').hidden = false;
+    window.scrollTo({ top: 0 });
+    $('heading').focus({ preventScroll: true });
+  };
+
+  // Heads-up message: copy, or open the phone's messages app with it filled in.
+  const message = ($('message').textContent || '').trim();
+  $<HTMLAnchorElement>('text-message').href = 'sms:?&body=' + encodeURIComponent(message);
+  $('copy-message').addEventListener('click', async () => {
+    const status = $('copy-status');
+    try {
+      await navigator.clipboard.writeText(message);
+      status.textContent = 'Copied. Paste it into a text or email.';
+    } catch {
+      const range = document.createRange();
+      range.selectNodeContents($('message'));
+      const sel = window.getSelection();
+      sel?.removeAllRanges();
+      sel?.addRange(range);
+      status.textContent = 'Selected. Copy it with your keyboard or a long press.';
+    }
+  });
+
+  let sending = false;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (sending) return;
+    errorEl.hidden = true;
+    const problem = validate();
+    if (problem) { showError(problem, false); return; }
+    sending = true;
+    const btn = $<HTMLButtonElement>('submit');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    const data = new FormData(form);
+    for (const [k, v] of Array.from(data.entries())) {
+      if (typeof v === 'string' && !v.trim()) data.delete(k);
+    }
+    data.set('wait_a_day', waitBox.checked && !headsUp.hidden ? 'Yes' : 'No');
+    data.set('people_count', String(cards().length));
+    let res: Response | null = null;
+    try {
+      res = await send(data);
+      if (res.status >= 500) throw new Error(String(res.status));
+    } catch {
+      await new Promise((r) => setTimeout(r, 1500));
+      try { res = await send(data); } catch { res = null; }
+    }
+    if (res && res.ok) { showDone(); return; }
+    sending = false;
+    btn.disabled = false;
+    btn.textContent = 'Finish setup';
+    if (res && res.status >= 400 && res.status < 500) {
+      showError('That didn\'t go through. Please check the email addresses and try again.');
+    } else {
+      showError('We couldn\'t reach our sign-up service just now. Your details are still here, so please try again in a moment.');
+    }
+  });
+</script>
+
+<style>
+  :global(html) { scroll-padding-top: 96px; }
+  .welcome__wrap { max-width: 720px; }
+  .welcome__form { margin-top: 32px; max-width: none; }
+  .welcome__h2 { font-size: 1.35rem; margin: 8px 0 18px; }
+  .welcome__h2 .hint { font-weight: 400; color: var(--gray-500); font-size: 1rem; }
+  .field-note { font-size: 1rem; color: var(--gray-700); margin: 8px 0 0; line-height: 1.5; }
+  .person {
+    position: relative;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 22px 22px 4px;
+    margin: 0 0 18px;
+    min-width: 0;
+  }
+  .person__legend { float: left; width: 100%; color: var(--ink); font-weight: 800; font-size: 1.05rem; padding: 0; margin: 0 0 14px; line-height: 44px; }
+  .person > .field:first-of-type { clear: both; }
+  .person__remove {
+    position: absolute;
+    top: 22px;
+    right: 18px;
+    background: none;
+    border: none;
+    color: var(--ink);
+    font: inherit;
+    font-size: 1rem;
+    text-decoration: underline;
+    min-height: 44px;
+    padding: 0 4px;
+    cursor: pointer;
+  }
+  .person__remove[hidden] { display: none; }
+  .add-row { margin: 4px 0 0; }
+  .add-row[hidden] { display: none; }
+  #later-note { margin: 12px 0 0; }
+  .heads-up {
+    margin: 28px 0 36px;
+    padding: 16px 18px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-ctrl);
+    background: var(--glow);
+    cursor: pointer;
+    min-height: 44px;
+    align-items: center;
+  }
+  .heads-up[hidden] { display: none; }
+  .heads-up input { width: 22px; height: 22px; flex: none; accent-color: var(--ink); margin: 0; }
+  #heads-up[hidden] + .welcome__h2 { margin-top: 36px; }
+  .welcome__submit { width: 100%; margin-top: 8px; }
+  .welcome__privacy { margin-top: 16px; }
+  .form-error {
+    margin: 16px 0 0;
+    padding: 14px 16px;
+    border: 1px solid var(--alert-line);
+    border-radius: var(--radius-ctrl);
+    background: var(--alert-tint);
+    color: var(--ink);
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  .form-error a { color: var(--ink); font-weight: 700; }
+  #heading:focus { outline: none; }
+  .talking-points { margin-top: 32px; }
+  .talking-points[hidden] { display: none; }
+  .talking-points blockquote {
+    margin: 0 0 20px;
+    padding: 18px 20px;
+    background: var(--paper-bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-ctrl);
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+  .welcome__contact { margin-top: 28px; color: var(--gray-700); }
+  @media (max-width: 600px) {
+    .welcome__form { padding: 26px 18px; }
+    .person { padding: 18px 16px 2px; }
+    .talking-points .btn { width: 100%; }
+  }
+</style>

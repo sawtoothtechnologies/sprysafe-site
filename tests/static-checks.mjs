@@ -45,7 +45,7 @@ const pages = htmlFiles.map((f) => {
   return { file: f, path: publicPath(f), html, $: cheerio.load(html) };
 });
 const byPath = new Map(pages.map((p) => [p.path, p]));
-const NOINDEX_EXPECTED = new Set(['/thanks', '/404']);
+const NOINDEX_EXPECTED = new Set(['/thanks', '/welcome', '/404']);
 
 // ---------------------------------------------------------------------------
 // 1. Build output hygiene
@@ -53,7 +53,7 @@ const NOINDEX_EXPECTED = new Set(['/thanks', '/404']);
 // Guide pages (/guides/<slug>) come from src/content/guides/, so they are read from the build.
 const GUIDE_PAGES = [...byPath.keys()].filter((p) => p.startsWith('/guides/')).sort();
 const EXPECTED_PAGES = ['/', '/about', '/early-access', '/faq', '/how-it-works', '/pricing',
-  '/privacy', '/promise', '/solutions', '/terms', '/thanks', '/why-it-works', '/404',
+  '/privacy', '/promise', '/solutions', '/terms', '/thanks', '/welcome', '/why-it-works', '/404',
   '/guides', '/editorial-standards', ...GUIDE_PAGES];
 for (const p of EXPECTED_PAGES) if (!byPath.has(p)) fail('build', `expected page ${p} is missing from dist/`);
 for (const p of byPath.keys()) if (!EXPECTED_PAGES.includes(p))
