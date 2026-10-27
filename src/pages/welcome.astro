@@ -31,7 +31,7 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
         </svg>
       </div>
       <p class="kicker" id="kicker">Welcome to ScamPrep</p>
-      <h1 id="heading" tabindex="-1">One last step: add your recipients.</h1>
+      <h1 id="heading" tabindex="-1">One last step: add your recipients</h1>
       <p class="lede" id="intro">
         Tell us who's enrolling, and we'll email each person an invite. Nothing
         starts until they say yes.
@@ -54,16 +54,20 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
           <div id="people"></div>
 
           <div class="add-row" id="add-row">
-            <button type="button" class="btn btn--ghost" id="add-person">Add another recipient</button>
+            <button type="button" class="btn btn--ghost add-btn" id="add-person">
+              <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M10 4.5v11M4.5 10h11" /></svg>
+              Add another recipient
+            </button>
           </div>
           <p class="field-note field-note--quiet" id="later-note" hidden>
-            Don't have everyone's details yet? Share what you have, and email
+            Don't have everyone's details on hand right now? Share what you have, and email
             <a href="mailto:hello@getscamprep.com">hello@getscamprep.com</a> to add someone later.
           </p>
+          <hr class="section-rule" />
 
           <label class="checkbox heads-up" id="heads-up" for="wait_a_day">
             <input type="checkbox" name="wait_a_day" value="Yes" id="wait_a_day" />
-            <span>Wait a day before inviting recipients so I can give a heads&#8209;up.</span>
+            <span>Ask ScamPrep to wait a day before contacting recipients so I can give a heads&#8209;up.</span>
           </label>
 
           <details class="tailor" id="tailor">
@@ -86,11 +90,11 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
 
           <button class="btn btn--primary welcome__submit" type="submit" id="submit">Finish setup</button>
           <p class="form-error" id="form-error" role="alert" hidden></p>
-          <p class="field-note field-note--quiet welcome__privacy">
-            We use these details strictly to run ScamPrep for the people you list.
-            Read our <a href="/privacy">privacy policy</a> and <a href="/promise">promise</a>.
-          </p>
         </form>
+        <p class="footnote welcome__privacy">
+          We use these details strictly to run ScamPrep for the people you list.
+          Read our <a href="/privacy">privacy policy</a> and <a href="/promise">promise</a>.
+        </p>
       </div>
 
       <div id="done" hidden>
@@ -149,14 +153,24 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
           </div>
         </div>
         <div class="field">
-          <label data-for="email">Email</label>
+          <div class="label-row">
+            <label data-for="email">Email</label>
+            <span class="info">
+              <button type="button" class="info__btn" aria-expanded="false" aria-label="Why we ask for an email"><svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" /><path d="M10 9v5" /><circle class="dot" cx="10" cy="6" r="1.1" /></svg></button>
+              <span class="info__tip" role="tooltip" data-tip="email">We'll send the invite here, so use an address they check.</span>
+            </span>
+          </div>
           <input type="email" data-name="email" autocomplete="off" required />
-          <p class="field-note field-note--quiet">We'll send the invite here, so use an address that gets checked.</p>
         </div>
         <div class="field">
-          <label data-for="cell">Cell phone <span class="hint">(recommended)</span></label>
+          <div class="label-row">
+            <label data-for="cell">Cell phone <span class="hint">(recommended)</span></label>
+            <span class="info">
+              <button type="button" class="info__btn" aria-expanded="false" aria-label="Why we recommend a cell phone"><svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><circle cx="10" cy="10" r="8.5" /><path d="M10 9v5" /><circle class="dot" cx="10" cy="6" r="1.1" /></svg></button>
+              <span class="info__tip" role="tooltip" data-tip="cell">Half of each month's practice comes by text and phone call. Without a cell number, practice is email only.</span>
+            </span>
+          </div>
           <input type="tel" data-name="cell" autocomplete="off" />
-          <p class="field-note">Half of each month's practice comes by text and phone call. Without a cell number, practice is email only.</p>
         </div>
         <div class="field">
           <label data-for="relationship">Relationship to you</label>
@@ -170,7 +184,10 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
             <option>Friend</option>
           </select>
         </div>
-        <button type="button" class="person__remove">Remove this recipient</button>
+        <button type="button" class="person__remove">
+          <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M3.5 5.5h13M8 5.5V4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v1.5M5.5 5.5l.8 10.6a1 1 0 0 0 1 .9h5.4a1 1 0 0 0 1-.9l.8-10.6M8.5 8.5v5.5M11.5 8.5v5.5" /></svg>
+          Remove recipient
+        </button>
       </div>
     </fieldset>
   </template>
@@ -218,7 +235,6 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
   } else {
     $('buyer-email-field').hidden = false;
   }
-  if (max > 1) laterNote.hidden = false;
 
   const cards = () => Array.from(people.querySelectorAll<HTMLFieldSetElement>('fieldset.person'));
   const relationships = () => cards().map((c) => (c.querySelector('select') as HTMLSelectElement).value);
@@ -259,9 +275,15 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
       card.querySelectorAll<HTMLLabelElement>('label[data-for]').forEach((l) => {
         l.htmlFor = `person_${n}_${l.dataset.for}`;
       });
+      card.querySelectorAll<HTMLElement>('[data-tip]').forEach((t) => {
+        t.id = `person_${n}_${t.dataset.tip}_tip`;
+        card.querySelector(`[data-name="${t.dataset.tip}"]`)?.setAttribute('aria-describedby', t.id);
+      });
     });
     if (list.length === 1) setOpen(list[0], true);
     addRow.hidden = list.length >= max;
+    // Once every slot on the plan is filled, the "add someone later" note has nothing to offer.
+    laterNote.hidden = max === 1 || list.length >= max;
     update();
   };
 
@@ -295,7 +317,26 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
     if (focus) (card.querySelector('input') as HTMLInputElement).focus();
   };
   addPerson(false);
+  // On arrival, the first recipient card's warm light fades up once and holds,
+  // drawing the eye to the form. The class comes off when it finishes, so the
+  // card's normal open and closed styles take over from there.
+  const firstCard = cards()[0];
+  firstCard.classList.add('intro-glow');
+  firstCard.addEventListener('animationend', () => firstCard.classList.remove('intro-glow'), { once: true });
   addBtn.addEventListener('click', () => addPerson(true));
+
+  // Info icons: hover shows the tip on a mouse; a tap or click toggles it, so it
+  // works on phones too. Tapping elsewhere or pressing Escape closes it.
+  const closeTips = (except?: Element) =>
+    document.querySelectorAll('.info__btn[aria-expanded="true"]').forEach((b) => {
+      if (b !== except) b.setAttribute('aria-expanded', 'false');
+    });
+  document.addEventListener('click', (e) => {
+    const btn = (e.target as Element).closest('.info__btn');
+    closeTips(btn || undefined);
+    if (btn) btn.setAttribute('aria-expanded', String(btn.getAttribute('aria-expanded') !== 'true'));
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeTips(); });
 
   // Plain-language checks, shown in one place, instead of the browser's own bubbles.
   // A problem inside a collapsed recipient opens that recipient.
@@ -342,8 +383,9 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
     }
   };
 
+  // "John", "John and Jane", "John, Jane, and Mary" (serial comma from three names on).
   const joinNames = (names: string[]) =>
-    names.length <= 1 ? names.join('') : names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1];
+    names.length <= 2 ? names.join(' and ') : names.slice(0, -1).join(', ') + ', and ' + names[names.length - 1];
 
   const showDone = () => {
     const list = cards().map((c) => ({ name: valueOf(c, 'first'), self: valueOf(c, 'relationship') === 'Myself' }));
@@ -354,13 +396,13 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
     const from = 'from hello@getscamprep.com';
     let text: string;
     if (!others.length) {
-      text = `We'll email you an invite shortly, ${from}.`;
+      text = `We'll email you an invite shortly ${from}.`;
     } else if (waitBox.checked && hasSelf) {
-      text = `We'll email you an invite shortly, then wait a day before emailing ${joinNames(others)}. All invites come ${from}.`;
+      text = `We'll email you an invite shortly, then wait a day before emailing ${joinNames(others)}. Invites come ${from}.`;
     } else if (waitBox.checked) {
       text = `We'll wait a day, then email ${who} ${invites} ${from}.`;
     } else {
-      text = `We'll email ${who} ${invites} shortly, ${from}.`;
+      text = `We'll email ${who} ${invites} shortly ${from}.`;
     }
     // Heads-up message, addressed to everyone else on the form by first name.
     if (others.length) {
@@ -375,7 +417,7 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
       $('next-report').innerHTML = '<strong>Every three months,</strong> you get a Resilience Report showing what you\'ve caught.';
     }
     $('kicker').textContent = "You're all set";
-    $('heading').textContent = "Thanks, that's everything we need.";
+    $('heading').textContent = "Thanks, that's everything we need";
     $('intro').textContent = text;
     $('talking-points').hidden = !others.length;
     $('paid').hidden = true;
@@ -389,7 +431,7 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
   const headsUpMessage = (names: string) =>
     `Hi ${names}, I just signed you up for ScamPrep. Scams are targeting everyone, and they're getting really convincing. ` +
     `ScamPrep sends practice messages and short scam alerts so we can all stay ahead of them. ` +
-    `I've started your enrollment, and you'll get an email from hello@getscamprep.com to finish it. Nothing starts unless you say yes. ` +
+    `I've started your enrollment, and you'll get an email from hello@getscamprep.com to finish it. ` +
     `Here's what to expect: getscamprep.com/what-to-expect`;
   const messageBox = $<HTMLTextAreaElement>('message');
   const syncText = () => {
@@ -483,6 +525,11 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
     min-width: 0;
   }
   .person.is-open { background: var(--glow); border-color: var(--amber); }
+  .person.intro-glow { animation: introGlow 1s 0.6s ease-out both; }
+  @keyframes introGlow {
+    from { background-color: var(--paper-bg); border-color: var(--line); }
+    to { background-color: var(--glow); border-color: var(--amber); }
+  }
   .person__legend { float: left; width: 100%; padding: 0; margin: 0; }
   .person__toggle {
     display: flex;
@@ -506,26 +553,35 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
   .is-single .chev { display: none; }
   .person__body { display: none; clear: both; padding: 2px 20px 8px; }
   .person.is-open .person__body { display: block; }
+  /* Small, muted, and clearly a delete: trash icon, outline button. */
   .person__remove {
-    background: none;
-    border: none;
-    color: var(--ink);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    padding: 0 14px 0 12px;
+    margin: 2px 0 10px;
+    background: transparent;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-ctrl);
+    color: var(--gray-700);
     font: inherit;
     font-size: 1rem;
-    text-decoration: underline;
-    min-height: 44px;
-    padding: 0;
-    margin: 0 0 6px;
     cursor: pointer;
   }
+  .person__remove svg { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .person__remove:hover { color: var(--alert); border-color: var(--alert-line); background: var(--alert-tint); }
   .person__remove[hidden] { display: none; }
 
   .chev { flex: none; margin-left: auto; fill: none; stroke: var(--ink); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.2s ease; }
   .person.is-open .chev, .tailor[open] .chev { transform: rotate(180deg); }
 
   .add-row { margin: 4px 0 0; }
+  .add-btn { display: inline-flex; align-items: center; gap: 8px; padding-left: 22px; padding-right: 24px; }
+  .add-btn svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+  .section-rule { border: 0; border-top: 1px solid var(--divider); margin: 28px 0 0; }
   .add-row[hidden] { display: none; }
-  #later-note { margin: 12px 0 0; }
+  #later-note { margin: 10px 0 0; }
 
   .heads-up {
     margin: 28px 0 24px;
@@ -557,10 +613,12 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
   .tailor__title { font-weight: 800; font-size: 1.05rem; }
   .tailor__opt { color: var(--gray-500); }
   .tailor__body { padding: 4px 20px 6px; }
+  .tailor textarea { resize: vertical; overflow-y: auto; min-height: 88px; }
   .tailor textarea::placeholder { color: var(--gray-500); opacity: 1; }
 
   .welcome__submit { width: 100%; margin-top: 4px; }
-  .welcome__privacy { margin-top: 16px; }
+  .welcome__privacy { margin: 14px 4px 0; line-height: 1.5; }
+  .welcome__privacy a { color: inherit; }
   .form-error {
     margin: 16px 0 0;
     padding: 14px 16px;
@@ -594,10 +652,50 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
   .next-list li { margin-bottom: 0.8em; line-height: 1.55; }
   .next-list li[hidden] { display: none; }
   .next-billing { margin: 0; }
+  .label-row { position: relative; display: flex; align-items: center; gap: 2px; margin-bottom: 8px; }
+  .label-row label { margin-bottom: 0; }
+  .info__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin: -12px -10px -12px -6px;
+    padding: 0;
+    background: none;
+    border: 0;
+    border-radius: 50%;
+    color: var(--gray-500);
+    cursor: pointer;
+  }
+  .info__btn svg { fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; }
+  .info__btn .dot { fill: currentColor; stroke: none; }
+  .info__btn:hover, .info__btn[aria-expanded="true"] { color: var(--ink); }
+  .info__tip {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: calc(100% + 6px);
+    z-index: 5;
+    width: min(320px, 100%);
+    padding: 10px 14px;
+    background: var(--white);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-ctrl);
+    box-shadow: 0 8px 24px -12px rgba(18, 17, 15, 0.28);
+    color: var(--ink-2);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.45;
+  }
+  .info__btn[aria-expanded="true"] + .info__tip { display: block; }
+  @media (hover: hover) {
+    .info:hover .info__tip { display: block; }
+  }
   .name-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
   .welcome__contact { margin-top: 28px; color: var(--gray-700); }
   @media (prefers-reduced-motion: reduce) {
-    .paid__circle, .paid__check { animation: none; }
+    .paid__circle, .paid__check, .person.intro-glow { animation: none; }
     .paid__check { stroke-dashoffset: 0; }
     .chev { transition: none; }
   }
