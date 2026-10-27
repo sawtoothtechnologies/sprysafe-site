@@ -67,7 +67,7 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
 
           <label class="checkbox heads-up" id="heads-up" for="wait_a_day">
             <input type="checkbox" name="wait_a_day" value="Yes" id="wait_a_day" />
-            <span>Ask ScamPrep to wait a day before contacting recipients so I can give a heads&#8209;up.</span>
+            <span class="heads-up__text"><strong>Delay ScamPrep outreach:</strong> Ask ScamPrep to wait a day before contacting recipients so I can give them a&nbsp;heads&#8209;up.</span>
           </label>
 
           <details class="tailor" id="tailor">
@@ -594,6 +594,8 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
     align-items: flex-start;
   }
   .heads-up[hidden] { display: none; }
+  .heads-up__text { text-wrap: pretty; }
+  .heads-up__text strong { color: var(--ink); }
   .heads-up input { width: 22px; height: 22px; flex: none; accent-color: var(--ink); margin: 1px 0 0; }
   #heads-up[hidden] + .tailor { margin-top: 28px; }
 
