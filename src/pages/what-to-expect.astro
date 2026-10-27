@@ -22,14 +22,14 @@ import Base from '../layouts/Base.astro';
       <h1>Practice spotting scams and stay ahead of the latest ones</h1>
       <p class="lede">
         Scams reach everyone, and AI makes them more convincing than ever. ScamPrep provides a
-        safe way to practice spotting scams and get alerts on the latest ones.
+        safe way to practice spotting scams and get alerts on the latest threats.
       </p>
 
       <ol class="steps">
         <li class="step">
           <span class="step__num" aria-hidden="true">1</span>
           <div>
-            <h2>You say yes</h2>
+            <h2>Confirm your enrollment</h2>
             <p>
               After you get signed up, you'll receive an email from hello@getscamprep.com. One tap
               confirms your enrollment.
@@ -73,8 +73,7 @@ import Base from '../layouts/Base.astro';
             <h2>Track your progress in the Resilience Report</h2>
             <p>
               Every three months, get a summary of what you caught and what to watch for next. See
-              yourself getting savvier with each report. It's yours, and you decide whether anyone
-              else sees it.
+              yourself getting savvier with each report.
             </p>
           </div>
         </li>
@@ -121,7 +120,13 @@ import Base from '../layouts/Base.astro';
 
 <style>
   .expect__wrap { max-width: 720px; }
-  .expect h1 { margin-bottom: 18px; }
+  /* The headline runs a little wider than the text column on wide screens, so it sits
+     on two lines at full size. The extra width shrinks to nothing on narrow screens. */
+  .expect h1 {
+    margin-bottom: 18px;
+    margin-right: calc(-1 * clamp(0px, (100vw - 720px) / 2, 190px));
+    text-wrap: balance;
+  }
   .steps { list-style: none; padding: 0; margin: 40px 0 0; }
   .step { display: flex; gap: 18px; align-items: flex-start; margin: 0 0 28px; }
   .step__num {
