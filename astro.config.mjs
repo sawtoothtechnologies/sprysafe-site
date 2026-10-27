@@ -4,7 +4,7 @@ import { publicPath } from './src/lib/public-url.js';
 
 // Reachable pages kept out of search results (each also sets noindex on the page).
 // Compared as public paths, so /thanks, /thanks/ and /thanks.html all match.
-const notInSitemap = new Set(['/thanks', '/welcome']);
+const notInSitemap = new Set(['/thanks', '/welcome', '/what-to-expect']);
 
 export default defineConfig({
   site: 'https://getscamprep.com',
