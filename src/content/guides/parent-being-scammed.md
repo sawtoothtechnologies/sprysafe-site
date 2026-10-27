@@ -6,7 +6,7 @@ published: 2026-10-15
 reviewed: 2026-10-22
 hub: after
 draft: false
-image: /share/parent-being-scammed.png
+image: /share/parent-being-scammed-v2.png
 imageAlt: "ScamPrep guide: What to do if your parent is being scammed. A checklist with three checked items, the first in amber."
 sources:
   - publisher: Federal Trade Commission

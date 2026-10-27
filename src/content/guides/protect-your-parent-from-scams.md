@@ -7,7 +7,7 @@ reviewed: 2026-10-22
 hub: before
 isHub: true
 draft: false
-image: /share/protect-your-parent-from-scams.png
+image: /share/protect-your-parent-from-scams-v2.png
 imageAlt: "ScamPrep guide: How to protect your parent from scams, without taking over. A shield with an amber dot."
 sources:
   - publisher: Social Security Administration

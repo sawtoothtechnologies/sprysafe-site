@@ -7,7 +7,7 @@ reviewed: 2026-10-23
 hub: after
 isHub: true
 draft: false
-image: /share/what-to-do-if-you-have-been-scammed.png
+image: /share/what-to-do-if-you-have-been-scammed-v2.png
 imageAlt: "ScamPrep guide: What to do if you've been scammed. The first hour, in order. A checklist with three checked items, the first in amber."
 sources:
   - publisher: Federal Trade Commission

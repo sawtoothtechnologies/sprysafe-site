@@ -47,7 +47,7 @@ everywhere, offline included.
 Each guide gets its own share image (rule: `~/ScamPrep/seo/article-standard.md`, "Its own
 preview image"). Made from `guide-share-image.html`: same ink, warm light and Open Ring,
 the guide's title large on the left, one simple line icon on the right, getscamprep.com
-along the bottom. Saved as `public/share/<guide-slug>.png` and named in the guide's front
+along the bottom. Saved as `public/share/<guide-slug>.png` (or `-v2.png` once replaced) and named in the guide's front
 matter as `image` and `imageAlt`; `Guide.astro` passes them to the page and the
 structured data.
 
@@ -74,8 +74,15 @@ lines automatically. Alt text follows the same pattern every time:
 Render (from the repo root, needs Python Playwright):
 
 ```sh
-python3 brand/share-image/render-guide.py "Geek Squad scam emails: how to spot a fake renewal" envelope public/share/geek-squad-scam-email.png
+python3 brand/share-image/render-guide.py "Geek Squad scam emails: how to spot a fake renewal" envelope public/share/geek-squad-scam-email-v2.png
 ```
 
-Then shrink it under 300 KB (the quantized PNG looks identical): open it in Preview and export,
-or ask Claude. Check it with LinkedIn's Post Inspector after deploying.
+The script shrinks it without changing any pixels (needs Pillow: `pip3 install pillow`) and
+warns if it's over 300 KB, where WhatsApp stops showing it. Keep it full color: never reduce
+it to 256 colors (pngquant, Squoosh, a "reduce file size" export). That speckles the edges
+of the letters, and LinkedIn's own re-compression turns the speckle into grain. The first
+guide images were made that way; the `-v2.png` files replaced them on October 27, 2026.
+
+To replace a guide's image, save it under a new name (`<slug>-v2.png`, then `-v3`) and
+update `image` in its front matter, since apps cache pictures by file name. Check it with
+LinkedIn's Post Inspector after deploying.

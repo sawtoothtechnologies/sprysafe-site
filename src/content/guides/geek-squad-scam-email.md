@@ -7,7 +7,7 @@ reviewed: 2026-10-26
 hub: scams
 arrives: emails
 draft: false
-image: /share/geek-squad-scam-email.png
+image: /share/geek-squad-scam-email-v2.png
 imageAlt: "ScamPrep guide: Geek Squad scam emails, how to spot a fake renewal. An envelope with an amber dot."
 sources:
   - publisher: Federal Trade Commission
