@@ -1,0 +1,154 @@
+---
+import Base from '../layouts/Base.astro';
+
+// A plain explainer for the person who receives practice, linked from the heads-up
+// message on /welcome and sent by Bryce to anyone who asks "how will my parent
+// respond?" Written for the recipient only: it never says who signed them up, or
+// whether they have signed up yet.
+// Every claim here must match the live consent model in ~/ScamPrep/product/mvp-spec.md
+// (sections 6 to 10). If the drill program changes, update this page in the same change.
+// Kept out of search: noindex here, and filtered from the sitemap in astro.config.mjs.
+---
+
+<Base
+  title="What to Expect From ScamPrep | ScamPrep"
+  shareTitle="What to expect from ScamPrep"
+  description="How ScamPrep practice works: celebrate the scams you spot, and learn the signs from the ones you don't."
+  noindex
+>
+  <section class="section expect">
+    <div class="wrap expect__wrap">
+      <p class="kicker">What to expect</p>
+      <h1>Practice spotting scams and stay ahead of the latest ones</h1>
+      <p class="lede">
+        Scams reach everyone, and AI makes them more convincing than ever. ScamPrep provides a
+        safe way to practice spotting scams and get alerts on the latest ones.
+      </p>
+
+      <ol class="steps">
+        <li class="step">
+          <span class="step__num" aria-hidden="true">1</span>
+          <div>
+            <h2>You say yes</h2>
+            <p>
+              After you get signed up, you'll receive an email from hello@getscamprep.com. One tap
+              confirms your enrollment.
+            </p>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step__num" aria-hidden="true">2</span>
+          <div>
+            <h2>Receive a few practice messages each month</h2>
+            <p>
+              Simulations are designed to look like the scams going around in real time, like a
+              package fee or a bank alert. Each arrives on no set schedule, and never more than one
+              a day.
+            </p>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step__num" aria-hidden="true">3</span>
+          <div>
+            <h2>Celebrate those you catch, learn from those you don't</h2>
+            <p>
+              If you ignore the simulated scam, celebrate that win! If you click or respond, you'll
+              see it was practice with a quick tip on what to look for next time.
+            </p>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step__num" aria-hidden="true">4</span>
+          <div>
+            <h2>Get short scam alerts</h2>
+            <p>
+              Between practice messages, you'll get short email alerts about the latest scams and
+              what to do if they reach you.
+            </p>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step__num" aria-hidden="true">5</span>
+          <div>
+            <h2>Track your progress in the Resilience Report</h2>
+            <p>
+              Every three months, get a summary of what you caught and what to watch for next. See
+              yourself getting savvier with each report. It's yours, and you decide whether anyone
+              else sees it.
+            </p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="card never">
+        <h2>What ScamPrep never does</h2>
+        <ul class="never__list">
+          <li>Ask for real money, passwords, or account details</li>
+          <li>Use the name of a real bank, company, or government agency</li>
+          <li>Fake a caller ID or pretend to be someone you know</li>
+          <li>Test your memory or judge how you're doing</li>
+          <li>Sell your information or share your results without your consent</li>
+        </ul>
+        <p class="never__note">There's nothing to install, no app, and no password to remember.</p>
+      </div>
+
+      <h2 class="expect__h2">Pausing ScamPrep</h2>
+      <p>
+        Reply to any ScamPrep email or write to
+        <a href="mailto:hello@getscamprep.com">hello@getscamprep.com</a> to pause or stop your
+        enrollment. You can also turn texts or calls off and keep the rest.
+      </p>
+
+      <h2 class="expect__h2">The golden rule for all messages that look like scams</h2>
+      <p>
+        If you're ever unsure about a message, even if you think it's a simulation, don't respond
+        or take the action it suggests. Check with someone you trust using a number you already
+        know, like the one on the back of your card.
+      </p>
+      <p>
+        If you think you've run into a real scam, report it at
+        <a href="https://reportfraud.ftc.gov" rel="noopener">ReportFraud.ftc.gov</a>. To talk it
+        through with someone, the AARP Fraud Watch Network Helpline is free at
+        <a href="tel:+18779083360">877-908-3360</a>, weekdays 8 a.m. to 8 p.m. Eastern.
+      </p>
+
+      <p class="expect__contact">
+        Questions? Write to <a href="mailto:hello@getscamprep.com">hello@getscamprep.com</a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .expect__wrap { max-width: 720px; }
+  .expect h1 { margin-bottom: 18px; }
+  .steps { list-style: none; padding: 0; margin: 40px 0 0; }
+  .step { display: flex; gap: 18px; align-items: flex-start; margin: 0 0 28px; }
+  .step__num {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--amber-tint);
+    color: var(--amber-deep);
+    font-weight: 800;
+    font-size: 1.05rem;
+  }
+  .step h2 { font-size: 1.25rem; margin: 6px 0 6px; }
+  .step p { margin: 0; color: var(--gray-700); line-height: 1.6; }
+  .never { margin: 16px 0 44px; }
+  .never h2 { font-size: 1.25rem; margin: 0 0 14px; }
+  .never__list { margin: 0 0 14px; padding-left: 1.2em; }
+  .never__list li { margin-bottom: 0.5em; line-height: 1.5; }
+  .never__note { margin: 0; color: var(--gray-700); }
+  .expect__h2 { font-size: 1.35rem; margin: 36px 0 10px; }
+  .expect p { line-height: 1.6; }
+  .expect__contact { margin-top: 36px; color: var(--gray-700); }
+  @media (max-width: 600px) {
+    .step { gap: 14px; }
+    .step__num { width: 34px; height: 34px; font-size: 1rem; }
+  }
+</style>
