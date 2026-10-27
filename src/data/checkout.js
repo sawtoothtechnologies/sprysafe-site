@@ -11,17 +11,19 @@
 // TESTING: while in Stripe test mode, paste the test-mode link URLs here,
 // verify checkout with card 4242 4242 4242 4242, then swap in the live URLs.
 
+// TEST BRANCH ONLY (checkout-test): live links pasted for one end-to-end test purchase
+// on the Cloudflare preview. Never merge this branch; links go public on November 9.
 export const checkoutLinks = {
   individual: {
-    annual: '',   // ScamPrep Individual — $108/year (shown as $9/mo)
-    monthly: '',  // ScamPrep Individual — $12/month
+    annual: 'https://buy.stripe.com/4gM8wOcbIcgU3xec7LgUM02',   // ScamPrep Individual — $108/year (shown as $9/mo)
+    monthly: 'https://buy.stripe.com/28E4gy4Jg94Ic3Kb3HgUM01',  // ScamPrep Individual — $12/month
   },
   couples: {
-    annual: '',   // ScamPrep Couples & pairs — $180/year (shown as $15/mo)
-    monthly: '',  // ScamPrep Couples & pairs — $20/month
+    annual: 'https://buy.stripe.com/9B65kCa3A3Ko3xec7LgUM04',   // ScamPrep Couples & pairs — $180/year (shown as $15/mo)
+    monthly: 'https://buy.stripe.com/8x29AS6RodkY4BifjXgUM03',  // ScamPrep Couples & pairs — $20/month
   },
   family: {
-    annual: '',   // ScamPrep Family — $228/year (shown as $19/mo)
-    monthly: '',  // ScamPrep Family — $25/month
+    annual: 'https://buy.stripe.com/aFa14mfnU5Sw7Nu0p3gUM06',   // ScamPrep Family — $228/year (shown as $19/mo)
+    monthly: 'https://buy.stripe.com/8x214mejQ0yc2tab3HgUM05',  // ScamPrep Family — $25/month
   },
 };
