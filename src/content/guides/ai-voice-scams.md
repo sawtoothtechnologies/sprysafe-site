@@ -7,6 +7,8 @@ reviewed: 2026-10-21
 hub: scams
 arrives: calls
 draft: false
+image: /share/ai-voice-scams.png
+imageAlt: "ScamPrep guide: AI voice scams, 5 ways to tell if a family call is real. A phone."
 sources:
   - publisher: FBI Internet Crime Complaint Center
     title: Criminals use generative artificial intelligence to facilitate financial fraud (I-120324-PSA)

@@ -7,6 +7,8 @@ reviewed: 2026-10-16
 hub: scams
 arrives: calls
 draft: false
+image: /share/medicare-scam-calls.png
+imageAlt: "ScamPrep guide: Medicare scam calls, how to tell and what to say. A phone."
 sources:
   - publisher: Medicare.gov
     title: Reporting Medicare fraud and abuse

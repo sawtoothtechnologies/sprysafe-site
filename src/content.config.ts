@@ -4,6 +4,8 @@
 // How a guide gets made: ~/ScamPrep/seo/article-standard.md.
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 
 const guides = defineCollection({
   loader: glob({ pattern: '[^_]*.md', base: './src/content/guides' }),
@@ -34,6 +36,7 @@ const guides = defineCollection({
       date: z.coerce.string().optional(), // as the source states it, e.g. 2026 or "June 2026"
     })).min(1),
     // The guide's own share image (1200 by 630, in public/share/) and its alt text.
+    // Required once a guide is published (checked below).
     // Rule: ~/ScamPrep/seo/article-standard.md, "Its own preview image".
     image: z.string().optional(),
     imageAlt: z.string().optional(),
@@ -41,6 +44,24 @@ const guides = defineCollection({
     related: z.array(z.string()).default([]),
     // Corrections that changed the advice, newest first. Shown at the end.
     corrections: z.array(z.object({ date: z.coerce.date(), note: z.string() })).default([]),
+  }).superRefine((d, ctx) => {
+    // Every published guide needs its own share image, so it can't go live with the
+    // generic one. This fails the build (locally and on Cloudflare) until it's fixed.
+    // How to make one: brand/share-image/README.md, "One image per guide".
+    if (d.draft) return;
+    const fix = 'see brand/share-image/README.md, "One image per guide"';
+    if (!d.image) {
+      ctx.addIssue({ code: 'custom', path: ['image'], message: `Published guides need their own share image (${fix}).` });
+      return;
+    }
+    if (!/^\/share\/[a-z0-9-]+\.png$/.test(d.image)) {
+      ctx.addIssue({ code: 'custom', path: ['image'], message: `Share image should be /share/<guide-slug>.png, got ${d.image}.` });
+    } else if (!existsSync(join(process.cwd(), 'public', d.image))) {
+      ctx.addIssue({ code: 'custom', path: ['image'], message: `Share image public${d.image} doesn't exist (${fix}).` });
+    }
+    if (!d.imageAlt) {
+      ctx.addIssue({ code: 'custom', path: ['imageAlt'], message: 'Published guides need imageAlt text for their share image.' });
+    }
   }),
 });
 

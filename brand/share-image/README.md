@@ -46,10 +46,30 @@ everywhere, offline included.
 
 Each guide gets its own share image (rule: `~/ScamPrep/seo/article-standard.md`, "Its own
 preview image"). Made from `guide-share-image.html`: same ink, warm light and Open Ring,
-the guide's title large on the left, one simple line icon on the right (`envelope`,
-`phone` or `bubble`), getscamprep.com along the bottom. Saved as
-`public/share/<guide-slug>.png` and named in the guide's front matter as `image` and
-`imageAlt`; `Guide.astro` passes them to the page and the structured data.
+the guide's title large on the left, one simple line icon on the right, getscamprep.com
+along the bottom. Saved as `public/share/<guide-slug>.png` and named in the guide's front
+matter as `image` and `imageAlt`; `Guide.astro` passes them to the page and the
+structured data.
+
+**The build enforces this.** A guide with `draft: false` and no `image`, no `imageAlt`,
+or an `image` that isn't a real file in `public/share/` fails `npm run build`, locally and
+on Cloudflare, so it can't go live with the generic picture. Drafts are exempt.
+
+Pick the icon from how the scam arrives (`arrives`), or from the section when a guide
+covers no single scam:
+
+| Guide | Icon |
+| --- | --- |
+| `arrives: emails` | `envelope` |
+| `arrives: calls` | `phone` |
+| `arrives: texts` | `bubble` |
+| `hub: before` (Protecting a parent) | `shield` |
+| `hub: after` (If it already happened) | `checklist` |
+
+The image title is the guide's title, trimmed to its main promise (drop a trailing "and
+what to do..." clause; the `seoTitle` is often the right length). Titles wrap in balanced
+lines automatically. Alt text follows the same pattern every time:
+`ScamPrep guide: <image title, colon as a comma>. <the icon in a few words>.`
 
 Render (from the repo root, needs Python Playwright):
 
