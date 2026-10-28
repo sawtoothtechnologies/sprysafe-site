@@ -106,7 +106,8 @@ const pricingFaqs = [
         </div>
       </div>
       <p class="guarantee center">
-        Every plan comes with a <strong>60-day money-back guarantee</strong>, and you can cancel any time. If ScamPrep isn't a fit, we refund in full. No questions, no forms.
+        Every plan comes with a <strong>60-day money-back guarantee</strong>, and you can cancel any time.
+        <span class="guarantee__line">If ScamPrep isn't a fit, we refund in full. No questions, no forms.</span>
       </p>
       <!-- Phones: the advisor link sits below the family plans instead of above them. -->
       <p class="org-jump org-jump--bottom center">Financial advisor? <a href="/solutions#pricing">See partner pricing</a>.</p>
@@ -348,4 +349,9 @@ const pricingFaqs = [
     margin-top: 32px;
   }
   .guarantee strong { color: var(--pine-deep); }
+  /* Desktop: the refund sentence starts its own line, so the paragraph never ends on
+     two stray words. Phones wrap naturally. */
+  @media (min-width: 700px) {
+    .guarantee__line { display: block; }
+  }
 </style>
