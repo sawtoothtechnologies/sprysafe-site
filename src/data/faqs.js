@@ -17,7 +17,7 @@ export const faqs = [
   {
     id: 'never-fall',
     q: 'What if they never fall for a single drill?',
-    a: `<p>Great news! The Resilience Report proves it, quarter after quarter, and that proof is worth as much as the training itself. Scams change constantly, so staying enrolled keeps skills current against tactics that didn't exist a few months ago. Think of it like a smoke detector: even if you haven’t had a fire yet, you have it in case of one.</p>`,
+    a: `<p>That's great news! The Resilience Report proves it, quarter after quarter, and that proof is worth as much as the training itself. Scams change constantly, so staying enrolled keeps skills current against tactics that didn't exist a few months ago. Think of it like a smoke detector: even if you haven’t had a fire yet, you have it in case of one.</p>`,
   },
   {
     id: 'work',
@@ -62,12 +62,12 @@ export const faqs = [
   {
     id: 'self',
     q: 'Can I enroll myself?',
-    a: `<p>Yes. Enroll yourself the same way, and the Resilience Report goes wherever you want, including only to you.</p>`,
+    a: `<p>Yes, and many do! Protecting yourself against scams is always a smart move. You enroll yourself through the same process as a loved one, and the Resilience Report goes only to you.</p>`,
   },
   {
     id: 'cost',
     q: 'What does it cost?',
-    a: `<p>$9 a month for one person, $15 for two (the Pairs plan), or $19 for up to four, billed annually. Every plan carries a 60-day money-back guarantee. Financial advisors can sponsor their clients at partner pricing, starting with a founding pilot. <a href="/pricing">See pricing</a></p>`,
+    a: `<p>$9 a month for one person, $15 for two (the Pairs plan), or $19 for up to four, billed annually. Monthly options also available. Every plan carries a 60-day money-back guarantee. Financial advisors can sponsor their clients at partner pricing, starting with a founding pilot. <a href="/pricing">See pricing</a></p>`,
   },
 ];
 

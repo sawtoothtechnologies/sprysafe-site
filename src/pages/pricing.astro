@@ -17,7 +17,7 @@ const pricingFaqs = [
   },
   {
     q: 'Why does this cost more than a call blocker?',
-    a: `<p>A blocker passively filters some scams. ScamPrep actively changes behavior when one gets through, and one always gets through. You’re paying for a skill, not just a service, plus quarterly proof that skill is strengthening.</p>`,
+    a: `<p>A blocker passively filters some scams. ScamPrep actively changes behavior when one gets through, and one always gets through. You’re paying for a skill, not just a service, plus quarterly proof of that strengthening.</p>`,
   },
   {
     q: "What if my loved one doesn't want it?",
@@ -224,7 +224,7 @@ const pricingFaqs = [
     font-weight: 700;
     color: var(--ink-soft);
     background: transparent;
-    border: none;
+    border: 1px solid transparent; /* the lit state turns this on without moving anything */
     border-radius: 999px;
     padding: 7px 14px;
     cursor: pointer;
@@ -235,7 +235,9 @@ const pricingFaqs = [
   }
   .billing-toggle__btn:hover { color: var(--pine-deep); }
   .billing-toggle__btn:focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
-  .billing-toggle__btn.is-active { background: var(--pine-deep); color: var(--cream); }
+  /* Selected half uses the brand's lit state (same tint as the featured card), so the
+     control doesn't outweigh the headline, the savings note, or the plan buttons. */
+  .billing-toggle__btn.is-active { background: var(--glow); color: var(--ink); border-color: var(--line-strong); }
   /* Savings note under the pill — pops in on Annual, hides on Monthly. */
   .billing-note {
     margin: 12px 0 0;
