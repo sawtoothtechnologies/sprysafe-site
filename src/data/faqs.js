@@ -17,7 +17,7 @@ export const faqs = [
   {
     id: 'never-fall',
     q: 'What if they never fall for a single drill?',
-    a: `<p>Wonderful. The Resilience Report proves it, quarter after quarter, and that proof is worth as much as the training. Scams change constantly, so staying enrolled keeps skills current against tactics that didn't exist a few months ago. Think of it like a smoke detector: even if you haven’t had a fire yet, you have it in case of one.</p>`,
+    a: `<p>Great news! The Resilience Report proves it, quarter after quarter, and that proof is worth as much as the training itself. Scams change constantly, so staying enrolled keeps skills current against tactics that didn't exist a few months ago. Think of it like a smoke detector: even if you haven’t had a fire yet, you have it in case of one.</p>`,
   },
   {
     id: 'work',
@@ -52,7 +52,7 @@ export const faqs = [
   {
     id: 'sharp',
     q: 'My loved one is sharp as a tack. Will they be offended by this?',
-    a: `<p>Sharp people get scammed every day. Optimism bias ("it won't happen to me") is exactly what scammers count on, and today's AI voice scams fool professionals. A framing that helps: this is the same training Fortune 500 companies require of every employee, CEO included. Being sharp is the starting point, and practice is what keeps us that way.</p>`,
+    a: `<p>Sharp people get scammed every day. Optimism bias ("it won't happen to me") is exactly what scammers count on, and today's AI voice scams fool professionals. A framing that helps: this is the same training Fortune 500 companies require of every employee, CEO included. Being sharp is the starting point, and practice is what keeps us that way. If you'd like them to see what ScamPrep is before you enroll them, send them our <a href="/what-to-expect">What to expect</a> guide. It's written for them.</p>`,
   },
   {
     id: 'report',

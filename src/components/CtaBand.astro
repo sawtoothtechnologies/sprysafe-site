@@ -16,7 +16,7 @@ const split = layout === 'split';
   <div class="wrap cta-band__inner">
     <div class="cta-band__copy">
       <h2>{headline}</h2>
-      <p class="lede">{body}</p>
+      <p class="lede" set:html={body} />
       <p style="margin-top: 28px;">
         <a class="btn btn--primary" href={href}>{cta}</a>
       </p>
@@ -55,7 +55,7 @@ const split = layout === 'split';
   .cta-band--split .cta-band__note { margin-inline: 0; }
   /* The note arrives through set:html, so its link needs a :global rule to be styled
      (scoped styles don't reach injected markup). Ink on amber keeps the contrast. */
-  .cta-band__note :global(a) { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+  .cta-band__note :global(a), .cta-band .lede :global(a) { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
 
   /* Split layout: copy left, a reserved right-hand column for the aside slot.
      With no aside, the right half stays open. */
