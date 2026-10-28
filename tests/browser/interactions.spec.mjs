@@ -1,5 +1,8 @@
 // Everything a visitor can click, tap, type or drag.
 import { test, expect, warnIf } from '../fixtures.mjs';
+// The six Stripe Payment Links. The plan buttons must point at exactly these, so a
+// slot left empty or a mixed-up toggle shows up here before it reaches a buyer.
+import { checkoutLinks } from '../../src/data/checkout.js';
 
 // ---------------------------------------------------------------------------
 // Navigation
@@ -95,9 +98,9 @@ test.describe('pricing', () => {
     await page.goto('/pricing');
     await expect(page.getByRole('button', { name: 'Annual' })).toHaveAttribute('aria-pressed', 'true');
     expect(await read(page)).toEqual([
-      { plan: 'Individual', price: '$9', billing: '$108 / year, billed annually', href: '/early-access?plan=individual' },
-      { plan: 'Pairs', price: '$15', billing: '$180 / year, billed annually', href: '/early-access?plan=couples' },
-      { plan: 'Family', price: '$19', billing: '$228 / year, billed annually', href: '/early-access?plan=family' },
+      { plan: 'Individual', price: '$9', billing: '$108 / year, billed annually', href: checkoutLinks.individual.annual },
+      { plan: 'Pairs', price: '$15', billing: '$180 / year, billed annually', href: checkoutLinks.couples.annual },
+      { plan: 'Family', price: '$19', billing: '$228 / year, billed annually', href: checkoutLinks.family.annual },
     ]);
   });
 
@@ -107,9 +110,9 @@ test.describe('pricing', () => {
     await expect(page.getByRole('button', { name: 'Monthly' })).toHaveAttribute('aria-pressed', 'true');
     await expect(page.getByRole('button', { name: 'Annual' })).toHaveAttribute('aria-pressed', 'false');
     expect((await read(page)).map((c) => [c.price, c.billing, c.href])).toEqual([
-      ['$12', 'billed monthly, cancel anytime', '/early-access?plan=individual'],
-      ['$20', 'billed monthly, cancel anytime', '/early-access?plan=couples'],
-      ['$25', 'billed monthly, cancel anytime', '/early-access?plan=family'],
+      ['$12', 'billed monthly, cancel anytime', checkoutLinks.individual.monthly],
+      ['$20', 'billed monthly, cancel anytime', checkoutLinks.couples.monthly],
+      ['$25', 'billed monthly, cancel anytime', checkoutLinks.family.monthly],
     ]);
     await page.getByRole('button', { name: 'Annual' }).click();
     expect((await read(page)).map((c) => c.price)).toEqual(['$9', '$15', '$19']);
@@ -142,11 +145,28 @@ test.describe('pricing', () => {
     if (box.height < 44) warnIf(`${Math.round(box.height)}px tall`, 'Annual/Monthly buttons under 44px');
   });
 
-  for (const [plan, i] of [['individual', 0], ['couples', 1], ['family', 2]]) {
-    test(`choosing ${plan} carries the plan into the signup form`, async ({ page }) => {
-      await page.goto('/pricing');
-      await page.locator('.price-card [data-checkout]').nth(i).click();
-      await expect(page).toHaveURL(new RegExp(`/early-access\\?plan=${plan}$`));
+  test('every plan button is a live Stripe checkout link, and no two plans share one', async ({ page }) => {
+    await page.goto('/pricing');
+    const links = [];
+    for (const mode of ['Annual', 'Monthly']) {
+      await page.getByRole('button', { name: mode }).click();
+      links.push(...(await read(page)).map((c) => c.href));
+    }
+    for (const href of links) expect(href, 'a plan button that does not go to Stripe').toMatch(/^https:\/\/buy\.stripe\.com\/\w+$/);
+    expect(new Set(links).size, 'two plan buttons point at the same Payment Link').toBe(6);
+  });
+
+  test('"Not ready yet? Stay in touch." on pricing reaches the signup form', async ({ page }) => {
+    await page.goto('/pricing');
+    await page.locator('.cta-band__note a').first().evaluate((a) => a.click());
+    await expect(page).toHaveURL(/\/early-access$/);
+    await expect(page.locator('#email')).toBeVisible();
+  });
+
+  // Emails and old links may still carry ?plan=; the form keeps passing it along.
+  for (const plan of ['individual', 'couples', 'family']) {
+    test(`a ?plan=${plan} link preselects the plan on the signup form`, async ({ page }) => {
+      await page.goto(`/early-access?plan=${plan}`);
       await expect(page.locator('#plan')).toHaveValue(plan);
     });
   }
@@ -242,7 +262,7 @@ test.describe('early-access form', () => {
     const sent = await capture(page, ok);
     await page.goto('/?utm_source=linkedin&utm_medium=social&utm_campaign=launch');
     await page.goto('/pricing'); // browse first: tags must survive the visit
-    await page.locator('.price-card [data-checkout]').nth(1).click();
+    await follow(page, '.cta-band__note a', /\/early-access$/); // "Not ready yet? Stay in touch."
     await page.fill('#name', 'Test Person');
     await page.fill('#email', 'test+scamprep@example.com');
     await page.selectOption('#role', 'Protect myself');
@@ -253,7 +273,8 @@ test.describe('early-access form', () => {
     await expect(page).toHaveURL(/\/thanks$/);
     expect(sent.length, 'double-click must not submit twice').toBe(1);
     const f = fieldsOf(sent[0]);
-    expect(f).toMatchObject({ name: 'Test Person', email: 'test+scamprep@example.com', role: 'Protect myself', plan: 'couples', utm_source: 'linkedin', utm_medium: 'social', utm_campaign: 'launch', landing_page: '/', previous_page: '/pricing', heard_about: 'ChatGPT' });
+    expect(f).toMatchObject({ name: 'Test Person', email: 'test+scamprep@example.com', role: 'Protect myself', utm_source: 'linkedin', utm_medium: 'social', utm_campaign: 'launch', landing_page: '/', previous_page: '/pricing', heard_about: 'ChatGPT' });
+    expect(f.plan, 'no plan was chosen, so none is sent').toBeUndefined();
     expect(f.worry).toContain('émojis');
     for (const k of LATEST_FIELDS) expect(f[k], k).toBeUndefined();
   });
@@ -308,7 +329,7 @@ test.describe('early-access form', () => {
     const sent = await capture(page, ok);
     await arriveFrom(page, '/how-it-works', 'https://www.google.com/');
     await page.goto('/pricing?utm_source=email&utm_medium=newsletter');
-    await follow(page, '.price-card [data-checkout]', /\/early-access\?plan=individual$/);
+    await follow(page, '.cta-band__note a', /\/early-access$/);
     await submitWith(page);
     const f = fieldsOf(sent[0]);
     expect(f).toMatchObject({
@@ -375,10 +396,10 @@ test.describe('early-access form', () => {
     await blockStorage(page);
     await arriveFrom(page, '/how-it-works', 'https://www.google.com/');
     await follow(page, '.site-footer a[href="/pricing"]', /\/pricing$/);
-    await follow(page, '.price-card [data-checkout]', /\/early-access\?plan=individual$/);
+    await follow(page, '.cta-band__note a', /\/early-access$/);
     await submitWith(page);
     const f = fieldsOf(sent[0]);
-    expect(f).toMatchObject({ plan: 'individual', previous_page: '/pricing' });
+    expect(f).toMatchObject({ previous_page: '/pricing' });
     for (const k of [...ARRIVAL_FIELDS, ...LATEST_FIELDS]) expect(f[k], k).toBeUndefined();
   });
 

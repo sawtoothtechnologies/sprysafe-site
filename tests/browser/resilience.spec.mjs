@@ -60,7 +60,9 @@ test('blocked browser storage does not prevent pricing or signup', async ({ page
     });
   });
   await page.goto('/pricing');
-  await page.locator('.price-card [data-checkout]').first().click();
+  // Plan buttons go to Stripe; the signup form is behind "Not ready yet? Stay in touch."
+  await page.locator('.cta-band__note a').first().evaluate((a) => a.click());
+  await expect(page).toHaveURL(/\/early-access$/);
   await page.fill('#email', 'test@example.com');
   await submit(page).click();
   await expect(page).toHaveURL(/\/thanks$/);

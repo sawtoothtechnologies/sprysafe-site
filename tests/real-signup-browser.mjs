@@ -6,7 +6,8 @@
 //   npm run test:real-signup -- you@example.com           # production
 //
 // The browser arrives from Google on /how-it-works with a campaign tag unique to this
-// run, clicks Pricing, picks the Couples plan and submits the form for real. The script
+// run, clicks Pricing, follows "Not ready yet? Stay in touch." (the plan buttons go to
+// Stripe) and submits the form for real. The script
 // checks what the browser sent and prints the run ID. Then search the inbox at
 // hello@getscamprep.com for that run ID, compare the email with the expected lines,
 // and delete the test signup in Formspree. Exits 1 if anything does not match.
@@ -20,7 +21,6 @@ if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email || '')) {
 }
 const run = 'release-' + new Date().toISOString().replace(/\D/g, '').slice(0, 14);
 const expected = {
-  plan: 'couples',
   landing_page: '/how-it-works',
   referrer: 'https://www.google.com/', // Google sends only its site address
   utm_source: 'release-check',
@@ -46,8 +46,8 @@ try {
   await page.goto(`${BASE}/how-it-works?utm_source=${expected.utm_source}&utm_campaign=${run}`, { referer: expected.referrer });
   await page.locator('#site-nav').getByRole('link', { name: 'Pricing', exact: true }).click();
   await page.waitForURL(/\/pricing$/);
-  await page.locator('.price-card [data-checkout]').nth(1).click();
-  await page.waitForURL(/\/early-access\?plan=couples$/);
+  await page.locator('.cta-band__note a').first().evaluate((a) => a.click());
+  await page.waitForURL(/\/early-access$/);
   await page.fill('#name', `ScamPrep release check ${run} (delete me)`);
   await page.fill('#email', email);
   await page.selectOption('#role', 'Other');
