@@ -160,7 +160,7 @@ Automation cannot judge how the page feels. On the preview for the change:
 ## The 2-minute check right after publishing
 
 1. `npm run test:live` passes.
-2. On your phone, not on Wi-Fi: open getscamprep.com, the changed page, and /early-access. Hard-refresh if anything looks old.
+2. On your phone, not on Wi-Fi: open getscamprep.com, the changed page, and /stay-in-touch. Hard-refresh if anything looks old.
 3. If something is wrong: Cloudflare Pages, `sprysafe-site`, Deployments, roll back to the previous production deployment, then fix forward (see `SITE-OPS.md`).
 
 ## Full manual protocol (before launch, then monthly)
@@ -227,7 +227,7 @@ Automation cannot judge how the page feels. On the preview for the change:
   upgrades without a full regression run.
 - [ ] Inspect the publish directory for credentials, private documents, source
   maps and archives. Search source for untrusted HTML insertion and mixed content.
-- [ ] Verify headers on /early-access, /pricing and a real 404 as well as the
+- [ ] Verify headers on /stay-in-touch, /pricing and a real 404 as well as the
   homepage. Check framing protection in a real browser against the edge response.
 - [ ] A full script CSP is a separate hardening change. Inventory inline scripts,
   Google Fonts, Formspree and analytics first; stage any policy in report-only mode
@@ -243,7 +243,7 @@ Automation cannot judge how the page feels. On the preview for the change:
 
 **A real person (the best test there is).** Sit with someone over 65 for 10 minutes.
 Give them a phone with the homepage open. Ask: "What is this, and who is it for?"
-after 5 seconds. Then: "Join the early-access list for yourself or someone you care
+after 5 seconds. Then: "Join the Stay in touch list for yourself or someone you care
 about." Check that they understand this is a list, not payment or enrollment, and
 that a participant must later opt in personally. Watch silently and record hesitations.
 

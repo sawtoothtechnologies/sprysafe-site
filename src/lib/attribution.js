@@ -1,4 +1,4 @@
-// Where a visit came from, for the early-access form (see SITE-OPS.md).
+// Where a visit came from, for the Stay in touch form (see SITE-OPS.md).
 // Base.astro inlines this file as a plain script on every page, so it runs while the
 // page loads, before the form's own script, with nothing extra to download.
 //

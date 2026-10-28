@@ -5,7 +5,7 @@
 // 2. Paste its URL (https://buy.stripe.com/...) into the matching slot below.
 // 3. Commit + push. Cloudflare redeploys and the pricing buttons go live.
 //
-// Any slot left empty ('') falls back to the /early-access waitlist, so a
+// Any slot left empty ('') falls back to the /stay-in-touch list, so a
 // half-configured state never produces a broken button.
 //
 // TESTING: while in Stripe test mode, paste the test-mode link URLs here,

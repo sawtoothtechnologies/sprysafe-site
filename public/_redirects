@@ -1,3 +1,9 @@
+# The signup page was /early-access until October 28, 2026 (checkout opened, the
+# page became "Stay in touch"). Old links in emails and posts still land.
+/early-access                           /stay-in-touch 301
+/early-access/                          /stay-in-touch 301
+/early-access/index.html                /stay-in-touch 301
+
 # Retired Solutions audience pages, consolidated into /solutions. The old
 # meta-refresh stubs were built as /solutions/<slug>/index.html, so that
 # form is listed alongside the slash and no-slash forms.

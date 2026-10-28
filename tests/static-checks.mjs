@@ -52,7 +52,7 @@ const NOINDEX_EXPECTED = new Set(['/thanks', '/welcome', '/what-to-expect', '/40
 // ---------------------------------------------------------------------------
 // Guide pages (/guides/<slug>) come from src/content/guides/, so they are read from the build.
 const GUIDE_PAGES = [...byPath.keys()].filter((p) => p.startsWith('/guides/')).sort();
-const EXPECTED_PAGES = ['/', '/about', '/early-access', '/faq', '/how-it-works', '/pricing',
+const EXPECTED_PAGES = ['/', '/about', '/stay-in-touch', '/faq', '/how-it-works', '/pricing',
   '/privacy', '/promise', '/solutions', '/terms', '/thanks', '/welcome', '/what-to-expect', '/why-it-works', '/404',
   '/guides', '/editorial-standards', ...GUIDE_PAGES];
 for (const p of EXPECTED_PAGES) if (!byPath.has(p)) fail('build', `expected page ${p} is missing from dist/`);
@@ -229,7 +229,7 @@ for (const pg of pages) {
       const id = decodeURIComponent(u.hash.slice(1));
       if (!byPath.get(target).$(`[id="${id}"]`).length) fail(A, `anchor ${u.hash} not found on ${target} (from ${href})`);
     }
-    if (isPage && u.searchParams.has('plan') && target === '/early-access') {
+    if (isPage && u.searchParams.has('plan') && target === '/stay-in-touch') {
       if (!['individual', 'couples', 'family'].includes(u.searchParams.get('plan'))) fail(A, `unknown plan in ${href}`);
     }
   });
@@ -511,7 +511,7 @@ for (const f of allFiles.filter((f) => /\.(png|jpe?g|webp)$/.test(f))) {
     if (!$('.byline a[href="/about"]').length) fail(A, 'byline does not link to /about');
     if ($('.dates time[datetime]').length < 2) fail(A, 'missing the published or last reviewed date');
     if (!$('.guide__sources a[href^="https://"]').length) fail(A, 'no linked sources');
-    if (!$('main a[href^="/pricing"], main a[href^="/early-access"]').length) fail(A, 'no ask (a link to /pricing or /early-access)');
+    if (!$('main a[href^="/pricing"], main a[href^="/stay-in-touch"]').length) fail(A, 'no ask (a link to /pricing or /stay-in-touch)');
     const words = $('.guide__body').text().trim().split(/\s+/).length;
     if (words < 300 && !/release-check-sample/.test(p)) warn(A, `body is only ${words} words; check it fully answers the question`);
     $('.guide__body .simulated').each((_, el) => {

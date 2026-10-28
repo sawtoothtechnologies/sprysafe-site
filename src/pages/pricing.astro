@@ -6,9 +6,9 @@ import { checkoutLinks } from '../data/checkout.js';
 
 // Checkout URL for a plan + billing period, falling back to the waitlist
 // until the Stripe Payment Links are pasted into src/data/checkout.js.
-// Falls back to the early-access list, carrying which plan they picked. When Stripe
+// Falls back to the Stay in touch list, carrying which plan they picked. When Stripe
 // Payment Links are pasted into checkout.js, buttons revert to checkout automatically.
-const co = (plan, mode) => checkoutLinks[plan]?.[mode] || `/early-access?plan=${plan}`;
+const co = (plan, mode) => checkoutLinks[plan]?.[mode] || `/stay-in-touch?plan=${plan}`;
 
 const pricingFaqs = [
   {

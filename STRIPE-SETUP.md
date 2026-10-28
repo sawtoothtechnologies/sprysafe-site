@@ -91,7 +91,7 @@ Monthly and annual share a plan value, since billing period does not change what
 ## Paste the URLs into the site
 
 Open `src/data/checkout.js`, paste each `https://buy.stripe.com/...` URL into its labeled slot,
-then commit and push. Until they are pasted, the buttons fall back to `/early-access`, so a
+then commit and push. Until they are pasted, the buttons fall back to `/stay-in-touch`, so a
 half-configured state never produces a broken button. The live links were pasted and the main CTA
 changed to "See plans" on **October 28, 2026**, when checkout went public.
 

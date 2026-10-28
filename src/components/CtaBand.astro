@@ -1,13 +1,13 @@
 ---
 const {
-  headline = 'Help them practice before the real thing arrives.',
-  body = 'Realistic practice, friendly coaching, and a report every three months. Nothing to install.',
+  headline = 'Practice scams before the real thing arrives.',
+  body = 'Realistic practice, friendly coaching, and a report every three months, with nothing to install or manage.',
   cta = 'See plans',
   href = '/pricing',
   layout = 'center', // 'center' (default) or 'split': left copy + right-hand slot
   // Optional muted aside under the button; may contain HTML (e.g. a mailto link).
-  // The default keeps the early-access form reachable for people who aren't ready to buy.
-  note = 'Not ready yet? <a href="/early-access">Stay in touch.</a>',
+  // The default keeps the Stay in touch form reachable for people who aren't ready to buy.
+  note = 'Not ready yet? <a href="/stay-in-touch">Stay in touch.</a>',
 } = Astro.props;
 const split = layout === 'split';
 ---
@@ -50,7 +50,9 @@ const split = layout === 'split';
     clip-path: inset(0);
   }
   .cta-band h2, .cta-band .lede { color: var(--ink); }
-  .cta-band__note { margin: 22px 0 0; font-size: 0.95rem; color: var(--ink); max-width: 40rem; }
+  /* Centered like the lede above it; the split layout pulls it back to the left. */
+  .cta-band__note { margin: 22px auto 0; font-size: 0.95rem; color: var(--ink); max-width: 40rem; }
+  .cta-band--split .cta-band__note { margin-inline: 0; }
   /* The note arrives through set:html, so its link needs a :global rule to be styled
      (scoped styles don't reach injected markup). Ink on amber keeps the contrast. */
   .cta-band__note :global(a) { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }

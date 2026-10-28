@@ -47,7 +47,7 @@ try {
   await page.locator('#site-nav').getByRole('link', { name: 'Pricing', exact: true }).click();
   await page.waitForURL(/\/pricing$/);
   await page.locator('.cta-band__note a').first().evaluate((a) => a.click());
-  await page.waitForURL(/\/early-access$/);
+  await page.waitForURL(/\/stay-in-touch$/);
   await page.fill('#name', `ScamPrep release check ${run} (delete me)`);
   await page.fill('#email', email);
   await page.selectOption('#role', 'Other');

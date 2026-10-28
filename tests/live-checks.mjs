@@ -21,7 +21,7 @@ const guidesDir = path.join(here, '..', 'dist', 'guides');
 const GUIDE_PAGES = fs.existsSync(guidesDir)
   ? fs.readdirSync(guidesDir).filter((f) => f.endsWith('.html')).map((f) => '/guides/' + f.replace(/\.html$/, '')).sort()
   : [];
-const PAGES = ['/', '/how-it-works', '/why-it-works', '/pricing', '/solutions', '/about', '/promise', '/faq', '/early-access', '/thanks', '/privacy', '/terms',
+const PAGES = ['/', '/how-it-works', '/why-it-works', '/pricing', '/solutions', '/about', '/promise', '/faq', '/stay-in-touch', '/thanks', '/privacy', '/terms',
   '/guides', '/editorial-standards', ...GUIDE_PAGES];
 
 const fails = [], warns = [], passes = [];
@@ -92,6 +92,7 @@ await expectRedirect(BASE + '/index.html', BASE + '/', 'url form');
 }
 for (const slug of ['credit-unions', 'financial-advisors', 'home-care', 'senior-living'])
   await expectRedirect(`${BASE}/solutions/${slug}`, `${BASE}/solutions`, 'retired page');
+await expectRedirect(BASE + '/early-access', BASE + '/stay-in-touch', 'old signup address');
 
 // 3. Domains and HTTPS (production only).
 if (PROD) {

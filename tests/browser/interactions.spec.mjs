@@ -159,14 +159,14 @@ test.describe('pricing', () => {
   test('"Not ready yet? Stay in touch." on pricing reaches the signup form', async ({ page }) => {
     await page.goto('/pricing');
     await page.locator('.cta-band__note a').first().evaluate((a) => a.click());
-    await expect(page).toHaveURL(/\/early-access$/);
+    await expect(page).toHaveURL(/\/stay-in-touch$/);
     await expect(page.locator('#email')).toBeVisible();
   });
 
   // Emails and old links may still carry ?plan=; the form keeps passing it along.
   for (const plan of ['individual', 'couples', 'family']) {
     test(`a ?plan=${plan} link preselects the plan on the signup form`, async ({ page }) => {
-      await page.goto(`/early-access?plan=${plan}`);
+      await page.goto(`/stay-in-touch?plan=${plan}`);
       await expect(page.locator('#plan')).toHaveValue(plan);
     });
   }
@@ -175,7 +175,7 @@ test.describe('pricing', () => {
 // ---------------------------------------------------------------------------
 // Early-access form (Formspree is always mocked; nothing real is sent)
 // ---------------------------------------------------------------------------
-test.describe('early-access form', () => {
+test.describe('stay-in-touch form', () => {
   const capture = async (page, reply) => {
     const sent = [];
     await page.route('https://formspree.io/**', async (route) => {
@@ -239,18 +239,18 @@ test.describe('early-access form', () => {
 
   test('empty submit is blocked and nothing is sent', async ({ page }) => {
     const sent = await capture(page, ok);
-    await page.goto('/early-access');
+    await page.goto('/stay-in-touch');
     await page.getByRole('button', { name: 'Stay in touch' }).last().click();
     await page.waitForTimeout(500);
     expect(sent.length).toBe(0);
-    await expect(page).toHaveURL(/\/early-access/);
+    await expect(page).toHaveURL(/\/stay-in-touch/);
     expect(await page.locator('#email').evaluate((el) => el.matches(':invalid'))).toBe(true);
   });
 
   for (const bad of ['mary', 'mary@', '@example.com', 'mary example.com']) {
     test(`invalid email "${bad}" is blocked`, async ({ page }) => {
       const sent = await capture(page, ok);
-      await page.goto('/early-access');
+      await page.goto('/stay-in-touch');
       await page.fill('#email', bad);
       await page.locator('form.form-card button[type=submit]').click();
       await page.waitForTimeout(400);
@@ -262,7 +262,7 @@ test.describe('early-access form', () => {
     const sent = await capture(page, ok);
     await page.goto('/?utm_source=linkedin&utm_medium=social&utm_campaign=launch');
     await page.goto('/pricing'); // browse first: tags must survive the visit
-    await follow(page, '.cta-band__note a', /\/early-access$/); // "Not ready yet? Stay in touch."
+    await follow(page, '.cta-band__note a', /\/stay-in-touch$/); // "Not ready yet? Stay in touch."
     await page.fill('#name', 'Test Person');
     await page.fill('#email', 'test+scamprep@example.com');
     await page.selectOption('#role', 'Protect myself');
@@ -285,7 +285,7 @@ test.describe('early-access form', () => {
     const seen = await page.evaluate(() => document.referrer);
     test.skip(!seen, 'this browser engine does not pass a test referrer to the page');
     await page.goto('/pricing'); // browse first: the landing details must survive the visit
-    await follow(page, '.site-footer a[href="/early-access"]', /\/early-access$/);
+    await follow(page, '.site-footer a[href="/stay-in-touch"]', /\/stay-in-touch$/);
     await submitWith(page);
     const f = fieldsOf(sent[0]);
     // Chromium hands the page the full address; Safari/WebKit trims it to the site
@@ -301,7 +301,7 @@ test.describe('early-access form', () => {
   test('query strings and search terms are never sent', async ({ page }) => {
     const sent = await capture(page, ok);
     await arriveFrom(page, '/how-it-works?utm_source=news&email=secret%40example.com', 'https://www.google.com/search?q=private+worry&hl=en');
-    await follow(page, '.site-footer a[href="/early-access"]', /\/early-access$/);
+    await follow(page, '.site-footer a[href="/stay-in-touch"]', /\/stay-in-touch$/);
     await submitWith(page);
     const f = fieldsOf(sent[0]);
     expect(f).toMatchObject({ referrer: 'https://www.google.com/search', landing_page: '/how-it-works', utm_source: 'news', previous_page: '/how-it-works' });
@@ -314,7 +314,7 @@ test.describe('early-access form', () => {
     await arriveFrom(page, '/how-it-works', 'https://www.google.com/');
     await follow(page, '.site-footer a[href="/pricing"]', /\/pricing$/);
     await arriveFrom(page, '/about?utm_source=newsletter&utm_campaign=october', 'https://l.facebook.com/l.php?u=private');
-    await follow(page, '.site-footer a[href="/early-access"]', /\/early-access$/);
+    await follow(page, '.site-footer a[href="/stay-in-touch"]', /\/stay-in-touch$/);
     await submitWith(page);
     const f = fieldsOf(sent[0]);
     expect(f).toMatchObject({
@@ -329,7 +329,7 @@ test.describe('early-access form', () => {
     const sent = await capture(page, ok);
     await arriveFrom(page, '/how-it-works', 'https://www.google.com/');
     await page.goto('/pricing?utm_source=email&utm_medium=newsletter');
-    await follow(page, '.cta-band__note a', /\/early-access$/);
+    await follow(page, '.cta-band__note a', /\/stay-in-touch$/);
     await submitWith(page);
     const f = fieldsOf(sent[0]);
     expect(f).toMatchObject({
@@ -346,7 +346,7 @@ test.describe('early-access form', () => {
     await follow(page, '.site-footer a[href="/pricing"]', /\/pricing$/);
     await page.goBack();
     await expect(page).toHaveURL(/\/how-it-works/);
-    await follow(page, '.site-footer a[href="/early-access"]', /\/early-access$/);
+    await follow(page, '.site-footer a[href="/stay-in-touch"]', /\/stay-in-touch$/);
     await submitWith(page);
     const f = fieldsOf(sent[0]);
     expect(f).toMatchObject({ landing_page: '/how-it-works', referrer: 'https://www.google.com/', previous_page: '/how-it-works' });
@@ -362,7 +362,7 @@ test.describe('early-access form', () => {
     await page.goBack();
     await expect(page).toHaveURL(/\/how-it-works/);
     await page.reload();
-    await follow(page, '.site-footer a[href="/early-access"]', /\/early-access$/);
+    await follow(page, '.site-footer a[href="/stay-in-touch"]', /\/stay-in-touch$/);
     await submitWith(page);
     const f = fieldsOf(sent[0]);
     expect(f).toMatchObject({ landing_page: '/how-it-works', referrer: 'https://www.google.com/', previous_page: '/how-it-works' });
@@ -380,7 +380,7 @@ test.describe('early-access form', () => {
       await follow(page, '.site-footer a[href="/pricing"]', /\/pricing$/);
       await arriveFrom(page, '/how-it-works', 'https://www.google.com/');
       await page.reload(); // a reload after the return changes nothing
-      await follow(page, '.site-footer a[href="/early-access"]', /\/early-access$/);
+      await follow(page, '.site-footer a[href="/stay-in-touch"]', /\/stay-in-touch$/);
       await submitWith(page);
       const f = fieldsOf(sent[0]);
       expect(f).toMatchObject({
@@ -396,7 +396,7 @@ test.describe('early-access form', () => {
     await blockStorage(page);
     await arriveFrom(page, '/how-it-works', 'https://www.google.com/');
     await follow(page, '.site-footer a[href="/pricing"]', /\/pricing$/);
-    await follow(page, '.cta-band__note a', /\/early-access$/);
+    await follow(page, '.cta-band__note a', /\/stay-in-touch$/);
     await submitWith(page);
     const f = fieldsOf(sent[0]);
     expect(f).toMatchObject({ previous_page: '/pricing' });
@@ -406,22 +406,22 @@ test.describe('early-access form', () => {
   test('with storage blocked, a visitor who arrives on the form is still credited', async ({ page }) => {
     const sent = await capture(page, ok);
     await blockStorage(page);
-    await arriveFrom(page, '/early-access?utm_source=partner', 'https://www.google.com/');
+    await arriveFrom(page, '/stay-in-touch?utm_source=partner', 'https://www.google.com/');
     await submitWith(page);
     const f = fieldsOf(sent[0]);
-    expect(f).toMatchObject({ landing_page: '/early-access', referrer: 'https://www.google.com/', utm_source: 'partner' });
+    expect(f).toMatchObject({ landing_page: '/stay-in-touch', referrer: 'https://www.google.com/', utm_source: 'partner' });
     for (const k of ['previous_page', ...LATEST_FIELDS]) expect(f[k], k).toBeUndefined();
   });
 
   test('empty optional fields are left out of the email', async ({ page }) => {
     const sent = await capture(page, ok);
-    await page.goto('/early-access');
+    await page.goto('/stay-in-touch');
     await page.fill('#email', 'a@example.com');
     await page.locator('form.form-card button[type=submit]').click();
     await expect(page).toHaveURL(/\/thanks$/);
     const f = fieldsOf(sent[0]);
     for (const k of ['plan', 'utm_source', 'utm_medium', 'utm_campaign', 'referrer', 'previous_page', ...LATEST_FIELDS]) expect(f[k], k).toBeUndefined();
-    expect(f.landing_page, 'the first page in the tab is a known landing page').toBe('/early-access');
+    expect(f.landing_page, 'the first page in the tab is a known landing page').toBe('/stay-in-touch');
   });
 
   for (const [label, reply] of [
@@ -431,7 +431,7 @@ test.describe('early-access form', () => {
   ]) {
     test(`when ${label}, the visitor stays on the site and sees what to do`, async ({ page }) => {
       await capture(page, reply);
-      await page.goto('/early-access');
+      await page.goto('/stay-in-touch');
       await page.fill('#email', 'a@example.com');
       await page.locator('form.form-card button[type=submit]').click();
       await page.waitForTimeout(2000);
@@ -443,7 +443,7 @@ test.describe('early-access form', () => {
   }
 
   test('inputs are 16px+ so iPhones do not zoom in on tap', async ({ page }) => {
-    await page.goto('/early-access');
+    await page.goto('/stay-in-touch');
     const sizes = await page.$$eval('form.form-card input:not([type=hidden]), form.form-card select, form.form-card textarea', (els) => els.map((e) => parseFloat(getComputedStyle(e).fontSize)));
     for (const s of sizes) expect(s).toBeGreaterThanOrEqual(16);
   });
@@ -455,7 +455,7 @@ test.describe('early-access form', () => {
     const page = await ctx.newPage();
     let posted = false;
     await page.route('https://formspree.io/**', (r) => { posted = r.request().method() === 'POST'; return r.fulfill({ status: 200, contentType: 'text/html', body: '<h1>ok</h1>' }); });
-    await page.goto('/early-access');
+    await page.goto('/stay-in-touch');
     await page.fill('#email', 'a@example.com');
     await page.locator('form.form-card button[type=submit]').click();
     await page.waitForTimeout(800);

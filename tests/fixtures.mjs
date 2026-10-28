@@ -1,5 +1,5 @@
 // Shared test setup. Every browser test gets:
-// - A network guard: the early-access form NEVER reaches the real Formspree
+// - A network guard: the stay-in-touch form NEVER reaches the real Formspree
 //   inbox (tests mock it), and analytics never fire.
 // - OFFLINE=1 (for machines without internet): Google Fonts are served from the
 //   local @fontsource/manrope copy so layout matches production, and every
@@ -26,7 +26,7 @@ const GUIDE_PAGES = fs.existsSync(guidesDir)
 
 export const PAGES = [
   '/', '/how-it-works', '/why-it-works', '/pricing', '/solutions', '/about',
-  '/promise', '/faq', '/early-access', '/thanks', '/privacy', '/terms',
+  '/promise', '/faq', '/stay-in-touch', '/thanks', '/privacy', '/terms',
   '/guides', '/editorial-standards', ...GUIDE_PAGES,
 ];
 

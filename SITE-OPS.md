@@ -27,7 +27,7 @@ As of this review, the product is **ScamPrep**, live marketing is at
 where the Choose Individual / Pairs / Family buttons open live Stripe Payment Links).
 Public checkout opened October 28, 2026. After paying, buyers land on `/welcome`
 (noindex) to name who is enrolling; `/what-to-expect` (noindex) explains practice to
-recipients. The early-access form remains at `/early-access` as "Stay in touch."
+recipients. The signup form is "Stay in touch" at `/stay-in-touch`; `/early-access` redirects there (301 in `public/_redirects`).
 Do not imply a free trial, and do not claim paying customers or outcomes until there are
 real ones. The consumer path comes first,
 with financial advisors as the parallel channel. There are no stage or kill gates.
@@ -55,7 +55,7 @@ Current consumer prices shown in `src/pages/pricing.astro` are $9, $15, and $19 
 month billed annually ($108, $180, and $228 per year). The monthly toggle shows $12,
 $20, and $25. Plans cover one, two, or up to four people. The stated offer includes a
 60-day money-back guarantee and no free trial. The six Stripe Payment Links live in
-`src/data/checkout.js`; an empty slot falls back to `/early-access`, and the browser
+`src/data/checkout.js`; an empty slot falls back to `/stay-in-touch`, and the browser
 tests fail if a plan button does not point at its Stripe link.
 Recheck `00_CONTEXT.md` and the pricing source before changing any offer.
 
@@ -73,9 +73,9 @@ or revive Spry or ScamDrill as product names.
 | Build settings | Build from the repository root with `npm run build`; output is `dist/`. Match these when checking Cloudflare settings. The dashboard configuration was not independently verified in this review. |
 | Branch previews | The existing repo workflow uses Cloudflare branch deployments. Get the actual preview URL from the commit/PR checks or Cloudflare Deployments. Do not assume a branch preview is private or access-controlled. |
 | URLs and sitemap | `astro.config.mjs` sets `https://getscamprep.com`, `trailingSlash: 'never'`, and flat HTML output. `src/lib/public-url.js` normalizes canonical URLs. Sitemap generation excludes `/thanks`; that page also sets `noindex`. `public/robots.txt` points to `/sitemap-index.xml`. |
-| Early-access form | `src/pages/early-access.astro` sets `FORM_ACTION` to `https://formspree.io/f/moeajjvb`. It submits through fetch, redirects success to `/thanks`, and has a normal POST fallback. Hidden fields record the plan, the page the visitor came from (`previous_page`), and where the visit came from: `landing_page`, `referrer` (site and path only) and the UTM tags for the first arrival in the tab, plus a `latest_` set if the visitor came back through another link. `src/lib/attribution.js` has the rules; `Base.astro` records each arrival. Unknown and empty fields are dropped. `npm run test:real-signup` checks this end to end (see `TESTING.md`). The code documents reCAPTCHA as off for this integration. Inbox delivery and Formspree settings still need an account or end-to-end check before claiming they work. |
-| Payments | All six Stripe link slots in `src/data/checkout.js` are empty. `src/pages/pricing.astro` falls back to `/early-access?plan=...`. Adding links changes the button destinations automatically, so do not do it as routine documentation cleanup. |
-| Confirmation page | `/thanks` is the early-access confirmation. It is not a checkout confirmation. Its source calls for a separate `/welcome` page when billing launches; that page does not exist yet. |
+| Stay in touch form | `src/pages/stay-in-touch.astro` (was `early-access.astro` until October 28, 2026) sets `FORM_ACTION` to `https://formspree.io/f/moeajjvb`. It submits through fetch, redirects success to `/thanks`, and has a normal POST fallback. Hidden fields record the plan, the page the visitor came from (`previous_page`), and where the visit came from: `landing_page`, `referrer` (site and path only) and the UTM tags for the first arrival in the tab, plus a `latest_` set if the visitor came back through another link. `src/lib/attribution.js` has the rules; `Base.astro` records each arrival. Unknown and empty fields are dropped. `npm run test:real-signup` checks this end to end (see `TESTING.md`). The code documents reCAPTCHA as off for this integration. Inbox delivery and Formspree settings still need an account or end-to-end check before claiming they work. |
+| Payments | The six live Stripe Payment Links are in `src/data/checkout.js` (since October 28, 2026). An empty slot would fall back to `/stay-in-touch?plan=...`, and the browser tests fail if a plan button does not point at its Stripe link. |
+| Confirmation page | `/thanks` confirms a Stay in touch signup. `/welcome` (noindex) is the post-checkout page Stripe redirects to; it posts enrollment details to Formspree form mbggyean. |
 | Booking | `https://cal.com/scamprep/partner-call` is already used in `src/pages/solutions/index.astro`, `src/components/OrgPricing.astro`, and `src/layouts/Base.astro`. Account availability was not tested. |
 | Email | Current site links use `hello@getscamprep.com`. DNS, mailbox delivery, and legacy email forwarding cannot be verified from these links. Check the relevant service before changing routing. |
 | Analytics | `Base.astro` documents Cloudflare Web Analytics injection at the edge. Verify the live response or Cloudflare settings before adding another tracker; absence of a source script does not prove analytics are missing. |
@@ -165,7 +165,7 @@ rollout record linked from `~/ScamPrep/00_CONTEXT.md` for publication and off-si
 | Header, footer, navigation, and shared SEO | `src/layouts/Base.astro`; URL normalization is in `src/lib/public-url.js`. |
 | Sample Resilience Report | `src/components/ReportCard.astro`; the internal filename is intentional. |
 | Phone example and closing CTA | `src/components/PhoneDemo.astro` and `src/components/CtaBand.astro`. |
-| Early-access form and confirmation | `src/pages/early-access.astro` and `src/pages/thanks.astro`. |
+| Stay in touch form and confirmation | `src/pages/stay-in-touch.astro` and `src/pages/thanks.astro`. Post-checkout page: `src/pages/welcome.astro`. |
 | Consumer prices, billing toggle, and link destinations | `src/pages/pricing.astro` and `src/data/checkout.js`. |
 | Partner pricing and booking | `src/components/OrgPricing.astro` and `src/pages/solutions/index.astro`. |
 | Homepage interactions | Script and style blocks in `src/pages/index.astro`. |
