@@ -9,12 +9,13 @@ import Base from '../layouts/Base.astro';
 // (for example from a link in an email) asks for the buyer's email instead, and
 // leaves out the "payment received" check, since nothing confirms a payment.
 //
-// FORM BACKEND: Formspree. TODO BEFORE GO-LIVE: this still points at the early-access
-// form (ID moeajjvb). Swap in the separate "ScamPrep enrollment" form's endpoint
-// (launch-blocking list in ~/ScamPrep/product/mvp-spec.md). Keep reCAPTCHA OFF.
+// FORM BACKEND: Formspree, the separate post-purchase form (ID mbggyean, created
+// October 28, 2026). The early-access / Stay in touch form is moeajjvb; keep them apart
+// so enrollment details never mix with signups. Keep reCAPTCHA OFF: the page submits
+// with fetch and a captcha would silently block it.
 // Kept out of search: noindex here, and filtered from the sitemap in astro.config.mjs.
 // Decisions behind this page: ~/ScamPrep/product/decisions.md, "/welcome page shape".
-const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
+const FORM_ACTION = 'https://formspree.io/f/mbggyean';
 ---
 
 <Base

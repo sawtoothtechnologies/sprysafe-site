@@ -92,8 +92,8 @@ Monthly and annual share a plan value, since billing period does not change what
 
 Open `src/data/checkout.js`, paste each `https://buy.stripe.com/...` URL into its labeled slot,
 then commit and push. Until they are pasted, the buttons fall back to `/early-access`, so a
-half-configured state never produces a broken button. Pasting live links makes checkout public,
-so that happens on **November 9**, together with changing the main CTA to "See plans".
+half-configured state never produces a broken button. The live links were pasted and the main CTA
+changed to "See plans" on **October 28, 2026**, when checkout went public.
 
 ## Operating notes
 

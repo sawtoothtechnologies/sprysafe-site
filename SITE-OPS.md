@@ -1,6 +1,7 @@
 # ScamPrep website operations
 
-Last reviewed: October 5, 2026. Repository details below were checked against the
+Last reviewed: October 28, 2026 (business and offer status; repository details were
+checked October 5). Repository details below were checked against the
 local source and configuration. External account settings were not inspected.
 
 ## Sources of guidance
@@ -22,9 +23,13 @@ instructions; website work belongs in this repo.
 ## Current business and copy guidance
 
 As of this review, the product is **ScamPrep**, live marketing is at
-**https://getscamprep.com**, and the consumer CTA is **"Get early access."** The
-product MVP and checkout are still to be built. Do not imply paying customers,
-working enrollment, or an available trial checkout. The consumer path comes first,
+**https://getscamprep.com**, and the consumer CTA is **"See plans"** (to `/pricing`,
+where the Choose Individual / Pairs / Family buttons open live Stripe Payment Links).
+Public checkout opened October 28, 2026. After paying, buyers land on `/welcome`
+(noindex) to name who is enrolling; `/what-to-expect` (noindex) explains practice to
+recipients. The early-access form remains at `/early-access` as "Stay in touch."
+Do not imply a free trial, and do not claim paying customers or outcomes until there are
+real ones. The consumer path comes first,
 with financial advisors as the parallel channel. There are no stage or kill gates.
 
 Use the original voice guidance, including these corrections to the old runbook:
@@ -49,7 +54,9 @@ Use the original voice guidance, including these corrections to the old runbook:
 Current consumer prices shown in `src/pages/pricing.astro` are $9, $15, and $19 per
 month billed annually ($108, $180, and $228 per year). The monthly toggle shows $12,
 $20, and $25. Plans cover one, two, or up to four people. The stated offer includes a
-60-day money-back guarantee and no free trial; purchases are not available.
+60-day money-back guarantee and no free trial. The six Stripe Payment Links live in
+`src/data/checkout.js`; an empty slot falls back to `/early-access`, and the browser
+tests fail if a plan button does not point at its Stripe link.
 Recheck `00_CONTEXT.md` and the pricing source before changing any offer.
 
 The legacy `sprysafe-site` repo, local folder, and Cloudflare project names are
@@ -164,6 +171,6 @@ rollout record linked from `~/ScamPrep/00_CONTEXT.md` for publication and off-si
 | Homepage interactions | Script and style blocks in `src/pages/index.astro`. |
 | Redirects, robots, and sitemap configuration | `public/_redirects`, `public/robots.txt`, and `astro.config.mjs`. |
 
-When billing work begins, revisit `STRIPE-SETUP.md` against the current business
-context, source code, and Stripe settings. Its old waitlist-placeholder, checkout
-confirmation, and brand instructions are not current launch requirements.
+`STRIPE-SETUP.md` (rewritten October 22) describes the Stripe configuration behind
+checkout. `/welcome` posts to its own Formspree form (mbggyean); Stay in touch uses
+moeajjvb. Open item as of October 28: the first real payment and refund has not been run.

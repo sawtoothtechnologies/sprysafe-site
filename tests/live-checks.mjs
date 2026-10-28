@@ -154,12 +154,12 @@ if (PROD) {
 }
 
 // 7. Third parties the site depends on.
-{
-  const r = await get('https://formspree.io/f/moeajjvb').catch((e) => ({ status: e.message }));
+for (const [id, what] of [['moeajjvb', 'Stay in touch signups'], ['mbggyean', 'post-purchase enrollment details from /welcome']]) {
+  const r = await get(`https://formspree.io/f/${id}`).catch((e) => ({ status: e.message }));
   const status = formEndpointStatus(r.status);
-  if (status === 'missing') fail('Formspree form moeajjvb returns 404: early-access signups would be lost');
-  else if (status === 'unverified') fail(`Formspree endpoint could not be verified (${r.status}); do not count this as a signup pass`);
-  else pass(`Formspree endpoint reachable (${r.status}); acceptance and inbox delivery still require a real signup`);
+  if (status === 'missing') fail(`Formspree form ${id} returns 404: ${what} would be lost`);
+  else if (status === 'unverified') fail(`Formspree form ${id} could not be verified (${r.status}); do not count this as a pass`);
+  else pass(`Formspree form ${id} reachable (${r.status}); acceptance and inbox delivery still require a real submission`);
 }
 const extFile = path.join(here, '.external-links.json');
 const externals = fs.existsSync(extFile) ? JSON.parse(fs.readFileSync(extFile, 'utf8')) : [];
