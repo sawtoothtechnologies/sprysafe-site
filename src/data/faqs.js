@@ -37,17 +37,17 @@ export const faqs = [
   {
     id: 'kinds',
     q: 'What kinds of practice scams do you send?',
-    a: `<p>Practice versions of what's actually circulating: fake bank alerts, delivery texts, Social Security notices, tech-support emails, "grandparent in trouble" calls, and new variants as they appear. The library is refreshed monthly from FBI, FTC, and state regulator reporting. Nothing ever involves real money or real personal risk.</p>`,
+    a: `<p>Practice versions of what's actually circulating: fake bank alerts, delivery fees, surprise invoices, "grandparent in trouble" calls, tech-support calls, and new variants as they appear. Every one comes from a company that doesn't exist, and we draw on FBI and FTC reporting to keep them current. Nothing ever involves real money or real personal risk.</p>`,
   },
   {
     id: 'channels',
     q: 'Which channels do drills use?',
-    a: `<p>Email from day one. Text and phone drills are added with their written consent. Between drills, short snippets on the newest scams arrive through the same channels.</p>`,
+    a: `<p>Recipients choose when they confirm enrollment: email, text, phone calls, or any mix, and they can turn any of them off at any time. Between drills, short alerts on the newest scams arrive by email.</p>`,
   },
   {
     id: 'legal',
     q: 'Is it legal to send simulated scam texts and calls?',
-    a: `<p>Yes, with proper consent, which we collect in writing before any text or voice drill, as the Telephone Consumer Protection Act requires. It's why every enrollment starts with email, and why we treat consent as a feature rather than paperwork. The full detail is in <a href="/promise">Our promise</a>.</p>`,
+    a: `<p>Yes, with proper consent. Each person gives written consent, electronically, before any practice text or call, following the consent standard in the Telephone Consumer Protection Act. It's why every enrollment starts with an email invite only they can accept, and why we treat consent as a feature rather than paperwork. The full detail is in <a href="/promise">Our promise</a>.</p>`,
   },
   {
     id: 'sharp',
@@ -68,11 +68,6 @@ export const faqs = [
     id: 'cost',
     q: 'What does it cost?',
     a: `<p>$9 a month for one person, $15 for two (the Pairs plan), or $19 for up to four, billed annually. Every plan carries a 60-day money-back guarantee. Financial advisors can sponsor their clients at partner pricing, starting with a founding pilot. <a href="/pricing">See pricing</a></p>`,
-  },
-  {
-    id: 'start',
-    q: 'When can we start?',
-    a: `<p>Family plans open this fall. We onboard from the early-access list in small groups, so every family gets white-glove setup. <a href="/early-access">Join the list</a> and we'll tell you exactly where you are in line.</p>`,
   },
 ];
 

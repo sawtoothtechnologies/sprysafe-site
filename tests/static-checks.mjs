@@ -511,7 +511,7 @@ for (const f of allFiles.filter((f) => /\.(png|jpe?g|webp)$/.test(f))) {
     if (!$('.byline a[href="/about"]').length) fail(A, 'byline does not link to /about');
     if ($('.dates time[datetime]').length < 2) fail(A, 'missing the published or last reviewed date');
     if (!$('.guide__sources a[href^="https://"]').length) fail(A, 'no linked sources');
-    if (!$('main a[href^="/early-access"]').length) fail(A, 'no early-access ask');
+    if (!$('main a[href^="/pricing"], main a[href^="/early-access"]').length) fail(A, 'no ask (a link to /pricing or /early-access)');
     const words = $('.guide__body').text().trim().split(/\s+/).length;
     if (words < 300 && !/release-check-sample/.test(p)) warn(A, `body is only ${words} words; check it fully answers the question`);
     $('.guide__body .simulated').each((_, el) => {

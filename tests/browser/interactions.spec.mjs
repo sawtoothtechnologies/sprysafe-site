@@ -16,7 +16,7 @@ test.describe('mobile menu', () => {
     await toggle.click();
     await expect(toggle).toHaveAttribute('aria-expanded', 'true');
     await expect(nav).toBeVisible();
-    for (const name of ['How it works', 'For financial advisors', 'Pricing', 'About', 'Get early access']) {
+    for (const name of ['How it works', 'For financial advisors', 'Pricing', 'About', 'See plans']) {
       await expect(nav.getByRole('link', { name })).toBeVisible();
     }
     await toggle.click();
@@ -73,7 +73,7 @@ test.describe('mobile menu', () => {
 test('desktop nav links all reach their pages', async ({ page, isMobile }) => {
   test.skip(isMobile);
   await page.goto('/');
-  for (const [name, url] of [['How it works', '/how-it-works'], ['For financial advisors', '/solutions'], ['Pricing', '/pricing'], ['About', '/about'], ['Get early access', '/early-access']]) {
+  for (const [name, url] of [['How it works', '/how-it-works'], ['For financial advisors', '/solutions'], ['Pricing', '/pricing'], ['About', '/about'], ['See plans', '/pricing']]) {
     await page.locator('#site-nav').getByRole('link', { name, exact: true }).click();
     await expect(page).toHaveURL(new RegExp(url + '$'));
     await expect(page.locator('h1')).toBeVisible();
@@ -220,7 +220,7 @@ test.describe('early-access form', () => {
   test('empty submit is blocked and nothing is sent', async ({ page }) => {
     const sent = await capture(page, ok);
     await page.goto('/early-access');
-    await page.getByRole('button', { name: 'Get early access' }).last().click();
+    await page.getByRole('button', { name: 'Stay in touch' }).last().click();
     await page.waitForTimeout(500);
     expect(sent.length).toBe(0);
     await expect(page).toHaveURL(/\/early-access/);

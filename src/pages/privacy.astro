@@ -47,10 +47,17 @@ import Base from '../layouts/Base.astro';
         processor Stripe. <strong>We never see or store full card numbers.</strong>
       </p>
       <p>
-        <strong>If you are an enrolled participant:</strong> your name, the contact channel you
-        consented to (such as an email address), your responses to practice drills (for example,
-        whether a drill was reported, ignored, or clicked), coaching interactions, and the progress
-        summaries that make up your Resilience Report.
+        <strong>If you enroll someone:</strong> the details you give us about each person, which
+        are their name, email, cell phone number (optional), and relationship to you, plus anything
+        you choose to share to tailor their practice, such as which scams worry you. Please
+        don&rsquo;t include bank names, account details, or health information.
+      </p>
+      <p>
+        <strong>If you are an enrolled participant:</strong> your name, the contact channels you
+        consented to (such as an email address and cell phone number), a record of your consent
+        (which channels and when), your responses to practice drills (for example, whether a drill
+        was spotted, ignored, clicked, replied to, or answered), coaching interactions, and the
+        progress summaries that make up your Resilience Report.
       </p>
       <p>
         <strong>On the website:</strong> we use Cloudflare Web Analytics, a privacy-respecting,
@@ -79,6 +86,10 @@ import Base from '../layouts/Base.astro';
           Sharing is a participant choice, revocable at any time.
         </li>
         <li>
+          <strong>The person who enrolled a participant</strong> is told when the participant says
+          yes, and if they stop practice, so billing can be adjusted.
+        </li>
+        <li>
           <strong>Partner organizations</strong> (such as an advisory practice or community that
           sponsors enrollment) receive <strong>aggregate, anonymized statistics only</strong> &mdash;
           never an individual&rsquo;s drill responses &mdash; unless the participant has expressly
@@ -86,8 +97,9 @@ import Base from '../layouts/Base.astro';
         </li>
         <li>
           <strong>Service providers</strong> who process data on our instructions: Stripe (payments),
-          Formspree (forms), Google Workspace (email), Cloudflare (website hosting and analytics),
-          Cal.com (scheduling). Each receives only what its job requires.
+          Formspree (forms), Google Workspace (email and records), Cloudflare (website hosting and
+          analytics), Cal.com (scheduling), and our phone service provider and mobile carriers
+          (practice texts and calls). Each receives only what its job requires.
         </li>
         <li>
           <strong>Legal requirements:</strong> we disclose information if the law compels it, and we
@@ -101,9 +113,11 @@ import Base from '../layouts/Base.astro';
 
       <h2>How long we keep it</h2>
       <p>
-        Early-access list entries: until launch or until you ask to be removed. Subscriber and
-        participant data: for the life of the subscription and up to 12 months after, then deleted
-        or anonymized &mdash; sooner on request. Aggregate statistics that identify no one may be
+        Early-access list entries: until you ask to be removed. Subscriber and participant data:
+        for the life of the subscription and up to 12 months after, then deleted or anonymized,
+        sooner on request. Consent records (who agreed, to which channels, when, the wording, and
+        any withdrawal) are kept for 5 years after a participant leaves, because we may need them
+        to show that practice was consented to. Aggregate statistics that identify no one may be
         retained.
       </p>
 
@@ -112,7 +126,7 @@ import Base from '../layouts/Base.astro';
         Anyone &mdash; participant, subscriber, or list member &mdash; can email
         <a href="mailto:hello@getscamprep.com">hello@getscamprep.com</a> to: see what we hold about
         them, correct it, delete it, or withdraw from drills or emails. Participants can also stop
-        drills directly from any drill message. We honor these requests regardless of which state
+        drills by replying to any ScamPrep email or with the link in their ScamPrep emails. We honor these requests regardless of which state
         you live in, and we respond within 30 days. We will never treat you differently for
         exercising them.
       </p>
@@ -147,7 +161,7 @@ import Base from '../layouts/Base.astro';
         <a href="mailto:hello@getscamprep.com">hello@getscamprep.com</a>
       </p>
 
-      <p class="footnote">Effective date: August 9, 2026.</p>
+      <p class="footnote">Effective date: October 28, 2026.</p>
     </div>
   </section>
 </Base>

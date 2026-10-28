@@ -8,18 +8,18 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
 ---
 
 <Base
-  title="Get Early Access | ScamPrep"
-  shareTitle="Join the founding cohort"
-  description="Family plans open this fall in small cohorts, with white-glove setup and a direct line to the founder."
+  title="Stay in Touch | ScamPrep"
+  shareTitle="Stay in touch with ScamPrep"
+  description="Not ready to choose a plan? Leave your email for the occasional note on what's new at ScamPrep."
 >
   <section class="section">
     <div class="wrap form-layout">
       <div>
-        <p class="kicker">Early access</p>
-        <h1>Join the founding cohort.</h1>
+        <p class="kicker">Stay in touch</p>
+        <h1>Not ready yet? Stay in touch.</h1>
         <p class="lede">
-          Family plans open this fall. We onboard in small cohorts so every family gets
-          white-glove setup. <strong>Join the list and you're at the front</strong>, with a direct line to the founder.
+          Leave your email and we'll send the occasional note on what's new at ScamPrep.
+          <strong>When you're ready, <a href="/pricing">plans are here</a>.</strong>
         </p>
         <p class="trust-line">
           Consent-first. No bank access. Cancel anytime. 60-day money-back guarantee. We'll never
@@ -76,12 +76,12 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
           <textarea id="worry" name="worry" rows="4"></textarea>
         </div>
 
-        <button class="btn btn--primary" type="submit" style="width: 100%;">Get early access</button>
+        <button class="btn btn--primary" type="submit" style="width: 100%;">Stay in touch</button>
 
         <p class="form-error" id="form-error" role="alert" hidden></p>
 
         <p class="footnote" style="margin: 16px 0 0;">
-                    We'll email you about early access and nothing else. If you write about a specific worry, our founder will reach out personally.
+                    We'll email you about ScamPrep and nothing else. Unsubscribe anytime.
         </p>
       </form>
 
@@ -184,7 +184,7 @@ const FORM_ACTION = 'https://formspree.io/f/moeajjvb';
         return;
       }
       sending = false;
-      if (btn) { btn.disabled = false; btn.textContent = 'Get early access'; }
+      if (btn) { btn.disabled = false; btn.textContent = 'Stay in touch'; }
       if (res && res.status >= 400 && res.status < 500) {
         showError('That didn\'t go through. Please check your email address and try again.');
       } else {

@@ -20,10 +20,6 @@ const pricingFaqs = [
     a: `<p>A blocker filters some scams. ScamPrep changes what happens when one gets through… and one always gets through. You’re paying for a skill, not just a service, plus quarterly proof it's growing.</p>`,
   },
   {
-    q: 'When can we start?',
-    a: `<p>Plans open this fall, in small onboarding cohorts. Join the early-access list and you're at the front. Every plan carries a 60-day money-back guarantee.</p>`,
-  },
-  {
     q: "What if my loved one doesn't want it?",
     a: `<p>Then we don't enroll them, and you get a refund. Nobody gets drilled without their own yes. If they're unsure, ask us for a sample drill to show them first: <a href="mailto:hello@getscamprep.com">hello@getscamprep.com</a></p>`,
   },
@@ -37,7 +33,7 @@ const pricingFaqs = [
 <Base
   title="Pricing: Plans from $9 a Month | ScamPrep"
   shareTitle="Plans from $9 a month"
-  description="Plans for one to four people, billed monthly or yearly, each with a 60-day money-back guarantee. Opens this fall."
+  description="Plans for one to four people, billed monthly or yearly, each with a 60-day money-back guarantee."
 >
 
   <!-- ============ FOR FAMILIES ============ -->
@@ -70,8 +66,7 @@ const pricingFaqs = [
             <li>Gentle 30-second coaching the moment a drill lands</li>
             <li>Quarterly Resilience Report, with trend line and briefings</li>
           </ul>
-          <a class="btn btn--ghost" data-checkout href={co('individual', 'annual')} data-annual-href={co('individual', 'annual')} data-monthly-href={co('individual', 'monthly')}>Join the early-access list</a>
-          <p class="price-card__trial">Opens this fall. Be first in.</p>
+          <a class="btn btn--ghost" data-checkout href={co('individual', 'annual')} data-annual-href={co('individual', 'annual')} data-monthly-href={co('individual', 'monthly')}>Choose Individual</a>
         </div>
 
         <!-- Tier 2 — up to two (RECOMMENDED) -->
@@ -89,8 +84,7 @@ const pricingFaqs = [
             <li>Ideal for both parents, or you and someone you love</li>
             <li>One subscription, one bill, about the cost of two coffees per person</li>
           </ul>
-          <a class="btn btn--primary" data-checkout href={co('couples', 'annual')} data-annual-href={co('couples', 'annual')} data-monthly-href={co('couples', 'monthly')}>Join the early-access list</a>
-          <p class="price-card__trial">Opens this fall. Be first in.</p>
+          <a class="btn btn--primary" data-checkout href={co('couples', 'annual')} data-annual-href={co('couples', 'annual')} data-monthly-href={co('couples', 'monthly')}>Choose Pairs</a>
         </div>
 
         <!-- Tier 3 — up to four -->
@@ -108,15 +102,14 @@ const pricingFaqs = [
             <li>Add or swap enrolled people anytime</li>
             <li>The best per-person value, about the cost of a cup of coffee per person</li>
           </ul>
-          <a class="btn btn--ghost" data-checkout href={co('family', 'annual')} data-annual-href={co('family', 'annual')} data-monthly-href={co('family', 'monthly')}>Join the early-access list</a>
-          <p class="price-card__trial">Opens this fall. Be first in.</p>
+          <a class="btn btn--ghost" data-checkout href={co('family', 'annual')} data-annual-href={co('family', 'annual')} data-monthly-href={co('family', 'monthly')}>Choose Family</a>
         </div>
       </div>
       <p class="guarantee center">
         Every plan comes with a <strong>60-day money-back guarantee</strong>. If ScamPrep isn't a fit, we refund in full. No questions, no forms.
       </p>
       <p class="plan-fineprint center">
-        All plans: nothing to install, cancel anytime. Email drills from day one, and text and phone drills with written consent.
+        All plans: nothing to install, cancel anytime. Practice comes by email, text, or phone, as each person chooses.
       </p>
       <!-- Phones: the advisor link sits below the family plans instead of above them. -->
       <p class="org-jump org-jump--bottom center">Financial advisor? <a href="/solutions#pricing">See partner pricing</a>.</p>
@@ -133,7 +126,13 @@ const pricingFaqs = [
     </div>
   </section>
 
-  <CtaBand layout="split" />
+  <CtaBand
+    layout="split"
+    headline="Still deciding?"
+    body="If you think a loved one might be reluctant, send them our What to expect page. It walks through practice from their side, and nothing starts until they say yes."
+    cta="See what to expect"
+    href="/what-to-expect"
+  />
 </Base>
 
 <script>
