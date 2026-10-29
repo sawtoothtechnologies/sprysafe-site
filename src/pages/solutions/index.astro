@@ -528,7 +528,7 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
   /* Ghost ledger numerals — the numbered-circle rail already lives on the
      homepage carousel; this page doesn't repeat it. */
   .pilot-steps li::before {
-    content: counter(pilot, decimal-leading-zero);
+    content: counter(pilot); /* 1, 2, 3: never zero-padded (voice.md formatting bans) */
     position: absolute;
     left: 0;
     top: 0;
