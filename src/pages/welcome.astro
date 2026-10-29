@@ -417,6 +417,13 @@ const FORM_ACTION = 'https://formspree.io/f/mbggyean';
       $('next-practice').innerHTML = '<strong>Practice begins</strong> with a short scam briefing a few days after you say yes, then 4 to 6 practice messages a month, on no set schedule.';
       $('next-report').innerHTML = '<strong>Every three months,</strong> you get a Resilience Report showing what you\'ve caught.';
     }
+    // One other person: singular wording, so the steps don't read as if there were a crowd.
+    if (others.length === 1 && !hasSelf) {
+      $('next-invite').innerHTML = '<strong>They get an invite</strong> from hello@getscamprep.com. Nothing starts until they say yes, and we\'ll email you when they do.';
+      $('next-noyes').innerHTML = '<strong>If they haven\'t said yes within a week,</strong> we\'ll let you know. If they never do, you get a full refund.';
+      $('next-practice').innerHTML = '<strong>Practice begins</strong> with a short scam briefing a few days after they say yes, then 4 to 6 practice messages a month, on no set schedule.';
+      $('next-report').innerHTML = '<strong>Every three months,</strong> they get a Resilience Report showing what they\'ve caught, and you get a copy if they choose to share it.';
+    }
     $('kicker').textContent = "You're all set";
     $('heading').textContent = "Thanks, that's everything we need";
     $('intro').textContent = text;
@@ -430,10 +437,10 @@ const FORM_ACTION = 'https://formspree.io/f/mbggyean';
 
   // Heads-up message: editable, then copy it or open the phone's messages app with it filled in.
   const headsUpMessage = (names: string) =>
-    `Hi ${names}, I just signed you up for ScamPrep. Scams are targeting everyone, and they're getting really convincing. ` +
-    `ScamPrep sends practice messages and short scam alerts so we can all stay ahead of them. ` +
-    `I've started your enrollment, and you'll get an email from hello@getscamprep.com to finish it. ` +
-    `Here's what to expect: getscamprep.com/what-to-expect`;
+    `Hi ${names}, I signed you up for ScamPrep. Scams hit everyone now and they've gotten very convincing with AI, ` +
+    `so ScamPrep sends you practice messages and short alerts on the latest ones. ` +
+    `Watch for an email from hello@getscamprep.com and say yes if you're in. Nothing starts until you agree. ` +
+    `Here's what it's like: getscamprep.com/what-to-expect`;
   const messageBox = $<HTMLTextAreaElement>('message');
   const syncText = () => {
     $<HTMLAnchorElement>('text-message').href = 'sms:?&body=' + encodeURIComponent(messageBox.value.trim());
