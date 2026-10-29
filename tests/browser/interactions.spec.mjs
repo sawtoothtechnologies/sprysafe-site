@@ -19,7 +19,7 @@ test.describe('mobile menu', () => {
     await toggle.click();
     await expect(toggle).toHaveAttribute('aria-expanded', 'true');
     await expect(nav).toBeVisible();
-    for (const name of ['How it works', 'For financial advisors', 'Pricing', 'About', 'See plans']) {
+    for (const name of ['How it works', 'For financial advisors', 'About', 'See plans']) {
       await expect(nav.getByRole('link', { name })).toBeVisible();
     }
     await toggle.click();
@@ -27,7 +27,7 @@ test.describe('mobile menu', () => {
     await expect(nav).toBeHidden();
 
     await toggle.click();
-    await nav.getByRole('link', { name: 'Pricing' }).click();
+    await nav.getByRole('link', { name: 'See plans' }).click();
     await expect(page).toHaveURL(/\/pricing$/);
     await expect(page.locator('#site-nav')).toBeHidden();
   });
@@ -76,7 +76,7 @@ test.describe('mobile menu', () => {
 test('desktop nav links all reach their pages', async ({ page, isMobile }) => {
   test.skip(isMobile);
   await page.goto('/');
-  for (const [name, url] of [['How it works', '/how-it-works'], ['For financial advisors', '/solutions'], ['Pricing', '/pricing'], ['About', '/about'], ['See plans', '/pricing']]) {
+  for (const [name, url] of [['How it works', '/how-it-works'], ['For financial advisors', '/solutions'], ['About', '/about'], ['See plans', '/pricing']]) {
     await page.locator('#site-nav').getByRole('link', { name, exact: true }).click();
     await expect(page).toHaveURL(new RegExp(url + '$'));
     await expect(page.locator('h1')).toBeVisible();

@@ -44,7 +44,7 @@ try {
     if (req.method() === 'POST' && req.url().startsWith('https://formspree.io/')) body = req.postData();
   });
   await page.goto(`${BASE}/how-it-works?utm_source=${expected.utm_source}&utm_campaign=${run}`, { referer: expected.referrer });
-  await page.locator('#site-nav').getByRole('link', { name: 'Pricing', exact: true }).click();
+  await page.locator('#site-nav').getByRole('link', { name: 'See plans', exact: true }).click();
   await page.waitForURL(/\/pricing$/);
   await page.locator('.cta-band__note a').first().evaluate((a) => a.click());
   await page.waitForURL(/\/stay-in-touch$/);

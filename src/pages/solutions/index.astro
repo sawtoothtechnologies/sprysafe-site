@@ -525,19 +525,24 @@ const partnerCall = 'https://cal.com/scamprep/partner-call';
     position: relative;
     padding: 0 0 28px 64px;
   }
-  /* Ghost ledger numerals — the numbered-circle rail already lives on the
-     homepage carousel; this page doesn't repeat it. */
+  /* Numbered circles, the same treatment as the steps on What to expect. */
   .pilot-steps li::before {
     content: counter(pilot); /* 1, 2, 3: never zero-padded (voice.md formatting bans) */
     position: absolute;
     left: 0;
-    top: 0;
+    top: -2px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--amber-tint);
+    color: var(--amber-deep);
     font-family: var(--font-display);
     font-weight: 800;
-    font-size: 1.5rem;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    color: var(--gray-400);
+    font-size: 1.05rem;
+    line-height: 1;
   }
   .pilot-steps h3 { margin: 0 0 6px; font-size: 1.15rem; }
   .pilot-steps p { margin: 0; color: var(--ink-soft); font-size: 1rem; }
