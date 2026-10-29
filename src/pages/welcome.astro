@@ -68,7 +68,7 @@ const FORM_ACTION = 'https://formspree.io/f/mbggyean';
 
           <label class="checkbox heads-up" id="heads-up" for="wait_a_day">
             <input type="checkbox" name="wait_a_day" value="Yes" id="wait_a_day" />
-            <span class="heads-up__text"><strong>Delay ScamPrep outreach:</strong> Ask ScamPrep to wait a day before contacting recipients so I can give them a&nbsp;heads&#8209;up.</span>
+            <span class="heads-up__text">Wait a day before sending their invitations so I can give them a&nbsp;heads&#8209;up.</span>
           </label>
 
           <details class="tailor" id="tailor">
@@ -116,8 +116,8 @@ const FORM_ACTION = 'https://formspree.io/f/mbggyean';
           <h2 class="welcome__h2">What happens next</h2>
           <ol class="next-list">
             <li id="next-invite"><strong>Each person gets an invite</strong> from hello@getscamprep.com. Nothing starts until they say yes, and we'll email you when they do.</li>
-            <li id="next-noyes"><strong>If someone hasn't said yes within a week,</strong> we'll let you know. If they never do, you get a full refund.</li>
-            <li id="next-practice"><strong>Practice begins</strong> with a short scam briefing a few days after they say yes, then 4 to 6 practice messages a month, on no set schedule.</li>
+            <li id="next-noyes"><strong>If someone hasn't said yes within a week,</strong> we'll let you know. After 21 days, we'll refund you for anyone who hasn't accepted.</li>
+            <li id="next-practice"><strong>Practice begins</strong> with a short scam briefing a few days after they say yes, followed by 4 to 6 drills a month through their chosen channels: email, text, or phone. Drills arrive on no set schedule.</li>
             <li id="next-report"><strong>Every three months,</strong> each person gets a Resilience Report showing what they've caught, and you get a copy if they choose to share it.</li>
           </ol>
           <p class="field-note field-note--quiet next-billing">
@@ -414,14 +414,14 @@ const FORM_ACTION = 'https://formspree.io/f/mbggyean';
     if (!others.length) {
       $('next-invite').innerHTML = '<strong>Your invite comes</strong> from hello@getscamprep.com. Nothing starts until you say yes.';
       $('next-noyes').hidden = true;
-      $('next-practice').innerHTML = '<strong>Practice begins</strong> with a short scam briefing a few days after you say yes, then 4 to 6 practice messages a month, on no set schedule.';
+      $('next-practice').innerHTML = '<strong>Practice begins</strong> with a short scam briefing a few days after you say yes, followed by 4 to 6 drills a month through your chosen channels: email, text, or phone. Drills arrive on no set schedule.';
       $('next-report').innerHTML = '<strong>Every three months,</strong> you get a Resilience Report showing what you\'ve caught.';
     }
     // One other person: singular wording, so the steps don't read as if there were a crowd.
     if (others.length === 1 && !hasSelf) {
       $('next-invite').innerHTML = '<strong>They get an invite</strong> from hello@getscamprep.com. Nothing starts until they say yes, and we\'ll email you when they do.';
-      $('next-noyes').innerHTML = '<strong>If they haven\'t said yes within a week,</strong> we\'ll let you know. If they never do, you get a full refund.';
-      $('next-practice').innerHTML = '<strong>Practice begins</strong> with a short scam briefing a few days after they say yes, then 4 to 6 practice messages a month, on no set schedule.';
+      $('next-noyes').innerHTML = '<strong>If they haven\'t said yes within a week,</strong> we\'ll let you know. If they haven\'t accepted after 21 days, we\'ll refund you in full.';
+      $('next-practice').innerHTML = '<strong>Practice begins</strong> with a short scam briefing a few days after they say yes, followed by 4 to 6 drills a month through their chosen channels: email, text, or phone. Drills arrive on no set schedule.';
       $('next-report').innerHTML = '<strong>Every three months,</strong> they get a Resilience Report showing what they\'ve caught, and you get a copy if they choose to share it.';
     }
     $('kicker').textContent = "You're all set";
@@ -437,10 +437,9 @@ const FORM_ACTION = 'https://formspree.io/f/mbggyean';
 
   // Heads-up message: editable, then copy it or open the phone's messages app with it filled in.
   const headsUpMessage = (names: string) =>
-    `Hi ${names}, I signed you up for ScamPrep. Scams hit everyone now and they've gotten very convincing with AI, ` +
-    `so ScamPrep sends you practice messages and short alerts on the latest ones. ` +
-    `Watch for an email from hello@getscamprep.com and say yes if you're in. Nothing starts until you agree. ` +
-    `Here's what it's like: getscamprep.com/what-to-expect`;
+    `Hi ${names}, I thought you might like ScamPrep. It sends practice scam messages and short alerts to help you spot scams. ` +
+    `You'll get an invitation from hello@getscamprep.com. It's your choice to accept your invite, and nothing starts unless you say yes. ` +
+    `Here's how it works: getscamprep.com/what-to-expect`;
   const messageBox = $<HTMLTextAreaElement>('message');
   const syncText = () => {
     $<HTMLAnchorElement>('text-message').href = 'sms:?&body=' + encodeURIComponent(messageBox.value.trim());

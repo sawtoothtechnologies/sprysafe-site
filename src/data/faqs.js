@@ -12,12 +12,12 @@ export const faqs = [
   {
     id: 'upset',
     q: 'What if it upsets or embarrasses them?',
-    a: `<p>Drills follow published research on how older adults learn best: private and positive, with reassurance right away. Missing a drill brings a 30-second friendly lesson, visible only to them and the people they've approved. If it isn't landing well, unenroll in one click.</p>`,
+    a: `<p>Drills follow published research on how older adults learn best: private and positive, with reassurance right away. If they click, reply, or answer, they get a friendly 30-second lesson, visible only to them. If it isn't landing well, unenroll in one click.</p>`,
   },
   {
     id: 'never-fall',
     q: 'What if they never fall for a single drill?',
-    a: `<p>That's great news! The Resilience Report proves it, quarter after quarter, and that proof is worth as much as the training itself. Scams change constantly, so staying enrolled keeps skills current against tactics that didn't exist a few months ago. Think of it like a smoke detector: even if you haven’t had a fire yet, you have it in case of one.</p>`,
+    a: `<p>That's great news! Their Resilience Report proves it quarter after quarter, and continued practice introduces newer tactics while giving them more chances to use what they've learned. Think of it like a smoke detector: even if you haven’t had a fire yet, you have it in case of one.</p>`,
   },
   {
     id: 'work',
@@ -51,8 +51,8 @@ export const faqs = [
   },
   {
     id: 'sharp',
-    q: 'My loved one is sharp as a tack. Will they be offended by this?',
-    a: `<p>Sharp people get scammed every day. Optimism bias ("it won't happen to me") is exactly what scammers count on, and today's AI voice scams fool professionals. A framing that helps: this is the same training Fortune 500 companies require of every employee, CEO included. Being sharp is the starting point, and practice is what keeps us that way.</p><p>If you'd like them to learn about ScamPrep before you enroll them, share our <a href="/what-to-expect">What to expect</a> guide.</p>`,
+    q: 'How do I introduce this to someone who is confident they can spot scams?',
+    a: `<p>Optimism bias ("it won't happen to me") is behind much of the nearly $2 million lost to scams <em>every hour</em>. Scammers fool professionals every day. Introduce ScamPrep as a chance to practice spotting newer scams, rather than a concern about their judgment.</p><p>If you'd like them to learn about ScamPrep before you enroll them, share our <a href="/what-to-expect">What to expect</a> guide.</p>`,
   },
   {
     id: 'report',
