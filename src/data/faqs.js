@@ -52,7 +52,7 @@ export const faqs = [
   {
     id: 'sharp',
     q: 'How do I introduce this to someone who is confident they can spot scams?',
-    a: `<p>Optimism bias ("it won't happen to me") is behind much of the nearly $2 million lost to scams <em>every hour</em>. Scammers fool professionals every day. Introduce ScamPrep as a chance to practice spotting newer scams, rather than a concern about their judgment.</p><p>If you'd like them to learn about ScamPrep before you enroll them, share our <a href="/what-to-expect">What to expect</a> guide.</p>`,
+    a: `<p>Optimism bias ("it won't happen to me") is behind much of the $2M+ lost to scams <em>every hour</em>. Scammers fool professionals every day. Introduce ScamPrep as a chance to practice spotting newer scams, rather than a concern about their judgment.</p><p>If you'd like them to learn about ScamPrep before you enroll them, share our <a href="/what-to-expect">What to expect</a> guide.</p>`,
   },
   {
     id: 'report',
