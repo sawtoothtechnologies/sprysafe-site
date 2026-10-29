@@ -23,22 +23,17 @@ import Base from '../layouts/Base.astro';
         You're on the list. We'll send the occasional note on what's new at ScamPrep, and
         nothing else.
       </p>
-      <div class="card" style="text-align: left; margin-top: 32px;">
-        <h3>What happens next</h3>
-        <ol class="next-steps">
-          <li><strong>When you're ready,</strong> <a href="/pricing">see plans</a>. They cover one to four people, each with a 60-day money-back guarantee.</li>
-          <li><strong>They opt in, always,</strong> and there's nothing to install or download. Consent comes first.</li>
-        </ol>
-        <p style="margin-bottom: 0; font-size: 1rem; color: var(--ink-soft);">
-          Questions in the meantime? Write to us at
-          <a href="mailto:hello@getscamprep.com">hello@getscamprep.com</a>
-        </p>
-      </div>
+      <p style="margin-top: 28px;">
+        <a class="btn btn--primary" href="/pricing">See plans</a>
+      </p>
+      <p class="thanks__questions">
+        Questions? <a href="mailto:hello@getscamprep.com">hello@getscamprep.com</a>
+      </p>
     </div>
   </section>
 </Base>
 
 <style>
-  .next-steps { padding-left: 1.3em; margin: 0 0 18px; }
-  .next-steps li { margin-bottom: 0.7em; }
+  .thanks__questions { margin: 22px 0 0; font-size: 1rem; color: var(--ink-soft); }
+  .thanks__questions a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
 </style>

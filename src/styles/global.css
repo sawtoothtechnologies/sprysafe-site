@@ -474,12 +474,14 @@ p, li, dd, dt, figcaption, blockquote { text-wrap: pretty; }
 
 /* ---------- Touch targets ----------
    44px minimum hit areas on touch-width screens (the audience skews older).
-   Standalone arrow links keep their visual size; only the hit area grows. */
+   Standalone arrow links keep their visual size; only the hit area grows. The
+   negative margin cancels the padding's effect on layout, so a link that sits inside
+   a sentence (":only-child" ignores the text around it) doesn't push its line apart. */
 @media (max-width: 900px) {
   .cta-link,
   p.center > a:only-child,
   .faq-body p > a:only-child,
-  .report__foot a { display: inline-block; padding: 11px 0; }
+  .report__foot a { display: inline-block; padding: 11px 0; margin: -11px 0; }
 }
 
 .divider { border: none; border-top: 1px solid var(--line); margin: 0; }
