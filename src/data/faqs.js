@@ -52,7 +52,7 @@ export const faqs = [
   {
     id: 'sharp',
     q: 'My loved one is sharp as a tack. Will they be offended by this?',
-    a: `<p>Sharp people get scammed every day. Optimism bias ("it won't happen to me") is exactly what scammers count on, and today's AI voice scams fool professionals. A framing that helps: this is the same training Fortune 500 companies require of every employee, CEO included. Being sharp is the starting point, and practice is what keeps us that way. If you'd like them to see what ScamPrep is before you enroll them, send them our <a href="/what-to-expect">What to expect</a> guide. It's written for them.</p>`,
+    a: `<p>Sharp people get scammed every day. Optimism bias ("it won't happen to me") is exactly what scammers count on, and today's AI voice scams fool professionals. A framing that helps: this is the same training Fortune 500 companies require of every employee, CEO included. Being sharp is the starting point, and practice is what keeps us that way.</p><p>If you'd like them to learn about ScamPrep before you enroll them, share our <a href="/what-to-expect">What to expect</a> guide.</p>`,
   },
   {
     id: 'report',
