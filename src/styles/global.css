@@ -407,9 +407,16 @@ p, li, dd, dt, figcaption, blockquote { text-wrap: pretty; }
   .compare tr { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px 6px; margin-bottom: 12px; }
   .compare td { padding: 0 0 14px; border-bottom: 0; }
   .compare td.compare__who { font-size: 1.15rem; padding-bottom: 10px; }
-  .compare td[data-label]::before { content: attr(data-label); display: block; font-size: 0.875rem; font-weight: 700; color: var(--gray-500); margin-bottom: 3px; }
+  /* The description reads as the main line (no label); "When a scam gets through" is a
+     kicker-style label with its text set off by a thin rule, so a card scans as
+     name, what it does, then the catch, instead of two gray labels and two gray paragraphs. */
+  .compare td.compare__does { color: var(--ink); }
+  .compare td[data-label]::before { content: attr(data-label); display: block; font-size: 0.875rem; font-weight: 700; color: var(--amber-text); margin-bottom: 6px; }
+  .compare td.compare__through > span { display: block; color: var(--gray-700); font-size: 0.95rem; border-left: 2px solid var(--line-strong); padding-left: 12px; }
   .compare .compare__hero { background: var(--amber-row); border-color: var(--amber); }
   .compare .compare__hero td { background: transparent; }
+  .compare .compare__hero td.compare__does { color: var(--ink); font-weight: 400; }
+  .compare .compare__hero td.compare__through > span { color: #3d2905; font-weight: 600; border-left-color: var(--amber); }
 }
 
 /* ---------- FAQ accordion ---------- */
